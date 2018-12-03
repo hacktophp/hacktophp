@@ -45,7 +45,7 @@ final class EditableList extends EditableNode {
     }
 
     /**
-     * @return array<string, EditableNode>
+     * @return array<int, EditableNode>
      */
     public function getChildren(): array {
         return $this->_children;
