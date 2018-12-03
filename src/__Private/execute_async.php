@@ -22,7 +22,7 @@ use Sabre\Event\Promise;
 function execute_async(string ...$args): Promise {
     return coroutine(
         /**
-         * @return Generator<int, string, void, string>
+         * @return Generator<int, string, void, array<int, string>>
          */
         function() use ($args) {
             // no equivalent to stream_await
