@@ -1,0 +1,24 @@
+{
+    "name": "psalm/hack-to-php",
+    "description": "A Hack to PHP transpiler that attempts to preserve as many types as possible",
+    "type": "project",
+    "require": {
+        "php": "^7.1",
+        "nikic/php-parser": "^4.0",
+        "sabre/event": "^5.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthew Brown",
+            "email": "github@muglug.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "HackToPhp\\": "src",
+            "HackToPhp\\HHAST\\Node\\": "codegen/syntax",
+            "HackToPhp\\HHAST\\Token\\": "codegen/tokens"
+        }
+    }
+}
