@@ -19,4 +19,6 @@ if (!is_string($file_path)) {
 	die('Expecting file path' . PHP_EOL);
 }
 
-var_dump(HackToPhp\from_file($file_path));
+$hackfile = new HackToPhp\Transform\HackFile();
+
+var_dump(HackToPhp\Transform\NodeTransformer::transform(HackToPhp\from_file($file_path), $hackfile));
