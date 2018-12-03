@@ -32,7 +32,7 @@ function json_from_file_async(
 ): Promise {
     return coroutine(
         /**
-         * @return Generator<int, string, null, array<string, mixed>>
+         * @return Generator<int, array<int, string>, null, array<string, mixed>>
          */
         function () use ($file) {
             try {
