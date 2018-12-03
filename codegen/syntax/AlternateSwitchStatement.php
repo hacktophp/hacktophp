@@ -232,14 +232,15 @@ final class AlternateSwitchStatement
   }
 
   /**
-   * @returns SwitchToken
+   * @return SwitchToken
    */
   public function getKeyword(): SwitchToken {
-    return TypeAssert\instance_of(SwitchToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof SwitchToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns SwitchToken
+   * @return SwitchToken
    */
   public function getKeywordx(): SwitchToken {
     return $this->getKeyword();
@@ -273,14 +274,15 @@ final class AlternateSwitchStatement
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -314,14 +316,15 @@ final class AlternateSwitchStatement
   }
 
   /**
-   * @returns LiteralExpression | VariableExpression
+   * @return LiteralExpression | VariableExpression
    */
   public function getExpression(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   /**
-   * @returns LiteralExpression | VariableExpression
+   * @return LiteralExpression | VariableExpression
    */
   public function getExpressionx(): EditableNode {
     return $this->getExpression();
@@ -355,14 +358,15 @@ final class AlternateSwitchStatement
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();
@@ -396,14 +400,15 @@ final class AlternateSwitchStatement
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getOpeningColon(): ColonToken {
-    return TypeAssert\instance_of(ColonToken::class, $this->_opening_colon);
+    \assert($this->_opening_colon instanceof ColonToken);
+    return $this->_opening_colon;
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getOpeningColonx(): ColonToken {
     return $this->getOpeningColon();
@@ -440,7 +445,8 @@ final class AlternateSwitchStatement
    * @return EditableList<EditableNode>
    */
   public function getSections(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_sections);
+    \assert($this->_sections instanceof EditableList);
+    return $this->_sections;
   }
 
   /**
@@ -478,7 +484,7 @@ final class AlternateSwitchStatement
   }
 
   /**
-   * @returns EndswitchToken
+   * @return EndswitchToken
    */
   public function getClosingEndswitch(): EndswitchToken {
     return
@@ -486,7 +492,7 @@ final class AlternateSwitchStatement
   }
 
   /**
-   * @returns EndswitchToken
+   * @return EndswitchToken
    */
   public function getClosingEndswitchx(): EndswitchToken {
     return $this->getClosingEndswitch();
@@ -520,7 +526,7 @@ final class AlternateSwitchStatement
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getClosingSemicolon(): SemicolonToken {
     return
@@ -528,7 +534,7 @@ final class AlternateSwitchStatement
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getClosingSemicolonx(): SemicolonToken {
     return $this->getClosingSemicolon();

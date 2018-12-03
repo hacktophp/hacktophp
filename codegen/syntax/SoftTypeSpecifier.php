@@ -99,14 +99,15 @@ final class SoftTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns AtToken
+   * @return AtToken
    */
   public function getAt(): AtToken {
-    return TypeAssert\instance_of(AtToken::class, $this->_at);
+    \assert($this->_at instanceof AtToken);
+    return $this->_at;
   }
 
   /**
-   * @returns AtToken
+   * @return AtToken
    */
   public function getAtx(): AtToken {
     return $this->getAt();
@@ -131,16 +132,17 @@ final class SoftTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | GenericTypeSpecifier |
+   * @return ClosureTypeSpecifier | GenericTypeSpecifier |
    * MapArrayTypeSpecifier | NullableTypeSpecifier | SimpleTypeSpecifier |
    * TupleTypeSpecifier
    */
   public function getType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | GenericTypeSpecifier |
+   * @return ClosureTypeSpecifier | GenericTypeSpecifier |
    * MapArrayTypeSpecifier | NullableTypeSpecifier | SimpleTypeSpecifier |
    * TupleTypeSpecifier
    */

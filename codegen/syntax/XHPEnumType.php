@@ -159,20 +159,22 @@ final class XHPEnumType extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getOptional(): ?EditableNode {
     if ($this->_optional->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_optional);
+    \assert($this->_optional instanceof EditableNode);
+    return $this->_optional;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getOptionalx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_optional);
+    \assert($this->_optional instanceof EditableNode);
+    return $this->_optional;
   }
 
   public function getKeywordUNTYPED(): EditableNode {
@@ -200,14 +202,15 @@ final class XHPEnumType extends EditableNode {
   }
 
   /**
-   * @returns EnumToken
+   * @return EnumToken
    */
   public function getKeyword(): EnumToken {
-    return TypeAssert\instance_of(EnumToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof EnumToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns EnumToken
+   * @return EnumToken
    */
   public function getKeywordx(): EnumToken {
     return $this->getKeyword();
@@ -238,14 +241,15 @@ final class XHPEnumType extends EditableNode {
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBrace(): LeftBraceToken {
-    return TypeAssert\instance_of(LeftBraceToken::class, $this->_left_brace);
+    \assert($this->_left_brace instanceof LeftBraceToken);
+    return $this->_left_brace;
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBracex(): LeftBraceToken {
     return $this->getLeftBrace();
@@ -279,7 +283,8 @@ final class XHPEnumType extends EditableNode {
    * @return EditableList<LiteralExpression>
    */
   public function getValues(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_values);
+    \assert($this->_values instanceof EditableList);
+    return $this->_values;
   }
 
   /**
@@ -314,14 +319,15 @@ final class XHPEnumType extends EditableNode {
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBrace(): RightBraceToken {
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBracex(): RightBraceToken {
     return $this->getRightBrace();

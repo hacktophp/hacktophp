@@ -121,14 +121,15 @@ final class TraitUse extends EditableNode {
   }
 
   /**
-   * @returns UseToken
+   * @return UseToken
    */
   public function getKeyword(): UseToken {
-    return TypeAssert\instance_of(UseToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof UseToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns UseToken
+   * @return UseToken
    */
   public function getKeywordx(): UseToken {
     return $this->getKeyword();
@@ -157,7 +158,8 @@ final class TraitUse extends EditableNode {
    * EditableList<SimpleTypeSpecifier>
    */
   public function getNames(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_names);
+    \assert($this->_names instanceof EditableList);
+    return $this->_names;
   }
 
   /**
@@ -187,14 +189,15 @@ final class TraitUse extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

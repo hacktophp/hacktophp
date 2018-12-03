@@ -142,14 +142,15 @@ final class AnonymousFunctionUseClause extends EditableNode {
   }
 
   /**
-   * @returns UseToken
+   * @return UseToken
    */
   public function getKeyword(): UseToken {
-    return TypeAssert\instance_of(UseToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof UseToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns UseToken
+   * @return UseToken
    */
   public function getKeywordx(): UseToken {
     return $this->getKeyword();
@@ -179,14 +180,15 @@ final class AnonymousFunctionUseClause extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -221,7 +223,8 @@ final class AnonymousFunctionUseClause extends EditableNode {
    * EditableList<VariableToken>
    */
   public function getVariables(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_variables);
+    \assert($this->_variables instanceof EditableList);
+    return $this->_variables;
   }
 
   /**
@@ -257,14 +260,15 @@ final class AnonymousFunctionUseClause extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();

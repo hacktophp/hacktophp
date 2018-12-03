@@ -192,14 +192,15 @@ final class AlternateElseifClause
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getKeyword(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_keyword);
+    \assert($this->_keyword instanceof EditableNode);
+    return $this->_keyword;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getKeywordx(): EditableNode {
     return $this->getKeyword();
@@ -231,14 +232,15 @@ final class AlternateElseifClause
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getLeftParen(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof EditableNode);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getLeftParenx(): EditableNode {
     return $this->getLeftParen();
@@ -270,14 +272,15 @@ final class AlternateElseifClause
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getCondition(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_condition);
+    \assert($this->_condition instanceof EditableNode);
+    return $this->_condition;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getConditionx(): EditableNode {
     return $this->getCondition();
@@ -309,14 +312,15 @@ final class AlternateElseifClause
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getRightParen(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof EditableNode);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getRightParenx(): EditableNode {
     return $this->getRightParen();
@@ -348,14 +352,15 @@ final class AlternateElseifClause
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getColon(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_colon);
+    \assert($this->_colon instanceof EditableNode);
+    return $this->_colon;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getColonx(): EditableNode {
     return $this->getColon();
@@ -387,14 +392,15 @@ final class AlternateElseifClause
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getStatement(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_statement);
+    \assert($this->_statement instanceof EditableNode);
+    return $this->_statement;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getStatementx(): EditableNode {
     return $this->getStatement();

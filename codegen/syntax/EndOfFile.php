@@ -85,14 +85,15 @@ final class EndOfFile extends EditableNode {
   }
 
   /**
-   * @returns EndOfFileToken
+   * @return EndOfFileToken
    */
   public function getToken(): EndOfFileToken {
-    return TypeAssert\instance_of(EndOfFileToken::class, $this->_token);
+    \assert($this->_token instanceof EndOfFileToken);
+    return $this->_token;
   }
 
   /**
-   * @returns EndOfFileToken
+   * @return EndOfFileToken
    */
   public function getTokenx(): EndOfFileToken {
     return $this->getToken();

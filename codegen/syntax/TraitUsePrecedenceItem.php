@@ -121,7 +121,7 @@ final class TraitUsePrecedenceItem extends EditableNode {
   }
 
   /**
-   * @returns ScopeResolutionExpression
+   * @return ScopeResolutionExpression
    */
   public function getName(): ScopeResolutionExpression {
     return
@@ -129,7 +129,7 @@ final class TraitUsePrecedenceItem extends EditableNode {
   }
 
   /**
-   * @returns ScopeResolutionExpression
+   * @return ScopeResolutionExpression
    */
   public function getNamex(): ScopeResolutionExpression {
     return $this->getName();
@@ -154,14 +154,15 @@ final class TraitUsePrecedenceItem extends EditableNode {
   }
 
   /**
-   * @returns InsteadofToken
+   * @return InsteadofToken
    */
   public function getKeyword(): InsteadofToken {
-    return TypeAssert\instance_of(InsteadofToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof InsteadofToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns InsteadofToken
+   * @return InsteadofToken
    */
   public function getKeywordx(): InsteadofToken {
     return $this->getKeyword();
@@ -189,7 +190,8 @@ final class TraitUsePrecedenceItem extends EditableNode {
    * @return EditableList<SimpleTypeSpecifier>
    */
   public function getRemovedNames(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_removed_names);
+    \assert($this->_removed_names instanceof EditableList);
+    return $this->_removed_names;
   }
 
   /**

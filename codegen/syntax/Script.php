@@ -88,7 +88,8 @@ final class Script extends EditableNode {
    * @return EditableList<EditableNode>
    */
   public function getDeclarations(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_declarations);
+    \assert($this->_declarations instanceof EditableList);
+    return $this->_declarations;
   }
 
   /**

@@ -121,14 +121,15 @@ final class WhereConstraint extends EditableNode {
   }
 
   /**
-   * @returns GenericTypeSpecifier | SimpleTypeSpecifier | TypeConstant
+   * @return GenericTypeSpecifier | SimpleTypeSpecifier | TypeConstant
    */
   public function getLeftType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_left_type);
+    \assert($this->_left_type instanceof EditableNode);
+    return $this->_left_type;
   }
 
   /**
-   * @returns GenericTypeSpecifier | SimpleTypeSpecifier | TypeConstant
+   * @return GenericTypeSpecifier | SimpleTypeSpecifier | TypeConstant
    */
   public function getLeftTypex(): EditableNode {
     return $this->getLeftType();
@@ -153,14 +154,15 @@ final class WhereConstraint extends EditableNode {
   }
 
   /**
-   * @returns EqualToken | AsToken | SuperToken
+   * @return EqualToken | AsToken | SuperToken
    */
   public function getOperator(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_operator);
+    \assert($this->_operator instanceof EditableToken);
+    return $this->_operator;
   }
 
   /**
-   * @returns EqualToken | AsToken | SuperToken
+   * @return EqualToken | AsToken | SuperToken
    */
   public function getOperatorx(): EditableToken {
     return $this->getOperator();
@@ -185,15 +187,16 @@ final class WhereConstraint extends EditableNode {
   }
 
   /**
-   * @returns GenericTypeSpecifier | NullableTypeSpecifier |
+   * @return GenericTypeSpecifier | NullableTypeSpecifier |
    * SimpleTypeSpecifier | TypeConstant | VectorTypeSpecifier
    */
   public function getRightType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_type);
+    \assert($this->_right_type instanceof EditableNode);
+    return $this->_right_type;
   }
 
   /**
-   * @returns GenericTypeSpecifier | NullableTypeSpecifier |
+   * @return GenericTypeSpecifier | NullableTypeSpecifier |
    * SimpleTypeSpecifier | TypeConstant | VectorTypeSpecifier
    */
   public function getRightTypex(): EditableNode {

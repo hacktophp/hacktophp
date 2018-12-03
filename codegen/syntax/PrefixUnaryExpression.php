@@ -99,16 +99,17 @@ final class PrefixUnaryExpression extends EditableNode {
   }
 
   /**
-   * @returns ExclamationToken | DollarToken | AmpersandToken | PlusToken |
+   * @return ExclamationToken | DollarToken | AmpersandToken | PlusToken |
    * PlusPlusToken | MinusToken | MinusMinusToken | AtToken | AwaitToken |
    * CloneToken | PrintToken | SuspendToken | TildeToken
    */
   public function getOperator(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_operator);
+    \assert($this->_operator instanceof EditableToken);
+    return $this->_operator;
   }
 
   /**
-   * @returns ExclamationToken | DollarToken | AmpersandToken | PlusToken |
+   * @return ExclamationToken | DollarToken | AmpersandToken | PlusToken |
    * PlusPlusToken | MinusToken | MinusMinusToken | AtToken | AwaitToken |
    * CloneToken | PrintToken | SuspendToken | TildeToken
    */
@@ -135,7 +136,7 @@ final class PrefixUnaryExpression extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | ArrayIntrinsicExpression |
+   * @return AnonymousFunction | ArrayIntrinsicExpression |
    * AwaitableCreationExpression | BinaryExpression | BracedExpression |
    * CastExpression | ConditionalExpression | DefineExpression |
    * EmptyExpression | EvalExpression | FunctionCallExpression |
@@ -147,11 +148,12 @@ final class PrefixUnaryExpression extends EditableNode {
    * NameToken | VariableToken | VariableExpression
    */
   public function getOperand(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_operand);
+    \assert($this->_operand instanceof EditableNode);
+    return $this->_operand;
   }
 
   /**
-   * @returns AnonymousFunction | ArrayIntrinsicExpression |
+   * @return AnonymousFunction | ArrayIntrinsicExpression |
    * AwaitableCreationExpression | BinaryExpression | BracedExpression |
    * CastExpression | ConditionalExpression | DefineExpression |
    * EmptyExpression | EvalExpression | FunctionCallExpression |

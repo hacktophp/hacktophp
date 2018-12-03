@@ -99,14 +99,15 @@ final class XHPRequired extends EditableNode {
   }
 
   /**
-   * @returns AtToken
+   * @return AtToken
    */
   public function getAt(): AtToken {
-    return TypeAssert\instance_of(AtToken::class, $this->_at);
+    \assert($this->_at instanceof AtToken);
+    return $this->_at;
   }
 
   /**
-   * @returns AtToken
+   * @return AtToken
    */
   public function getAtx(): AtToken {
     return $this->getAt();
@@ -131,14 +132,15 @@ final class XHPRequired extends EditableNode {
   }
 
   /**
-   * @returns RequiredToken
+   * @return RequiredToken
    */
   public function getKeyword(): RequiredToken {
-    return TypeAssert\instance_of(RequiredToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof RequiredToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns RequiredToken
+   * @return RequiredToken
    */
   public function getKeywordx(): RequiredToken {
     return $this->getKeyword();

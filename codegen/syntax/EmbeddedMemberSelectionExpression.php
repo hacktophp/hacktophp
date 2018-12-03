@@ -121,14 +121,15 @@ final class EmbeddedMemberSelectionExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getObject(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_object);
+    \assert($this->_object instanceof EditableNode);
+    return $this->_object;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getObjectx(): EditableNode {
     return $this->getObject();
@@ -153,14 +154,15 @@ final class EmbeddedMemberSelectionExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getOperator(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_operator);
+    \assert($this->_operator instanceof EditableNode);
+    return $this->_operator;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getOperatorx(): EditableNode {
     return $this->getOperator();
@@ -185,14 +187,15 @@ final class EmbeddedMemberSelectionExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getName(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_name);
+    \assert($this->_name instanceof EditableNode);
+    return $this->_name;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getNamex(): EditableNode {
     return $this->getName();

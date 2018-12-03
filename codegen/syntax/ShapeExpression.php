@@ -142,14 +142,15 @@ final class ShapeExpression extends EditableNode {
   }
 
   /**
-   * @returns ShapeToken
+   * @return ShapeToken
    */
   public function getKeyword(): ShapeToken {
-    return TypeAssert\instance_of(ShapeToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof ShapeToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ShapeToken
+   * @return ShapeToken
    */
   public function getKeywordx(): ShapeToken {
     return $this->getKeyword();
@@ -175,14 +176,15 @@ final class ShapeExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -212,20 +214,22 @@ final class ShapeExpression extends EditableNode {
   }
 
   /**
-   * @return EditableList<FieldInitializer> | Missing
+   * @return EditableList<FieldInitializer> | null
    */
   public function getFields(): ?EditableList<FieldInitializer> {
     if ($this->_fields->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_fields);
+    \assert($this->_fields instanceof EditableList);
+    return $this->_fields;
   }
 
   /**
    * @return EditableList<FieldInitializer>
    */
   public function getFieldsx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_fields);
+    \assert($this->_fields instanceof EditableList);
+    return $this->_fields;
   }
 
   public function getRightParenUNTYPED(): EditableNode {
@@ -248,14 +252,15 @@ final class ShapeExpression extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();

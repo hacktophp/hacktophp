@@ -137,7 +137,7 @@ final class MarkupSection extends EditableNode {
   }
 
   /**
-   * @returns Missing | QuestionGreaterThanToken
+   * @return null | QuestionGreaterThanToken
    */
   public function getPrefix(): ?QuestionGreaterThanToken {
     if ($this->_prefix->isMissing()) {
@@ -148,7 +148,7 @@ final class MarkupSection extends EditableNode {
   }
 
   /**
-   * @returns QuestionGreaterThanToken
+   * @return QuestionGreaterThanToken
    */
   public function getPrefixx(): QuestionGreaterThanToken {
     return
@@ -175,20 +175,22 @@ final class MarkupSection extends EditableNode {
   }
 
   /**
-   * @returns Missing | MarkupToken
+   * @return null | MarkupToken
    */
   public function getText(): ?MarkupToken {
     if ($this->_text->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(MarkupToken::class, $this->_text);
+    \assert($this->_text instanceof MarkupToken);
+    return $this->_text;
   }
 
   /**
-   * @returns MarkupToken
+   * @return MarkupToken
    */
   public function getTextx(): MarkupToken {
-    return TypeAssert\instance_of(MarkupToken::class, $this->_text);
+    \assert($this->_text instanceof MarkupToken);
+    return $this->_text;
   }
 
   public function getSuffixUNTYPED(): EditableNode {
@@ -210,20 +212,22 @@ final class MarkupSection extends EditableNode {
   }
 
   /**
-   * @returns MarkupSuffix | Missing
+   * @return MarkupSuffix | Missing
    */
   public function getSuffix(): ?MarkupSuffix {
     if ($this->_suffix->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(MarkupSuffix::class, $this->_suffix);
+    \assert($this->_suffix instanceof MarkupSuffix);
+    return $this->_suffix;
   }
 
   /**
-   * @returns MarkupSuffix
+   * @return MarkupSuffix
    */
   public function getSuffixx(): MarkupSuffix {
-    return TypeAssert\instance_of(MarkupSuffix::class, $this->_suffix);
+    \assert($this->_suffix instanceof MarkupSuffix);
+    return $this->_suffix;
   }
 
   public function getExpressionUNTYPED(): EditableNode {
@@ -245,7 +249,7 @@ final class MarkupSection extends EditableNode {
   }
 
   /**
-   * @returns ExpressionStatement | Missing
+   * @return ExpressionStatement | Missing
    */
   public function getExpression(): ?ExpressionStatement {
     if ($this->_expression->isMissing()) {
@@ -256,7 +260,7 @@ final class MarkupSection extends EditableNode {
   }
 
   /**
-   * @returns ExpressionStatement
+   * @return ExpressionStatement
    */
   public function getExpressionx(): ExpressionStatement {
     return

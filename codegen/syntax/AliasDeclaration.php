@@ -229,26 +229,22 @@ final class AliasDeclaration extends EditableNode {
   }
 
   /**
-   * @returns AttributeSpecification | Missing
+   * @return AttributeSpecification | Missing
    */
   public function getAttributeSpec(): ?AttributeSpecification {
     if ($this->_attribute_spec->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   /**
-   * @returns AttributeSpecification
+   * @return AttributeSpecification
    */
   public function getAttributeSpecx(): AttributeSpecification {
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   public function getKeywordUNTYPED(): EditableNode {
@@ -279,14 +275,15 @@ final class AliasDeclaration extends EditableNode {
   }
 
   /**
-   * @returns NewtypeToken | TypeToken
+   * @return NewtypeToken | TypeToken
    */
   public function getKeyword(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof EditableToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns NewtypeToken | TypeToken
+   * @return NewtypeToken | TypeToken
    */
   public function getKeywordx(): EditableToken {
     return $this->getKeyword();
@@ -320,14 +317,15 @@ final class AliasDeclaration extends EditableNode {
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getName(): NameToken {
-    return TypeAssert\instance_of(NameToken::class, $this->_name);
+    \assert($this->_name instanceof NameToken);
+    return $this->_name;
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getNamex(): NameToken {
     return $this->getName();
@@ -361,7 +359,7 @@ final class AliasDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | TypeParameters
+   * @return null | TypeParameters
    */
   public function getGenericParameter(): ?TypeParameters {
     if ($this->_generic_parameter->isMissing()) {
@@ -372,7 +370,7 @@ final class AliasDeclaration extends EditableNode {
   }
 
   /**
-   * @returns TypeParameters
+   * @return TypeParameters
    */
   public function getGenericParameterx(): TypeParameters {
     return
@@ -407,20 +405,22 @@ final class AliasDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | TypeConstraint
+   * @return null | TypeConstraint
    */
   public function getConstraint(): ?TypeConstraint {
     if ($this->_constraint->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(TypeConstraint::class, $this->_constraint);
+    \assert($this->_constraint instanceof TypeConstraint);
+    return $this->_constraint;
   }
 
   /**
-   * @returns TypeConstraint
+   * @return TypeConstraint
    */
   public function getConstraintx(): TypeConstraint {
-    return TypeAssert\instance_of(TypeConstraint::class, $this->_constraint);
+    \assert($this->_constraint instanceof TypeConstraint);
+    return $this->_constraint;
   }
 
   public function getEqualUNTYPED(): EditableNode {
@@ -451,14 +451,15 @@ final class AliasDeclaration extends EditableNode {
   }
 
   /**
-   * @returns EqualToken
+   * @return EqualToken
    */
   public function getEqual(): EqualToken {
-    return TypeAssert\instance_of(EqualToken::class, $this->_equal);
+    \assert($this->_equal instanceof EqualToken);
+    return $this->_equal;
   }
 
   /**
-   * @returns EqualToken
+   * @return EqualToken
    */
   public function getEqualx(): EqualToken {
     return $this->getEqual();
@@ -492,17 +493,18 @@ final class AliasDeclaration extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | DictionaryTypeSpecifier |
+   * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
    * GenericTypeSpecifier | KeysetTypeSpecifier | MapArrayTypeSpecifier |
    * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
    * TupleTypeSpecifier | VectorArrayTypeSpecifier | VectorTypeSpecifier
    */
   public function getType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | DictionaryTypeSpecifier |
+   * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
    * GenericTypeSpecifier | KeysetTypeSpecifier | MapArrayTypeSpecifier |
    * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
    * TupleTypeSpecifier | VectorArrayTypeSpecifier | VectorTypeSpecifier
@@ -539,14 +541,15 @@ final class AliasDeclaration extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

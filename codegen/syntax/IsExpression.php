@@ -121,15 +121,16 @@ final class IsExpression extends EditableNode {
   }
 
   /**
-   * @returns FunctionCallWithTypeArgumentsExpression | PipeVariableExpression
+   * @return FunctionCallWithTypeArgumentsExpression | PipeVariableExpression
    * | PrefixUnaryExpression | VariableExpression
    */
   public function getLeftOperand(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_left_operand);
+    \assert($this->_left_operand instanceof EditableNode);
+    return $this->_left_operand;
   }
 
   /**
-   * @returns FunctionCallWithTypeArgumentsExpression | PipeVariableExpression
+   * @return FunctionCallWithTypeArgumentsExpression | PipeVariableExpression
    * | PrefixUnaryExpression | VariableExpression
    */
   public function getLeftOperandx(): EditableNode {
@@ -155,14 +156,15 @@ final class IsExpression extends EditableNode {
   }
 
   /**
-   * @returns IsToken
+   * @return IsToken
    */
   public function getOperator(): IsToken {
-    return TypeAssert\instance_of(IsToken::class, $this->_operator);
+    \assert($this->_operator instanceof IsToken);
+    return $this->_operator;
   }
 
   /**
-   * @returns IsToken
+   * @return IsToken
    */
   public function getOperatorx(): IsToken {
     return $this->getOperator();
@@ -187,17 +189,18 @@ final class IsExpression extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | DictionaryTypeSpecifier |
+   * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
    * GenericTypeSpecifier | KeysetTypeSpecifier | NullableTypeSpecifier |
    * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
    * TupleTypeSpecifier | TypeConstant | VectorTypeSpecifier
    */
   public function getRightOperand(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_operand);
+    \assert($this->_right_operand instanceof EditableNode);
+    return $this->_right_operand;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | DictionaryTypeSpecifier |
+   * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
    * GenericTypeSpecifier | KeysetTypeSpecifier | NullableTypeSpecifier |
    * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
    * TupleTypeSpecifier | TypeConstant | VectorTypeSpecifier

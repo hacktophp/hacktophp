@@ -99,14 +99,15 @@ final class ConstantDeclarator extends EditableNode {
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getName(): NameToken {
-    return TypeAssert\instance_of(NameToken::class, $this->_name);
+    \assert($this->_name instanceof NameToken);
+    return $this->_name;
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getNamex(): NameToken {
     return $this->getName();
@@ -131,7 +132,7 @@ final class ConstantDeclarator extends EditableNode {
   }
 
   /**
-   * @returns Missing | SimpleInitializer
+   * @return null | SimpleInitializer
    */
   public function getInitializer(): ?SimpleInitializer {
     if ($this->_initializer->isMissing()) {
@@ -142,7 +143,7 @@ final class ConstantDeclarator extends EditableNode {
   }
 
   /**
-   * @returns SimpleInitializer
+   * @return SimpleInitializer
    */
   public function getInitializerx(): SimpleInitializer {
     return

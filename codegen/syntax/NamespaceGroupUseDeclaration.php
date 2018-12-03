@@ -211,14 +211,15 @@ final class NamespaceGroupUseDeclaration
   }
 
   /**
-   * @returns UseToken
+   * @return UseToken
    */
   public function getKeyword(): UseToken {
-    return TypeAssert\instance_of(UseToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof UseToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns UseToken
+   * @return UseToken
    */
   public function getKeywordx(): UseToken {
     return $this->getKeyword();
@@ -251,20 +252,22 @@ final class NamespaceGroupUseDeclaration
   }
 
   /**
-   * @returns Missing | ConstToken | FunctionToken | NamespaceToken | TypeToken
+   * @return null | ConstToken | FunctionToken | NamespaceToken | TypeToken
    */
   public function getKind(): ?EditableToken {
     if ($this->_kind->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableToken::class, $this->_kind);
+    \assert($this->_kind instanceof EditableToken);
+    return $this->_kind;
   }
 
   /**
-   * @returns ConstToken | FunctionToken | NamespaceToken | TypeToken
+   * @return ConstToken | FunctionToken | NamespaceToken | TypeToken
    */
   public function getKindx(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_kind);
+    \assert($this->_kind instanceof EditableToken);
+    return $this->_kind;
   }
 
   public function getPrefixUNTYPED(): EditableNode {
@@ -294,14 +297,15 @@ final class NamespaceGroupUseDeclaration
   }
 
   /**
-   * @returns QualifiedName
+   * @return QualifiedName
    */
   public function getPrefix(): QualifiedName {
-    return TypeAssert\instance_of(QualifiedName::class, $this->_prefix);
+    \assert($this->_prefix instanceof QualifiedName);
+    return $this->_prefix;
   }
 
   /**
-   * @returns QualifiedName
+   * @return QualifiedName
    */
   public function getPrefixx(): QualifiedName {
     return $this->getPrefix();
@@ -334,14 +338,15 @@ final class NamespaceGroupUseDeclaration
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBrace(): LeftBraceToken {
-    return TypeAssert\instance_of(LeftBraceToken::class, $this->_left_brace);
+    \assert($this->_left_brace instanceof LeftBraceToken);
+    return $this->_left_brace;
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBracex(): LeftBraceToken {
     return $this->getLeftBrace();
@@ -377,7 +382,8 @@ final class NamespaceGroupUseDeclaration
    * @return EditableList<NamespaceUseClause>
    */
   public function getClauses(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_clauses);
+    \assert($this->_clauses instanceof EditableList);
+    return $this->_clauses;
   }
 
   /**
@@ -414,20 +420,22 @@ final class NamespaceGroupUseDeclaration
   }
 
   /**
-   * @returns Missing | RightBraceToken
+   * @return null | RightBraceToken
    */
   public function getRightBrace(): ?RightBraceToken {
     if ($this->_right_brace->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBracex(): RightBraceToken {
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 
   public function getSemicolonUNTYPED(): EditableNode {
@@ -457,19 +465,21 @@ final class NamespaceGroupUseDeclaration
   }
 
   /**
-   * @returns Missing | SemicolonToken
+   * @return null | SemicolonToken
    */
   public function getSemicolon(): ?SemicolonToken {
     if ($this->_semicolon->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 }

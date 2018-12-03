@@ -143,26 +143,22 @@ final class AwaitableCreationExpression extends EditableNode {
   }
 
   /**
-   * @returns AttributeSpecification | Missing
+   * @return AttributeSpecification | Missing
    */
   public function getAttributeSpec(): ?AttributeSpecification {
     if ($this->_attribute_spec->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   /**
-   * @returns AttributeSpecification
+   * @return AttributeSpecification
    */
   public function getAttributeSpecx(): AttributeSpecification {
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   public function getAsyncUNTYPED(): EditableNode {
@@ -189,14 +185,15 @@ final class AwaitableCreationExpression extends EditableNode {
   }
 
   /**
-   * @returns AsyncToken
+   * @return AsyncToken
    */
   public function getAsync(): AsyncToken {
-    return TypeAssert\instance_of(AsyncToken::class, $this->_async);
+    \assert($this->_async instanceof AsyncToken);
+    return $this->_async;
   }
 
   /**
-   * @returns AsyncToken
+   * @return AsyncToken
    */
   public function getAsyncx(): AsyncToken {
     return $this->getAsync();
@@ -226,20 +223,22 @@ final class AwaitableCreationExpression extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getCoroutine(): ?EditableNode {
     if ($this->_coroutine->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_coroutine);
+    \assert($this->_coroutine instanceof EditableNode);
+    return $this->_coroutine;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getCoroutinex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_coroutine);
+    \assert($this->_coroutine instanceof EditableNode);
+    return $this->_coroutine;
   }
 
   public function getCompoundStatementUNTYPED(): EditableNode {
@@ -266,17 +265,15 @@ final class AwaitableCreationExpression extends EditableNode {
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getCompoundStatement(): CompoundStatement {
-    return TypeAssert\instance_of(
-      CompoundStatement::class,
-      $this->_compound_statement
-    );
+    \assert($this->_compound_statement instanceof CompoundStatement);
+    return $this->_compound_statement;
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getCompoundStatementx(): CompoundStatement {
     return $this->getCompoundStatement();

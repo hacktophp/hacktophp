@@ -142,14 +142,15 @@ final class TupleTypeExplicitSpecifier extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getKeyword(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_keyword);
+    \assert($this->_keyword instanceof EditableNode);
+    return $this->_keyword;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getKeywordx(): EditableNode {
     return $this->getKeyword();
@@ -175,14 +176,15 @@ final class TupleTypeExplicitSpecifier extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getLeftAngle(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_left_angle);
+    \assert($this->_left_angle instanceof EditableNode);
+    return $this->_left_angle;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getLeftAnglex(): EditableNode {
     return $this->getLeftAngle();
@@ -212,14 +214,15 @@ final class TupleTypeExplicitSpecifier extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getTypes(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_types);
+    \assert($this->_types instanceof EditableNode);
+    return $this->_types;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getTypesx(): EditableNode {
     return $this->getTypes();
@@ -245,14 +248,15 @@ final class TupleTypeExplicitSpecifier extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getRightAngle(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof EditableNode);
+    return $this->_right_angle;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getRightAnglex(): EditableNode {
     return $this->getRightAngle();

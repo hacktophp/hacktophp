@@ -121,7 +121,7 @@ final class NullableAsExpression extends EditableNode {
   }
 
   /**
-   * @returns VariableExpression
+   * @return VariableExpression
    */
   public function getLeftOperand(): VariableExpression {
     return
@@ -129,7 +129,7 @@ final class NullableAsExpression extends EditableNode {
   }
 
   /**
-   * @returns VariableExpression
+   * @return VariableExpression
    */
   public function getLeftOperandx(): VariableExpression {
     return $this->getLeftOperand();
@@ -154,14 +154,15 @@ final class NullableAsExpression extends EditableNode {
   }
 
   /**
-   * @returns QuestionAsToken
+   * @return QuestionAsToken
    */
   public function getOperator(): QuestionAsToken {
-    return TypeAssert\instance_of(QuestionAsToken::class, $this->_operator);
+    \assert($this->_operator instanceof QuestionAsToken);
+    return $this->_operator;
   }
 
   /**
-   * @returns QuestionAsToken
+   * @return QuestionAsToken
    */
   public function getOperatorx(): QuestionAsToken {
     return $this->getOperator();
@@ -186,7 +187,7 @@ final class NullableAsExpression extends EditableNode {
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getRightOperand(): SimpleTypeSpecifier {
     return
@@ -194,7 +195,7 @@ final class NullableAsExpression extends EditableNode {
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getRightOperandx(): SimpleTypeSpecifier {
     return $this->getRightOperand();

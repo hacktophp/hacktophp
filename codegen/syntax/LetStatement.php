@@ -176,14 +176,15 @@ final class LetStatement extends EditableNode {
   }
 
   /**
-   * @returns LetToken
+   * @return LetToken
    */
   public function getKeyword(): LetToken {
-    return TypeAssert\instance_of(LetToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof LetToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns LetToken
+   * @return LetToken
    */
   public function getKeywordx(): LetToken {
     return $this->getKeyword();
@@ -215,14 +216,15 @@ final class LetStatement extends EditableNode {
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getName(): NameToken {
-    return TypeAssert\instance_of(NameToken::class, $this->_name);
+    \assert($this->_name instanceof NameToken);
+    return $this->_name;
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getNamex(): NameToken {
     return $this->getName();
@@ -254,20 +256,22 @@ final class LetStatement extends EditableNode {
   }
 
   /**
-   * @returns Missing | ColonToken
+   * @return null | ColonToken
    */
   public function getColon(): ?ColonToken {
     if ($this->_colon->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+    \assert($this->_colon instanceof ColonToken);
+    return $this->_colon;
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getColonx(): ColonToken {
-    return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+    \assert($this->_colon instanceof ColonToken);
+    return $this->_colon;
   }
 
   public function getTypeUNTYPED(): EditableNode {
@@ -296,22 +300,24 @@ final class LetStatement extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | GenericTypeSpecifier | Missing |
+   * @return ClosureTypeSpecifier | GenericTypeSpecifier | Missing |
    * NullableTypeSpecifier | SimpleTypeSpecifier
    */
   public function getType(): ?EditableNode {
     if ($this->_type->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | GenericTypeSpecifier |
+   * @return ClosureTypeSpecifier | GenericTypeSpecifier |
    * NullableTypeSpecifier | SimpleTypeSpecifier
    */
   public function getTypex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   public function getInitializerUNTYPED(): EditableNode {
@@ -340,7 +346,7 @@ final class LetStatement extends EditableNode {
   }
 
   /**
-   * @returns SimpleInitializer
+   * @return SimpleInitializer
    */
   public function getInitializer(): SimpleInitializer {
     return
@@ -348,7 +354,7 @@ final class LetStatement extends EditableNode {
   }
 
   /**
-   * @returns SimpleInitializer
+   * @return SimpleInitializer
    */
   public function getInitializerx(): SimpleInitializer {
     return $this->getInitializer();
@@ -380,14 +386,15 @@ final class LetStatement extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

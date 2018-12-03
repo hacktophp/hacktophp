@@ -104,7 +104,7 @@ final class ExpressionStatement extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | AsExpression | BinaryExpression |
+   * @return AnonymousFunction | AsExpression | BinaryExpression |
    * CastExpression | CollectionLiteralExpression | ConditionalExpression |
    * DarrayIntrinsicExpression | DefineExpression |
    * DictionaryIntrinsicExpression | EmptyExpression | EvalExpression |
@@ -124,11 +124,12 @@ final class ExpressionStatement extends EditableNode {
     if ($this->_expression->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   /**
-   * @returns AnonymousFunction | AsExpression | BinaryExpression |
+   * @return AnonymousFunction | AsExpression | BinaryExpression |
    * CastExpression | CollectionLiteralExpression | ConditionalExpression |
    * DarrayIntrinsicExpression | DefineExpression |
    * DictionaryIntrinsicExpression | EmptyExpression | EvalExpression |
@@ -145,7 +146,8 @@ final class ExpressionStatement extends EditableNode {
    * YieldFromExpression
    */
   public function getExpressionx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   public function getSemicolonUNTYPED(): EditableNode {
@@ -167,19 +169,21 @@ final class ExpressionStatement extends EditableNode {
   }
 
   /**
-   * @returns Missing | SemicolonToken
+   * @return null | SemicolonToken
    */
   public function getSemicolon(): ?SemicolonToken {
     if ($this->_semicolon->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 }

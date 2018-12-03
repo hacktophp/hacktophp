@@ -138,20 +138,22 @@ final class TypeParameter extends EditableNode {
   }
 
   /**
-   * @returns Missing | ReifiedToken
+   * @return null | ReifiedToken
    */
   public function getReified(): ?ReifiedToken {
     if ($this->_reified->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(ReifiedToken::class, $this->_reified);
+    \assert($this->_reified instanceof ReifiedToken);
+    return $this->_reified;
   }
 
   /**
-   * @returns ReifiedToken
+   * @return ReifiedToken
    */
   public function getReifiedx(): ReifiedToken {
-    return TypeAssert\instance_of(ReifiedToken::class, $this->_reified);
+    \assert($this->_reified instanceof ReifiedToken);
+    return $this->_reified;
   }
 
   public function getVarianceUNTYPED(): EditableNode {
@@ -174,20 +176,22 @@ final class TypeParameter extends EditableNode {
   }
 
   /**
-   * @returns Missing | PlusToken | MinusToken
+   * @return null | PlusToken | MinusToken
    */
   public function getVariance(): ?EditableToken {
     if ($this->_variance->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableToken::class, $this->_variance);
+    \assert($this->_variance instanceof EditableToken);
+    return $this->_variance;
   }
 
   /**
-   * @returns PlusToken | MinusToken
+   * @return PlusToken | MinusToken
    */
   public function getVariancex(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_variance);
+    \assert($this->_variance instanceof EditableToken);
+    return $this->_variance;
   }
 
   public function getNameUNTYPED(): EditableNode {
@@ -214,14 +218,15 @@ final class TypeParameter extends EditableNode {
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getName(): NameToken {
-    return TypeAssert\instance_of(NameToken::class, $this->_name);
+    \assert($this->_name instanceof NameToken);
+    return $this->_name;
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getNamex(): NameToken {
     return $this->getName();
@@ -252,13 +257,15 @@ final class TypeParameter extends EditableNode {
     if ($this->_constraints->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_constraints);
+    \assert($this->_constraints instanceof EditableList);
+    return $this->_constraints;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getConstraintsx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_constraints);
+    \assert($this->_constraints instanceof EditableList);
+    return $this->_constraints;
   }
 }

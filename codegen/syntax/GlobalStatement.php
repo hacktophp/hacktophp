@@ -121,14 +121,15 @@ final class GlobalStatement extends EditableNode {
   }
 
   /**
-   * @returns GlobalToken
+   * @return GlobalToken
    */
   public function getKeyword(): GlobalToken {
-    return TypeAssert\instance_of(GlobalToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof GlobalToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns GlobalToken
+   * @return GlobalToken
    */
   public function getKeywordx(): GlobalToken {
     return $this->getKeyword();
@@ -156,7 +157,8 @@ final class GlobalStatement extends EditableNode {
    * @return EditableList<PrefixUnaryExpression> | EditableList<VariableToken>
    */
   public function getVariables(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_variables);
+    \assert($this->_variables instanceof EditableList);
+    return $this->_variables;
   }
 
   /**
@@ -185,14 +187,15 @@ final class GlobalStatement extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

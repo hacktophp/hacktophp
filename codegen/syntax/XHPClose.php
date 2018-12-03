@@ -121,14 +121,15 @@ final class XHPClose extends EditableNode {
   }
 
   /**
-   * @returns LessThanToken | LessThanSlashToken | EndOfFileToken
+   * @return LessThanToken | LessThanSlashToken | EndOfFileToken
    */
   public function getLeftAngle(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_left_angle);
+    \assert($this->_left_angle instanceof EditableToken);
+    return $this->_left_angle;
   }
 
   /**
-   * @returns LessThanToken | LessThanSlashToken | EndOfFileToken
+   * @return LessThanToken | LessThanSlashToken | EndOfFileToken
    */
   public function getLeftAnglex(): EditableToken {
     return $this->getLeftAngle();
@@ -153,20 +154,22 @@ final class XHPClose extends EditableNode {
   }
 
   /**
-   * @returns Missing | XHPElementNameToken
+   * @return null | XHPElementNameToken
    */
   public function getName(): ?XHPElementNameToken {
     if ($this->_name->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(XHPElementNameToken::class, $this->_name);
+    \assert($this->_name instanceof XHPElementNameToken);
+    return $this->_name;
   }
 
   /**
-   * @returns XHPElementNameToken
+   * @return XHPElementNameToken
    */
   public function getNamex(): XHPElementNameToken {
-    return TypeAssert\instance_of(XHPElementNameToken::class, $this->_name);
+    \assert($this->_name instanceof XHPElementNameToken);
+    return $this->_name;
   }
 
   public function getRightAngleUNTYPED(): EditableNode {
@@ -188,19 +191,21 @@ final class XHPClose extends EditableNode {
   }
 
   /**
-   * @returns Missing | GreaterThanToken
+   * @return null | GreaterThanToken
    */
   public function getRightAngle(): ?GreaterThanToken {
     if ($this->_right_angle->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof GreaterThanToken);
+    return $this->_right_angle;
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAnglex(): GreaterThanToken {
-    return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof GreaterThanToken);
+    return $this->_right_angle;
   }
 }

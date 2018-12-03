@@ -121,14 +121,15 @@ final class XHPChildrenDeclaration extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getKeyword(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_keyword);
+    \assert($this->_keyword instanceof EditableNode);
+    return $this->_keyword;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getKeywordx(): EditableNode {
     return $this->getKeyword();
@@ -153,14 +154,15 @@ final class XHPChildrenDeclaration extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getExpression(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getExpressionx(): EditableNode {
     return $this->getExpression();
@@ -185,14 +187,15 @@ final class XHPChildrenDeclaration extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getSemicolon(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof EditableNode);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getSemicolonx(): EditableNode {
     return $this->getSemicolon();

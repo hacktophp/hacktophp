@@ -161,26 +161,22 @@ final class PropertyDeclaration extends EditableNode {
   }
 
   /**
-   * @returns AttributeSpecification | Missing
+   * @return AttributeSpecification | Missing
    */
   public function getAttributeSpec(): ?AttributeSpecification {
     if ($this->_attribute_spec->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   /**
-   * @returns AttributeSpecification
+   * @return AttributeSpecification
    */
   public function getAttributeSpecx(): AttributeSpecification {
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   public function getModifiersUNTYPED(): EditableNode {
@@ -211,7 +207,8 @@ final class PropertyDeclaration extends EditableNode {
    * @return EditableList<EditableNode> | VarToken
    */
   public function getModifiers(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_modifiers);
+    \assert($this->_modifiers instanceof EditableNode);
+    return $this->_modifiers;
   }
 
   /**
@@ -246,7 +243,7 @@ final class PropertyDeclaration extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | DarrayTypeSpecifier |
+   * @return ClosureTypeSpecifier | DarrayTypeSpecifier |
    * DictionaryTypeSpecifier | GenericTypeSpecifier | MapArrayTypeSpecifier |
    * Missing | NullableTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier
    * | TupleTypeSpecifier | TypeConstant | VarrayTypeSpecifier |
@@ -256,18 +253,20 @@ final class PropertyDeclaration extends EditableNode {
     if ($this->_type->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | DarrayTypeSpecifier |
+   * @return ClosureTypeSpecifier | DarrayTypeSpecifier |
    * DictionaryTypeSpecifier | GenericTypeSpecifier | MapArrayTypeSpecifier |
    * NullableTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
    * TupleTypeSpecifier | TypeConstant | VarrayTypeSpecifier |
    * VectorArrayTypeSpecifier | VectorTypeSpecifier
    */
   public function getTypex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   public function getDeclaratorsUNTYPED(): EditableNode {
@@ -298,7 +297,8 @@ final class PropertyDeclaration extends EditableNode {
    * @return EditableList<PropertyDeclarator>
    */
   public function getDeclarators(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_declarators);
+    \assert($this->_declarators instanceof EditableList);
+    return $this->_declarators;
   }
 
   /**
@@ -333,14 +333,15 @@ final class PropertyDeclaration extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

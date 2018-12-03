@@ -121,14 +121,15 @@ final class YieldFromExpression extends EditableNode {
   }
 
   /**
-   * @returns YieldToken
+   * @return YieldToken
    */
   public function getYieldKeyword(): YieldToken {
-    return TypeAssert\instance_of(YieldToken::class, $this->_yield_keyword);
+    \assert($this->_yield_keyword instanceof YieldToken);
+    return $this->_yield_keyword;
   }
 
   /**
-   * @returns YieldToken
+   * @return YieldToken
    */
   public function getYieldKeywordx(): YieldToken {
     return $this->getYieldKeyword();
@@ -153,14 +154,15 @@ final class YieldFromExpression extends EditableNode {
   }
 
   /**
-   * @returns FromToken
+   * @return FromToken
    */
   public function getFromKeyword(): FromToken {
-    return TypeAssert\instance_of(FromToken::class, $this->_from_keyword);
+    \assert($this->_from_keyword instanceof FromToken);
+    return $this->_from_keyword;
   }
 
   /**
-   * @returns FromToken
+   * @return FromToken
    */
   public function getFromKeywordx(): FromToken {
     return $this->getFromKeyword();
@@ -185,15 +187,16 @@ final class YieldFromExpression extends EditableNode {
   }
 
   /**
-   * @returns ArrayCreationExpression | FunctionCallExpression |
+   * @return ArrayCreationExpression | FunctionCallExpression |
    * LiteralExpression | ParenthesizedExpression | VariableExpression
    */
   public function getOperand(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_operand);
+    \assert($this->_operand instanceof EditableNode);
+    return $this->_operand;
   }
 
   /**
-   * @returns ArrayCreationExpression | FunctionCallExpression |
+   * @return ArrayCreationExpression | FunctionCallExpression |
    * LiteralExpression | ParenthesizedExpression | VariableExpression
    */
   public function getOperandx(): EditableNode {

@@ -209,14 +209,15 @@ final class IfStatement extends EditableNode implements IControlFlowStatement {
   }
 
   /**
-   * @returns IfToken
+   * @return IfToken
    */
   public function getKeyword(): IfToken {
-    return TypeAssert\instance_of(IfToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof IfToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns IfToken
+   * @return IfToken
    */
   public function getKeywordx(): IfToken {
     return $this->getKeyword();
@@ -249,14 +250,15 @@ final class IfStatement extends EditableNode implements IControlFlowStatement {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -289,7 +291,7 @@ final class IfStatement extends EditableNode implements IControlFlowStatement {
   }
 
   /**
-   * @returns ArrayIntrinsicExpression | AsExpression | BinaryExpression |
+   * @return ArrayIntrinsicExpression | AsExpression | BinaryExpression |
    * CastExpression | EmptyExpression | FunctionCallExpression |
    * InstanceofExpression | IsExpression | IssetExpression | LiteralExpression
    * | MemberSelectionExpression | ParenthesizedExpression |
@@ -297,11 +299,12 @@ final class IfStatement extends EditableNode implements IControlFlowStatement {
    * SubscriptExpression | NameToken | VariableExpression
    */
   public function getCondition(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_condition);
+    \assert($this->_condition instanceof EditableNode);
+    return $this->_condition;
   }
 
   /**
-   * @returns ArrayIntrinsicExpression | AsExpression | BinaryExpression |
+   * @return ArrayIntrinsicExpression | AsExpression | BinaryExpression |
    * CastExpression | EmptyExpression | FunctionCallExpression |
    * InstanceofExpression | IsExpression | IssetExpression | LiteralExpression
    * | MemberSelectionExpression | ParenthesizedExpression |
@@ -339,14 +342,15 @@ final class IfStatement extends EditableNode implements IControlFlowStatement {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();
@@ -379,16 +383,17 @@ final class IfStatement extends EditableNode implements IControlFlowStatement {
   }
 
   /**
-   * @returns BreakStatement | CompoundStatement | ContinueStatement |
+   * @return BreakStatement | CompoundStatement | ContinueStatement |
    * EchoStatement | ExpressionStatement | GlobalStatement | GotoStatement |
    * ReturnStatement | ThrowStatement | UnsetStatement
    */
   public function getStatement(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_statement);
+    \assert($this->_statement instanceof EditableNode);
+    return $this->_statement;
   }
 
   /**
-   * @returns BreakStatement | CompoundStatement | ContinueStatement |
+   * @return BreakStatement | CompoundStatement | ContinueStatement |
    * EchoStatement | ExpressionStatement | GlobalStatement | GotoStatement |
    * ReturnStatement | ThrowStatement | UnsetStatement
    */
@@ -429,14 +434,16 @@ final class IfStatement extends EditableNode implements IControlFlowStatement {
     if ($this->_elseif_clauses->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_elseif_clauses);
+    \assert($this->_elseif_clauses instanceof EditableList);
+    return $this->_elseif_clauses;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getElseifClausesx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_elseif_clauses);
+    \assert($this->_elseif_clauses instanceof EditableList);
+    return $this->_elseif_clauses;
   }
 
   public function getElseClauseUNTYPED(): EditableNode {
@@ -466,19 +473,21 @@ final class IfStatement extends EditableNode implements IControlFlowStatement {
   }
 
   /**
-   * @returns ElseClause | Missing
+   * @return ElseClause | Missing
    */
   public function getElseClause(): ?ElseClause {
     if ($this->_else_clause->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(ElseClause::class, $this->_else_clause);
+    \assert($this->_else_clause instanceof ElseClause);
+    return $this->_else_clause;
   }
 
   /**
-   * @returns ElseClause
+   * @return ElseClause
    */
   public function getElseClausex(): ElseClause {
-    return TypeAssert\instance_of(ElseClause::class, $this->_else_clause);
+    \assert($this->_else_clause instanceof ElseClause);
+    return $this->_else_clause;
   }
 }

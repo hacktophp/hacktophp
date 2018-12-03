@@ -159,14 +159,15 @@ final class LambdaSignature extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -198,13 +199,14 @@ final class LambdaSignature extends EditableNode {
 
   /**
    * @return EditableList<ParameterDeclaration> | EditableList<EditableNode> |
-   * EditableList<VariadicParameter> | Missing
+   * EditableList<VariadicParameter> | null
    */
   public function getParameters(): ?EditableList {
     if ($this->_parameters->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_parameters);
+    \assert($this->_parameters instanceof EditableList);
+    return $this->_parameters;
   }
 
   /**
@@ -212,7 +214,8 @@ final class LambdaSignature extends EditableNode {
    * EditableList<VariadicParameter>
    */
   public function getParametersx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_parameters);
+    \assert($this->_parameters instanceof EditableList);
+    return $this->_parameters;
   }
 
   public function getRightParenUNTYPED(): EditableNode {
@@ -240,14 +243,15 @@ final class LambdaSignature extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();
@@ -278,20 +282,22 @@ final class LambdaSignature extends EditableNode {
   }
 
   /**
-   * @returns Missing | ColonToken
+   * @return null | ColonToken
    */
   public function getColon(): ?ColonToken {
     if ($this->_colon->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+    \assert($this->_colon instanceof ColonToken);
+    return $this->_colon;
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getColonx(): ColonToken {
-    return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+    \assert($this->_colon instanceof ColonToken);
+    return $this->_colon;
   }
 
   public function getTypeUNTYPED(): EditableNode {
@@ -319,20 +325,22 @@ final class LambdaSignature extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | GenericTypeSpecifier | Missing |
+   * @return ClosureTypeSpecifier | GenericTypeSpecifier | Missing |
    * SimpleTypeSpecifier
    */
   public function getType(): ?EditableNode {
     if ($this->_type->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | GenericTypeSpecifier | SimpleTypeSpecifier
+   * @return ClosureTypeSpecifier | GenericTypeSpecifier | SimpleTypeSpecifier
    */
   public function getTypex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 }

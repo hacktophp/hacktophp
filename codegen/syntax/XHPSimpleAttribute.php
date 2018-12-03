@@ -121,14 +121,15 @@ final class XHPSimpleAttribute extends EditableNode {
   }
 
   /**
-   * @returns XHPElementNameToken
+   * @return XHPElementNameToken
    */
   public function getName(): XHPElementNameToken {
-    return TypeAssert\instance_of(XHPElementNameToken::class, $this->_name);
+    \assert($this->_name instanceof XHPElementNameToken);
+    return $this->_name;
   }
 
   /**
-   * @returns XHPElementNameToken
+   * @return XHPElementNameToken
    */
   public function getNamex(): XHPElementNameToken {
     return $this->getName();
@@ -153,14 +154,15 @@ final class XHPSimpleAttribute extends EditableNode {
   }
 
   /**
-   * @returns EqualToken
+   * @return EqualToken
    */
   public function getEqual(): EqualToken {
-    return TypeAssert\instance_of(EqualToken::class, $this->_equal);
+    \assert($this->_equal instanceof EqualToken);
+    return $this->_equal;
   }
 
   /**
-   * @returns EqualToken
+   * @return EqualToken
    */
   public function getEqualx(): EqualToken {
     return $this->getEqual();
@@ -185,14 +187,15 @@ final class XHPSimpleAttribute extends EditableNode {
   }
 
   /**
-   * @returns BracedExpression | XHPStringLiteralToken
+   * @return BracedExpression | XHPStringLiteralToken
    */
   public function getExpression(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   /**
-   * @returns BracedExpression | XHPStringLiteralToken
+   * @return BracedExpression | XHPStringLiteralToken
    */
   public function getExpressionx(): EditableNode {
     return $this->getExpression();

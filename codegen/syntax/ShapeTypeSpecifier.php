@@ -159,14 +159,15 @@ final class ShapeTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns ShapeToken
+   * @return ShapeToken
    */
   public function getKeyword(): ShapeToken {
-    return TypeAssert\instance_of(ShapeToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof ShapeToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ShapeToken
+   * @return ShapeToken
    */
   public function getKeywordx(): ShapeToken {
     return $this->getKeyword();
@@ -197,14 +198,15 @@ final class ShapeTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -235,20 +237,22 @@ final class ShapeTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @return EditableList<FieldSpecifier> | Missing
+   * @return EditableList<FieldSpecifier> | null
    */
   public function getFields(): ?EditableList<FieldSpecifier> {
     if ($this->_fields->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_fields);
+    \assert($this->_fields instanceof EditableList);
+    return $this->_fields;
   }
 
   /**
    * @return EditableList<FieldSpecifier>
    */
   public function getFieldsx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_fields);
+    \assert($this->_fields instanceof EditableList);
+    return $this->_fields;
   }
 
   public function getEllipsisUNTYPED(): EditableNode {
@@ -276,20 +280,22 @@ final class ShapeTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns Missing | DotDotDotToken
+   * @return null | DotDotDotToken
    */
   public function getEllipsis(): ?DotDotDotToken {
     if ($this->_ellipsis->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(DotDotDotToken::class, $this->_ellipsis);
+    \assert($this->_ellipsis instanceof DotDotDotToken);
+    return $this->_ellipsis;
   }
 
   /**
-   * @returns DotDotDotToken
+   * @return DotDotDotToken
    */
   public function getEllipsisx(): DotDotDotToken {
-    return TypeAssert\instance_of(DotDotDotToken::class, $this->_ellipsis);
+    \assert($this->_ellipsis instanceof DotDotDotToken);
+    return $this->_ellipsis;
   }
 
   public function getRightParenUNTYPED(): EditableNode {
@@ -317,14 +323,15 @@ final class ShapeTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();

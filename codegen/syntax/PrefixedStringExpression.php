@@ -99,14 +99,15 @@ final class PrefixedStringExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getName(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_name);
+    \assert($this->_name instanceof EditableNode);
+    return $this->_name;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getNamex(): EditableNode {
     return $this->getName();
@@ -131,14 +132,15 @@ final class PrefixedStringExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getStr(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_str);
+    \assert($this->_str instanceof EditableNode);
+    return $this->_str;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getStrx(): EditableNode {
     return $this->getStr();

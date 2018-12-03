@@ -249,14 +249,15 @@ final class ForStatement
   }
 
   /**
-   * @returns ForToken
+   * @return ForToken
    */
   public function getKeyword(): ForToken {
-    return TypeAssert\instance_of(ForToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof ForToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ForToken
+   * @return ForToken
    */
   public function getKeywordx(): ForToken {
     return $this->getKeyword();
@@ -291,14 +292,15 @@ final class ForStatement
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -341,7 +343,8 @@ final class ForStatement
     if ($this->_initializer->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_initializer);
+    \assert($this->_initializer instanceof EditableList);
+    return $this->_initializer;
   }
 
   /**
@@ -349,7 +352,8 @@ final class ForStatement
    * EditableList<FunctionCallExpression> | EditableList<LiteralExpression>
    */
   public function getInitializerx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_initializer);
+    \assert($this->_initializer instanceof EditableList);
+    return $this->_initializer;
   }
 
   public function getFirstSemicolonUNTYPED(): EditableNode {
@@ -381,7 +385,7 @@ final class ForStatement
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getFirstSemicolon(): SemicolonToken {
     return
@@ -389,7 +393,7 @@ final class ForStatement
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getFirstSemicolonx(): SemicolonToken {
     return $this->getFirstSemicolon();
@@ -433,7 +437,8 @@ final class ForStatement
     if ($this->_control->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_control);
+    \assert($this->_control instanceof EditableList);
+    return $this->_control;
   }
 
   /**
@@ -442,7 +447,8 @@ final class ForStatement
    * | EditableList<PrefixUnaryExpression> | EditableList<VariableExpression>
    */
   public function getControlx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_control);
+    \assert($this->_control instanceof EditableList);
+    return $this->_control;
   }
 
   public function getSecondSemicolonUNTYPED(): EditableNode {
@@ -474,7 +480,7 @@ final class ForStatement
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSecondSemicolon(): SemicolonToken {
     return
@@ -482,7 +488,7 @@ final class ForStatement
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSecondSemicolonx(): SemicolonToken {
     return $this->getSecondSemicolon();
@@ -520,13 +526,14 @@ final class ForStatement
    * @return EditableList<BinaryExpression> |
    * EditableList<FunctionCallExpression> |
    * EditableList<PostfixUnaryExpression> | EditableList<PrefixUnaryExpression>
-   * | Missing
+   * | null
    */
   public function getEndOfLoop(): ?EditableList {
     if ($this->_end_of_loop->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_end_of_loop);
+    \assert($this->_end_of_loop instanceof EditableList);
+    return $this->_end_of_loop;
   }
 
   /**
@@ -535,7 +542,8 @@ final class ForStatement
    * EditableList<PostfixUnaryExpression> | EditableList<PrefixUnaryExpression>
    */
   public function getEndOfLoopx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_end_of_loop);
+    \assert($this->_end_of_loop instanceof EditableList);
+    return $this->_end_of_loop;
   }
 
   public function getRightParenUNTYPED(): EditableNode {
@@ -567,14 +575,15 @@ final class ForStatement
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();
@@ -609,15 +618,16 @@ final class ForStatement
   }
 
   /**
-   * @returns AlternateLoopStatement | CompoundStatement | EchoStatement |
+   * @return AlternateLoopStatement | CompoundStatement | EchoStatement |
    * ExpressionStatement | ForStatement | UnsetStatement
    */
   public function getBody(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_body);
+    \assert($this->_body instanceof EditableNode);
+    return $this->_body;
   }
 
   /**
-   * @returns AlternateLoopStatement | CompoundStatement | EchoStatement |
+   * @return AlternateLoopStatement | CompoundStatement | EchoStatement |
    * ExpressionStatement | ForStatement | UnsetStatement
    */
   public function getBodyx(): EditableNode {

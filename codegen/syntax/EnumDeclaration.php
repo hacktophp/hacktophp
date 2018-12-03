@@ -247,26 +247,22 @@ final class EnumDeclaration extends EditableNode {
   }
 
   /**
-   * @returns AttributeSpecification | Missing
+   * @return AttributeSpecification | Missing
    */
   public function getAttributeSpec(): ?AttributeSpecification {
     if ($this->_attribute_spec->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   /**
-   * @returns AttributeSpecification
+   * @return AttributeSpecification
    */
   public function getAttributeSpecx(): AttributeSpecification {
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   public function getKeywordUNTYPED(): EditableNode {
@@ -298,14 +294,15 @@ final class EnumDeclaration extends EditableNode {
   }
 
   /**
-   * @returns EnumToken
+   * @return EnumToken
    */
   public function getKeyword(): EnumToken {
-    return TypeAssert\instance_of(EnumToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof EnumToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns EnumToken
+   * @return EnumToken
    */
   public function getKeywordx(): EnumToken {
     return $this->getKeyword();
@@ -340,14 +337,15 @@ final class EnumDeclaration extends EditableNode {
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getName(): NameToken {
-    return TypeAssert\instance_of(NameToken::class, $this->_name);
+    \assert($this->_name instanceof NameToken);
+    return $this->_name;
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getNamex(): NameToken {
     return $this->getName();
@@ -382,14 +380,15 @@ final class EnumDeclaration extends EditableNode {
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getColon(): ColonToken {
-    return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+    \assert($this->_colon instanceof ColonToken);
+    return $this->_colon;
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getColonx(): ColonToken {
     return $this->getColon();
@@ -424,15 +423,16 @@ final class EnumDeclaration extends EditableNode {
   }
 
   /**
-   * @returns ClassnameTypeSpecifier | GenericTypeSpecifier |
+   * @return ClassnameTypeSpecifier | GenericTypeSpecifier |
    * SimpleTypeSpecifier
    */
   public function getBase(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_base);
+    \assert($this->_base instanceof EditableNode);
+    return $this->_base;
   }
 
   /**
-   * @returns ClassnameTypeSpecifier | GenericTypeSpecifier |
+   * @return ClassnameTypeSpecifier | GenericTypeSpecifier |
    * SimpleTypeSpecifier
    */
   public function getBasex(): EditableNode {
@@ -468,20 +468,22 @@ final class EnumDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | TypeConstraint
+   * @return null | TypeConstraint
    */
   public function getType(): ?TypeConstraint {
     if ($this->_type->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(TypeConstraint::class, $this->_type);
+    \assert($this->_type instanceof TypeConstraint);
+    return $this->_type;
   }
 
   /**
-   * @returns TypeConstraint
+   * @return TypeConstraint
    */
   public function getTypex(): TypeConstraint {
-    return TypeAssert\instance_of(TypeConstraint::class, $this->_type);
+    \assert($this->_type instanceof TypeConstraint);
+    return $this->_type;
   }
 
   public function getLeftBraceUNTYPED(): EditableNode {
@@ -513,14 +515,15 @@ final class EnumDeclaration extends EditableNode {
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBrace(): LeftBraceToken {
-    return TypeAssert\instance_of(LeftBraceToken::class, $this->_left_brace);
+    \assert($this->_left_brace instanceof LeftBraceToken);
+    return $this->_left_brace;
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBracex(): LeftBraceToken {
     return $this->getLeftBrace();
@@ -561,14 +564,16 @@ final class EnumDeclaration extends EditableNode {
     if ($this->_enumerators->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_enumerators);
+    \assert($this->_enumerators instanceof EditableList);
+    return $this->_enumerators;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getEnumeratorsx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_enumerators);
+    \assert($this->_enumerators instanceof EditableList);
+    return $this->_enumerators;
   }
 
   public function getRightBraceUNTYPED(): EditableNode {
@@ -600,14 +605,15 @@ final class EnumDeclaration extends EditableNode {
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBrace(): RightBraceToken {
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBracex(): RightBraceToken {
     return $this->getRightBrace();

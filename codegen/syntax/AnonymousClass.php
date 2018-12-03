@@ -248,14 +248,15 @@ final class AnonymousClass extends EditableNode {
   }
 
   /**
-   * @returns ClassToken
+   * @return ClassToken
    */
   public function getClassKeyword(): ClassToken {
-    return TypeAssert\instance_of(ClassToken::class, $this->_class_keyword);
+    \assert($this->_class_keyword instanceof ClassToken);
+    return $this->_class_keyword;
   }
 
   /**
-   * @returns ClassToken
+   * @return ClassToken
    */
   public function getClassKeywordx(): ClassToken {
     return $this->getClassKeyword();
@@ -290,20 +291,22 @@ final class AnonymousClass extends EditableNode {
   }
 
   /**
-   * @returns Missing | LeftParenToken
+   * @return null | LeftParenToken
    */
   public function getLeftParen(): ?LeftParenToken {
     if ($this->_left_paren->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   public function getArgumentListUNTYPED(): EditableNode {
@@ -337,13 +340,14 @@ final class AnonymousClass extends EditableNode {
   /**
    * @return EditableList<AnonymousFunction> | EditableList<LiteralExpression>
    * | EditableList<MemberSelectionExpression> |
-   * EditableList<VariableExpression> | Missing
+   * EditableList<VariableExpression> | null
    */
   public function getArgumentList(): ?EditableList {
     if ($this->_argument_list->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_argument_list);
+    \assert($this->_argument_list instanceof EditableList);
+    return $this->_argument_list;
   }
 
   /**
@@ -352,7 +356,8 @@ final class AnonymousClass extends EditableNode {
    * EditableList<VariableExpression>
    */
   public function getArgumentListx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_argument_list);
+    \assert($this->_argument_list instanceof EditableList);
+    return $this->_argument_list;
   }
 
   public function getRightParenUNTYPED(): EditableNode {
@@ -384,20 +389,22 @@ final class AnonymousClass extends EditableNode {
   }
 
   /**
-   * @returns Missing | RightParenToken
+   * @return null | RightParenToken
    */
   public function getRightParen(): ?RightParenToken {
     if ($this->_right_paren->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   public function getExtendsKeywordUNTYPED(): EditableNode {
@@ -429,20 +436,22 @@ final class AnonymousClass extends EditableNode {
   }
 
   /**
-   * @returns Missing | ExtendsToken
+   * @return null | ExtendsToken
    */
   public function getExtendsKeyword(): ?ExtendsToken {
     if ($this->_extends_keyword->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(ExtendsToken::class, $this->_extends_keyword);
+    \assert($this->_extends_keyword instanceof ExtendsToken);
+    return $this->_extends_keyword;
   }
 
   /**
-   * @returns ExtendsToken
+   * @return ExtendsToken
    */
   public function getExtendsKeywordx(): ExtendsToken {
-    return TypeAssert\instance_of(ExtendsToken::class, $this->_extends_keyword);
+    \assert($this->_extends_keyword instanceof ExtendsToken);
+    return $this->_extends_keyword;
   }
 
   public function getExtendsListUNTYPED(): EditableNode {
@@ -474,20 +483,22 @@ final class AnonymousClass extends EditableNode {
   }
 
   /**
-   * @return EditableList<SimpleTypeSpecifier> | Missing
+   * @return EditableList<SimpleTypeSpecifier> | null
    */
   public function getExtendsList(): ?EditableList<SimpleTypeSpecifier> {
     if ($this->_extends_list->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_extends_list);
+    \assert($this->_extends_list instanceof EditableList);
+    return $this->_extends_list;
   }
 
   /**
    * @return EditableList<SimpleTypeSpecifier>
    */
   public function getExtendsListx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_extends_list);
+    \assert($this->_extends_list instanceof EditableList);
+    return $this->_extends_list;
   }
 
   public function getImplementsKeywordUNTYPED(): EditableNode {
@@ -519,26 +530,22 @@ final class AnonymousClass extends EditableNode {
   }
 
   /**
-   * @returns Missing | ImplementsToken
+   * @return null | ImplementsToken
    */
   public function getImplementsKeyword(): ?ImplementsToken {
     if ($this->_implements_keyword->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(
-      ImplementsToken::class,
-      $this->_implements_keyword
-    );
+    \assert($this->_implements_keyword instanceof ImplementsToken);
+    return $this->_implements_keyword;
   }
 
   /**
-   * @returns ImplementsToken
+   * @return ImplementsToken
    */
   public function getImplementsKeywordx(): ImplementsToken {
-    return TypeAssert\instance_of(
-      ImplementsToken::class,
-      $this->_implements_keyword
-    );
+    \assert($this->_implements_keyword instanceof ImplementsToken);
+    return $this->_implements_keyword;
   }
 
   public function getImplementsListUNTYPED(): EditableNode {
@@ -570,20 +577,22 @@ final class AnonymousClass extends EditableNode {
   }
 
   /**
-   * @return EditableList<SimpleTypeSpecifier> | Missing
+   * @return EditableList<SimpleTypeSpecifier> | null
    */
   public function getImplementsList(): ?EditableList<SimpleTypeSpecifier> {
     if ($this->_implements_list->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_implements_list);
+    \assert($this->_implements_list instanceof EditableList);
+    return $this->_implements_list;
   }
 
   /**
    * @return EditableList<SimpleTypeSpecifier>
    */
   public function getImplementsListx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_implements_list);
+    \assert($this->_implements_list instanceof EditableList);
+    return $this->_implements_list;
   }
 
   public function getBodyUNTYPED(): EditableNode {
@@ -615,14 +624,15 @@ final class AnonymousClass extends EditableNode {
   }
 
   /**
-   * @returns ClassishBody
+   * @return ClassishBody
    */
   public function getBody(): ClassishBody {
-    return TypeAssert\instance_of(ClassishBody::class, $this->_body);
+    \assert($this->_body instanceof ClassishBody);
+    return $this->_body;
   }
 
   /**
-   * @returns ClassishBody
+   * @return ClassishBody
    */
   public function getBodyx(): ClassishBody {
     return $this->getBody();

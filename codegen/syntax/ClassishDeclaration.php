@@ -267,7 +267,7 @@ final class ClassishDeclaration extends EditableNode {
   }
 
   /**
-   * @returns AttributeSpecification | Missing
+   * @return AttributeSpecification | Missing
    */
   public function getAttribute(): ?AttributeSpecification {
     if ($this->_attribute->isMissing()) {
@@ -278,7 +278,7 @@ final class ClassishDeclaration extends EditableNode {
   }
 
   /**
-   * @returns AttributeSpecification
+   * @return AttributeSpecification
    */
   public function getAttributex(): AttributeSpecification {
     return
@@ -321,14 +321,16 @@ final class ClassishDeclaration extends EditableNode {
     if ($this->_modifiers->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_modifiers);
+    \assert($this->_modifiers instanceof EditableList);
+    return $this->_modifiers;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getModifiersx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_modifiers);
+    \assert($this->_modifiers instanceof EditableList);
+    return $this->_modifiers;
   }
 
   public function getKeywordUNTYPED(): EditableNode {
@@ -361,14 +363,15 @@ final class ClassishDeclaration extends EditableNode {
   }
 
   /**
-   * @returns ClassToken | InterfaceToken | TraitToken
+   * @return ClassToken | InterfaceToken | TraitToken
    */
   public function getKeyword(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof EditableToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ClassToken | InterfaceToken | TraitToken
+   * @return ClassToken | InterfaceToken | TraitToken
    */
   public function getKeywordx(): EditableToken {
     return $this->getKeyword();
@@ -404,20 +407,22 @@ final class ClassishDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | XHPClassNameToken | NameToken
+   * @return null | XHPClassNameToken | NameToken
    */
   public function getName(): ?EditableToken {
     if ($this->_name->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableToken::class, $this->_name);
+    \assert($this->_name instanceof EditableToken);
+    return $this->_name;
   }
 
   /**
-   * @returns XHPClassNameToken | NameToken
+   * @return XHPClassNameToken | NameToken
    */
   public function getNamex(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_name);
+    \assert($this->_name instanceof EditableToken);
+    return $this->_name;
   }
 
   public function getTypeParametersUNTYPED(): EditableNode {
@@ -450,7 +455,7 @@ final class ClassishDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | TypeParameters
+   * @return null | TypeParameters
    */
   public function getTypeParameters(): ?TypeParameters {
     if ($this->_type_parameters->isMissing()) {
@@ -461,7 +466,7 @@ final class ClassishDeclaration extends EditableNode {
   }
 
   /**
-   * @returns TypeParameters
+   * @return TypeParameters
    */
   public function getTypeParametersx(): TypeParameters {
     return
@@ -498,20 +503,22 @@ final class ClassishDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | ExtendsToken
+   * @return null | ExtendsToken
    */
   public function getExtendsKeyword(): ?ExtendsToken {
     if ($this->_extends_keyword->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(ExtendsToken::class, $this->_extends_keyword);
+    \assert($this->_extends_keyword instanceof ExtendsToken);
+    return $this->_extends_keyword;
   }
 
   /**
-   * @returns ExtendsToken
+   * @return ExtendsToken
    */
   public function getExtendsKeywordx(): ExtendsToken {
-    return TypeAssert\instance_of(ExtendsToken::class, $this->_extends_keyword);
+    \assert($this->_extends_keyword instanceof ExtendsToken);
+    return $this->_extends_keyword;
   }
 
   public function getExtendsListUNTYPED(): EditableNode {
@@ -551,7 +558,8 @@ final class ClassishDeclaration extends EditableNode {
     if ($this->_extends_list->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_extends_list);
+    \assert($this->_extends_list instanceof EditableList);
+    return $this->_extends_list;
   }
 
   /**
@@ -559,7 +567,8 @@ final class ClassishDeclaration extends EditableNode {
    * EditableList<?EditableNode> | EditableList<SimpleTypeSpecifier>
    */
   public function getExtendsListx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_extends_list);
+    \assert($this->_extends_list instanceof EditableList);
+    return $this->_extends_list;
   }
 
   public function getImplementsKeywordUNTYPED(): EditableNode {
@@ -592,26 +601,22 @@ final class ClassishDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | ImplementsToken
+   * @return null | ImplementsToken
    */
   public function getImplementsKeyword(): ?ImplementsToken {
     if ($this->_implements_keyword->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(
-      ImplementsToken::class,
-      $this->_implements_keyword
-    );
+    \assert($this->_implements_keyword instanceof ImplementsToken);
+    return $this->_implements_keyword;
   }
 
   /**
-   * @returns ImplementsToken
+   * @return ImplementsToken
    */
   public function getImplementsKeywordx(): ImplementsToken {
-    return TypeAssert\instance_of(
-      ImplementsToken::class,
-      $this->_implements_keyword
-    );
+    \assert($this->_implements_keyword instanceof ImplementsToken);
+    return $this->_implements_keyword;
   }
 
   public function getImplementsListUNTYPED(): EditableNode {
@@ -651,7 +656,8 @@ final class ClassishDeclaration extends EditableNode {
     if ($this->_implements_list->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_implements_list);
+    \assert($this->_implements_list instanceof EditableList);
+    return $this->_implements_list;
   }
 
   /**
@@ -659,7 +665,8 @@ final class ClassishDeclaration extends EditableNode {
    * EditableList<?EditableNode> | EditableList<SimpleTypeSpecifier>
    */
   public function getImplementsListx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_implements_list);
+    \assert($this->_implements_list instanceof EditableList);
+    return $this->_implements_list;
   }
 
   public function getBodyUNTYPED(): EditableNode {
@@ -692,14 +699,15 @@ final class ClassishDeclaration extends EditableNode {
   }
 
   /**
-   * @returns ClassishBody
+   * @return ClassishBody
    */
   public function getBody(): ClassishBody {
-    return TypeAssert\instance_of(ClassishBody::class, $this->_body);
+    \assert($this->_body instanceof ClassishBody);
+    return $this->_body;
   }
 
   /**
-   * @returns ClassishBody
+   * @return ClassishBody
    */
   public function getBodyx(): ClassishBody {
     return $this->getBody();

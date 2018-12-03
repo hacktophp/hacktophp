@@ -211,14 +211,15 @@ final class SwitchStatement
   }
 
   /**
-   * @returns SwitchToken
+   * @return SwitchToken
    */
   public function getKeyword(): SwitchToken {
-    return TypeAssert\instance_of(SwitchToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof SwitchToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns SwitchToken
+   * @return SwitchToken
    */
   public function getKeywordx(): SwitchToken {
     return $this->getKeyword();
@@ -251,14 +252,15 @@ final class SwitchStatement
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -291,16 +293,17 @@ final class SwitchStatement
   }
 
   /**
-   * @returns BinaryExpression | FunctionCallExpression | LiteralExpression |
+   * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
    * MemberSelectionExpression | ObjectCreationExpression |
    * PrefixUnaryExpression | SubscriptExpression | VariableExpression
    */
   public function getExpression(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   /**
-   * @returns BinaryExpression | FunctionCallExpression | LiteralExpression |
+   * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
    * MemberSelectionExpression | ObjectCreationExpression |
    * PrefixUnaryExpression | SubscriptExpression | VariableExpression
    */
@@ -335,14 +338,15 @@ final class SwitchStatement
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();
@@ -375,14 +379,15 @@ final class SwitchStatement
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBrace(): LeftBraceToken {
-    return TypeAssert\instance_of(LeftBraceToken::class, $this->_left_brace);
+    \assert($this->_left_brace instanceof LeftBraceToken);
+    return $this->_left_brace;
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBracex(): LeftBraceToken {
     return $this->getLeftBrace();
@@ -421,14 +426,16 @@ final class SwitchStatement
     if ($this->_sections->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_sections);
+    \assert($this->_sections instanceof EditableList);
+    return $this->_sections;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getSectionsx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_sections);
+    \assert($this->_sections instanceof EditableList);
+    return $this->_sections;
   }
 
   public function getRightBraceUNTYPED(): EditableNode {
@@ -458,14 +465,15 @@ final class SwitchStatement
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBrace(): RightBraceToken {
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBracex(): RightBraceToken {
     return $this->getRightBrace();

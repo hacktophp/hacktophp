@@ -99,14 +99,15 @@ final class NullableTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns QuestionToken
+   * @return QuestionToken
    */
   public function getQuestion(): QuestionToken {
-    return TypeAssert\instance_of(QuestionToken::class, $this->_question);
+    \assert($this->_question instanceof QuestionToken);
+    return $this->_question;
   }
 
   /**
-   * @returns QuestionToken
+   * @return QuestionToken
    */
   public function getQuestionx(): QuestionToken {
     return $this->getQuestion();
@@ -131,18 +132,19 @@ final class NullableTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | DictionaryTypeSpecifier |
+   * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
    * GenericTypeSpecifier | KeysetTypeSpecifier | MapArrayTypeSpecifier |
    * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
    * TupleTypeSpecifier | TypeConstant | VectorArrayTypeSpecifier |
    * VectorTypeSpecifier
    */
   public function getType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | DictionaryTypeSpecifier |
+   * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
    * GenericTypeSpecifier | KeysetTypeSpecifier | MapArrayTypeSpecifier |
    * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
    * TupleTypeSpecifier | TypeConstant | VectorArrayTypeSpecifier |

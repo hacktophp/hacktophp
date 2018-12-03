@@ -85,7 +85,7 @@ final class SimpleTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns QualifiedName | XHPClassNameToken | ConstructToken | ArrayToken |
+   * @return QualifiedName | XHPClassNameToken | ConstructToken | ArrayToken |
    * ArraykeyToken | BoolToken | BooleanToken | DarrayToken | DictToken |
    * DoubleToken | FloatToken | IntToken | IntegerToken | KeysetToken |
    * MixedToken | NameToken | NoreturnToken | NumToken | ObjectToken |
@@ -93,11 +93,12 @@ final class SimpleTypeSpecifier extends EditableNode {
    * ThisToken | VarToken | VarrayToken | VecToken | VoidToken
    */
   public function getSpecifier(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_specifier);
+    \assert($this->_specifier instanceof EditableNode);
+    return $this->_specifier;
   }
 
   /**
-   * @returns QualifiedName | XHPClassNameToken | ConstructToken | ArrayToken |
+   * @return QualifiedName | XHPClassNameToken | ConstructToken | ArrayToken |
    * ArraykeyToken | BoolToken | BooleanToken | DarrayToken | DictToken |
    * DoubleToken | FloatToken | IntToken | IntegerToken | KeysetToken |
    * MixedToken | NameToken | NoreturnToken | NumToken | ObjectToken |

@@ -153,14 +153,15 @@ final class TryStatement extends EditableNode {
   }
 
   /**
-   * @returns TryToken
+   * @return TryToken
    */
   public function getKeyword(): TryToken {
-    return TypeAssert\instance_of(TryToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof TryToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns TryToken
+   * @return TryToken
    */
   public function getKeywordx(): TryToken {
     return $this->getKeyword();
@@ -190,17 +191,15 @@ final class TryStatement extends EditableNode {
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getCompoundStatement(): CompoundStatement {
-    return TypeAssert\instance_of(
-      CompoundStatement::class,
-      $this->_compound_statement
-    );
+    \assert($this->_compound_statement instanceof CompoundStatement);
+    return $this->_compound_statement;
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getCompoundStatementx(): CompoundStatement {
     return $this->getCompoundStatement();
@@ -236,14 +235,16 @@ final class TryStatement extends EditableNode {
     if ($this->_catch_clauses->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_catch_clauses);
+    \assert($this->_catch_clauses instanceof EditableList);
+    return $this->_catch_clauses;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getCatchClausesx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_catch_clauses);
+    \assert($this->_catch_clauses instanceof EditableList);
+    return $this->_catch_clauses;
   }
 
   public function getFinallyClauseUNTYPED(): EditableNode {
@@ -270,19 +271,21 @@ final class TryStatement extends EditableNode {
   }
 
   /**
-   * @returns FinallyClause | Missing
+   * @return FinallyClause | Missing
    */
   public function getFinallyClause(): ?FinallyClause {
     if ($this->_finally_clause->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(FinallyClause::class, $this->_finally_clause);
+    \assert($this->_finally_clause instanceof FinallyClause);
+    return $this->_finally_clause;
   }
 
   /**
-   * @returns FinallyClause
+   * @return FinallyClause
    */
   public function getFinallyClausex(): FinallyClause {
-    return TypeAssert\instance_of(FinallyClause::class, $this->_finally_clause);
+    \assert($this->_finally_clause instanceof FinallyClause);
+    return $this->_finally_clause;
   }
 }

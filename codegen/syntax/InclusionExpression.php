@@ -99,15 +99,16 @@ final class InclusionExpression extends EditableNode {
   }
 
   /**
-   * @returns IncludeToken | Include_onceToken | RequireToken |
+   * @return IncludeToken | Include_onceToken | RequireToken |
    * Require_onceToken
    */
   public function getRequire(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_require);
+    \assert($this->_require instanceof EditableToken);
+    return $this->_require;
   }
 
   /**
-   * @returns IncludeToken | Include_onceToken | RequireToken |
+   * @return IncludeToken | Include_onceToken | RequireToken |
    * Require_onceToken
    */
   public function getRequirex(): EditableToken {
@@ -133,15 +134,16 @@ final class InclusionExpression extends EditableNode {
   }
 
   /**
-   * @returns BinaryExpression | LiteralExpression | ParenthesizedExpression |
+   * @return BinaryExpression | LiteralExpression | ParenthesizedExpression |
    * SubscriptExpression | NameToken | VariableExpression
    */
   public function getFilename(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_filename);
+    \assert($this->_filename instanceof EditableNode);
+    return $this->_filename;
   }
 
   /**
-   * @returns BinaryExpression | LiteralExpression | ParenthesizedExpression |
+   * @return BinaryExpression | LiteralExpression | ParenthesizedExpression |
    * SubscriptExpression | NameToken | VariableExpression
    */
   public function getFilenamex(): EditableNode {

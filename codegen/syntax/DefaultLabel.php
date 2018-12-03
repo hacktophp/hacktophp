@@ -99,14 +99,15 @@ final class DefaultLabel extends EditableNode {
   }
 
   /**
-   * @returns DefaultToken
+   * @return DefaultToken
    */
   public function getKeyword(): DefaultToken {
-    return TypeAssert\instance_of(DefaultToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof DefaultToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns DefaultToken
+   * @return DefaultToken
    */
   public function getKeywordx(): DefaultToken {
     return $this->getKeyword();
@@ -131,14 +132,15 @@ final class DefaultLabel extends EditableNode {
   }
 
   /**
-   * @returns ColonToken | SemicolonToken
+   * @return ColonToken | SemicolonToken
    */
   public function getColon(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_colon);
+    \assert($this->_colon instanceof EditableToken);
+    return $this->_colon;
   }
 
   /**
-   * @returns ColonToken | SemicolonToken
+   * @return ColonToken | SemicolonToken
    */
   public function getColonx(): EditableToken {
     return $this->getColon();

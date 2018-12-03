@@ -161,14 +161,15 @@ final class UnsetStatement extends EditableNode {
   }
 
   /**
-   * @returns UnsetToken
+   * @return UnsetToken
    */
   public function getKeyword(): UnsetToken {
-    return TypeAssert\instance_of(UnsetToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof UnsetToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns UnsetToken
+   * @return UnsetToken
    */
   public function getKeywordx(): UnsetToken {
     return $this->getKeyword();
@@ -199,14 +200,15 @@ final class UnsetStatement extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -244,7 +246,8 @@ final class UnsetStatement extends EditableNode {
    * EditableList<SubscriptExpression> | EditableList<VariableExpression>
    */
   public function getVariables(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_variables);
+    \assert($this->_variables instanceof EditableList);
+    return $this->_variables;
   }
 
   /**
@@ -283,14 +286,15 @@ final class UnsetStatement extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();
@@ -321,14 +325,15 @@ final class UnsetStatement extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

@@ -105,14 +105,15 @@ final class GenericTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns QualifiedName | XHPClassNameToken | NameToken | StringToken
+   * @return QualifiedName | XHPClassNameToken | NameToken | StringToken
    */
   public function getClassType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_class_type);
+    \assert($this->_class_type instanceof EditableNode);
+    return $this->_class_type;
   }
 
   /**
-   * @returns QualifiedName | XHPClassNameToken | NameToken | StringToken
+   * @return QualifiedName | XHPClassNameToken | NameToken | StringToken
    */
   public function getClassTypex(): EditableNode {
     return $this->getClassType();
@@ -137,14 +138,15 @@ final class GenericTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns TypeArguments
+   * @return TypeArguments
    */
   public function getArgumentList(): TypeArguments {
-    return TypeAssert\instance_of(TypeArguments::class, $this->_argument_list);
+    \assert($this->_argument_list instanceof TypeArguments);
+    return $this->_argument_list;
   }
 
   /**
-   * @returns TypeArguments
+   * @return TypeArguments
    */
   public function getArgumentListx(): TypeArguments {
     return $this->getArgumentList();

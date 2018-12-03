@@ -99,7 +99,7 @@ final class ListItem extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | AsExpression | AwaitableCreationExpression |
    * BinaryExpression | CastExpression | ClassnameTypeSpecifier |
    * ClosureParameterTypeSpecifier | ClosureTypeSpecifier |
@@ -130,11 +130,12 @@ final class ListItem extends EditableNode {
     if ($this->_item->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_item);
+    \assert($this->_item instanceof EditableNode);
+    return $this->_item;
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | AsExpression | AwaitableCreationExpression |
    * BinaryExpression | CastExpression | ClassnameTypeSpecifier |
    * ClosureParameterTypeSpecifier | ClosureTypeSpecifier |
@@ -161,7 +162,8 @@ final class ListItem extends EditableNode {
    * XHPClassAttribute | XHPExpression | XHPSimpleClassAttribute
    */
   public function getItemx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_item);
+    \assert($this->_item instanceof EditableNode);
+    return $this->_item;
   }
 
   public function getSeparatorUNTYPED(): EditableNode {
@@ -183,19 +185,21 @@ final class ListItem extends EditableNode {
   }
 
   /**
-   * @returns Missing | CommaToken | SemicolonToken | BackslashToken
+   * @return null | CommaToken | SemicolonToken | BackslashToken
    */
   public function getSeparator(): ?EditableToken {
     if ($this->_separator->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableToken::class, $this->_separator);
+    \assert($this->_separator instanceof EditableToken);
+    return $this->_separator;
   }
 
   /**
-   * @returns CommaToken | SemicolonToken | BackslashToken
+   * @return CommaToken | SemicolonToken | BackslashToken
    */
   public function getSeparatorx(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_separator);
+    \assert($this->_separator instanceof EditableToken);
+    return $this->_separator;
   }
 }

@@ -138,14 +138,15 @@ final class VectorArrayTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns ArrayToken
+   * @return ArrayToken
    */
   public function getKeyword(): ArrayToken {
-    return TypeAssert\instance_of(ArrayToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof ArrayToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ArrayToken
+   * @return ArrayToken
    */
   public function getKeywordx(): ArrayToken {
     return $this->getKeyword();
@@ -171,14 +172,15 @@ final class VectorArrayTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAngle(): LessThanToken {
-    return TypeAssert\instance_of(LessThanToken::class, $this->_left_angle);
+    \assert($this->_left_angle instanceof LessThanToken);
+    return $this->_left_angle;
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAnglex(): LessThanToken {
     return $this->getLeftAngle();
@@ -208,16 +210,17 @@ final class VectorArrayTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns DarrayTypeSpecifier | GenericTypeSpecifier |
+   * @return DarrayTypeSpecifier | GenericTypeSpecifier |
    * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
    * TupleTypeSpecifier | VarrayTypeSpecifier | VectorArrayTypeSpecifier
    */
   public function getType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns DarrayTypeSpecifier | GenericTypeSpecifier |
+   * @return DarrayTypeSpecifier | GenericTypeSpecifier |
    * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
    * TupleTypeSpecifier | VarrayTypeSpecifier | VectorArrayTypeSpecifier
    */
@@ -245,14 +248,15 @@ final class VectorArrayTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAngle(): GreaterThanToken {
-    return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof GreaterThanToken);
+    return $this->_right_angle;
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAnglex(): GreaterThanToken {
     return $this->getRightAngle();

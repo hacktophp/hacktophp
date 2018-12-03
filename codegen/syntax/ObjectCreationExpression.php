@@ -99,14 +99,15 @@ final class ObjectCreationExpression extends EditableNode {
   }
 
   /**
-   * @returns NewToken
+   * @return NewToken
    */
   public function getNewKeyword(): NewToken {
-    return TypeAssert\instance_of(NewToken::class, $this->_new_keyword);
+    \assert($this->_new_keyword instanceof NewToken);
+    return $this->_new_keyword;
   }
 
   /**
-   * @returns NewToken
+   * @return NewToken
    */
   public function getNewKeywordx(): NewToken {
     return $this->getNewKeyword();
@@ -131,14 +132,15 @@ final class ObjectCreationExpression extends EditableNode {
   }
 
   /**
-   * @returns AnonymousClass | ConstructorCall
+   * @return AnonymousClass | ConstructorCall
    */
   public function getObject(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_object);
+    \assert($this->_object instanceof EditableNode);
+    return $this->_object;
   }
 
   /**
-   * @returns AnonymousClass | ConstructorCall
+   * @return AnonymousClass | ConstructorCall
    */
   public function getObjectx(): EditableNode {
     return $this->getObject();

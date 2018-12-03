@@ -121,16 +121,17 @@ final class SafeMemberSelectionExpression extends EditableNode {
   }
 
   /**
-   * @returns FunctionCallExpression | MemberSelectionExpression |
+   * @return FunctionCallExpression | MemberSelectionExpression |
    * PrefixUnaryExpression | SafeMemberSelectionExpression |
    * ScopeResolutionExpression | VariableExpression
    */
   public function getObject(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_object);
+    \assert($this->_object instanceof EditableNode);
+    return $this->_object;
   }
 
   /**
-   * @returns FunctionCallExpression | MemberSelectionExpression |
+   * @return FunctionCallExpression | MemberSelectionExpression |
    * PrefixUnaryExpression | SafeMemberSelectionExpression |
    * ScopeResolutionExpression | VariableExpression
    */
@@ -157,17 +158,15 @@ final class SafeMemberSelectionExpression extends EditableNode {
   }
 
   /**
-   * @returns QuestionMinusGreaterThanToken
+   * @return QuestionMinusGreaterThanToken
    */
   public function getOperator(): QuestionMinusGreaterThanToken {
-    return TypeAssert\instance_of(
-      QuestionMinusGreaterThanToken::class,
-      $this->_operator
-    );
+    \assert($this->_operator instanceof QuestionMinusGreaterThanToken);
+    return $this->_operator;
   }
 
   /**
-   * @returns QuestionMinusGreaterThanToken
+   * @return QuestionMinusGreaterThanToken
    */
   public function getOperatorx(): QuestionMinusGreaterThanToken {
     return $this->getOperator();
@@ -192,14 +191,15 @@ final class SafeMemberSelectionExpression extends EditableNode {
   }
 
   /**
-   * @returns PrefixUnaryExpression | XHPClassNameToken | NameToken
+   * @return PrefixUnaryExpression | XHPClassNameToken | NameToken
    */
   public function getName(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_name);
+    \assert($this->_name instanceof EditableNode);
+    return $this->_name;
   }
 
   /**
-   * @returns PrefixUnaryExpression | XHPClassNameToken | NameToken
+   * @return PrefixUnaryExpression | XHPClassNameToken | NameToken
    */
   public function getNamex(): EditableNode {
     return $this->getName();

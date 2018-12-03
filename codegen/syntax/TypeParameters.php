@@ -121,14 +121,15 @@ final class TypeParameters extends EditableNode {
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAngle(): LessThanToken {
-    return TypeAssert\instance_of(LessThanToken::class, $this->_left_angle);
+    \assert($this->_left_angle instanceof LessThanToken);
+    return $this->_left_angle;
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAnglex(): LessThanToken {
     return $this->getLeftAngle();
@@ -156,7 +157,8 @@ final class TypeParameters extends EditableNode {
    * @return EditableList<TypeParameter>
    */
   public function getParameters(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_parameters);
+    \assert($this->_parameters instanceof EditableList);
+    return $this->_parameters;
   }
 
   /**
@@ -185,14 +187,15 @@ final class TypeParameters extends EditableNode {
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAngle(): GreaterThanToken {
-    return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof GreaterThanToken);
+    return $this->_right_angle;
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAnglex(): GreaterThanToken {
     return $this->getRightAngle();

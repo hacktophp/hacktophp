@@ -121,14 +121,15 @@ final class EchoStatement extends EditableNode {
   }
 
   /**
-   * @returns EchoToken
+   * @return EchoToken
    */
   public function getKeyword(): EchoToken {
-    return TypeAssert\instance_of(EchoToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof EchoToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns EchoToken
+   * @return EchoToken
    */
   public function getKeywordx(): EchoToken {
     return $this->getKeyword();
@@ -167,7 +168,8 @@ final class EchoStatement extends EditableNode {
    * EditableList<VariableExpression> | EditableList<XHPExpression>
    */
   public function getExpressions(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_expressions);
+    \assert($this->_expressions instanceof EditableList);
+    return $this->_expressions;
   }
 
   /**
@@ -207,19 +209,21 @@ final class EchoStatement extends EditableNode {
   }
 
   /**
-   * @returns Missing | SemicolonToken
+   * @return null | SemicolonToken
    */
   public function getSemicolon(): ?SemicolonToken {
     if ($this->_semicolon->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 }

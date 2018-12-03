@@ -102,14 +102,15 @@ final class WhereClause extends EditableNode {
   }
 
   /**
-   * @returns WhereToken
+   * @return WhereToken
    */
   public function getKeyword(): WhereToken {
-    return TypeAssert\instance_of(WhereToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof WhereToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns WhereToken
+   * @return WhereToken
    */
   public function getKeywordx(): WhereToken {
     return $this->getKeyword();
@@ -137,7 +138,8 @@ final class WhereClause extends EditableNode {
    * @return EditableList<WhereConstraint>
    */
   public function getConstraints(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_constraints);
+    \assert($this->_constraints instanceof EditableList);
+    return $this->_constraints;
   }
 
   /**

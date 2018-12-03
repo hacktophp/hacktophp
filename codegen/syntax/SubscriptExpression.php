@@ -142,18 +142,19 @@ final class SubscriptExpression extends EditableNode {
   }
 
   /**
-   * @returns ArrayCreationExpression | ArrayIntrinsicExpression |
+   * @return ArrayCreationExpression | ArrayIntrinsicExpression |
    * FunctionCallExpression | LiteralExpression | MemberSelectionExpression |
    * ParenthesizedExpression | PrefixUnaryExpression |
    * SafeMemberSelectionExpression | ScopeResolutionExpression |
    * SubscriptExpression | RightParenToken | NameToken | VariableExpression
    */
   public function getReceiver(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_receiver);
+    \assert($this->_receiver instanceof EditableNode);
+    return $this->_receiver;
   }
 
   /**
-   * @returns ArrayCreationExpression | ArrayIntrinsicExpression |
+   * @return ArrayCreationExpression | ArrayIntrinsicExpression |
    * FunctionCallExpression | LiteralExpression | MemberSelectionExpression |
    * ParenthesizedExpression | PrefixUnaryExpression |
    * SafeMemberSelectionExpression | ScopeResolutionExpression |
@@ -187,14 +188,15 @@ final class SubscriptExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftBracketToken | LeftBraceToken
+   * @return LeftBracketToken | LeftBraceToken
    */
   public function getLeftBracket(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_left_bracket);
+    \assert($this->_left_bracket instanceof EditableToken);
+    return $this->_left_bracket;
   }
 
   /**
-   * @returns LeftBracketToken | LeftBraceToken
+   * @return LeftBracketToken | LeftBraceToken
    */
   public function getLeftBracketx(): EditableToken {
     return $this->getLeftBracket();
@@ -224,7 +226,7 @@ final class SubscriptExpression extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
+   * @return AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
    * CastExpression | FunctionCallExpression | LiteralExpression |
    * MemberSelectionExpression | Missing | ObjectCreationExpression |
    * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
@@ -236,11 +238,12 @@ final class SubscriptExpression extends EditableNode {
     if ($this->_index->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_index);
+    \assert($this->_index instanceof EditableNode);
+    return $this->_index;
   }
 
   /**
-   * @returns AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
+   * @return AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
    * CastExpression | FunctionCallExpression | LiteralExpression |
    * MemberSelectionExpression | ObjectCreationExpression |
    * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
@@ -249,7 +252,8 @@ final class SubscriptExpression extends EditableNode {
    * VariableExpression
    */
   public function getIndexx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_index);
+    \assert($this->_index instanceof EditableNode);
+    return $this->_index;
   }
 
   public function getRightBracketUNTYPED(): EditableNode {
@@ -272,19 +276,21 @@ final class SubscriptExpression extends EditableNode {
   }
 
   /**
-   * @returns Missing | RightBracketToken | RightBraceToken
+   * @return null | RightBracketToken | RightBraceToken
    */
   public function getRightBracket(): ?EditableToken {
     if ($this->_right_bracket->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableToken::class, $this->_right_bracket);
+    \assert($this->_right_bracket instanceof EditableToken);
+    return $this->_right_bracket;
   }
 
   /**
-   * @returns RightBracketToken | RightBraceToken
+   * @return RightBracketToken | RightBraceToken
    */
   public function getRightBracketx(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_right_bracket);
+    \assert($this->_right_bracket instanceof EditableToken);
+    return $this->_right_bracket;
   }
 }

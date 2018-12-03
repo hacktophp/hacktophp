@@ -247,20 +247,22 @@ final class TypeConstDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | AbstractToken
+   * @return null | AbstractToken
    */
   public function getAbstract(): ?AbstractToken {
     if ($this->_abstract->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(AbstractToken::class, $this->_abstract);
+    \assert($this->_abstract instanceof AbstractToken);
+    return $this->_abstract;
   }
 
   /**
-   * @returns AbstractToken
+   * @return AbstractToken
    */
   public function getAbstractx(): AbstractToken {
-    return TypeAssert\instance_of(AbstractToken::class, $this->_abstract);
+    \assert($this->_abstract instanceof AbstractToken);
+    return $this->_abstract;
   }
 
   public function getKeywordUNTYPED(): EditableNode {
@@ -292,14 +294,15 @@ final class TypeConstDeclaration extends EditableNode {
   }
 
   /**
-   * @returns ConstToken
+   * @return ConstToken
    */
   public function getKeyword(): ConstToken {
-    return TypeAssert\instance_of(ConstToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof ConstToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ConstToken
+   * @return ConstToken
    */
   public function getKeywordx(): ConstToken {
     return $this->getKeyword();
@@ -334,14 +337,15 @@ final class TypeConstDeclaration extends EditableNode {
   }
 
   /**
-   * @returns TypeToken
+   * @return TypeToken
    */
   public function getTypeKeyword(): TypeToken {
-    return TypeAssert\instance_of(TypeToken::class, $this->_type_keyword);
+    \assert($this->_type_keyword instanceof TypeToken);
+    return $this->_type_keyword;
   }
 
   /**
-   * @returns TypeToken
+   * @return TypeToken
    */
   public function getTypeKeywordx(): TypeToken {
     return $this->getTypeKeyword();
@@ -376,14 +380,15 @@ final class TypeConstDeclaration extends EditableNode {
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getName(): NameToken {
-    return TypeAssert\instance_of(NameToken::class, $this->_name);
+    \assert($this->_name instanceof NameToken);
+    return $this->_name;
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getNamex(): NameToken {
     return $this->getName();
@@ -418,20 +423,22 @@ final class TypeConstDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getTypeParameters(): ?EditableNode {
     if ($this->_type_parameters->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_type_parameters);
+    \assert($this->_type_parameters instanceof EditableNode);
+    return $this->_type_parameters;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getTypeParametersx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type_parameters);
+    \assert($this->_type_parameters instanceof EditableNode);
+    return $this->_type_parameters;
   }
 
   public function getTypeConstraintUNTYPED(): EditableNode {
@@ -463,7 +470,7 @@ final class TypeConstDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | TypeConstraint
+   * @return null | TypeConstraint
    */
   public function getTypeConstraint(): ?TypeConstraint {
     if ($this->_type_constraint->isMissing()) {
@@ -474,7 +481,7 @@ final class TypeConstDeclaration extends EditableNode {
   }
 
   /**
-   * @returns TypeConstraint
+   * @return TypeConstraint
    */
   public function getTypeConstraintx(): TypeConstraint {
     return
@@ -510,20 +517,22 @@ final class TypeConstDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | EqualToken
+   * @return null | EqualToken
    */
   public function getEqual(): ?EqualToken {
     if ($this->_equal->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EqualToken::class, $this->_equal);
+    \assert($this->_equal instanceof EqualToken);
+    return $this->_equal;
   }
 
   /**
-   * @returns EqualToken
+   * @return EqualToken
    */
   public function getEqualx(): EqualToken {
-    return TypeAssert\instance_of(EqualToken::class, $this->_equal);
+    \assert($this->_equal instanceof EqualToken);
+    return $this->_equal;
   }
 
   public function getTypeSpecifierUNTYPED(): EditableNode {
@@ -555,7 +564,7 @@ final class TypeConstDeclaration extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | DictionaryTypeSpecifier |
+   * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
    * GenericTypeSpecifier | KeysetTypeSpecifier | Missing |
    * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
    * TupleTypeSpecifier | TypeConstant | VectorTypeSpecifier
@@ -564,17 +573,19 @@ final class TypeConstDeclaration extends EditableNode {
     if ($this->_type_specifier->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_type_specifier);
+    \assert($this->_type_specifier instanceof EditableNode);
+    return $this->_type_specifier;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | DictionaryTypeSpecifier |
+   * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
    * GenericTypeSpecifier | KeysetTypeSpecifier | NullableTypeSpecifier |
    * ShapeTypeSpecifier | SimpleTypeSpecifier | TupleTypeSpecifier |
    * TypeConstant | VectorTypeSpecifier
    */
   public function getTypeSpecifierx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type_specifier);
+    \assert($this->_type_specifier instanceof EditableNode);
+    return $this->_type_specifier;
   }
 
   public function getSemicolonUNTYPED(): EditableNode {
@@ -606,14 +617,15 @@ final class TypeConstDeclaration extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

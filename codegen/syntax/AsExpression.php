@@ -121,16 +121,17 @@ final class AsExpression extends EditableNode {
   }
 
   /**
-   * @returns CollectionLiteralExpression | LiteralExpression |
+   * @return CollectionLiteralExpression | LiteralExpression |
    * MemberSelectionExpression | ParenthesizedExpression | TupleExpression |
    * VariableExpression
    */
   public function getLeftOperand(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_left_operand);
+    \assert($this->_left_operand instanceof EditableNode);
+    return $this->_left_operand;
   }
 
   /**
-   * @returns CollectionLiteralExpression | LiteralExpression |
+   * @return CollectionLiteralExpression | LiteralExpression |
    * MemberSelectionExpression | ParenthesizedExpression | TupleExpression |
    * VariableExpression
    */
@@ -157,14 +158,15 @@ final class AsExpression extends EditableNode {
   }
 
   /**
-   * @returns AsToken
+   * @return AsToken
    */
   public function getOperator(): AsToken {
-    return TypeAssert\instance_of(AsToken::class, $this->_operator);
+    \assert($this->_operator instanceof AsToken);
+    return $this->_operator;
   }
 
   /**
-   * @returns AsToken
+   * @return AsToken
    */
   public function getOperatorx(): AsToken {
     return $this->getOperator();
@@ -189,15 +191,16 @@ final class AsExpression extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | NullableTypeSpecifier | ShapeTypeSpecifier
+   * @return ClosureTypeSpecifier | NullableTypeSpecifier | ShapeTypeSpecifier
    * | SimpleTypeSpecifier | SoftTypeSpecifier | TupleTypeSpecifier
    */
   public function getRightOperand(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_operand);
+    \assert($this->_right_operand instanceof EditableNode);
+    return $this->_right_operand;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | NullableTypeSpecifier | ShapeTypeSpecifier
+   * @return ClosureTypeSpecifier | NullableTypeSpecifier | ShapeTypeSpecifier
    * | SimpleTypeSpecifier | SoftTypeSpecifier | TupleTypeSpecifier
    */
   public function getRightOperandx(): EditableNode {

@@ -324,20 +324,22 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getAttributeSpec(): ?EditableNode {
     if ($this->_attribute_spec->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_attribute_spec);
+    \assert($this->_attribute_spec instanceof EditableNode);
+    return $this->_attribute_spec;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getAttributeSpecx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_attribute_spec);
+    \assert($this->_attribute_spec instanceof EditableNode);
+    return $this->_attribute_spec;
   }
 
   public function getStaticKeywordUNTYPED(): EditableNode {
@@ -373,20 +375,22 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getStaticKeyword(): ?EditableNode {
     if ($this->_static_keyword->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_static_keyword);
+    \assert($this->_static_keyword instanceof EditableNode);
+    return $this->_static_keyword;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getStaticKeywordx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_static_keyword);
+    \assert($this->_static_keyword instanceof EditableNode);
+    return $this->_static_keyword;
   }
 
   public function getAsyncKeywordUNTYPED(): EditableNode {
@@ -422,20 +426,22 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getAsyncKeyword(): ?EditableNode {
     if ($this->_async_keyword->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_async_keyword);
+    \assert($this->_async_keyword instanceof EditableNode);
+    return $this->_async_keyword;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getAsyncKeywordx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_async_keyword);
+    \assert($this->_async_keyword instanceof EditableNode);
+    return $this->_async_keyword;
   }
 
   public function getCoroutineKeywordUNTYPED(): EditableNode {
@@ -471,7 +477,7 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getCoroutineKeyword(): ?EditableNode {
     if ($this->_coroutine_keyword->isMissing()) {
@@ -482,7 +488,7 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getCoroutineKeywordx(): EditableNode {
     return
@@ -522,7 +528,7 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns FunctionToken
+   * @return FunctionToken
    */
   public function getFunctionKeyword(): FunctionToken {
     return
@@ -530,7 +536,7 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns FunctionToken
+   * @return FunctionToken
    */
   public function getFunctionKeywordx(): FunctionToken {
     return $this->getFunctionKeyword();
@@ -569,20 +575,22 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getAmpersand(): ?EditableNode {
     if ($this->_ampersand->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_ampersand);
+    \assert($this->_ampersand instanceof EditableNode);
+    return $this->_ampersand;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getAmpersandx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_ampersand);
+    \assert($this->_ampersand instanceof EditableNode);
+    return $this->_ampersand;
   }
 
   public function getLeftParenUNTYPED(): EditableNode {
@@ -618,14 +626,15 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -664,20 +673,22 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getParameters(): ?EditableNode {
     if ($this->_parameters->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_parameters);
+    \assert($this->_parameters instanceof EditableNode);
+    return $this->_parameters;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getParametersx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_parameters);
+    \assert($this->_parameters instanceof EditableNode);
+    return $this->_parameters;
   }
 
   public function getRightParenUNTYPED(): EditableNode {
@@ -713,14 +724,15 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();
@@ -759,7 +771,7 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunctionUseClause
+   * @return AnonymousFunctionUseClause
    */
   public function getUse(): AnonymousFunctionUseClause {
     return
@@ -767,7 +779,7 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunctionUseClause
+   * @return AnonymousFunctionUseClause
    */
   public function getUsex(): AnonymousFunctionUseClause {
     return $this->getUse();
@@ -806,14 +818,15 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getColon(): ColonToken {
-    return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+    \assert($this->_colon instanceof ColonToken);
+    return $this->_colon;
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getColonx(): ColonToken {
     return $this->getColon();
@@ -852,14 +865,15 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getType(): SimpleTypeSpecifier {
-    return TypeAssert\instance_of(SimpleTypeSpecifier::class, $this->_type);
+    \assert($this->_type instanceof SimpleTypeSpecifier);
+    return $this->_type;
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getTypex(): SimpleTypeSpecifier {
     return $this->getType();
@@ -898,14 +912,15 @@ final class Php7AnonymousFunction extends EditableNode {
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getBody(): CompoundStatement {
-    return TypeAssert\instance_of(CompoundStatement::class, $this->_body);
+    \assert($this->_body instanceof CompoundStatement);
+    return $this->_body;
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getBodyx(): CompoundStatement {
     return $this->getBody();

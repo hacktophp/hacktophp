@@ -159,14 +159,15 @@ final class TraitUseConflictResolution extends EditableNode {
   }
 
   /**
-   * @returns UseToken
+   * @return UseToken
    */
   public function getKeyword(): UseToken {
-    return TypeAssert\instance_of(UseToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof UseToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns UseToken
+   * @return UseToken
    */
   public function getKeywordx(): UseToken {
     return $this->getKeyword();
@@ -200,7 +201,8 @@ final class TraitUseConflictResolution extends EditableNode {
    * @return EditableList<SimpleTypeSpecifier>
    */
   public function getNames(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_names);
+    \assert($this->_names instanceof EditableList);
+    return $this->_names;
   }
 
   /**
@@ -235,14 +237,15 @@ final class TraitUseConflictResolution extends EditableNode {
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBrace(): LeftBraceToken {
-    return TypeAssert\instance_of(LeftBraceToken::class, $this->_left_brace);
+    \assert($this->_left_brace instanceof LeftBraceToken);
+    return $this->_left_brace;
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBracex(): LeftBraceToken {
     return $this->getLeftBrace();
@@ -274,13 +277,14 @@ final class TraitUseConflictResolution extends EditableNode {
 
   /**
    * @return EditableList<TraitUseAliasItem> | EditableList<EditableNode> |
-   * EditableList<TraitUsePrecedenceItem> | Missing
+   * EditableList<TraitUsePrecedenceItem> | null
    */
   public function getClauses(): ?EditableList {
     if ($this->_clauses->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_clauses);
+    \assert($this->_clauses instanceof EditableList);
+    return $this->_clauses;
   }
 
   /**
@@ -288,7 +292,8 @@ final class TraitUseConflictResolution extends EditableNode {
    * EditableList<TraitUsePrecedenceItem>
    */
   public function getClausesx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_clauses);
+    \assert($this->_clauses instanceof EditableList);
+    return $this->_clauses;
   }
 
   public function getRightBraceUNTYPED(): EditableNode {
@@ -316,14 +321,15 @@ final class TraitUseConflictResolution extends EditableNode {
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBrace(): RightBraceToken {
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBracex(): RightBraceToken {
     return $this->getRightBrace();

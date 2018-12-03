@@ -124,7 +124,8 @@ final class SwitchSection extends EditableNode {
    * @return EditableList<EditableNode>
    */
   public function getLabels(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_labels);
+    \assert($this->_labels instanceof EditableList);
+    return $this->_labels;
   }
 
   /**
@@ -159,14 +160,16 @@ final class SwitchSection extends EditableNode {
     if ($this->_statements->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_statements);
+    \assert($this->_statements instanceof EditableList);
+    return $this->_statements;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getStatementsx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_statements);
+    \assert($this->_statements instanceof EditableList);
+    return $this->_statements;
   }
 
   public function getFallthroughUNTYPED(): EditableNode {
@@ -188,7 +191,7 @@ final class SwitchSection extends EditableNode {
   }
 
   /**
-   * @returns Missing | SwitchFallthrough
+   * @return null | SwitchFallthrough
    */
   public function getFallthrough(): ?SwitchFallthrough {
     if ($this->_fallthrough->isMissing()) {
@@ -199,7 +202,7 @@ final class SwitchSection extends EditableNode {
   }
 
   /**
-   * @returns SwitchFallthrough
+   * @return SwitchFallthrough
    */
   public function getFallthroughx(): SwitchFallthrough {
     return

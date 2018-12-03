@@ -121,14 +121,15 @@ final class XHPClassAttributeDeclaration extends EditableNode {
   }
 
   /**
-   * @returns AttributeToken
+   * @return AttributeToken
    */
   public function getKeyword(): AttributeToken {
-    return TypeAssert\instance_of(AttributeToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof AttributeToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns AttributeToken
+   * @return AttributeToken
    */
   public function getKeywordx(): AttributeToken {
     return $this->getKeyword();
@@ -157,7 +158,8 @@ final class XHPClassAttributeDeclaration extends EditableNode {
    * EditableList<XHPSimpleClassAttribute>
    */
   public function getAttributes(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_attributes);
+    \assert($this->_attributes instanceof EditableList);
+    return $this->_attributes;
   }
 
   /**
@@ -187,14 +189,15 @@ final class XHPClassAttributeDeclaration extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

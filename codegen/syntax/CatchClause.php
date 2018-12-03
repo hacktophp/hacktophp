@@ -178,14 +178,15 @@ final class CatchClause extends EditableNode {
   }
 
   /**
-   * @returns CatchToken
+   * @return CatchToken
    */
   public function getKeyword(): CatchToken {
-    return TypeAssert\instance_of(CatchToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof CatchToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns CatchToken
+   * @return CatchToken
    */
   public function getKeywordx(): CatchToken {
     return $this->getKeyword();
@@ -217,14 +218,15 @@ final class CatchClause extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -256,14 +258,15 @@ final class CatchClause extends EditableNode {
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getType(): SimpleTypeSpecifier {
-    return TypeAssert\instance_of(SimpleTypeSpecifier::class, $this->_type);
+    \assert($this->_type instanceof SimpleTypeSpecifier);
+    return $this->_type;
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getTypex(): SimpleTypeSpecifier {
     return $this->getType();
@@ -295,14 +298,15 @@ final class CatchClause extends EditableNode {
   }
 
   /**
-   * @returns NameToken | VariableToken
+   * @return NameToken | VariableToken
    */
   public function getVariable(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_variable);
+    \assert($this->_variable instanceof EditableToken);
+    return $this->_variable;
   }
 
   /**
-   * @returns NameToken | VariableToken
+   * @return NameToken | VariableToken
    */
   public function getVariablex(): EditableToken {
     return $this->getVariable();
@@ -334,14 +338,15 @@ final class CatchClause extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();
@@ -373,14 +378,15 @@ final class CatchClause extends EditableNode {
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getBody(): CompoundStatement {
-    return TypeAssert\instance_of(CompoundStatement::class, $this->_body);
+    \assert($this->_body instanceof CompoundStatement);
+    return $this->_body;
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getBodyx(): CompoundStatement {
     return $this->getBody();

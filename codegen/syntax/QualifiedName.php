@@ -88,7 +88,8 @@ final class QualifiedName extends EditableNode {
    * @return EditableList<?NameToken>
    */
   public function getParts(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_parts);
+    \assert($this->_parts instanceof EditableList);
+    return $this->_parts;
   }
 
   /**

@@ -85,14 +85,15 @@ final class XHPSimpleClassAttribute extends EditableNode {
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getType(): SimpleTypeSpecifier {
-    return TypeAssert\instance_of(SimpleTypeSpecifier::class, $this->_type);
+    \assert($this->_type instanceof SimpleTypeSpecifier);
+    return $this->_type;
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getTypex(): SimpleTypeSpecifier {
     return $this->getType();

@@ -85,14 +85,15 @@ final class LiteralExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getExpression(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getExpressionx(): EditableNode {
     return $this->getExpression();

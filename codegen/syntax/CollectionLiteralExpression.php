@@ -142,14 +142,15 @@ final class CollectionLiteralExpression extends EditableNode {
   }
 
   /**
-   * @returns GenericTypeSpecifier | SimpleTypeSpecifier
+   * @return GenericTypeSpecifier | SimpleTypeSpecifier
    */
   public function getName(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_name);
+    \assert($this->_name instanceof EditableNode);
+    return $this->_name;
   }
 
   /**
-   * @returns GenericTypeSpecifier | SimpleTypeSpecifier
+   * @return GenericTypeSpecifier | SimpleTypeSpecifier
    */
   public function getNamex(): EditableNode {
     return $this->getName();
@@ -179,14 +180,15 @@ final class CollectionLiteralExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBrace(): LeftBraceToken {
-    return TypeAssert\instance_of(LeftBraceToken::class, $this->_left_brace);
+    \assert($this->_left_brace instanceof LeftBraceToken);
+    return $this->_left_brace;
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBracex(): LeftBraceToken {
     return $this->getLeftBrace();
@@ -223,13 +225,14 @@ final class CollectionLiteralExpression extends EditableNode {
    * EditableList<SubscriptExpression> | EditableList<EditableToken> |
    * EditableList<NameToken> | EditableList<ReturnToken> |
    * EditableList<TupleExpression> | EditableList<VariableExpression> |
-   * EditableList<VarrayIntrinsicExpression> | Missing
+   * EditableList<VarrayIntrinsicExpression> | null
    */
   public function getInitializers(): ?EditableList {
     if ($this->_initializers->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_initializers);
+    \assert($this->_initializers instanceof EditableList);
+    return $this->_initializers;
   }
 
   /**
@@ -247,7 +250,8 @@ final class CollectionLiteralExpression extends EditableNode {
    * EditableList<VarrayIntrinsicExpression>
    */
   public function getInitializersx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_initializers);
+    \assert($this->_initializers instanceof EditableList);
+    return $this->_initializers;
   }
 
   public function getRightBraceUNTYPED(): EditableNode {
@@ -274,19 +278,21 @@ final class CollectionLiteralExpression extends EditableNode {
   }
 
   /**
-   * @returns Missing | RightBraceToken
+   * @return null | RightBraceToken
    */
   public function getRightBrace(): ?RightBraceToken {
     if ($this->_right_brace->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBracex(): RightBraceToken {
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 }

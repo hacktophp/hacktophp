@@ -138,14 +138,15 @@ final class XHPOpen extends EditableNode {
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAngle(): LessThanToken {
-    return TypeAssert\instance_of(LessThanToken::class, $this->_left_angle);
+    \assert($this->_left_angle instanceof LessThanToken);
+    return $this->_left_angle;
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAnglex(): LessThanToken {
     return $this->getLeftAngle();
@@ -175,14 +176,15 @@ final class XHPOpen extends EditableNode {
   }
 
   /**
-   * @returns XHPElementNameToken
+   * @return XHPElementNameToken
    */
   public function getName(): XHPElementNameToken {
-    return TypeAssert\instance_of(XHPElementNameToken::class, $this->_name);
+    \assert($this->_name instanceof XHPElementNameToken);
+    return $this->_name;
   }
 
   /**
-   * @returns XHPElementNameToken
+   * @return XHPElementNameToken
    */
   public function getNamex(): XHPElementNameToken {
     return $this->getName();
@@ -214,14 +216,16 @@ final class XHPOpen extends EditableNode {
     if ($this->_attributes->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_attributes);
+    \assert($this->_attributes instanceof EditableList);
+    return $this->_attributes;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getAttributesx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_attributes);
+    \assert($this->_attributes instanceof EditableList);
+    return $this->_attributes;
   }
 
   public function getRightAngleUNTYPED(): EditableNode {
@@ -244,19 +248,21 @@ final class XHPOpen extends EditableNode {
   }
 
   /**
-   * @returns Missing | SlashGreaterThanToken | GreaterThanToken
+   * @return null | SlashGreaterThanToken | GreaterThanToken
    */
   public function getRightAngle(): ?EditableToken {
     if ($this->_right_angle->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof EditableToken);
+    return $this->_right_angle;
   }
 
   /**
-   * @returns SlashGreaterThanToken | GreaterThanToken
+   * @return SlashGreaterThanToken | GreaterThanToken
    */
   public function getRightAnglex(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof EditableToken);
+    return $this->_right_angle;
   }
 }

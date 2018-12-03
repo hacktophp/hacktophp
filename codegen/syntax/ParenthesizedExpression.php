@@ -121,14 +121,15 @@ final class ParenthesizedExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -153,7 +154,7 @@ final class ParenthesizedExpression extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
+   * @return AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
    * CastExpression | CollectionLiteralExpression | ConditionalExpression |
    * EmptyExpression | FunctionCallExpression | InclusionExpression |
    * InstanceofExpression | IssetExpression | LambdaExpression |
@@ -164,11 +165,12 @@ final class ParenthesizedExpression extends EditableNode {
    * | XHPExpression | YieldExpression
    */
   public function getExpression(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   /**
-   * @returns AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
+   * @return AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
    * CastExpression | CollectionLiteralExpression | ConditionalExpression |
    * EmptyExpression | FunctionCallExpression | InclusionExpression |
    * InstanceofExpression | IssetExpression | LambdaExpression |
@@ -201,19 +203,21 @@ final class ParenthesizedExpression extends EditableNode {
   }
 
   /**
-   * @returns Missing | RightParenToken
+   * @return null | RightParenToken
    */
   public function getRightParen(): ?RightParenToken {
     if ($this->_right_paren->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 }

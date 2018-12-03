@@ -142,14 +142,15 @@ final class IssetExpression extends EditableNode {
   }
 
   /**
-   * @returns IssetToken
+   * @return IssetToken
    */
   public function getKeyword(): IssetToken {
-    return TypeAssert\instance_of(IssetToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof IssetToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns IssetToken
+   * @return IssetToken
    */
   public function getKeywordx(): IssetToken {
     return $this->getKeyword();
@@ -179,14 +180,15 @@ final class IssetExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -224,7 +226,8 @@ final class IssetExpression extends EditableNode {
    * EditableList<SubscriptExpression> | EditableList<VariableExpression>
    */
   public function getArgumentList(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_argument_list);
+    \assert($this->_argument_list instanceof EditableList);
+    return $this->_argument_list;
   }
 
   /**
@@ -263,14 +266,15 @@ final class IssetExpression extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();

@@ -104,14 +104,15 @@ final class DecoratedExpression extends EditableNode {
   }
 
   /**
-   * @returns AmpersandToken | DotDotDotToken | InoutToken
+   * @return AmpersandToken | DotDotDotToken | InoutToken
    */
   public function getDecorator(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_decorator);
+    \assert($this->_decorator instanceof EditableToken);
+    return $this->_decorator;
   }
 
   /**
-   * @returns AmpersandToken | DotDotDotToken | InoutToken
+   * @return AmpersandToken | DotDotDotToken | InoutToken
    */
   public function getDecoratorx(): EditableToken {
     return $this->getDecorator();
@@ -136,16 +137,17 @@ final class DecoratedExpression extends EditableNode {
   }
 
   /**
-   * @returns ArrayCreationExpression | ArrayIntrinsicExpression |
+   * @return ArrayCreationExpression | ArrayIntrinsicExpression |
    * DecoratedExpression | FunctionCallExpression | ScopeResolutionExpression |
    * SubscriptExpression | VariableToken | VariableExpression
    */
   public function getExpression(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   /**
-   * @returns ArrayCreationExpression | ArrayIntrinsicExpression |
+   * @return ArrayCreationExpression | ArrayIntrinsicExpression |
    * DecoratedExpression | FunctionCallExpression | ScopeResolutionExpression |
    * SubscriptExpression | VariableToken | VariableExpression
    */

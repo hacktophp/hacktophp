@@ -121,14 +121,15 @@ final class TypeConstant extends EditableNode {
   }
 
   /**
-   * @returns NameToken | ParentToken | SelfToken | ThisToken | TypeConstant
+   * @return NameToken | ParentToken | SelfToken | ThisToken | TypeConstant
    */
   public function getLeftType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_left_type);
+    \assert($this->_left_type instanceof EditableNode);
+    return $this->_left_type;
   }
 
   /**
-   * @returns NameToken | ParentToken | SelfToken | ThisToken | TypeConstant
+   * @return NameToken | ParentToken | SelfToken | ThisToken | TypeConstant
    */
   public function getLeftTypex(): EditableNode {
     return $this->getLeftType();
@@ -153,14 +154,15 @@ final class TypeConstant extends EditableNode {
   }
 
   /**
-   * @returns ColonColonToken
+   * @return ColonColonToken
    */
   public function getSeparator(): ColonColonToken {
-    return TypeAssert\instance_of(ColonColonToken::class, $this->_separator);
+    \assert($this->_separator instanceof ColonColonToken);
+    return $this->_separator;
   }
 
   /**
-   * @returns ColonColonToken
+   * @return ColonColonToken
    */
   public function getSeparatorx(): ColonColonToken {
     return $this->getSeparator();
@@ -185,14 +187,15 @@ final class TypeConstant extends EditableNode {
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getRightType(): NameToken {
-    return TypeAssert\instance_of(NameToken::class, $this->_right_type);
+    \assert($this->_right_type instanceof NameToken);
+    return $this->_right_type;
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getRightTypex(): NameToken {
     return $this->getRightType();

@@ -99,14 +99,15 @@ final class SimpleInitializer extends EditableNode {
   }
 
   /**
-   * @returns EqualToken
+   * @return EqualToken
    */
   public function getEqual(): EqualToken {
-    return TypeAssert\instance_of(EqualToken::class, $this->_equal);
+    \assert($this->_equal instanceof EqualToken);
+    return $this->_equal;
   }
 
   /**
-   * @returns EqualToken
+   * @return EqualToken
    */
   public function getEqualx(): EqualToken {
     return $this->getEqual();
@@ -131,7 +132,7 @@ final class SimpleInitializer extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
    * CollectionLiteralExpression | ConditionalExpression |
    * DarrayIntrinsicExpression | DictionaryIntrinsicExpression |
@@ -143,11 +144,12 @@ final class SimpleInitializer extends EditableNode {
    * | XHPExpression
    */
   public function getValue(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_value);
+    \assert($this->_value instanceof EditableNode);
+    return $this->_value;
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
    * CollectionLiteralExpression | ConditionalExpression |
    * DarrayIntrinsicExpression | DictionaryIntrinsicExpression |

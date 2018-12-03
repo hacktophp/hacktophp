@@ -121,14 +121,15 @@ final class XHPChildrenParenthesizedList extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getLeftParen(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof EditableNode);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getLeftParenx(): EditableNode {
     return $this->getLeftParen();
@@ -153,14 +154,15 @@ final class XHPChildrenParenthesizedList extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getXhpChildren(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_xhp_children);
+    \assert($this->_xhp_children instanceof EditableNode);
+    return $this->_xhp_children;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getXhpChildrenx(): EditableNode {
     return $this->getXhpChildren();
@@ -185,14 +187,15 @@ final class XHPChildrenParenthesizedList extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getRightParen(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof EditableNode);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getRightParenx(): EditableNode {
     return $this->getRightParen();

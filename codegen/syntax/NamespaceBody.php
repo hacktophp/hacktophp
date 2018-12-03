@@ -121,14 +121,15 @@ final class NamespaceBody extends EditableNode {
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBrace(): LeftBraceToken {
-    return TypeAssert\instance_of(LeftBraceToken::class, $this->_left_brace);
+    \assert($this->_left_brace instanceof LeftBraceToken);
+    return $this->_left_brace;
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBracex(): LeftBraceToken {
     return $this->getLeftBrace();
@@ -159,14 +160,16 @@ final class NamespaceBody extends EditableNode {
     if ($this->_declarations->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_declarations);
+    \assert($this->_declarations instanceof EditableList);
+    return $this->_declarations;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getDeclarationsx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_declarations);
+    \assert($this->_declarations instanceof EditableList);
+    return $this->_declarations;
   }
 
   public function getRightBraceUNTYPED(): EditableNode {
@@ -188,19 +191,21 @@ final class NamespaceBody extends EditableNode {
   }
 
   /**
-   * @returns Missing | RightBraceToken
+   * @return null | RightBraceToken
    */
   public function getRightBrace(): ?RightBraceToken {
     if ($this->_right_brace->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBracex(): RightBraceToken {
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 }

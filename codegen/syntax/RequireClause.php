@@ -137,14 +137,15 @@ final class RequireClause extends EditableNode {
   }
 
   /**
-   * @returns RequireToken
+   * @return RequireToken
    */
   public function getKeyword(): RequireToken {
-    return TypeAssert\instance_of(RequireToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof RequireToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns RequireToken
+   * @return RequireToken
    */
   public function getKeywordx(): RequireToken {
     return $this->getKeyword();
@@ -169,14 +170,15 @@ final class RequireClause extends EditableNode {
   }
 
   /**
-   * @returns ExtendsToken | ImplementsToken
+   * @return ExtendsToken | ImplementsToken
    */
   public function getKind(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_kind);
+    \assert($this->_kind instanceof EditableToken);
+    return $this->_kind;
   }
 
   /**
-   * @returns ExtendsToken | ImplementsToken
+   * @return ExtendsToken | ImplementsToken
    */
   public function getKindx(): EditableToken {
     return $this->getKind();
@@ -201,14 +203,15 @@ final class RequireClause extends EditableNode {
   }
 
   /**
-   * @returns GenericTypeSpecifier | SimpleTypeSpecifier
+   * @return GenericTypeSpecifier | SimpleTypeSpecifier
    */
   public function getName(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_name);
+    \assert($this->_name instanceof EditableNode);
+    return $this->_name;
   }
 
   /**
-   * @returns GenericTypeSpecifier | SimpleTypeSpecifier
+   * @return GenericTypeSpecifier | SimpleTypeSpecifier
    */
   public function getNamex(): EditableNode {
     return $this->getName();
@@ -233,14 +236,15 @@ final class RequireClause extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

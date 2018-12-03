@@ -99,14 +99,15 @@ final class YieldExpression extends EditableNode {
   }
 
   /**
-   * @returns YieldToken
+   * @return YieldToken
    */
   public function getKeyword(): YieldToken {
-    return TypeAssert\instance_of(YieldToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof YieldToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns YieldToken
+   * @return YieldToken
    */
   public function getKeywordx(): YieldToken {
     return $this->getKeyword();
@@ -131,7 +132,7 @@ final class YieldExpression extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | BinaryExpression | ElementInitializer |
+   * @return AnonymousFunction | BinaryExpression | ElementInitializer |
    * FunctionCallExpression | LambdaExpression | LiteralExpression |
    * MemberSelectionExpression | Missing | ObjectCreationExpression |
    * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
@@ -142,11 +143,12 @@ final class YieldExpression extends EditableNode {
     if ($this->_operand->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_operand);
+    \assert($this->_operand instanceof EditableNode);
+    return $this->_operand;
   }
 
   /**
-   * @returns AnonymousFunction | BinaryExpression | ElementInitializer |
+   * @return AnonymousFunction | BinaryExpression | ElementInitializer |
    * FunctionCallExpression | LambdaExpression | LiteralExpression |
    * MemberSelectionExpression | ObjectCreationExpression |
    * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
@@ -154,6 +156,7 @@ final class YieldExpression extends EditableNode {
    * VariableExpression
    */
   public function getOperandx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_operand);
+    \assert($this->_operand instanceof EditableNode);
+    return $this->_operand;
   }
 }

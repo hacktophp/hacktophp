@@ -249,7 +249,7 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getOuterLeftParen(): LeftParenToken {
     return
@@ -257,7 +257,7 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getOuterLeftParenx(): LeftParenToken {
     return $this->getOuterLeftParen();
@@ -292,20 +292,22 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns Missing | CoroutineToken
+   * @return null | CoroutineToken
    */
   public function getCoroutine(): ?CoroutineToken {
     if ($this->_coroutine->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(CoroutineToken::class, $this->_coroutine);
+    \assert($this->_coroutine instanceof CoroutineToken);
+    return $this->_coroutine;
   }
 
   /**
-   * @returns CoroutineToken
+   * @return CoroutineToken
    */
   public function getCoroutinex(): CoroutineToken {
-    return TypeAssert\instance_of(CoroutineToken::class, $this->_coroutine);
+    \assert($this->_coroutine instanceof CoroutineToken);
+    return $this->_coroutine;
   }
 
   public function getFunctionKeywordUNTYPED(): EditableNode {
@@ -337,7 +339,7 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns FunctionToken
+   * @return FunctionToken
    */
   public function getFunctionKeyword(): FunctionToken {
     return
@@ -345,7 +347,7 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns FunctionToken
+   * @return FunctionToken
    */
   public function getFunctionKeywordx(): FunctionToken {
     return $this->getFunctionKeyword();
@@ -380,7 +382,7 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getInnerLeftParen(): LeftParenToken {
     return
@@ -388,7 +390,7 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getInnerLeftParenx(): LeftParenToken {
     return $this->getInnerLeftParen();
@@ -424,13 +426,14 @@ final class ClosureTypeSpecifier extends EditableNode {
 
   /**
    * @return EditableList<ClosureParameterTypeSpecifier> |
-   * EditableList<EditableNode> | EditableList<VariadicParameter> | Missing
+   * EditableList<EditableNode> | EditableList<VariadicParameter> | null
    */
   public function getParameterList(): ?EditableList {
     if ($this->_parameter_list->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_parameter_list);
+    \assert($this->_parameter_list instanceof EditableList);
+    return $this->_parameter_list;
   }
 
   /**
@@ -438,7 +441,8 @@ final class ClosureTypeSpecifier extends EditableNode {
    * EditableList<EditableNode> | EditableList<VariadicParameter>
    */
   public function getParameterListx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_parameter_list);
+    \assert($this->_parameter_list instanceof EditableList);
+    return $this->_parameter_list;
   }
 
   public function getInnerRightParenUNTYPED(): EditableNode {
@@ -470,7 +474,7 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getInnerRightParen(): RightParenToken {
     return
@@ -478,7 +482,7 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getInnerRightParenx(): RightParenToken {
     return $this->getInnerRightParen();
@@ -513,14 +517,15 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getColon(): ColonToken {
-    return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+    \assert($this->_colon instanceof ColonToken);
+    return $this->_colon;
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getColonx(): ColonToken {
     return $this->getColon();
@@ -555,15 +560,16 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | GenericTypeSpecifier |
+   * @return ClosureTypeSpecifier | GenericTypeSpecifier |
    * NullableTypeSpecifier | SimpleTypeSpecifier
    */
   public function getReturnType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_return_type);
+    \assert($this->_return_type instanceof EditableNode);
+    return $this->_return_type;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | GenericTypeSpecifier |
+   * @return ClosureTypeSpecifier | GenericTypeSpecifier |
    * NullableTypeSpecifier | SimpleTypeSpecifier
    */
   public function getReturnTypex(): EditableNode {
@@ -599,7 +605,7 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getOuterRightParen(): RightParenToken {
     return
@@ -607,7 +613,7 @@ final class ClosureTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getOuterRightParenx(): RightParenToken {
     return $this->getOuterRightParen();

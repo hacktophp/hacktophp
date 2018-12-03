@@ -99,14 +99,15 @@ final class TypeConstraint extends EditableNode {
   }
 
   /**
-   * @returns AsToken | SuperToken
+   * @return AsToken | SuperToken
    */
   public function getKeyword(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof EditableToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns AsToken | SuperToken
+   * @return AsToken | SuperToken
    */
   public function getKeywordx(): EditableToken {
     return $this->getKeyword();
@@ -131,17 +132,18 @@ final class TypeConstraint extends EditableNode {
   }
 
   /**
-   * @returns ClassnameTypeSpecifier | ClosureTypeSpecifier |
+   * @return ClassnameTypeSpecifier | ClosureTypeSpecifier |
    * DictionaryTypeSpecifier | GenericTypeSpecifier | KeysetTypeSpecifier |
    * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
    * TypeConstant | VectorArrayTypeSpecifier | VectorTypeSpecifier
    */
   public function getType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns ClassnameTypeSpecifier | ClosureTypeSpecifier |
+   * @return ClassnameTypeSpecifier | ClosureTypeSpecifier |
    * DictionaryTypeSpecifier | GenericTypeSpecifier | KeysetTypeSpecifier |
    * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
    * TypeConstant | VectorArrayTypeSpecifier | VectorTypeSpecifier

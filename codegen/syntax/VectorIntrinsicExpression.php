@@ -171,14 +171,15 @@ final class VectorIntrinsicExpression extends EditableNode {
   }
 
   /**
-   * @returns VecToken
+   * @return VecToken
    */
   public function getKeyword(): VecToken {
-    return TypeAssert\instance_of(VecToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof VecToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns VecToken
+   * @return VecToken
    */
   public function getKeywordx(): VecToken {
     return $this->getKeyword();
@@ -209,20 +210,22 @@ final class VectorIntrinsicExpression extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getExplicitType(): ?EditableNode {
     if ($this->_explicit_type->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_explicit_type);
+    \assert($this->_explicit_type instanceof EditableNode);
+    return $this->_explicit_type;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getExplicitTypex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_explicit_type);
+    \assert($this->_explicit_type instanceof EditableNode);
+    return $this->_explicit_type;
   }
 
   public function getLeftBracketUNTYPED(): EditableNode {
@@ -250,7 +253,7 @@ final class VectorIntrinsicExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftBracketToken
+   * @return LeftBracketToken
    */
   public function getLeftBracket(): LeftBracketToken {
     return
@@ -258,7 +261,7 @@ final class VectorIntrinsicExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftBracketToken
+   * @return LeftBracketToken
    */
   public function getLeftBracketx(): LeftBracketToken {
     return $this->getLeftBracket();
@@ -299,13 +302,14 @@ final class VectorIntrinsicExpression extends EditableNode {
    * EditableList<ScopeResolutionExpression> | EditableList<ShapeExpression> |
    * EditableList<NameToken> | EditableList<TupleExpression> |
    * EditableList<VariableExpression> | EditableList<VectorIntrinsicExpression>
-   * | EditableList<XHPExpression> | Missing
+   * | EditableList<XHPExpression> | null
    */
   public function getMembers(): ?EditableList {
     if ($this->_members->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_members);
+    \assert($this->_members instanceof EditableList);
+    return $this->_members;
   }
 
   /**
@@ -322,7 +326,8 @@ final class VectorIntrinsicExpression extends EditableNode {
    * | EditableList<XHPExpression>
    */
   public function getMembersx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_members);
+    \assert($this->_members instanceof EditableList);
+    return $this->_members;
   }
 
   public function getRightBracketUNTYPED(): EditableNode {
@@ -350,7 +355,7 @@ final class VectorIntrinsicExpression extends EditableNode {
   }
 
   /**
-   * @returns RightBracketToken
+   * @return RightBracketToken
    */
   public function getRightBracket(): RightBracketToken {
     return
@@ -358,7 +363,7 @@ final class VectorIntrinsicExpression extends EditableNode {
   }
 
   /**
-   * @returns RightBracketToken
+   * @return RightBracketToken
    */
   public function getRightBracketx(): RightBracketToken {
     return $this->getRightBracket();

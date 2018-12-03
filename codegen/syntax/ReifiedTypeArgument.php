@@ -99,14 +99,15 @@ final class ReifiedTypeArgument extends EditableNode {
   }
 
   /**
-   * @returns ReifiedToken
+   * @return ReifiedToken
    */
   public function getReified(): ReifiedToken {
-    return TypeAssert\instance_of(ReifiedToken::class, $this->_reified);
+    \assert($this->_reified instanceof ReifiedToken);
+    return $this->_reified;
   }
 
   /**
-   * @returns ReifiedToken
+   * @return ReifiedToken
    */
   public function getReifiedx(): ReifiedToken {
     return $this->getReified();
@@ -131,14 +132,15 @@ final class ReifiedTypeArgument extends EditableNode {
   }
 
   /**
-   * @returns SimpleTypeSpecifier | TupleTypeSpecifier | TypeConstant
+   * @return SimpleTypeSpecifier | TupleTypeSpecifier | TypeConstant
    */
   public function getType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns SimpleTypeSpecifier | TupleTypeSpecifier | TypeConstant
+   * @return SimpleTypeSpecifier | TupleTypeSpecifier | TypeConstant
    */
   public function getTypex(): EditableNode {
     return $this->getType();

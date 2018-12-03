@@ -155,14 +155,15 @@ abstract class AlternateLoopStatementGeneratedBase
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getOpeningColon(): ColonToken {
-    return TypeAssert\instance_of(ColonToken::class, $this->_opening_colon);
+    \assert($this->_opening_colon instanceof ColonToken);
+    return $this->_opening_colon;
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getOpeningColonx(): ColonToken {
     return $this->getOpeningColon();
@@ -195,7 +196,8 @@ abstract class AlternateLoopStatementGeneratedBase
    * @return EditableList<EditableNode>
    */
   public function getStatements(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_statements);
+    \assert($this->_statements instanceof EditableList);
+    return $this->_statements;
   }
 
   /**
@@ -229,7 +231,7 @@ abstract class AlternateLoopStatementGeneratedBase
   }
 
   /**
-   * @returns EnddeclareToken | EndforToken | EndforeachToken | EndwhileToken
+   * @return EnddeclareToken | EndforToken | EndforeachToken | EndwhileToken
    */
   public function getClosingKeyword(): EditableToken {
     return
@@ -237,7 +239,7 @@ abstract class AlternateLoopStatementGeneratedBase
   }
 
   /**
-   * @returns EnddeclareToken | EndforToken | EndforeachToken | EndwhileToken
+   * @return EnddeclareToken | EndforToken | EndforeachToken | EndwhileToken
    */
   public function getClosingKeywordx(): EditableToken {
     return $this->getClosingKeyword();
@@ -267,7 +269,7 @@ abstract class AlternateLoopStatementGeneratedBase
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getClosingSemicolon(): SemicolonToken {
     return
@@ -275,7 +277,7 @@ abstract class AlternateLoopStatementGeneratedBase
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getClosingSemicolonx(): SemicolonToken {
     return $this->getClosingSemicolon();

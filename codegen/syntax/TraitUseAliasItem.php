@@ -142,14 +142,15 @@ final class TraitUseAliasItem extends EditableNode {
   }
 
   /**
-   * @returns ScopeResolutionExpression | SimpleTypeSpecifier
+   * @return ScopeResolutionExpression | SimpleTypeSpecifier
    */
   public function getAliasingName(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_aliasing_name);
+    \assert($this->_aliasing_name instanceof EditableNode);
+    return $this->_aliasing_name;
   }
 
   /**
-   * @returns ScopeResolutionExpression | SimpleTypeSpecifier
+   * @return ScopeResolutionExpression | SimpleTypeSpecifier
    */
   public function getAliasingNamex(): EditableNode {
     return $this->getAliasingName();
@@ -179,14 +180,15 @@ final class TraitUseAliasItem extends EditableNode {
   }
 
   /**
-   * @returns AsToken
+   * @return AsToken
    */
   public function getKeyword(): AsToken {
-    return TypeAssert\instance_of(AsToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof AsToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns AsToken
+   * @return AsToken
    */
   public function getKeywordx(): AsToken {
     return $this->getKeyword();
@@ -222,14 +224,16 @@ final class TraitUseAliasItem extends EditableNode {
     if ($this->_modifiers->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_modifiers);
+    \assert($this->_modifiers instanceof EditableList);
+    return $this->_modifiers;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getModifiersx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_modifiers);
+    \assert($this->_modifiers instanceof EditableList);
+    return $this->_modifiers;
   }
 
   public function getAliasedNameUNTYPED(): EditableNode {
@@ -256,7 +260,7 @@ final class TraitUseAliasItem extends EditableNode {
   }
 
   /**
-   * @returns Missing | SimpleTypeSpecifier
+   * @return null | SimpleTypeSpecifier
    */
   public function getAliasedName(): ?SimpleTypeSpecifier {
     if ($this->_aliased_name->isMissing()) {
@@ -267,7 +271,7 @@ final class TraitUseAliasItem extends EditableNode {
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getAliasedNamex(): SimpleTypeSpecifier {
     return

@@ -121,14 +121,15 @@ final class FunctionStaticStatement extends EditableNode {
   }
 
   /**
-   * @returns StaticToken
+   * @return StaticToken
    */
   public function getStaticKeyword(): StaticToken {
-    return TypeAssert\instance_of(StaticToken::class, $this->_static_keyword);
+    \assert($this->_static_keyword instanceof StaticToken);
+    return $this->_static_keyword;
   }
 
   /**
-   * @returns StaticToken
+   * @return StaticToken
    */
   public function getStaticKeywordx(): StaticToken {
     return $this->getStaticKeyword();
@@ -156,7 +157,8 @@ final class FunctionStaticStatement extends EditableNode {
    * @return EditableList<StaticDeclarator>
    */
   public function getDeclarations(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_declarations);
+    \assert($this->_declarations instanceof EditableList);
+    return $this->_declarations;
   }
 
   /**
@@ -185,14 +187,15 @@ final class FunctionStaticStatement extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

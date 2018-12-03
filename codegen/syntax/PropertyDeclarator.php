@@ -99,14 +99,15 @@ final class PropertyDeclarator extends EditableNode {
   }
 
   /**
-   * @returns VariableToken
+   * @return VariableToken
    */
   public function getName(): VariableToken {
-    return TypeAssert\instance_of(VariableToken::class, $this->_name);
+    \assert($this->_name instanceof VariableToken);
+    return $this->_name;
   }
 
   /**
-   * @returns VariableToken
+   * @return VariableToken
    */
   public function getNamex(): VariableToken {
     return $this->getName();
@@ -131,7 +132,7 @@ final class PropertyDeclarator extends EditableNode {
   }
 
   /**
-   * @returns Missing | SimpleInitializer
+   * @return null | SimpleInitializer
    */
   public function getInitializer(): ?SimpleInitializer {
     if ($this->_initializer->isMissing()) {
@@ -142,7 +143,7 @@ final class PropertyDeclarator extends EditableNode {
   }
 
   /**
-   * @returns SimpleInitializer
+   * @return SimpleInitializer
    */
   public function getInitializerx(): SimpleInitializer {
     return

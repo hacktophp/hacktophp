@@ -121,20 +121,22 @@ final class CompoundStatement extends EditableNode {
   }
 
   /**
-   * @returns Missing | LeftBraceToken
+   * @return null | LeftBraceToken
    */
   public function getLeftBrace(): ?LeftBraceToken {
     if ($this->_left_brace->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(LeftBraceToken::class, $this->_left_brace);
+    \assert($this->_left_brace instanceof LeftBraceToken);
+    return $this->_left_brace;
   }
 
   /**
-   * @returns LeftBraceToken
+   * @return LeftBraceToken
    */
   public function getLeftBracex(): LeftBraceToken {
-    return TypeAssert\instance_of(LeftBraceToken::class, $this->_left_brace);
+    \assert($this->_left_brace instanceof LeftBraceToken);
+    return $this->_left_brace;
   }
 
   public function getStatementsUNTYPED(): EditableNode {
@@ -162,14 +164,16 @@ final class CompoundStatement extends EditableNode {
     if ($this->_statements->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_statements);
+    \assert($this->_statements instanceof EditableList);
+    return $this->_statements;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getStatementsx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_statements);
+    \assert($this->_statements instanceof EditableList);
+    return $this->_statements;
   }
 
   public function getRightBraceUNTYPED(): EditableNode {
@@ -191,19 +195,21 @@ final class CompoundStatement extends EditableNode {
   }
 
   /**
-   * @returns Missing | RightBraceToken
+   * @return null | RightBraceToken
    */
   public function getRightBrace(): ?RightBraceToken {
     if ($this->_right_brace->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 
   /**
-   * @returns RightBraceToken
+   * @return RightBraceToken
    */
   public function getRightBracex(): RightBraceToken {
-    return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof RightBraceToken);
+    return $this->_right_brace;
   }
 }

@@ -161,14 +161,15 @@ final class ClassnameTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns ClassnameToken
+   * @return ClassnameToken
    */
   public function getKeyword(): ClassnameToken {
-    return TypeAssert\instance_of(ClassnameToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof ClassnameToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ClassnameToken
+   * @return ClassnameToken
    */
   public function getKeywordx(): ClassnameToken {
     return $this->getKeyword();
@@ -199,20 +200,22 @@ final class ClassnameTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns Missing | LessThanToken
+   * @return null | LessThanToken
    */
   public function getLeftAngle(): ?LessThanToken {
     if ($this->_left_angle->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(LessThanToken::class, $this->_left_angle);
+    \assert($this->_left_angle instanceof LessThanToken);
+    return $this->_left_angle;
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAnglex(): LessThanToken {
-    return TypeAssert\instance_of(LessThanToken::class, $this->_left_angle);
+    \assert($this->_left_angle instanceof LessThanToken);
+    return $this->_left_angle;
   }
 
   public function getTypeUNTYPED(): EditableNode {
@@ -240,20 +243,22 @@ final class ClassnameTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns Missing | SimpleTypeSpecifier | TypeConstant
+   * @return null | SimpleTypeSpecifier | TypeConstant
    */
   public function getType(): ?EditableNode {
     if ($this->_type->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns SimpleTypeSpecifier | TypeConstant
+   * @return SimpleTypeSpecifier | TypeConstant
    */
   public function getTypex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   public function getTrailingCommaUNTYPED(): EditableNode {
@@ -281,20 +286,22 @@ final class ClassnameTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getTrailingComma(): ?EditableNode {
     if ($this->_trailing_comma->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_trailing_comma);
+    \assert($this->_trailing_comma instanceof EditableNode);
+    return $this->_trailing_comma;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getTrailingCommax(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_trailing_comma);
+    \assert($this->_trailing_comma instanceof EditableNode);
+    return $this->_trailing_comma;
   }
 
   public function getRightAngleUNTYPED(): EditableNode {
@@ -322,19 +329,21 @@ final class ClassnameTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns Missing | GreaterThanToken
+   * @return null | GreaterThanToken
    */
   public function getRightAngle(): ?GreaterThanToken {
     if ($this->_right_angle->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof GreaterThanToken);
+    return $this->_right_angle;
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAnglex(): GreaterThanToken {
-    return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof GreaterThanToken);
+    return $this->_right_angle;
   }
 }

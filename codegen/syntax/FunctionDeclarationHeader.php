@@ -292,14 +292,16 @@ final class FunctionDeclarationHeader extends EditableNode {
     if ($this->_modifiers->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_modifiers);
+    \assert($this->_modifiers instanceof EditableList);
+    return $this->_modifiers;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getModifiersx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_modifiers);
+    \assert($this->_modifiers instanceof EditableList);
+    return $this->_modifiers;
   }
 
   public function getKeywordUNTYPED(): EditableNode {
@@ -333,20 +335,22 @@ final class FunctionDeclarationHeader extends EditableNode {
   }
 
   /**
-   * @returns Missing | FunctionToken
+   * @return null | FunctionToken
    */
   public function getKeyword(): ?FunctionToken {
     if ($this->_keyword->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(FunctionToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof FunctionToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns FunctionToken
+   * @return FunctionToken
    */
   public function getKeywordx(): FunctionToken {
-    return TypeAssert\instance_of(FunctionToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof FunctionToken);
+    return $this->_keyword;
   }
 
   public function getAmpersandUNTYPED(): EditableNode {
@@ -380,20 +384,22 @@ final class FunctionDeclarationHeader extends EditableNode {
   }
 
   /**
-   * @returns Missing | AmpersandToken
+   * @return null | AmpersandToken
    */
   public function getAmpersand(): ?AmpersandToken {
     if ($this->_ampersand->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(AmpersandToken::class, $this->_ampersand);
+    \assert($this->_ampersand instanceof AmpersandToken);
+    return $this->_ampersand;
   }
 
   /**
-   * @returns AmpersandToken
+   * @return AmpersandToken
    */
   public function getAmpersandx(): AmpersandToken {
-    return TypeAssert\instance_of(AmpersandToken::class, $this->_ampersand);
+    \assert($this->_ampersand instanceof AmpersandToken);
+    return $this->_ampersand;
   }
 
   public function getNameUNTYPED(): EditableNode {
@@ -427,14 +433,15 @@ final class FunctionDeclarationHeader extends EditableNode {
   }
 
   /**
-   * @returns ConstructToken | DestructToken | NameToken
+   * @return ConstructToken | DestructToken | NameToken
    */
   public function getName(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_name);
+    \assert($this->_name instanceof EditableToken);
+    return $this->_name;
   }
 
   /**
-   * @returns ConstructToken | DestructToken | NameToken
+   * @return ConstructToken | DestructToken | NameToken
    */
   public function getNamex(): EditableToken {
     return $this->getName();
@@ -471,26 +478,22 @@ final class FunctionDeclarationHeader extends EditableNode {
   }
 
   /**
-   * @returns Missing | TypeParameters
+   * @return null | TypeParameters
    */
   public function getTypeParameterList(): ?TypeParameters {
     if ($this->_type_parameter_list->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(
-      TypeParameters::class,
-      $this->_type_parameter_list
-    );
+    \assert($this->_type_parameter_list instanceof TypeParameters);
+    return $this->_type_parameter_list;
   }
 
   /**
-   * @returns TypeParameters
+   * @return TypeParameters
    */
   public function getTypeParameterListx(): TypeParameters {
-    return TypeAssert\instance_of(
-      TypeParameters::class,
-      $this->_type_parameter_list
-    );
+    \assert($this->_type_parameter_list instanceof TypeParameters);
+    return $this->_type_parameter_list;
   }
 
   public function getLeftParenUNTYPED(): EditableNode {
@@ -524,20 +527,22 @@ final class FunctionDeclarationHeader extends EditableNode {
   }
 
   /**
-   * @returns Missing | LeftParenToken
+   * @return null | LeftParenToken
    */
   public function getLeftParen(): ?LeftParenToken {
     if ($this->_left_paren->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   public function getParameterListUNTYPED(): EditableNode {
@@ -579,7 +584,8 @@ final class FunctionDeclarationHeader extends EditableNode {
     if ($this->_parameter_list->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_parameter_list);
+    \assert($this->_parameter_list instanceof EditableList);
+    return $this->_parameter_list;
   }
 
   /**
@@ -588,7 +594,8 @@ final class FunctionDeclarationHeader extends EditableNode {
    * EditableList<VariadicParameter>
    */
   public function getParameterListx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_parameter_list);
+    \assert($this->_parameter_list instanceof EditableList);
+    return $this->_parameter_list;
   }
 
   public function getRightParenUNTYPED(): EditableNode {
@@ -622,20 +629,22 @@ final class FunctionDeclarationHeader extends EditableNode {
   }
 
   /**
-   * @returns Missing | RightParenToken
+   * @return null | RightParenToken
    */
   public function getRightParen(): ?RightParenToken {
     if ($this->_right_paren->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   public function getColonUNTYPED(): EditableNode {
@@ -669,20 +678,22 @@ final class FunctionDeclarationHeader extends EditableNode {
   }
 
   /**
-   * @returns Missing | ColonToken
+   * @return null | ColonToken
    */
   public function getColon(): ?ColonToken {
     if ($this->_colon->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+    \assert($this->_colon instanceof ColonToken);
+    return $this->_colon;
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getColonx(): ColonToken {
-    return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+    \assert($this->_colon instanceof ColonToken);
+    return $this->_colon;
   }
 
   public function getTypeUNTYPED(): EditableNode {
@@ -716,7 +727,7 @@ final class FunctionDeclarationHeader extends EditableNode {
   }
 
   /**
-   * @returns ClassnameTypeSpecifier | ClosureTypeSpecifier |
+   * @return ClassnameTypeSpecifier | ClosureTypeSpecifier |
    * DarrayTypeSpecifier | DictionaryTypeSpecifier | GenericTypeSpecifier |
    * KeysetTypeSpecifier | MapArrayTypeSpecifier | Missing |
    * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
@@ -727,11 +738,12 @@ final class FunctionDeclarationHeader extends EditableNode {
     if ($this->_type->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns ClassnameTypeSpecifier | ClosureTypeSpecifier |
+   * @return ClassnameTypeSpecifier | ClosureTypeSpecifier |
    * DarrayTypeSpecifier | DictionaryTypeSpecifier | GenericTypeSpecifier |
    * KeysetTypeSpecifier | MapArrayTypeSpecifier | NullableTypeSpecifier |
    * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
@@ -739,7 +751,8 @@ final class FunctionDeclarationHeader extends EditableNode {
    * VectorArrayTypeSpecifier | VectorTypeSpecifier
    */
   public function getTypex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   public function getWhereClauseUNTYPED(): EditableNode {
@@ -773,19 +786,21 @@ final class FunctionDeclarationHeader extends EditableNode {
   }
 
   /**
-   * @returns Missing | WhereClause
+   * @return null | WhereClause
    */
   public function getWhereClause(): ?WhereClause {
     if ($this->_where_clause->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(WhereClause::class, $this->_where_clause);
+    \assert($this->_where_clause instanceof WhereClause);
+    return $this->_where_clause;
   }
 
   /**
-   * @returns WhereClause
+   * @return WhereClause
    */
   public function getWhereClausex(): WhereClause {
-    return TypeAssert\instance_of(WhereClause::class, $this->_where_clause);
+    \assert($this->_where_clause instanceof WhereClause);
+    return $this->_where_clause;
   }
 }

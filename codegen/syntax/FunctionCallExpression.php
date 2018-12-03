@@ -142,18 +142,19 @@ final class FunctionCallExpression extends EditableNode {
   }
 
   /**
-   * @returns ArrayCreationExpression | FunctionCallExpression |
+   * @return ArrayCreationExpression | FunctionCallExpression |
    * LiteralExpression | MemberSelectionExpression | ParenthesizedExpression |
    * PrefixUnaryExpression | QualifiedName | SafeMemberSelectionExpression |
    * ScopeResolutionExpression | SubscriptExpression | IfToken | NameToken |
    * VariableExpression
    */
   public function getReceiver(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_receiver);
+    \assert($this->_receiver instanceof EditableNode);
+    return $this->_receiver;
   }
 
   /**
-   * @returns ArrayCreationExpression | FunctionCallExpression |
+   * @return ArrayCreationExpression | FunctionCallExpression |
    * LiteralExpression | MemberSelectionExpression | ParenthesizedExpression |
    * PrefixUnaryExpression | QualifiedName | SafeMemberSelectionExpression |
    * ScopeResolutionExpression | SubscriptExpression | IfToken | NameToken |
@@ -187,14 +188,15 @@ final class FunctionCallExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -256,7 +258,8 @@ final class FunctionCallExpression extends EditableNode {
     if ($this->_argument_list->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_argument_list);
+    \assert($this->_argument_list instanceof EditableList);
+    return $this->_argument_list;
   }
 
   /**
@@ -288,7 +291,8 @@ final class FunctionCallExpression extends EditableNode {
    * EditableList<VectorIntrinsicExpression> | EditableList<XHPExpression>
    */
   public function getArgumentListx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_argument_list);
+    \assert($this->_argument_list instanceof EditableList);
+    return $this->_argument_list;
   }
 
   public function getRightParenUNTYPED(): EditableNode {
@@ -315,19 +319,21 @@ final class FunctionCallExpression extends EditableNode {
   }
 
   /**
-   * @returns Missing | RightParenToken
+   * @return null | RightParenToken
    */
   public function getRightParen(): ?RightParenToken {
     if ($this->_right_paren->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 }

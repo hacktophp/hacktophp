@@ -190,20 +190,22 @@ final class UsingStatementBlockScoped extends EditableNode {
   }
 
   /**
-   * @returns Missing | AwaitToken
+   * @return null | AwaitToken
    */
   public function getAwaitKeyword(): ?AwaitToken {
     if ($this->_await_keyword->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(AwaitToken::class, $this->_await_keyword);
+    \assert($this->_await_keyword instanceof AwaitToken);
+    return $this->_await_keyword;
   }
 
   /**
-   * @returns AwaitToken
+   * @return AwaitToken
    */
   public function getAwaitKeywordx(): AwaitToken {
-    return TypeAssert\instance_of(AwaitToken::class, $this->_await_keyword);
+    \assert($this->_await_keyword instanceof AwaitToken);
+    return $this->_await_keyword;
   }
 
   public function getUsingKeywordUNTYPED(): EditableNode {
@@ -232,14 +234,15 @@ final class UsingStatementBlockScoped extends EditableNode {
   }
 
   /**
-   * @returns UsingToken
+   * @return UsingToken
    */
   public function getUsingKeyword(): UsingToken {
-    return TypeAssert\instance_of(UsingToken::class, $this->_using_keyword);
+    \assert($this->_using_keyword instanceof UsingToken);
+    return $this->_using_keyword;
   }
 
   /**
-   * @returns UsingToken
+   * @return UsingToken
    */
   public function getUsingKeywordx(): UsingToken {
     return $this->getUsingKeyword();
@@ -271,14 +274,15 @@ final class UsingStatementBlockScoped extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -316,7 +320,8 @@ final class UsingStatementBlockScoped extends EditableNode {
    * EditableList<PrefixUnaryExpression> | EditableList<VariableExpression>
    */
   public function getExpressions(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_expressions);
+    \assert($this->_expressions instanceof EditableList);
+    return $this->_expressions;
   }
 
   /**
@@ -355,14 +360,15 @@ final class UsingStatementBlockScoped extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();
@@ -394,14 +400,15 @@ final class UsingStatementBlockScoped extends EditableNode {
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getBody(): CompoundStatement {
-    return TypeAssert\instance_of(CompoundStatement::class, $this->_body);
+    \assert($this->_body instanceof CompoundStatement);
+    return $this->_body;
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getBodyx(): CompoundStatement {
     return $this->getBody();

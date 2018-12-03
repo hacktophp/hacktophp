@@ -121,14 +121,15 @@ final class CaseLabel extends EditableNode {
   }
 
   /**
-   * @returns CaseToken
+   * @return CaseToken
    */
   public function getKeyword(): CaseToken {
-    return TypeAssert\instance_of(CaseToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof CaseToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns CaseToken
+   * @return CaseToken
    */
   public function getKeywordx(): CaseToken {
     return $this->getKeyword();
@@ -153,16 +154,17 @@ final class CaseLabel extends EditableNode {
   }
 
   /**
-   * @returns ArrayIntrinsicExpression | FunctionCallExpression |
+   * @return ArrayIntrinsicExpression | FunctionCallExpression |
    * InstanceofExpression | LiteralExpression | PrefixUnaryExpression |
    * ScopeResolutionExpression | NameToken | VariableExpression
    */
   public function getExpression(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   /**
-   * @returns ArrayIntrinsicExpression | FunctionCallExpression |
+   * @return ArrayIntrinsicExpression | FunctionCallExpression |
    * InstanceofExpression | LiteralExpression | PrefixUnaryExpression |
    * ScopeResolutionExpression | NameToken | VariableExpression
    */
@@ -189,14 +191,15 @@ final class CaseLabel extends EditableNode {
   }
 
   /**
-   * @returns ColonToken | SemicolonToken
+   * @return ColonToken | SemicolonToken
    */
   public function getColon(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_colon);
+    \assert($this->_colon instanceof EditableToken);
+    return $this->_colon;
   }
 
   /**
-   * @returns ColonToken | SemicolonToken
+   * @return ColonToken | SemicolonToken
    */
   public function getColonx(): EditableToken {
     return $this->getColon();

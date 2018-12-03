@@ -161,14 +161,15 @@ final class WhileStatement
   }
 
   /**
-   * @returns WhileToken
+   * @return WhileToken
    */
   public function getKeyword(): WhileToken {
-    return TypeAssert\instance_of(WhileToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof WhileToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns WhileToken
+   * @return WhileToken
    */
   public function getKeywordx(): WhileToken {
     return $this->getKeyword();
@@ -199,14 +200,15 @@ final class WhileStatement
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -237,17 +239,18 @@ final class WhileStatement
   }
 
   /**
-   * @returns BinaryExpression | FunctionCallExpression | InstanceofExpression
+   * @return BinaryExpression | FunctionCallExpression | InstanceofExpression
    * | IssetExpression | LiteralExpression | MemberSelectionExpression |
    * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
    * VariableExpression
    */
   public function getCondition(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_condition);
+    \assert($this->_condition instanceof EditableNode);
+    return $this->_condition;
   }
 
   /**
-   * @returns BinaryExpression | FunctionCallExpression | InstanceofExpression
+   * @return BinaryExpression | FunctionCallExpression | InstanceofExpression
    * | IssetExpression | LiteralExpression | MemberSelectionExpression |
    * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
    * VariableExpression
@@ -281,14 +284,15 @@ final class WhileStatement
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();
@@ -319,15 +323,16 @@ final class WhileStatement
   }
 
   /**
-   * @returns AlternateLoopStatement | CompoundStatement | ContinueStatement |
+   * @return AlternateLoopStatement | CompoundStatement | ContinueStatement |
    * EchoStatement | ExpressionStatement
    */
   public function getBody(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_body);
+    \assert($this->_body instanceof EditableNode);
+    return $this->_body;
   }
 
   /**
-   * @returns AlternateLoopStatement | CompoundStatement | ContinueStatement |
+   * @return AlternateLoopStatement | CompoundStatement | ContinueStatement |
    * EchoStatement | ExpressionStatement
    */
   public function getBodyx(): EditableNode {

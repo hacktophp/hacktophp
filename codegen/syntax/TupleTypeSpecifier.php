@@ -121,14 +121,15 @@ final class TupleTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -157,7 +158,8 @@ final class TupleTypeSpecifier extends EditableNode {
    * EditableList<VectorArrayTypeSpecifier> | EditableList<VectorTypeSpecifier>
    */
   public function getTypes(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_types);
+    \assert($this->_types instanceof EditableList);
+    return $this->_types;
   }
 
   /**
@@ -187,14 +189,15 @@ final class TupleTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();

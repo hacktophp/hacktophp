@@ -121,14 +121,15 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode {
   }
 
   /**
-   * @returns NamespaceToken
+   * @return NamespaceToken
    */
   public function getKeyword(): NamespaceToken {
-    return TypeAssert\instance_of(NamespaceToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof NamespaceToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns NamespaceToken
+   * @return NamespaceToken
    */
   public function getKeywordx(): NamespaceToken {
     return $this->getKeyword();
@@ -153,20 +154,22 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode {
   }
 
   /**
-   * @returns Missing | QualifiedName | NameToken
+   * @return null | QualifiedName | NameToken
    */
   public function getName(): ?EditableNode {
     if ($this->_name->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_name);
+    \assert($this->_name instanceof EditableNode);
+    return $this->_name;
   }
 
   /**
-   * @returns QualifiedName | NameToken
+   * @return QualifiedName | NameToken
    */
   public function getNamex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_name);
+    \assert($this->_name instanceof EditableNode);
+    return $this->_name;
   }
 
   public function getBodyUNTYPED(): EditableNode {
@@ -188,14 +191,15 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode {
   }
 
   /**
-   * @returns NamespaceBody | NamespaceEmptyBody
+   * @return NamespaceBody | NamespaceEmptyBody
    */
   public function getBody(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_body);
+    \assert($this->_body instanceof EditableNode);
+    return $this->_body;
   }
 
   /**
-   * @returns NamespaceBody | NamespaceEmptyBody
+   * @return NamespaceBody | NamespaceEmptyBody
    */
   public function getBodyx(): EditableNode {
     return $this->getBody();

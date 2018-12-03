@@ -121,14 +121,15 @@ final class ThrowStatement extends EditableNode {
   }
 
   /**
-   * @returns ThrowToken
+   * @return ThrowToken
    */
   public function getKeyword(): ThrowToken {
-    return TypeAssert\instance_of(ThrowToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof ThrowToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ThrowToken
+   * @return ThrowToken
    */
   public function getKeywordx(): ThrowToken {
     return $this->getKeyword();
@@ -153,16 +154,17 @@ final class ThrowStatement extends EditableNode {
   }
 
   /**
-   * @returns FunctionCallExpression | LiteralExpression |
+   * @return FunctionCallExpression | LiteralExpression |
    * MemberSelectionExpression | ObjectCreationExpression |
    * ParenthesizedExpression | VariableExpression
    */
   public function getExpression(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   /**
-   * @returns FunctionCallExpression | LiteralExpression |
+   * @return FunctionCallExpression | LiteralExpression |
    * MemberSelectionExpression | ObjectCreationExpression |
    * ParenthesizedExpression | VariableExpression
    */
@@ -189,14 +191,15 @@ final class ThrowStatement extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

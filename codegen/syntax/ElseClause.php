@@ -99,14 +99,15 @@ final class ElseClause extends EditableNode implements IControlFlowStatement {
   }
 
   /**
-   * @returns ElseToken
+   * @return ElseToken
    */
   public function getKeyword(): ElseToken {
-    return TypeAssert\instance_of(ElseToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof ElseToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ElseToken
+   * @return ElseToken
    */
   public function getKeywordx(): ElseToken {
     return $this->getKeyword();
@@ -131,15 +132,16 @@ final class ElseClause extends EditableNode implements IControlFlowStatement {
   }
 
   /**
-   * @returns CompoundStatement | EchoStatement | ExpressionStatement |
+   * @return CompoundStatement | EchoStatement | ExpressionStatement |
    * IfStatement | ReturnStatement
    */
   public function getStatement(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_statement);
+    \assert($this->_statement instanceof EditableNode);
+    return $this->_statement;
   }
 
   /**
-   * @returns CompoundStatement | EchoStatement | ExpressionStatement |
+   * @return CompoundStatement | EchoStatement | ExpressionStatement |
    * IfStatement | ReturnStatement
    */
   public function getStatementx(): EditableNode {

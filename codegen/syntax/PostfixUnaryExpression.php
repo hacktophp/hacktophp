@@ -99,15 +99,16 @@ final class PostfixUnaryExpression extends EditableNode {
   }
 
   /**
-   * @returns MemberSelectionExpression | PrefixUnaryExpression |
+   * @return MemberSelectionExpression | PrefixUnaryExpression |
    * ScopeResolutionExpression | SubscriptExpression | VariableExpression
    */
   public function getOperand(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_operand);
+    \assert($this->_operand instanceof EditableNode);
+    return $this->_operand;
   }
 
   /**
-   * @returns MemberSelectionExpression | PrefixUnaryExpression |
+   * @return MemberSelectionExpression | PrefixUnaryExpression |
    * ScopeResolutionExpression | SubscriptExpression | VariableExpression
    */
   public function getOperandx(): EditableNode {
@@ -133,14 +134,15 @@ final class PostfixUnaryExpression extends EditableNode {
   }
 
   /**
-   * @returns PlusPlusToken | MinusMinusToken
+   * @return PlusPlusToken | MinusMinusToken
    */
   public function getOperator(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_operator);
+    \assert($this->_operator instanceof EditableToken);
+    return $this->_operator;
   }
 
   /**
-   * @returns PlusPlusToken | MinusMinusToken
+   * @return PlusPlusToken | MinusMinusToken
    */
   public function getOperatorx(): EditableToken {
     return $this->getOperator();

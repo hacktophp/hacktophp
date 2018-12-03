@@ -161,14 +161,15 @@ final class KeysetTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns KeysetToken
+   * @return KeysetToken
    */
   public function getKeyword(): KeysetToken {
-    return TypeAssert\instance_of(KeysetToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof KeysetToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns KeysetToken
+   * @return KeysetToken
    */
   public function getKeywordx(): KeysetToken {
     return $this->getKeyword();
@@ -199,14 +200,15 @@ final class KeysetTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAngle(): LessThanToken {
-    return TypeAssert\instance_of(LessThanToken::class, $this->_left_angle);
+    \assert($this->_left_angle instanceof LessThanToken);
+    return $this->_left_angle;
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAnglex(): LessThanToken {
     return $this->getLeftAngle();
@@ -237,14 +239,15 @@ final class KeysetTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getType(): SimpleTypeSpecifier {
-    return TypeAssert\instance_of(SimpleTypeSpecifier::class, $this->_type);
+    \assert($this->_type instanceof SimpleTypeSpecifier);
+    return $this->_type;
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getTypex(): SimpleTypeSpecifier {
     return $this->getType();
@@ -275,20 +278,22 @@ final class KeysetTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getTrailingComma(): ?EditableNode {
     if ($this->_trailing_comma->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_trailing_comma);
+    \assert($this->_trailing_comma instanceof EditableNode);
+    return $this->_trailing_comma;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getTrailingCommax(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_trailing_comma);
+    \assert($this->_trailing_comma instanceof EditableNode);
+    return $this->_trailing_comma;
   }
 
   public function getRightAngleUNTYPED(): EditableNode {
@@ -316,14 +321,15 @@ final class KeysetTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAngle(): GreaterThanToken {
-    return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof GreaterThanToken);
+    return $this->_right_angle;
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAnglex(): GreaterThanToken {
     return $this->getRightAngle();

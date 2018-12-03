@@ -121,18 +121,19 @@ final class InstanceofExpression extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | CastExpression | CollectionLiteralExpression
+   * @return AnonymousFunction | CastExpression | CollectionLiteralExpression
    * | FunctionCallExpression | LiteralExpression | MemberSelectionExpression |
    * ObjectCreationExpression | ParenthesizedExpression |
    * PipeVariableExpression | PrefixUnaryExpression | ScopeResolutionExpression
    * | SubscriptExpression | VariableExpression
    */
   public function getLeftOperand(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_left_operand);
+    \assert($this->_left_operand instanceof EditableNode);
+    return $this->_left_operand;
   }
 
   /**
-   * @returns AnonymousFunction | CastExpression | CollectionLiteralExpression
+   * @return AnonymousFunction | CastExpression | CollectionLiteralExpression
    * | FunctionCallExpression | LiteralExpression | MemberSelectionExpression |
    * ObjectCreationExpression | ParenthesizedExpression |
    * PipeVariableExpression | PrefixUnaryExpression | ScopeResolutionExpression
@@ -161,14 +162,15 @@ final class InstanceofExpression extends EditableNode {
   }
 
   /**
-   * @returns InstanceofToken
+   * @return InstanceofToken
    */
   public function getOperator(): InstanceofToken {
-    return TypeAssert\instance_of(InstanceofToken::class, $this->_operator);
+    \assert($this->_operator instanceof InstanceofToken);
+    return $this->_operator;
   }
 
   /**
-   * @returns InstanceofToken
+   * @return InstanceofToken
    */
   public function getOperatorx(): InstanceofToken {
     return $this->getOperator();
@@ -193,7 +195,7 @@ final class InstanceofExpression extends EditableNode {
   }
 
   /**
-   * @returns MemberSelectionExpression | Missing | ParenthesizedExpression |
+   * @return MemberSelectionExpression | Missing | ParenthesizedExpression |
    * QualifiedName | ScopeResolutionExpression | SubscriptExpression |
    * NameToken | VariableExpression
    */
@@ -201,15 +203,17 @@ final class InstanceofExpression extends EditableNode {
     if ($this->_right_operand->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_operand);
+    \assert($this->_right_operand instanceof EditableNode);
+    return $this->_right_operand;
   }
 
   /**
-   * @returns MemberSelectionExpression | ParenthesizedExpression |
+   * @return MemberSelectionExpression | ParenthesizedExpression |
    * QualifiedName | ScopeResolutionExpression | SubscriptExpression |
    * NameToken | VariableExpression
    */
   public function getRightOperandx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_operand);
+    \assert($this->_right_operand instanceof EditableNode);
+    return $this->_right_operand;
   }
 }

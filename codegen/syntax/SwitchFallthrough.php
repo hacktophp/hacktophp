@@ -99,20 +99,22 @@ final class SwitchFallthrough extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getKeyword(): ?EditableNode {
     if ($this->_keyword->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_keyword);
+    \assert($this->_keyword instanceof EditableNode);
+    return $this->_keyword;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getKeywordx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_keyword);
+    \assert($this->_keyword instanceof EditableNode);
+    return $this->_keyword;
   }
 
   public function getSemicolonUNTYPED(): EditableNode {
@@ -134,19 +136,21 @@ final class SwitchFallthrough extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getSemicolon(): ?EditableNode {
     if ($this->_semicolon->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof EditableNode);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getSemicolonx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof EditableNode);
+    return $this->_semicolon;
   }
 }

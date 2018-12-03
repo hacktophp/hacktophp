@@ -106,17 +106,15 @@ final class MarkupSuffix extends EditableNode {
   }
 
   /**
-   * @returns LessThanQuestionToken
+   * @return LessThanQuestionToken
    */
   public function getLessThanQuestion(): LessThanQuestionToken {
-    return TypeAssert\instance_of(
-      LessThanQuestionToken::class,
-      $this->_less_than_question
-    );
+    \assert($this->_less_than_question instanceof LessThanQuestionToken);
+    return $this->_less_than_question;
   }
 
   /**
-   * @returns LessThanQuestionToken
+   * @return LessThanQuestionToken
    */
   public function getLessThanQuestionx(): LessThanQuestionToken {
     return $this->getLessThanQuestion();
@@ -141,19 +139,21 @@ final class MarkupSuffix extends EditableNode {
   }
 
   /**
-   * @returns Missing | EqualToken | NameToken
+   * @return null | EqualToken | NameToken
    */
   public function getName(): ?EditableToken {
     if ($this->_name->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableToken::class, $this->_name);
+    \assert($this->_name instanceof EditableToken);
+    return $this->_name;
   }
 
   /**
-   * @returns EqualToken | NameToken
+   * @return EqualToken | NameToken
    */
   public function getNamex(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_name);
+    \assert($this->_name instanceof EditableToken);
+    return $this->_name;
   }
 }

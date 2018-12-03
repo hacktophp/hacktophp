@@ -123,14 +123,15 @@ final class AlternateElseClause
   }
 
   /**
-   * @returns ElseToken
+   * @return ElseToken
    */
   public function getKeyword(): ElseToken {
-    return TypeAssert\instance_of(ElseToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof ElseToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ElseToken
+   * @return ElseToken
    */
   public function getKeywordx(): ElseToken {
     return $this->getKeyword();
@@ -155,14 +156,15 @@ final class AlternateElseClause
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getColon(): ColonToken {
-    return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+    \assert($this->_colon instanceof ColonToken);
+    return $this->_colon;
   }
 
   /**
-   * @returns ColonToken
+   * @return ColonToken
    */
   public function getColonx(): ColonToken {
     return $this->getColon();
@@ -190,7 +192,8 @@ final class AlternateElseClause
    * @return EditableList<EditableNode>
    */
   public function getStatement(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_statement);
+    \assert($this->_statement instanceof EditableList);
+    return $this->_statement;
   }
 
   /**

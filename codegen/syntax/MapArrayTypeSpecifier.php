@@ -178,14 +178,15 @@ final class MapArrayTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns ArrayToken
+   * @return ArrayToken
    */
   public function getKeyword(): ArrayToken {
-    return TypeAssert\instance_of(ArrayToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof ArrayToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ArrayToken
+   * @return ArrayToken
    */
   public function getKeywordx(): ArrayToken {
     return $this->getKeyword();
@@ -217,14 +218,15 @@ final class MapArrayTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAngle(): LessThanToken {
-    return TypeAssert\instance_of(LessThanToken::class, $this->_left_angle);
+    \assert($this->_left_angle instanceof LessThanToken);
+    return $this->_left_angle;
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAnglex(): LessThanToken {
     return $this->getLeftAngle();
@@ -256,14 +258,15 @@ final class MapArrayTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getKey(): SimpleTypeSpecifier {
-    return TypeAssert\instance_of(SimpleTypeSpecifier::class, $this->_key);
+    \assert($this->_key instanceof SimpleTypeSpecifier);
+    return $this->_key;
   }
 
   /**
-   * @returns SimpleTypeSpecifier
+   * @return SimpleTypeSpecifier
    */
   public function getKeyx(): SimpleTypeSpecifier {
     return $this->getKey();
@@ -295,14 +298,15 @@ final class MapArrayTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns CommaToken
+   * @return CommaToken
    */
   public function getComma(): CommaToken {
-    return TypeAssert\instance_of(CommaToken::class, $this->_comma);
+    \assert($this->_comma instanceof CommaToken);
+    return $this->_comma;
   }
 
   /**
-   * @returns CommaToken
+   * @return CommaToken
    */
   public function getCommax(): CommaToken {
     return $this->getComma();
@@ -334,7 +338,7 @@ final class MapArrayTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns GenericTypeSpecifier | Missing | NullableTypeSpecifier |
+   * @return GenericTypeSpecifier | Missing | NullableTypeSpecifier |
    * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
    * TupleTypeSpecifier
    */
@@ -342,15 +346,17 @@ final class MapArrayTypeSpecifier extends EditableNode {
     if ($this->_value->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_value);
+    \assert($this->_value instanceof EditableNode);
+    return $this->_value;
   }
 
   /**
-   * @returns GenericTypeSpecifier | NullableTypeSpecifier | ShapeTypeSpecifier
+   * @return GenericTypeSpecifier | NullableTypeSpecifier | ShapeTypeSpecifier
    * | SimpleTypeSpecifier | SoftTypeSpecifier | TupleTypeSpecifier
    */
   public function getValuex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_value);
+    \assert($this->_value instanceof EditableNode);
+    return $this->_value;
   }
 
   public function getRightAngleUNTYPED(): EditableNode {
@@ -379,14 +385,15 @@ final class MapArrayTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAngle(): GreaterThanToken {
-    return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof GreaterThanToken);
+    return $this->_right_angle;
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAnglex(): GreaterThanToken {
     return $this->getRightAngle();

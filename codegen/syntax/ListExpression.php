@@ -142,14 +142,15 @@ final class ListExpression extends EditableNode {
   }
 
   /**
-   * @returns ListToken
+   * @return ListToken
    */
   public function getKeyword(): ListToken {
-    return TypeAssert\instance_of(ListToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof ListToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns ListToken
+   * @return ListToken
    */
   public function getKeywordx(): ListToken {
     return $this->getKeyword();
@@ -175,14 +176,15 @@ final class ListExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -221,7 +223,8 @@ final class ListExpression extends EditableNode {
     if ($this->_members->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_members);
+    \assert($this->_members instanceof EditableList);
+    return $this->_members;
   }
 
   /**
@@ -231,7 +234,8 @@ final class ListExpression extends EditableNode {
    * EditableList<VariableExpression>
    */
   public function getMembersx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_members);
+    \assert($this->_members instanceof EditableList);
+    return $this->_members;
   }
 
   public function getRightParenUNTYPED(): EditableNode {
@@ -254,14 +258,15 @@ final class ListExpression extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();

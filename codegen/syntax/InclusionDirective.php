@@ -104,7 +104,7 @@ final class InclusionDirective extends EditableNode {
   }
 
   /**
-   * @returns InclusionExpression
+   * @return InclusionExpression
    */
   public function getExpression(): InclusionExpression {
     return
@@ -112,7 +112,7 @@ final class InclusionDirective extends EditableNode {
   }
 
   /**
-   * @returns InclusionExpression
+   * @return InclusionExpression
    */
   public function getExpressionx(): InclusionExpression {
     return $this->getExpression();
@@ -137,14 +137,15 @@ final class InclusionDirective extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

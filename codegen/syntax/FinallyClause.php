@@ -99,14 +99,15 @@ final class FinallyClause extends EditableNode {
   }
 
   /**
-   * @returns FinallyToken
+   * @return FinallyToken
    */
   public function getKeyword(): FinallyToken {
-    return TypeAssert\instance_of(FinallyToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof FinallyToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns FinallyToken
+   * @return FinallyToken
    */
   public function getKeywordx(): FinallyToken {
     return $this->getKeyword();
@@ -131,14 +132,15 @@ final class FinallyClause extends EditableNode {
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getBody(): CompoundStatement {
-    return TypeAssert\instance_of(CompoundStatement::class, $this->_body);
+    \assert($this->_body instanceof CompoundStatement);
+    return $this->_body;
   }
 
   /**
-   * @returns CompoundStatement
+   * @return CompoundStatement
    */
   public function getBodyx(): CompoundStatement {
     return $this->getBody();

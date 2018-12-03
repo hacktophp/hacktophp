@@ -121,14 +121,15 @@ final class TypeArguments extends EditableNode {
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAngle(): LessThanToken {
-    return TypeAssert\instance_of(LessThanToken::class, $this->_left_angle);
+    \assert($this->_left_angle instanceof LessThanToken);
+    return $this->_left_angle;
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAnglex(): LessThanToken {
     return $this->getLeftAngle();
@@ -162,7 +163,8 @@ final class TypeArguments extends EditableNode {
    * EditableList<TypeConstant> | EditableList<VectorArrayTypeSpecifier>
    */
   public function getTypes(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_types);
+    \assert($this->_types instanceof EditableList);
+    return $this->_types;
   }
 
   /**
@@ -197,19 +199,21 @@ final class TypeArguments extends EditableNode {
   }
 
   /**
-   * @returns Missing | GreaterThanToken
+   * @return null | GreaterThanToken
    */
   public function getRightAngle(): ?GreaterThanToken {
     if ($this->_right_angle->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof GreaterThanToken);
+    return $this->_right_angle;
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAnglex(): GreaterThanToken {
-    return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof GreaterThanToken);
+    return $this->_right_angle;
   }
 }

@@ -121,7 +121,7 @@ final class ArrayCreationExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftBracketToken
+   * @return LeftBracketToken
    */
   public function getLeftBracket(): LeftBracketToken {
     return
@@ -129,7 +129,7 @@ final class ArrayCreationExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftBracketToken
+   * @return LeftBracketToken
    */
   public function getLeftBracketx(): LeftBracketToken {
     return $this->getLeftBracket();
@@ -166,13 +166,14 @@ final class ArrayCreationExpression extends EditableNode {
    * EditableList<ScopeResolutionExpression> |
    * EditableList<SubscriptExpression> | EditableList<NameToken> |
    * EditableList<VariableExpression> | EditableList<VarrayIntrinsicExpression>
-   * | EditableList<VectorIntrinsicExpression> | Missing
+   * | EditableList<VectorIntrinsicExpression> | null
    */
   public function getMembers(): ?EditableList {
     if ($this->_members->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_members);
+    \assert($this->_members instanceof EditableList);
+    return $this->_members;
   }
 
   /**
@@ -191,7 +192,8 @@ final class ArrayCreationExpression extends EditableNode {
    * | EditableList<VectorIntrinsicExpression>
    */
   public function getMembersx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_members);
+    \assert($this->_members instanceof EditableList);
+    return $this->_members;
   }
 
   public function getRightBracketUNTYPED(): EditableNode {
@@ -213,7 +215,7 @@ final class ArrayCreationExpression extends EditableNode {
   }
 
   /**
-   * @returns RightBracketToken
+   * @return RightBracketToken
    */
   public function getRightBracket(): RightBracketToken {
     return
@@ -221,7 +223,7 @@ final class ArrayCreationExpression extends EditableNode {
   }
 
   /**
-   * @returns RightBracketToken
+   * @return RightBracketToken
    */
   public function getRightBracketx(): RightBracketToken {
     return $this->getRightBracket();

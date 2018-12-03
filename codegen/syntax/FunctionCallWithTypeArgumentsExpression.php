@@ -171,14 +171,15 @@ final class FunctionCallWithTypeArgumentsExpression extends EditableNode {
   }
 
   /**
-   * @returns MemberSelectionExpression | ScopeResolutionExpression | NameToken
+   * @return MemberSelectionExpression | ScopeResolutionExpression | NameToken
    */
   public function getReceiver(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_receiver);
+    \assert($this->_receiver instanceof EditableNode);
+    return $this->_receiver;
   }
 
   /**
-   * @returns MemberSelectionExpression | ScopeResolutionExpression | NameToken
+   * @return MemberSelectionExpression | ScopeResolutionExpression | NameToken
    */
   public function getReceiverx(): EditableNode {
     return $this->getReceiver();
@@ -209,14 +210,15 @@ final class FunctionCallWithTypeArgumentsExpression extends EditableNode {
   }
 
   /**
-   * @returns TypeArguments
+   * @return TypeArguments
    */
   public function getTypeArgs(): TypeArguments {
-    return TypeAssert\instance_of(TypeArguments::class, $this->_type_args);
+    \assert($this->_type_args instanceof TypeArguments);
+    return $this->_type_args;
   }
 
   /**
-   * @returns TypeArguments
+   * @return TypeArguments
    */
   public function getTypeArgsx(): TypeArguments {
     return $this->getTypeArgs();
@@ -247,14 +249,15 @@ final class FunctionCallWithTypeArgumentsExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -286,13 +289,14 @@ final class FunctionCallWithTypeArgumentsExpression extends EditableNode {
 
   /**
    * @return EditableList<EditableNode> | EditableList<LiteralExpression> |
-   * EditableList<TupleExpression> | EditableList<VariableExpression> | Missing
+   * EditableList<TupleExpression> | EditableList<VariableExpression> | null
    */
   public function getArgumentList(): ?EditableList {
     if ($this->_argument_list->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_argument_list);
+    \assert($this->_argument_list instanceof EditableList);
+    return $this->_argument_list;
   }
 
   /**
@@ -300,7 +304,8 @@ final class FunctionCallWithTypeArgumentsExpression extends EditableNode {
    * EditableList<TupleExpression> | EditableList<VariableExpression>
    */
   public function getArgumentListx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_argument_list);
+    \assert($this->_argument_list instanceof EditableList);
+    return $this->_argument_list;
   }
 
   public function getRightParenUNTYPED(): EditableNode {
@@ -328,14 +333,15 @@ final class FunctionCallWithTypeArgumentsExpression extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();

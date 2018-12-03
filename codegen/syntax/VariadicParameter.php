@@ -121,20 +121,22 @@ final class VariadicParameter extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getCallConvention(): ?EditableNode {
     if ($this->_call_convention->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_call_convention);
+    \assert($this->_call_convention instanceof EditableNode);
+    return $this->_call_convention;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getCallConventionx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_call_convention);
+    \assert($this->_call_convention instanceof EditableNode);
+    return $this->_call_convention;
   }
 
   public function getTypeUNTYPED(): EditableNode {
@@ -156,21 +158,23 @@ final class VariadicParameter extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | Missing | SimpleTypeSpecifier |
+   * @return ClosureTypeSpecifier | Missing | SimpleTypeSpecifier |
    * TupleTypeSpecifier
    */
   public function getType(): ?EditableNode {
     if ($this->_type->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | SimpleTypeSpecifier | TupleTypeSpecifier
+   * @return ClosureTypeSpecifier | SimpleTypeSpecifier | TupleTypeSpecifier
    */
   public function getTypex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   public function getEllipsisUNTYPED(): EditableNode {
@@ -192,14 +196,15 @@ final class VariadicParameter extends EditableNode {
   }
 
   /**
-   * @returns DotDotDotToken
+   * @return DotDotDotToken
    */
   public function getEllipsis(): DotDotDotToken {
-    return TypeAssert\instance_of(DotDotDotToken::class, $this->_ellipsis);
+    \assert($this->_ellipsis instanceof DotDotDotToken);
+    return $this->_ellipsis;
   }
 
   /**
-   * @returns DotDotDotToken
+   * @return DotDotDotToken
    */
   public function getEllipsisx(): DotDotDotToken {
     return $this->getEllipsis();

@@ -104,20 +104,22 @@ final class ClosureParameterTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns Missing | InoutToken
+   * @return null | InoutToken
    */
   public function getCallConvention(): ?InoutToken {
     if ($this->_call_convention->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(InoutToken::class, $this->_call_convention);
+    \assert($this->_call_convention instanceof InoutToken);
+    return $this->_call_convention;
   }
 
   /**
-   * @returns InoutToken
+   * @return InoutToken
    */
   public function getCallConventionx(): InoutToken {
-    return TypeAssert\instance_of(InoutToken::class, $this->_call_convention);
+    \assert($this->_call_convention instanceof InoutToken);
+    return $this->_call_convention;
   }
 
   public function getTypeUNTYPED(): EditableNode {
@@ -139,15 +141,16 @@ final class ClosureParameterTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns GenericTypeSpecifier | NullableTypeSpecifier |
+   * @return GenericTypeSpecifier | NullableTypeSpecifier |
    * SimpleTypeSpecifier | SoftTypeSpecifier | TupleTypeSpecifier | TypeConstant
    */
   public function getType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns GenericTypeSpecifier | NullableTypeSpecifier |
+   * @return GenericTypeSpecifier | NullableTypeSpecifier |
    * SimpleTypeSpecifier | SoftTypeSpecifier | TupleTypeSpecifier | TypeConstant
    */
   public function getTypex(): EditableNode {

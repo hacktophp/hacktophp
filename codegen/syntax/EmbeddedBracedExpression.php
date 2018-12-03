@@ -121,14 +121,15 @@ final class EmbeddedBracedExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getLeftBrace(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_left_brace);
+    \assert($this->_left_brace instanceof EditableNode);
+    return $this->_left_brace;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getLeftBracex(): EditableNode {
     return $this->getLeftBrace();
@@ -153,14 +154,15 @@ final class EmbeddedBracedExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getExpression(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+    \assert($this->_expression instanceof EditableNode);
+    return $this->_expression;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getExpressionx(): EditableNode {
     return $this->getExpression();
@@ -185,14 +187,15 @@ final class EmbeddedBracedExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getRightBrace(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_brace);
+    \assert($this->_right_brace instanceof EditableNode);
+    return $this->_right_brace;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getRightBracex(): EditableNode {
     return $this->getRightBrace();

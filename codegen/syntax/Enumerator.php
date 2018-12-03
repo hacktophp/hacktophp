@@ -137,14 +137,15 @@ final class Enumerator extends EditableNode {
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getName(): NameToken {
-    return TypeAssert\instance_of(NameToken::class, $this->_name);
+    \assert($this->_name instanceof NameToken);
+    return $this->_name;
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getNamex(): NameToken {
     return $this->getName();
@@ -169,14 +170,15 @@ final class Enumerator extends EditableNode {
   }
 
   /**
-   * @returns EqualToken
+   * @return EqualToken
    */
   public function getEqual(): EqualToken {
-    return TypeAssert\instance_of(EqualToken::class, $this->_equal);
+    \assert($this->_equal instanceof EqualToken);
+    return $this->_equal;
   }
 
   /**
-   * @returns EqualToken
+   * @return EqualToken
    */
   public function getEqualx(): EqualToken {
     return $this->getEqual();
@@ -201,16 +203,17 @@ final class Enumerator extends EditableNode {
   }
 
   /**
-   * @returns BinaryExpression | FunctionCallExpression | LiteralExpression |
+   * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
    * ObjectCreationExpression | ScopeResolutionExpression | NameToken |
    * VariableExpression
    */
   public function getValue(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_value);
+    \assert($this->_value instanceof EditableNode);
+    return $this->_value;
   }
 
   /**
-   * @returns BinaryExpression | FunctionCallExpression | LiteralExpression |
+   * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
    * ObjectCreationExpression | ScopeResolutionExpression | NameToken |
    * VariableExpression
    */
@@ -237,14 +240,15 @@ final class Enumerator extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

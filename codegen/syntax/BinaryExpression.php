@@ -121,7 +121,7 @@ final class BinaryExpression extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
    * CollectionLiteralExpression | DarrayIntrinsicExpression |
    * DictionaryIntrinsicExpression | EmptyExpression | FunctionCallExpression |
@@ -134,11 +134,12 @@ final class BinaryExpression extends EditableNode {
    * VarrayIntrinsicExpression | VectorIntrinsicExpression | XHPExpression
    */
   public function getLeftOperand(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_left_operand);
+    \assert($this->_left_operand instanceof EditableNode);
+    return $this->_left_operand;
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
    * CollectionLiteralExpression | DarrayIntrinsicExpression |
    * DictionaryIntrinsicExpression | EmptyExpression | FunctionCallExpression |
@@ -173,7 +174,7 @@ final class BinaryExpression extends EditableNode {
   }
 
   /**
-   * @returns ExclamationEqualToken | ExclamationEqualEqualToken | PercentToken
+   * @return ExclamationEqualToken | ExclamationEqualEqualToken | PercentToken
    * | PercentEqualToken | AmpersandToken | AmpersandAmpersandToken |
    * AmpersandEqualToken | StarToken | StarStarToken | StarStarEqualToken |
    * StarEqualToken | PlusToken | PlusEqualToken | MinusToken | MinusEqualToken
@@ -188,11 +189,12 @@ final class BinaryExpression extends EditableNode {
    * | BarGreaterThanToken | BarBarToken
    */
   public function getOperator(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_operator);
+    \assert($this->_operator instanceof EditableToken);
+    return $this->_operator;
   }
 
   /**
-   * @returns ExclamationEqualToken | ExclamationEqualEqualToken | PercentToken
+   * @return ExclamationEqualToken | ExclamationEqualEqualToken | PercentToken
    * | PercentEqualToken | AmpersandToken | AmpersandAmpersandToken |
    * AmpersandEqualToken | StarToken | StarStarToken | StarStarEqualToken |
    * StarEqualToken | PlusToken | PlusEqualToken | MinusToken | MinusEqualToken
@@ -229,7 +231,7 @@ final class BinaryExpression extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | AsExpression | AwaitableCreationExpression |
    * BinaryExpression | CastExpression | CollectionLiteralExpression |
    * ConditionalExpression | DarrayIntrinsicExpression |
@@ -251,11 +253,12 @@ final class BinaryExpression extends EditableNode {
     if ($this->_right_operand->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_operand);
+    \assert($this->_right_operand instanceof EditableNode);
+    return $this->_right_operand;
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | AsExpression | AwaitableCreationExpression |
    * BinaryExpression | CastExpression | CollectionLiteralExpression |
    * ConditionalExpression | DarrayIntrinsicExpression |
@@ -274,6 +277,7 @@ final class BinaryExpression extends EditableNode {
    * YieldFromExpression
    */
   public function getRightOperandx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_operand);
+    \assert($this->_right_operand instanceof EditableNode);
+    return $this->_right_operand;
   }
 }

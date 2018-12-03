@@ -142,14 +142,15 @@ final class DictionaryTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns DictToken
+   * @return DictToken
    */
   public function getKeyword(): DictToken {
-    return TypeAssert\instance_of(DictToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof DictToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns DictToken
+   * @return DictToken
    */
   public function getKeywordx(): DictToken {
     return $this->getKeyword();
@@ -175,14 +176,15 @@ final class DictionaryTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAngle(): LessThanToken {
-    return TypeAssert\instance_of(LessThanToken::class, $this->_left_angle);
+    \assert($this->_left_angle instanceof LessThanToken);
+    return $this->_left_angle;
   }
 
   /**
-   * @returns LessThanToken
+   * @return LessThanToken
    */
   public function getLeftAnglex(): LessThanToken {
     return $this->getLeftAngle();
@@ -215,7 +217,8 @@ final class DictionaryTypeSpecifier extends EditableNode {
    * @return EditableList<EditableNode> | EditableList<SimpleTypeSpecifier>
    */
   public function getMembers(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_members);
+    \assert($this->_members instanceof EditableList);
+    return $this->_members;
   }
 
   /**
@@ -245,14 +248,15 @@ final class DictionaryTypeSpecifier extends EditableNode {
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAngle(): GreaterThanToken {
-    return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+    \assert($this->_right_angle instanceof GreaterThanToken);
+    return $this->_right_angle;
   }
 
   /**
-   * @returns GreaterThanToken
+   * @return GreaterThanToken
    */
   public function getRightAnglex(): GreaterThanToken {
     return $this->getRightAngle();

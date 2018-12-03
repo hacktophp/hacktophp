@@ -121,14 +121,15 @@ final class XHPCategoryDeclaration extends EditableNode {
   }
 
   /**
-   * @returns CategoryToken
+   * @return CategoryToken
    */
   public function getKeyword(): CategoryToken {
-    return TypeAssert\instance_of(CategoryToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof CategoryToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns CategoryToken
+   * @return CategoryToken
    */
   public function getKeywordx(): CategoryToken {
     return $this->getKeyword();
@@ -156,7 +157,8 @@ final class XHPCategoryDeclaration extends EditableNode {
    * @return EditableList<XHPCategoryNameToken>
    */
   public function getCategories(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_categories);
+    \assert($this->_categories instanceof EditableList);
+    return $this->_categories;
   }
 
   /**
@@ -185,14 +187,15 @@ final class XHPCategoryDeclaration extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

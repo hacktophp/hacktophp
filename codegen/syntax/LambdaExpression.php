@@ -190,26 +190,22 @@ final class LambdaExpression extends EditableNode {
   }
 
   /**
-   * @returns AttributeSpecification | Missing
+   * @return AttributeSpecification | Missing
    */
   public function getAttributeSpec(): ?AttributeSpecification {
     if ($this->_attribute_spec->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   /**
-   * @returns AttributeSpecification
+   * @return AttributeSpecification
    */
   public function getAttributeSpecx(): AttributeSpecification {
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   public function getAsyncUNTYPED(): EditableNode {
@@ -238,20 +234,22 @@ final class LambdaExpression extends EditableNode {
   }
 
   /**
-   * @returns Missing | AsyncToken
+   * @return null | AsyncToken
    */
   public function getAsync(): ?AsyncToken {
     if ($this->_async->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(AsyncToken::class, $this->_async);
+    \assert($this->_async instanceof AsyncToken);
+    return $this->_async;
   }
 
   /**
-   * @returns AsyncToken
+   * @return AsyncToken
    */
   public function getAsyncx(): AsyncToken {
-    return TypeAssert\instance_of(AsyncToken::class, $this->_async);
+    \assert($this->_async instanceof AsyncToken);
+    return $this->_async;
   }
 
   public function getCoroutineUNTYPED(): EditableNode {
@@ -280,20 +278,22 @@ final class LambdaExpression extends EditableNode {
   }
 
   /**
-   * @returns Missing | CoroutineToken
+   * @return null | CoroutineToken
    */
   public function getCoroutine(): ?CoroutineToken {
     if ($this->_coroutine->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(CoroutineToken::class, $this->_coroutine);
+    \assert($this->_coroutine instanceof CoroutineToken);
+    return $this->_coroutine;
   }
 
   /**
-   * @returns CoroutineToken
+   * @return CoroutineToken
    */
   public function getCoroutinex(): CoroutineToken {
-    return TypeAssert\instance_of(CoroutineToken::class, $this->_coroutine);
+    \assert($this->_coroutine instanceof CoroutineToken);
+    return $this->_coroutine;
   }
 
   public function getSignatureUNTYPED(): EditableNode {
@@ -322,14 +322,15 @@ final class LambdaExpression extends EditableNode {
   }
 
   /**
-   * @returns LambdaSignature | VariableToken
+   * @return LambdaSignature | VariableToken
    */
   public function getSignature(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_signature);
+    \assert($this->_signature instanceof EditableNode);
+    return $this->_signature;
   }
 
   /**
-   * @returns LambdaSignature | VariableToken
+   * @return LambdaSignature | VariableToken
    */
   public function getSignaturex(): EditableNode {
     return $this->getSignature();
@@ -361,7 +362,7 @@ final class LambdaExpression extends EditableNode {
   }
 
   /**
-   * @returns EqualEqualGreaterThanToken
+   * @return EqualEqualGreaterThanToken
    */
   public function getArrow(): EqualEqualGreaterThanToken {
     return
@@ -369,7 +370,7 @@ final class LambdaExpression extends EditableNode {
   }
 
   /**
-   * @returns EqualEqualGreaterThanToken
+   * @return EqualEqualGreaterThanToken
    */
   public function getArrowx(): EqualEqualGreaterThanToken {
     return $this->getArrow();
@@ -401,18 +402,19 @@ final class LambdaExpression extends EditableNode {
   }
 
   /**
-   * @returns ArrayIntrinsicExpression | BinaryExpression | CastExpression |
+   * @return ArrayIntrinsicExpression | BinaryExpression | CastExpression |
    * CompoundStatement | ConditionalExpression | FunctionCallExpression |
    * LambdaExpression | LiteralExpression | MemberSelectionExpression |
    * ObjectCreationExpression | ParenthesizedExpression | PrefixUnaryExpression
    * | SubscriptExpression | VariableExpression
    */
   public function getBody(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_body);
+    \assert($this->_body instanceof EditableNode);
+    return $this->_body;
   }
 
   /**
-   * @returns ArrayIntrinsicExpression | BinaryExpression | CastExpression |
+   * @return ArrayIntrinsicExpression | BinaryExpression | CastExpression |
    * CompoundStatement | ConditionalExpression | FunctionCallExpression |
    * LambdaExpression | LiteralExpression | MemberSelectionExpression |
    * ObjectCreationExpression | ParenthesizedExpression | PrefixUnaryExpression

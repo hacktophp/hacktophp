@@ -142,14 +142,15 @@ final class HaltCompilerExpression extends EditableNode {
   }
 
   /**
-   * @returns HaltCompilerToken
+   * @return HaltCompilerToken
    */
   public function getKeyword(): HaltCompilerToken {
-    return TypeAssert\instance_of(HaltCompilerToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof HaltCompilerToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns HaltCompilerToken
+   * @return HaltCompilerToken
    */
   public function getKeywordx(): HaltCompilerToken {
     return $this->getKeyword();
@@ -179,14 +180,15 @@ final class HaltCompilerExpression extends EditableNode {
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -216,20 +218,22 @@ final class HaltCompilerExpression extends EditableNode {
   }
 
   /**
-   * @returns Missing
+   * @return Missing
    */
   public function getArgumentList(): ?EditableNode {
     if ($this->_argument_list->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_argument_list);
+    \assert($this->_argument_list instanceof EditableNode);
+    return $this->_argument_list;
   }
 
   /**
-   * @returns
+   * @return s
    */
   public function getArgumentListx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_argument_list);
+    \assert($this->_argument_list instanceof EditableNode);
+    return $this->_argument_list;
   }
 
   public function getRightParenUNTYPED(): EditableNode {
@@ -256,14 +260,15 @@ final class HaltCompilerExpression extends EditableNode {
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();

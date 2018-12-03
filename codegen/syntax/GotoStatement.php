@@ -121,14 +121,15 @@ final class GotoStatement extends EditableNode {
   }
 
   /**
-   * @returns GotoToken
+   * @return GotoToken
    */
   public function getKeyword(): GotoToken {
-    return TypeAssert\instance_of(GotoToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof GotoToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns GotoToken
+   * @return GotoToken
    */
   public function getKeywordx(): GotoToken {
     return $this->getKeyword();
@@ -153,14 +154,15 @@ final class GotoStatement extends EditableNode {
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getLabelName(): NameToken {
-    return TypeAssert\instance_of(NameToken::class, $this->_label_name);
+    \assert($this->_label_name instanceof NameToken);
+    return $this->_label_name;
   }
 
   /**
-   * @returns NameToken
+   * @return NameToken
    */
   public function getLabelNamex(): NameToken {
     return $this->getLabelName();
@@ -185,14 +187,15 @@ final class GotoStatement extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

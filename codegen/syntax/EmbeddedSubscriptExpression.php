@@ -142,14 +142,15 @@ final class EmbeddedSubscriptExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getReceiver(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_receiver);
+    \assert($this->_receiver instanceof EditableNode);
+    return $this->_receiver;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getReceiverx(): EditableNode {
     return $this->getReceiver();
@@ -179,14 +180,15 @@ final class EmbeddedSubscriptExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getLeftBracket(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_left_bracket);
+    \assert($this->_left_bracket instanceof EditableNode);
+    return $this->_left_bracket;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getLeftBracketx(): EditableNode {
     return $this->getLeftBracket();
@@ -216,14 +218,15 @@ final class EmbeddedSubscriptExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getIndex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_index);
+    \assert($this->_index instanceof EditableNode);
+    return $this->_index;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getIndexx(): EditableNode {
     return $this->getIndex();
@@ -249,14 +252,15 @@ final class EmbeddedSubscriptExpression extends EditableNode {
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getRightBracket(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_right_bracket);
+    \assert($this->_right_bracket instanceof EditableNode);
+    return $this->_right_bracket;
   }
 
   /**
-   * @returns unknown
+   * @return unknown
    */
   public function getRightBracketx(): EditableNode {
     return $this->getRightBracket();

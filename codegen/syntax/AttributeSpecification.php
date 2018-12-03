@@ -123,17 +123,15 @@ final class AttributeSpecification extends EditableNode {
   }
 
   /**
-   * @returns LessThanLessThanToken
+   * @return LessThanLessThanToken
    */
   public function getLeftDoubleAngle(): LessThanLessThanToken {
-    return TypeAssert\instance_of(
-      LessThanLessThanToken::class,
-      $this->_left_double_angle
-    );
+    \assert($this->_left_double_angle instanceof LessThanLessThanToken);
+    return $this->_left_double_angle;
   }
 
   /**
-   * @returns LessThanLessThanToken
+   * @return LessThanLessThanToken
    */
   public function getLeftDoubleAnglex(): LessThanLessThanToken {
     return $this->getLeftDoubleAngle();
@@ -162,7 +160,8 @@ final class AttributeSpecification extends EditableNode {
    * @return EditableList<ConstructorCall>
    */
   public function getAttributes(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_attributes);
+    \assert($this->_attributes instanceof EditableList);
+    return $this->_attributes;
   }
 
   /**
@@ -191,17 +190,15 @@ final class AttributeSpecification extends EditableNode {
   }
 
   /**
-   * @returns GreaterThanGreaterThanToken
+   * @return GreaterThanGreaterThanToken
    */
   public function getRightDoubleAngle(): GreaterThanGreaterThanToken {
-    return TypeAssert\instance_of(
-      GreaterThanGreaterThanToken::class,
-      $this->_right_double_angle
-    );
+    \assert($this->_right_double_angle instanceof GreaterThanGreaterThanToken);
+    return $this->_right_double_angle;
   }
 
   /**
-   * @returns GreaterThanGreaterThanToken
+   * @return GreaterThanGreaterThanToken
    */
   public function getRightDoubleAnglex(): GreaterThanGreaterThanToken {
     return $this->getRightDoubleAngle();

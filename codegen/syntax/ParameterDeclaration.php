@@ -190,7 +190,7 @@ final class ParameterDeclaration extends EditableNode {
   }
 
   /**
-   * @returns AttributeSpecification | Missing
+   * @return AttributeSpecification | Missing
    */
   public function getAttribute(): ?AttributeSpecification {
     if ($this->_attribute->isMissing()) {
@@ -201,7 +201,7 @@ final class ParameterDeclaration extends EditableNode {
   }
 
   /**
-   * @returns AttributeSpecification
+   * @return AttributeSpecification
    */
   public function getAttributex(): AttributeSpecification {
     return
@@ -234,20 +234,22 @@ final class ParameterDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | PrivateToken | ProtectedToken | PublicToken
+   * @return null | PrivateToken | ProtectedToken | PublicToken
    */
   public function getVisibility(): ?EditableToken {
     if ($this->_visibility->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableToken::class, $this->_visibility);
+    \assert($this->_visibility instanceof EditableToken);
+    return $this->_visibility;
   }
 
   /**
-   * @returns PrivateToken | ProtectedToken | PublicToken
+   * @return PrivateToken | ProtectedToken | PublicToken
    */
   public function getVisibilityx(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_visibility);
+    \assert($this->_visibility instanceof EditableToken);
+    return $this->_visibility;
   }
 
   public function getCallConventionUNTYPED(): EditableNode {
@@ -276,20 +278,22 @@ final class ParameterDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | InoutToken
+   * @return null | InoutToken
    */
   public function getCallConvention(): ?InoutToken {
     if ($this->_call_convention->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(InoutToken::class, $this->_call_convention);
+    \assert($this->_call_convention instanceof InoutToken);
+    return $this->_call_convention;
   }
 
   /**
-   * @returns InoutToken
+   * @return InoutToken
    */
   public function getCallConventionx(): InoutToken {
-    return TypeAssert\instance_of(InoutToken::class, $this->_call_convention);
+    \assert($this->_call_convention instanceof InoutToken);
+    return $this->_call_convention;
   }
 
   public function getTypeUNTYPED(): EditableNode {
@@ -318,7 +322,7 @@ final class ParameterDeclaration extends EditableNode {
   }
 
   /**
-   * @returns ClassnameTypeSpecifier | ClosureTypeSpecifier |
+   * @return ClassnameTypeSpecifier | ClosureTypeSpecifier |
    * DarrayTypeSpecifier | DictionaryTypeSpecifier | GenericTypeSpecifier |
    * KeysetTypeSpecifier | MapArrayTypeSpecifier | Missing |
    * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
@@ -329,11 +333,12 @@ final class ParameterDeclaration extends EditableNode {
     if ($this->_type->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns ClassnameTypeSpecifier | ClosureTypeSpecifier |
+   * @return ClassnameTypeSpecifier | ClosureTypeSpecifier |
    * DarrayTypeSpecifier | DictionaryTypeSpecifier | GenericTypeSpecifier |
    * KeysetTypeSpecifier | MapArrayTypeSpecifier | NullableTypeSpecifier |
    * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
@@ -341,7 +346,8 @@ final class ParameterDeclaration extends EditableNode {
    * VectorArrayTypeSpecifier | VectorTypeSpecifier
    */
   public function getTypex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   public function getNameUNTYPED(): EditableNode {
@@ -370,20 +376,22 @@ final class ParameterDeclaration extends EditableNode {
   }
 
   /**
-   * @returns DecoratedExpression | Missing | VariableToken
+   * @return DecoratedExpression | Missing | VariableToken
    */
   public function getName(): ?EditableNode {
     if ($this->_name->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_name);
+    \assert($this->_name instanceof EditableNode);
+    return $this->_name;
   }
 
   /**
-   * @returns DecoratedExpression | VariableToken
+   * @return DecoratedExpression | VariableToken
    */
   public function getNamex(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_name);
+    \assert($this->_name instanceof EditableNode);
+    return $this->_name;
   }
 
   public function getDefaultValueUNTYPED(): EditableNode {
@@ -412,7 +420,7 @@ final class ParameterDeclaration extends EditableNode {
   }
 
   /**
-   * @returns Missing | SimpleInitializer
+   * @return null | SimpleInitializer
    */
   public function getDefaultValue(): ?SimpleInitializer {
     if ($this->_default_value->isMissing()) {
@@ -423,7 +431,7 @@ final class ParameterDeclaration extends EditableNode {
   }
 
   /**
-   * @returns SimpleInitializer
+   * @return SimpleInitializer
    */
   public function getDefaultValuex(): SimpleInitializer {
     return

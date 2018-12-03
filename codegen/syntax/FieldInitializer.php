@@ -121,15 +121,16 @@ final class FieldInitializer extends EditableNode {
   }
 
   /**
-   * @returns LiteralExpression | ScopeResolutionExpression | QuestionToken |
+   * @return LiteralExpression | ScopeResolutionExpression | QuestionToken |
    * VariableExpression
    */
   public function getName(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_name);
+    \assert($this->_name instanceof EditableNode);
+    return $this->_name;
   }
 
   /**
-   * @returns LiteralExpression | ScopeResolutionExpression | QuestionToken |
+   * @return LiteralExpression | ScopeResolutionExpression | QuestionToken |
    * VariableExpression
    */
   public function getNamex(): EditableNode {
@@ -155,14 +156,15 @@ final class FieldInitializer extends EditableNode {
   }
 
   /**
-   * @returns EqualGreaterThanToken
+   * @return EqualGreaterThanToken
    */
   public function getArrow(): EqualGreaterThanToken {
-    return TypeAssert\instance_of(EqualGreaterThanToken::class, $this->_arrow);
+    \assert($this->_arrow instanceof EqualGreaterThanToken);
+    return $this->_arrow;
   }
 
   /**
-   * @returns EqualGreaterThanToken
+   * @return EqualGreaterThanToken
    */
   public function getArrowx(): EqualGreaterThanToken {
     return $this->getArrow();
@@ -187,17 +189,18 @@ final class FieldInitializer extends EditableNode {
   }
 
   /**
-   * @returns ArrayIntrinsicExpression | BinaryExpression | LambdaExpression |
+   * @return ArrayIntrinsicExpression | BinaryExpression | LambdaExpression |
    * LiteralExpression | ObjectCreationExpression | ScopeResolutionExpression |
    * SubscriptExpression | NameToken | VariableExpression |
    * VectorIntrinsicExpression
    */
   public function getValue(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_value);
+    \assert($this->_value instanceof EditableNode);
+    return $this->_value;
   }
 
   /**
-   * @returns ArrayIntrinsicExpression | BinaryExpression | LambdaExpression |
+   * @return ArrayIntrinsicExpression | BinaryExpression | LambdaExpression |
    * LiteralExpression | ObjectCreationExpression | ScopeResolutionExpression |
    * SubscriptExpression | NameToken | VariableExpression |
    * VectorIntrinsicExpression

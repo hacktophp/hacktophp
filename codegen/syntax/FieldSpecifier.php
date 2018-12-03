@@ -137,20 +137,22 @@ final class FieldSpecifier extends EditableNode {
   }
 
   /**
-   * @returns Missing | QuestionToken
+   * @return null | QuestionToken
    */
   public function getQuestion(): ?QuestionToken {
     if ($this->_question->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(QuestionToken::class, $this->_question);
+    \assert($this->_question instanceof QuestionToken);
+    return $this->_question;
   }
 
   /**
-   * @returns QuestionToken
+   * @return QuestionToken
    */
   public function getQuestionx(): QuestionToken {
-    return TypeAssert\instance_of(QuestionToken::class, $this->_question);
+    \assert($this->_question instanceof QuestionToken);
+    return $this->_question;
   }
 
   public function getNameUNTYPED(): EditableNode {
@@ -172,14 +174,15 @@ final class FieldSpecifier extends EditableNode {
   }
 
   /**
-   * @returns LiteralExpression | ScopeResolutionExpression
+   * @return LiteralExpression | ScopeResolutionExpression
    */
   public function getName(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_name);
+    \assert($this->_name instanceof EditableNode);
+    return $this->_name;
   }
 
   /**
-   * @returns LiteralExpression | ScopeResolutionExpression
+   * @return LiteralExpression | ScopeResolutionExpression
    */
   public function getNamex(): EditableNode {
     return $this->getName();
@@ -204,14 +207,15 @@ final class FieldSpecifier extends EditableNode {
   }
 
   /**
-   * @returns EqualGreaterThanToken
+   * @return EqualGreaterThanToken
    */
   public function getArrow(): EqualGreaterThanToken {
-    return TypeAssert\instance_of(EqualGreaterThanToken::class, $this->_arrow);
+    \assert($this->_arrow instanceof EqualGreaterThanToken);
+    return $this->_arrow;
   }
 
   /**
-   * @returns EqualGreaterThanToken
+   * @return EqualGreaterThanToken
    */
   public function getArrowx(): EqualGreaterThanToken {
     return $this->getArrow();
@@ -236,16 +240,17 @@ final class FieldSpecifier extends EditableNode {
   }
 
   /**
-   * @returns ClosureTypeSpecifier | GenericTypeSpecifier |
+   * @return ClosureTypeSpecifier | GenericTypeSpecifier |
    * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
    * TypeConstant | VectorTypeSpecifier
    */
   public function getType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns ClosureTypeSpecifier | GenericTypeSpecifier |
+   * @return ClosureTypeSpecifier | GenericTypeSpecifier |
    * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
    * TypeConstant | VectorTypeSpecifier
    */

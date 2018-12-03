@@ -85,16 +85,17 @@ final class ErrorSyntax extends EditableNode {
   }
 
   /**
-   * @returns CommaToken | SemicolonToken | EqualToken | DecimalLiteralToken |
+   * @return CommaToken | SemicolonToken | EqualToken | DecimalLiteralToken |
    * NameToken | SingleQuotedStringLiteralToken | VariableToken |
    * LeftBraceToken | RightBraceToken
    */
   public function getError(): EditableToken {
-    return TypeAssert\instance_of(EditableToken::class, $this->_error);
+    \assert($this->_error instanceof EditableToken);
+    return $this->_error;
   }
 
   /**
-   * @returns CommaToken | SemicolonToken | EqualToken | DecimalLiteralToken |
+   * @return CommaToken | SemicolonToken | EqualToken | DecimalLiteralToken |
    * NameToken | SingleQuotedStringLiteralToken | VariableToken |
    * LeftBraceToken | RightBraceToken
    */

@@ -121,14 +121,15 @@ final class BreakStatement extends EditableNode {
   }
 
   /**
-   * @returns BreakToken
+   * @return BreakToken
    */
   public function getKeyword(): BreakToken {
-    return TypeAssert\instance_of(BreakToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof BreakToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns BreakToken
+   * @return BreakToken
    */
   public function getKeywordx(): BreakToken {
     return $this->getKeyword();
@@ -153,20 +154,22 @@ final class BreakStatement extends EditableNode {
   }
 
   /**
-   * @returns LiteralExpression | Missing | VariableExpression
+   * @return LiteralExpression | Missing | VariableExpression
    */
   public function getLevel(): ?EditableNode {
     if ($this->_level->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableNode::class, $this->_level);
+    \assert($this->_level instanceof EditableNode);
+    return $this->_level;
   }
 
   /**
-   * @returns LiteralExpression | VariableExpression
+   * @return LiteralExpression | VariableExpression
    */
   public function getLevelx(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_level);
+    \assert($this->_level instanceof EditableNode);
+    return $this->_level;
   }
 
   public function getSemicolonUNTYPED(): EditableNode {
@@ -188,14 +191,15 @@ final class BreakStatement extends EditableNode {
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

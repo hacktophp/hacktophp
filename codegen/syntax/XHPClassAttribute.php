@@ -138,16 +138,17 @@ final class XHPClassAttribute extends EditableNode {
   }
 
   /**
-   * @returns GenericTypeSpecifier | MapArrayTypeSpecifier |
+   * @return GenericTypeSpecifier | MapArrayTypeSpecifier |
    * NullableTypeSpecifier | SimpleTypeSpecifier | VectorArrayTypeSpecifier |
    * XHPEnumType
    */
   public function getType(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_type);
+    \assert($this->_type instanceof EditableNode);
+    return $this->_type;
   }
 
   /**
-   * @returns GenericTypeSpecifier | MapArrayTypeSpecifier |
+   * @return GenericTypeSpecifier | MapArrayTypeSpecifier |
    * NullableTypeSpecifier | SimpleTypeSpecifier | VectorArrayTypeSpecifier |
    * XHPEnumType
    */
@@ -175,14 +176,15 @@ final class XHPClassAttribute extends EditableNode {
   }
 
   /**
-   * @returns XHPElementNameToken
+   * @return XHPElementNameToken
    */
   public function getName(): XHPElementNameToken {
-    return TypeAssert\instance_of(XHPElementNameToken::class, $this->_name);
+    \assert($this->_name instanceof XHPElementNameToken);
+    return $this->_name;
   }
 
   /**
-   * @returns XHPElementNameToken
+   * @return XHPElementNameToken
    */
   public function getNamex(): XHPElementNameToken {
     return $this->getName();
@@ -207,7 +209,7 @@ final class XHPClassAttribute extends EditableNode {
   }
 
   /**
-   * @returns Missing | SimpleInitializer
+   * @return null | SimpleInitializer
    */
   public function getInitializer(): ?SimpleInitializer {
     if ($this->_initializer->isMissing()) {
@@ -218,7 +220,7 @@ final class XHPClassAttribute extends EditableNode {
   }
 
   /**
-   * @returns SimpleInitializer
+   * @return SimpleInitializer
    */
   public function getInitializerx(): SimpleInitializer {
     return
@@ -244,19 +246,21 @@ final class XHPClassAttribute extends EditableNode {
   }
 
   /**
-   * @returns Missing | XHPRequired
+   * @return null | XHPRequired
    */
   public function getRequired(): ?XHPRequired {
     if ($this->_required->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(XHPRequired::class, $this->_required);
+    \assert($this->_required instanceof XHPRequired);
+    return $this->_required;
   }
 
   /**
-   * @returns XHPRequired
+   * @return XHPRequired
    */
   public function getRequiredx(): XHPRequired {
-    return TypeAssert\instance_of(XHPRequired::class, $this->_required);
+    \assert($this->_required instanceof XHPRequired);
+    return $this->_required;
   }
 }

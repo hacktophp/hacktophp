@@ -124,26 +124,22 @@ final class FunctionDeclaration
   }
 
   /**
-   * @returns AttributeSpecification | Missing
+   * @return AttributeSpecification | Missing
    */
   public function getAttributeSpec(): ?AttributeSpecification {
     if ($this->_attribute_spec->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   /**
-   * @returns AttributeSpecification
+   * @return AttributeSpecification
    */
   public function getAttributeSpecx(): AttributeSpecification {
-    return TypeAssert\instance_of(
-      AttributeSpecification::class,
-      $this->_attribute_spec
-    );
+    \assert($this->_attribute_spec instanceof AttributeSpecification);
+    return $this->_attribute_spec;
   }
 
   public function getDeclarationHeaderUNTYPED(): EditableNode {
@@ -165,17 +161,15 @@ final class FunctionDeclaration
   }
 
   /**
-   * @returns FunctionDeclarationHeader
+   * @return FunctionDeclarationHeader
    */
   public function getDeclarationHeader(): FunctionDeclarationHeader {
-    return TypeAssert\instance_of(
-      FunctionDeclarationHeader::class,
-      $this->_declaration_header
-    );
+    \assert($this->_declaration_header instanceof FunctionDeclarationHeader);
+    return $this->_declaration_header;
   }
 
   /**
-   * @returns FunctionDeclarationHeader
+   * @return FunctionDeclarationHeader
    */
   public function getDeclarationHeaderx(): FunctionDeclarationHeader {
     return $this->getDeclarationHeader();
@@ -201,14 +195,15 @@ final class FunctionDeclaration
   }
 
   /**
-   * @returns CompoundStatement | SemicolonToken
+   * @return CompoundStatement | SemicolonToken
    */
   public function getBody(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_body);
+    \assert($this->_body instanceof EditableNode);
+    return $this->_body;
   }
 
   /**
-   * @returns CompoundStatement | SemicolonToken
+   * @return CompoundStatement | SemicolonToken
    */
   public function getBodyx(): EditableNode {
     return $this->getBody();

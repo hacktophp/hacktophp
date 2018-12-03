@@ -211,14 +211,15 @@ final class DoStatement
   }
 
   /**
-   * @returns DoToken
+   * @return DoToken
    */
   public function getKeyword(): DoToken {
-    return TypeAssert\instance_of(DoToken::class, $this->_keyword);
+    \assert($this->_keyword instanceof DoToken);
+    return $this->_keyword;
   }
 
   /**
-   * @returns DoToken
+   * @return DoToken
    */
   public function getKeywordx(): DoToken {
     return $this->getKeyword();
@@ -251,14 +252,15 @@ final class DoStatement
   }
 
   /**
-   * @returns CompoundStatement | ExpressionStatement
+   * @return CompoundStatement | ExpressionStatement
    */
   public function getBody(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_body);
+    \assert($this->_body instanceof EditableNode);
+    return $this->_body;
   }
 
   /**
-   * @returns CompoundStatement | ExpressionStatement
+   * @return CompoundStatement | ExpressionStatement
    */
   public function getBodyx(): EditableNode {
     return $this->getBody();
@@ -291,14 +293,15 @@ final class DoStatement
   }
 
   /**
-   * @returns WhileToken
+   * @return WhileToken
    */
   public function getWhileKeyword(): WhileToken {
-    return TypeAssert\instance_of(WhileToken::class, $this->_while_keyword);
+    \assert($this->_while_keyword instanceof WhileToken);
+    return $this->_while_keyword;
   }
 
   /**
-   * @returns WhileToken
+   * @return WhileToken
    */
   public function getWhileKeywordx(): WhileToken {
     return $this->getWhileKeyword();
@@ -331,14 +334,15 @@ final class DoStatement
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParen(): LeftParenToken {
-    return TypeAssert\instance_of(LeftParenToken::class, $this->_left_paren);
+    \assert($this->_left_paren instanceof LeftParenToken);
+    return $this->_left_paren;
   }
 
   /**
-   * @returns LeftParenToken
+   * @return LeftParenToken
    */
   public function getLeftParenx(): LeftParenToken {
     return $this->getLeftParen();
@@ -371,15 +375,16 @@ final class DoStatement
   }
 
   /**
-   * @returns BinaryExpression | FunctionCallExpression | LiteralExpression |
+   * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
    * PrefixUnaryExpression | SubscriptExpression | VariableExpression
    */
   public function getCondition(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_condition);
+    \assert($this->_condition instanceof EditableNode);
+    return $this->_condition;
   }
 
   /**
-   * @returns BinaryExpression | FunctionCallExpression | LiteralExpression |
+   * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
    * PrefixUnaryExpression | SubscriptExpression | VariableExpression
    */
   public function getConditionx(): EditableNode {
@@ -413,14 +418,15 @@ final class DoStatement
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParen(): RightParenToken {
-    return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+    \assert($this->_right_paren instanceof RightParenToken);
+    return $this->_right_paren;
   }
 
   /**
-   * @returns RightParenToken
+   * @return RightParenToken
    */
   public function getRightParenx(): RightParenToken {
     return $this->getRightParen();
@@ -453,14 +459,15 @@ final class DoStatement
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolon(): SemicolonToken {
-    return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+    \assert($this->_semicolon instanceof SemicolonToken);
+    return $this->_semicolon;
   }
 
   /**
-   * @returns SemicolonToken
+   * @return SemicolonToken
    */
   public function getSemicolonx(): SemicolonToken {
     return $this->getSemicolon();

@@ -121,14 +121,15 @@ final class XHPExpression extends EditableNode {
   }
 
   /**
-   * @returns XHPOpen
+   * @return XHPOpen
    */
   public function getOpen(): XHPOpen {
-    return TypeAssert\instance_of(XHPOpen::class, $this->_open);
+    \assert($this->_open instanceof XHPOpen);
+    return $this->_open;
   }
 
   /**
-   * @returns XHPOpen
+   * @return XHPOpen
    */
   public function getOpenx(): XHPOpen {
     return $this->getOpen();
@@ -159,14 +160,16 @@ final class XHPExpression extends EditableNode {
     if ($this->_body->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(EditableList::class, $this->_body);
+    \assert($this->_body instanceof EditableList);
+    return $this->_body;
   }
 
   /**
    * @return EditableList<EditableNode>
    */
   public function getBodyx(): EditableList {
-    return TypeAssert\instance_of(EditableList::class, $this->_body);
+    \assert($this->_body instanceof EditableList);
+    return $this->_body;
   }
 
   public function getCloseUNTYPED(): EditableNode {
@@ -188,19 +191,21 @@ final class XHPExpression extends EditableNode {
   }
 
   /**
-   * @returns Missing | XHPClose
+   * @return null | XHPClose
    */
   public function getClose(): ?XHPClose {
     if ($this->_close->isMissing()) {
       return null;
     }
-    return TypeAssert\instance_of(XHPClose::class, $this->_close);
+    \assert($this->_close instanceof XHPClose);
+    return $this->_close;
   }
 
   /**
-   * @returns XHPClose
+   * @return XHPClose
    */
   public function getClosex(): XHPClose {
-    return TypeAssert\instance_of(XHPClose::class, $this->_close);
+    \assert($this->_close instanceof XHPClose);
+    return $this->_close;
   }
 }

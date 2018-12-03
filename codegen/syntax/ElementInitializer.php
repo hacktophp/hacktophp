@@ -121,7 +121,7 @@ final class ElementInitializer extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
    * CollectionLiteralExpression | DictionaryIntrinsicExpression |
    * FunctionCallExpression | KeysetIntrinsicExpression | LiteralExpression |
@@ -130,11 +130,12 @@ final class ElementInitializer extends EditableNode {
    * VariableExpression | VectorIntrinsicExpression
    */
   public function getKey(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_key);
+    \assert($this->_key instanceof EditableNode);
+    return $this->_key;
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
    * CollectionLiteralExpression | DictionaryIntrinsicExpression |
    * FunctionCallExpression | KeysetIntrinsicExpression | LiteralExpression |
@@ -165,14 +166,15 @@ final class ElementInitializer extends EditableNode {
   }
 
   /**
-   * @returns EqualGreaterThanToken
+   * @return EqualGreaterThanToken
    */
   public function getArrow(): EqualGreaterThanToken {
-    return TypeAssert\instance_of(EqualGreaterThanToken::class, $this->_arrow);
+    \assert($this->_arrow instanceof EqualGreaterThanToken);
+    return $this->_arrow;
   }
 
   /**
-   * @returns EqualGreaterThanToken
+   * @return EqualGreaterThanToken
    */
   public function getArrowx(): EqualGreaterThanToken {
     return $this->getArrow();
@@ -197,7 +199,7 @@ final class ElementInitializer extends EditableNode {
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
    * CollectionLiteralExpression | ConditionalExpression |
    * DarrayIntrinsicExpression | DictionaryIntrinsicExpression |
@@ -209,11 +211,12 @@ final class ElementInitializer extends EditableNode {
    * VectorIntrinsicExpression
    */
   public function getValue(): EditableNode {
-    return TypeAssert\instance_of(EditableNode::class, $this->_value);
+    \assert($this->_value instanceof EditableNode);
+    return $this->_value;
   }
 
   /**
-   * @returns AnonymousFunction | ArrayCreationExpression |
+   * @return AnonymousFunction | ArrayCreationExpression |
    * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
    * CollectionLiteralExpression | ConditionalExpression |
    * DarrayIntrinsicExpression | DictionaryIntrinsicExpression |
