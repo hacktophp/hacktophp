@@ -8,7 +8,7 @@
  *
  */
 
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 
 /**
  * @psalm-type TRewriter = (\Closure(EditableNode, ?array<int, EditableNode>): EditableNode)

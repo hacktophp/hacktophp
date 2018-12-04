@@ -6,7 +6,7 @@ require_once('__Private/execute_async.php');
 
 use function Sabre\Event\coroutine;
 use Sabre\Event\Promise;
-use HackToPhp\HHAST\Node\EditableNode;
+use HackToPhp\HHAST\EditableNode;
 
 /**
  * @param array<string, mixed> $json

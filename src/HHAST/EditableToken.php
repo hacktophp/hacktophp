@@ -8,13 +8,13 @@
  *
  */
 
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
 use Facebook\TypeAssert;
-use HackToPhp\HHAST\Node\EditableNode;
-use HackToPhp\HHAST\Node\EditableList;
+use HackToPhp\HHAST\EditableNode;
+use HackToPhp\HHAST\EditableList;
 
-require_once(dirname(__DIR__, 3) . '/codegen/editable_token_from_data.php');
+require_once(dirname(__DIR__, 2) . '/codegen/editable_token_from_data.php');
 
 abstract class EditableToken extends EditableNode {
     /**

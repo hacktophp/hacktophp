@@ -8,11 +8,8 @@
  *
  */
 
- namespace HackToPhp\HHAST\Node;
+ namespace HackToPhp\HHAST;
 
- interface IComment {
-   /**
-    * @return static
-    */
-   public function withText(string $text);
+ interface IControlFlowStatement {
+   
  }

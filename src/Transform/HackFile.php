@@ -2,7 +2,7 @@
 
 namespace HackToPhp\Transform;
 
-use HackToPhp\HHAST\Node;
+use HackToPhp\HHAST;
 use PhpParser;
 
 class HackFile

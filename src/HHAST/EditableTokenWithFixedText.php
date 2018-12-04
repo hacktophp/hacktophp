@@ -8,9 +8,9 @@
  *
  */
 
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
+use HackToPhp\HHAST\EditableNode;
 
 abstract class EditableTokenWithFixedText extends EditableToken {
   public function __construct(

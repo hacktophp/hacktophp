@@ -8,13 +8,13 @@
  *
  */
 
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Token\EditableToken;
+use HackToPhp\HHAST\EditableToken;
 
 use Facebook\TypeAssert;
 
-require_once(dirname(__DIR__, 3) . '/codegen/editable_node_from_json.php');
+require_once(dirname(__DIR__, 2) . '/codegen/editable_node_from_json.php');
 
 /**
  * @psalm-type TRewriter = (\Closure(EditableNode, ?array<int, EditableNode>): EditableNode)

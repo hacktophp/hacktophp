@@ -8,8 +8,12 @@
  *
  */
 
- namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 
- interface IControlFlowStatement {
-   
- }
+interface ILoopStatement extends IControlFlowStatement {
+  public function getBody(): EditableNode;
+  /**
+   * @return static
+   */
+  public function withBody(EditableNode $body);
+}

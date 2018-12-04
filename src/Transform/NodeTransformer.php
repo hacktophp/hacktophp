@@ -7,40 +7,39 @@ use PhpParser;
 
 class NodeTransformer
 {
-	public static function transformList(HHAST\Node\EditableList $list, HackFile $file)
+	public static function transformList(HHAST\EditableList $list, HackFile $file)
 	{
 		return array_map(
-			function(HHAST\Node\EditableNode $node) use ($file) { return self::transform($node, $file); },
+			function(HHAST\EditableNode $node) use ($file) { return self::transform($node, $file); },
 			$list->getChildren()
 		);
 	}
 
-	public static function transform(HHAST\Node\EditableNode $node, HackFile $file) : PhpParser\Node
+	public static function transform(HHAST\EditableNode $node, HackFile $file)
 	{
-		if ($node instanceof HHAST\Node\EditableList) {
+		if ($node instanceof HHAST\EditableList) {
 			return self::transformList($node, $file);
 		}
 		
-		if ($node instanceof HHAST\Node\Script) {
+		if ($node instanceof HHAST\Script) {
 			return ScriptTransformer::transform($node, $file);
 		}
 
-		if ($node instanceof HHAST\Node\MarkupSection) {
+		if ($node instanceof HHAST\MarkupSection) {
 			// todo maybe more information can be gleaned
 			return new PhpParser\Node\Stmt\Nop();
 		}
 
-		if ($node instanceof HHAST\Node\NamespaceDeclaration) {
-			$file->namespace = $node->getQualifiedNameAsString();
-			return new PhpParser\Node\Stmt\Nop();
-		}
-
-		if ($node instanceof HHAST\Node\NamespaceUseDeclaration) {
+		if ($node instanceof HHAST\NamespaceUseDeclaration) {
 			return NamespaceUseDeclarationTransformer::transform($node, $file);
 		}
 
-		if ($node instanceof HHAST\Node\FunctionDeclaration) {
+		if ($node instanceof HHAST\FunctionDeclaration) {
 			return FunctionDeclarationTransformer::transform($node, $file);
+		}
+
+		if ($node instanceof HHAST\EndOfFile) {
+			return new PhpParser\Node\Stmt\Nop();
 		}
 
 		throw new \UnexpectedValueException('Unknown type ' . get_class($node));

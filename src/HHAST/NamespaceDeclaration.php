@@ -8,9 +8,7 @@
  *
  */
 
-namespace HackToPhp\HHAST\Node;
-
-use HackToPhp\HHAST\Token\NameToken;
+namespace HackToPhp\HHAST;
 
 final class NamespaceDeclaration extends NamespaceDeclarationGeneratedBase {
   public function getQualifiedNameAsString(): string {

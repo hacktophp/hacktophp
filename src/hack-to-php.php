@@ -21,4 +21,8 @@ if (!is_string($file_path)) {
 
 $hackfile = new HackToPhp\Transform\HackFile();
 
-var_dump(HackToPhp\Transform\NodeTransformer::transform(HackToPhp\from_file($file_path), $hackfile));
+$stmts = HackToPhp\Transform\NodeTransformer::transform(HackToPhp\from_file($file_path), $hackfile);
+
+$prettyPrinter = new \PhpParser\PrettyPrinter\Standard;
+echo $prettyPrinter->prettyPrint($stmts);
+echo PHP_EOL;

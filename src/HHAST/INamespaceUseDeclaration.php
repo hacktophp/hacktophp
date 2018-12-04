@@ -8,9 +8,9 @@
  *
  */
 
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Token\EditableToken;
+use HackToPhp\HHAST\EditableToken;
 
 interface INamespaceUseDeclaration {
   /**

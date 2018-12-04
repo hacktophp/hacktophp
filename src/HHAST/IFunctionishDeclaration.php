@@ -8,7 +8,7 @@
  *
  */
 
- namespace HackToPhp\HHAST\Node;
+ namespace HackToPhp\HHAST;
 
  interface IFunctionishDeclaration {
  }
