@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<f995a5961ac2ae282bd0b3c80c0164ef>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class TraitUseConflictResolution extends EditableNode {

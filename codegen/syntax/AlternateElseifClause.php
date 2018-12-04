@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<08f603ed0afa963da9ea3e5dbcd7f9dd>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class AlternateElseifClause

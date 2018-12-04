@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<054a7f11c9bb79b1a90db8e47fbb0d9b>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class LambdaSignature extends EditableNode {

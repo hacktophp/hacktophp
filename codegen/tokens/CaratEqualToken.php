@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<f0bd2ca888a514ed806d274245f12615>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class CaratEqualToken extends EditableTokenWithFixedText {
 

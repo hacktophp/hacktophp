@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<46853d426079cb2391938c7e06563b61>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class TildeToken extends EditableTokenWithFixedText {
 

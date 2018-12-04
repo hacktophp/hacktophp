@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<da0a903201fc632ac00eb57d6475d71b>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class ExclamationEqualToken extends EditableTokenWithFixedText {
 

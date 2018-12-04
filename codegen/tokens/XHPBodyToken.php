@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<3a66aa9928a1a85f83cd97c122a1fea1>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class XHPBodyToken extends EditableTokenWithVariableText {
 

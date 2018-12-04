@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<51b0bb21fbcb9ffe79e7f2390cf769ec>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class WhileStatement

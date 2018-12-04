@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<6724d3be551d026a6315bb62eba9ceab>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class NullableTypeSpecifier extends EditableNode {

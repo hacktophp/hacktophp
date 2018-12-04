@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<63b1b67bd97ff9e9af6cb6751d821db6>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class XHPEnumType extends EditableNode {

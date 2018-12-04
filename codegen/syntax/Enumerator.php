@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<2671fc02b823a6b6d4e4b3a79d3c1952>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class Enumerator extends EditableNode {

@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<aa966ea0e084eef5000ac6ca0a39353f>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class ErrorSyntax extends EditableNode {

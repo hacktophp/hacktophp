@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<8e67dd198969c8969652d86f1944f619>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class PercentEqualToken extends EditableTokenWithFixedText {
 

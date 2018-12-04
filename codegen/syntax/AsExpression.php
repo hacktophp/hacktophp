@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<e05d4226981212e53431ec93caf6b83b>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class AsExpression extends EditableNode {

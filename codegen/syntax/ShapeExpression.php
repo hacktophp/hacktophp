@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<5c0c853456635ddd29e88cf3d10dfa57>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class ShapeExpression extends EditableNode {

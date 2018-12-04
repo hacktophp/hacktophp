@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<bf068e4e73715c90b44ef9e73bc8ec91>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class VectorTypeSpecifier extends EditableNode {

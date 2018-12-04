@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<91fc594106c95c2a267542366cbbd056>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class QuestionAsToken extends EditableTokenWithVariableText {
 

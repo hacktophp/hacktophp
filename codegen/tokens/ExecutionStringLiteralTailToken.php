@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<7f75390715b185843ba5950b3060e2cc>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class ExecutionStringLiteralTailToken
   extends EditableTokenWithVariableText {

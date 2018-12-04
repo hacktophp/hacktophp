@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<543cc69b87f4df641d8ac42b36ca6233>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class ForeachStatement

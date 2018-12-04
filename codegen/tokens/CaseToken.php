@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<3b1684c6ff096435a2ccf07d36c8fc68>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class CaseToken extends EditableTokenWithVariableText {
 

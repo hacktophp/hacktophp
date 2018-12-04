@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<9137857cc97d039828470ef4bfa2a30b>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class DollarToken extends EditableTokenWithFixedText {
 

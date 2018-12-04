@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<cd12287bd3a3da25054d7073c1ada813>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class CommaToken extends EditableTokenWithFixedText {
 

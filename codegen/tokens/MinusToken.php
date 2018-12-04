@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<c143f09000b28a8b964a51aa72506ff7>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class MinusToken extends EditableTokenWithFixedText {
 

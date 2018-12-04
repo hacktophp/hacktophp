@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<3b218010d2b783d06c365cf1e6ad2cdc>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class HexadecimalLiteralToken extends EditableTokenWithVariableText {
 

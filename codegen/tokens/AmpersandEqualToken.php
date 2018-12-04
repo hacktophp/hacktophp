@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<328635765c6d195738cf5cd6dd49936e>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class AmpersandEqualToken extends EditableTokenWithFixedText {
 

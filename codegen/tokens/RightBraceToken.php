@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<0a47460ac0d105ac7f98bbf4ceb73c2e>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class RightBraceToken extends EditableTokenWithFixedText {
 

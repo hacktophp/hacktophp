@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<61ed792f78c4e0eefa5ac63afd9baaab>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class PostfixUnaryExpression extends EditableNode {

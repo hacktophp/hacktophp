@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<1821d54b9310e323be7d5b5ed47f6a28>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 abstract class AlternateLoopStatementGeneratedBase

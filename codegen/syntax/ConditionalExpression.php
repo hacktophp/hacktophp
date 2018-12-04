@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<e1a664961e0c7f2a0a56f83257c46396>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class ConditionalExpression extends EditableNode {

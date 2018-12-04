@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<f8335770306ec2c1c59150aa865141f6>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class StarStarEqualToken extends EditableTokenWithFixedText {
 

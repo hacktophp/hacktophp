@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<e6419eb8ca47cb6a212203dfd1657e28>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class EnumToken extends EditableTokenWithVariableText {
 

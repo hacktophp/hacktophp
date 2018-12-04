@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<03990ae1d17a571c5c39bf582823c25f>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class SemicolonToken extends EditableTokenWithFixedText {
 

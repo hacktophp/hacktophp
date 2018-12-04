@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<3a86db03cdcf68537b27ae2acc4ad7a8>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class TupleToken extends EditableTokenWithVariableText {
 

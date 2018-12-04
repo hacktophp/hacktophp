@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<dc2428e2bc05b2151c4feaca8cb0ef4c>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class FunctionDeclaration

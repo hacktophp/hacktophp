@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<8f85b4ea79f10c3d9924c9ce5d9cfcfb>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class RequireClause extends EditableNode {

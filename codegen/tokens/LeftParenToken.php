@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<35d8805d7254764d6acfe827b2f214c0>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class LeftParenToken extends EditableTokenWithFixedText {
 

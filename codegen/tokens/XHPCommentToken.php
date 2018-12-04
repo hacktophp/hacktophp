@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<f55cf61d2535c48dd80032191b8df534>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class XHPCommentToken extends EditableTokenWithVariableText {
 

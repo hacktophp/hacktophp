@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<4940c60c99cc13905eabb86edd818a30>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class ThrowToken extends EditableTokenWithVariableText {
 

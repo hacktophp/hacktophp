@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<83a55a9df91186c9e378cc690d403865>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class InclusionDirective extends EditableNode {

@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<5ce396a70aca4e4679fc3dd480989601>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class XorToken extends EditableTokenWithVariableText {
 

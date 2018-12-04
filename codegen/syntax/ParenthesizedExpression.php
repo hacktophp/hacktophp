@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<95c84ca61c3e8563760c7621de03cbfb>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class ParenthesizedExpression extends EditableNode {

@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<b5bbbbc5e7616d4b2a310ab6871c2bed>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class IntegerToken extends EditableTokenWithVariableText {
 

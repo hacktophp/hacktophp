@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<8a62f15c71b0b61ef776383d63c86527>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class AmpersandToken extends EditableTokenWithFixedText {
 

@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<0cfd0237442f7edbac968977d9c7e7cd>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class HaltCompilerToken extends EditableTokenWithVariableText {
 

@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<f62e4cfd53bf7b85eccabfcacf0290ae>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class ArraykeyToken extends EditableTokenWithVariableText {
 

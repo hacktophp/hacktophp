@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<418c7267e38ea8be641ee84ddadbe40e>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class MethodishDeclaration

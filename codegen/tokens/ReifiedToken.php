@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<dc4997f7094214f05a2f498c3ff0a1b0>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class ReifiedToken extends EditableTokenWithVariableText {
 

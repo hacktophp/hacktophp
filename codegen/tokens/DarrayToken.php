@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<dcd276936f4a5700689da460b5b27bdf>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class DarrayToken extends EditableTokenWithVariableText {
 

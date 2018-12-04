@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<cf9a32d0fefc3b47e139b1e21b3afc5a>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class EnumDeclaration extends EditableNode {

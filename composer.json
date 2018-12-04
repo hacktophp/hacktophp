@@ -5,7 +5,8 @@
     "require": {
         "php": "^7.1",
         "nikic/php-parser": "^4.0",
-        "sabre/event": "^5.0"
+        "sabre/event": "^5.0",
+        "vimeo/psalm": "^3.0"
     },
     "license": "MIT",
     "authors": [
@@ -16,9 +17,10 @@
     ],
     "autoload": {
         "psr-4": {
-            "HackToPhp\\": "src",
-            "HackToPhp\\HHAST\\Node\\": "codegen/syntax",
-            "HackToPhp\\HHAST\\Token\\": "codegen/tokens"
-        }
+            "HackToPhp\\": "src"
+        },
+        "classmap": [
+            "codegen"
+        ]
     }
 }

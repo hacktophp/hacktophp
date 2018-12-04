@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<501d296545dca9876180d80818b49e7c>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class CaratToken extends EditableTokenWithFixedText {
 

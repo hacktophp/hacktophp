@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<faa12b15f2f839b71a6dad46ab21e861>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class CoroutineToken extends EditableTokenWithVariableText {
 

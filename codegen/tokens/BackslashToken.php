@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<1422e387045a0f6af092f1f9adf3866c>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class BackslashToken extends EditableTokenWithFixedText {
 

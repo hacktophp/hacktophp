@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<ddb5f3a3bb330d83849c375ec4fc4f5e>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class OctalLiteralToken extends EditableTokenWithVariableText {
 

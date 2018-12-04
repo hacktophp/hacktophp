@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<948770ddde2618e0d8218a85cd0d3823>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class LambdaExpression extends EditableNode {

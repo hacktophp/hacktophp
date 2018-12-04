@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<b52c96f6a540d86e8fdcc65b7bee57d8>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class EmbeddedMemberSelectionExpression extends EditableNode {

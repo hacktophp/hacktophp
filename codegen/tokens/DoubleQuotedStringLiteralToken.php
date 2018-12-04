@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<a81108032d005501ae42d6a670761a8d>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class DoubleQuotedStringLiteralToken
   extends EditableTokenWithVariableText {

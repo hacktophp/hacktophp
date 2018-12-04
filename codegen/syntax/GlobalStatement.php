@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<48387d2ff5f84554544861925d4578ae>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class GlobalStatement extends EditableNode {

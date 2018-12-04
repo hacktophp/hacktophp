@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<36a911fe5ab7a8d71d2002ddb9804c17>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class VectorIntrinsicExpression extends EditableNode {

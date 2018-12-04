@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<5297b6428ed22bef002ee08b82a85391>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class BoolToken extends EditableTokenWithVariableText {
 

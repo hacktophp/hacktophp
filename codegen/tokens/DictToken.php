@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<3871c08635f11951fd29f62f9f74a3c6>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class DictToken extends EditableTokenWithVariableText {
 

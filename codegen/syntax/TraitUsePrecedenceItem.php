@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<55cf773eff1a2640f2467e1573f96111>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class TraitUsePrecedenceItem extends EditableNode {

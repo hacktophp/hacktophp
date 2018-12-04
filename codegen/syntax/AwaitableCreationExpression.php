@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<953198e3455abc447403ead911f5ebf5>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class AwaitableCreationExpression extends EditableNode {

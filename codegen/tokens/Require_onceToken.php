@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<237663ded115f0a036265fb61aa07235>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class Require_onceToken extends EditableTokenWithVariableText {
 

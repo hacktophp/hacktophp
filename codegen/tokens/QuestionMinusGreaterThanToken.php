@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<d64e04288182695506af5dfd5ab18457>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class QuestionMinusGreaterThanToken extends EditableTokenWithFixedText {
 

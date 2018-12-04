@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<7389eff8584584ac796099d38e34713e>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class HeredocStringLiteralHeadToken
   extends EditableTokenWithVariableText {

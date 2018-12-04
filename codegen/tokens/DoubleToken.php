@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<34c8d7dc6e073ce40067a078560072ce>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class DoubleToken extends EditableTokenWithVariableText {
 

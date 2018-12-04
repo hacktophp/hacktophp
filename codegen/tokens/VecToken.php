@@ -4,9 +4,8 @@
  *
  * @generated SignedSource<<41a547f321642e88b0d7034b0c13cff8>>
  */
-namespace HackToPhp\HHAST\Token;
+namespace HackToPhp\HHAST;
 
-use HackToPhp\HHAST\Node\EditableNode;
 
 final class VecToken extends EditableTokenWithVariableText {
 

@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<09386bb492144ebcaace76ec355a9860>>
  */
-namespace HackToPhp\HHAST\Node;
+namespace HackToPhp\HHAST;
 use Facebook\TypeAssert;
 
 final class MapArrayTypeSpecifier extends EditableNode {
