@@ -239,7 +239,7 @@ final class ShapeTypeSpecifier extends EditableNode {
   /**
    * @return EditableList<FieldSpecifier> | null
    */
-  public function getFields(): ?EditableList<FieldSpecifier> {
+  public function getFields(): ?EditableList {
     if ($this->_fields->isMissing()) {
       return null;
     }

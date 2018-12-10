@@ -219,7 +219,7 @@ final class ListExpression extends EditableNode {
    * EditableList<?VariableExpression> | EditableList<SubscriptExpression> |
    * EditableList<VariableExpression> | Missing
    */
-  public function getMembers(): ?EditableList<?EditableNode> {
+  public function getMembers(): ?EditableList {
     if ($this->_members->isMissing()) {
       return null;
     }

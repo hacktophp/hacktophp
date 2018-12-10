@@ -554,7 +554,7 @@ final class ClassishDeclaration extends EditableNode {
    * @return EditableList<GenericTypeSpecifier> | EditableList<EditableNode> |
    * EditableList<?EditableNode> | EditableList<SimpleTypeSpecifier> | Missing
    */
-  public function getExtendsList(): ?EditableList<?EditableNode> {
+  public function getExtendsList(): ?EditableList {
     if ($this->_extends_list->isMissing()) {
       return null;
     }
@@ -652,7 +652,7 @@ final class ClassishDeclaration extends EditableNode {
    * @return EditableList<GenericTypeSpecifier> | EditableList<EditableNode> |
    * EditableList<?EditableNode> | EditableList<SimpleTypeSpecifier> | Missing
    */
-  public function getImplementsList(): ?EditableList<?EditableNode> {
+  public function getImplementsList(): ?EditableList {
     if ($this->_implements_list->isMissing()) {
       return null;
     }

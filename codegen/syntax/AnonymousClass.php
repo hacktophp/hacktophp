@@ -485,7 +485,7 @@ final class AnonymousClass extends EditableNode {
   /**
    * @return EditableList<SimpleTypeSpecifier> | null
    */
-  public function getExtendsList(): ?EditableList<SimpleTypeSpecifier> {
+  public function getExtendsList(): ?EditableList {
     if ($this->_extends_list->isMissing()) {
       return null;
     }
@@ -579,7 +579,7 @@ final class AnonymousClass extends EditableNode {
   /**
    * @return EditableList<SimpleTypeSpecifier> | null
    */
-  public function getImplementsList(): ?EditableList<SimpleTypeSpecifier> {
+  public function getImplementsList(): ?EditableList {
     if ($this->_implements_list->isMissing()) {
       return null;
     }

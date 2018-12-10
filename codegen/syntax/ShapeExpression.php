@@ -216,7 +216,7 @@ final class ShapeExpression extends EditableNode {
   /**
    * @return EditableList<FieldInitializer> | null
    */
-  public function getFields(): ?EditableList<FieldInitializer> {
+  public function getFields(): ?EditableList {
     if ($this->_fields->isMissing()) {
       return null;
     }

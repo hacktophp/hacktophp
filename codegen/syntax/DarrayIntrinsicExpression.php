@@ -294,7 +294,7 @@ final class DarrayIntrinsicExpression extends EditableNode {
   /**
    * @return EditableList<ElementInitializer> | null
    */
-  public function getMembers(): ?EditableList<ElementInitializer> {
+  public function getMembers(): ?EditableList {
     if ($this->_members->isMissing()) {
       return null;
     }

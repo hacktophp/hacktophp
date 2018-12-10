@@ -34,6 +34,10 @@ class NodeTransformer
 			return NamespaceUseDeclarationTransformer::transform($node, $file);
 		}
 
+		if ($node instanceof HHAST\NamespaceGroupUseDeclaration) {
+			return NamespaceGroupUseDeclarationTransformer::transform($node, $file);
+		}
+
 		if ($node instanceof HHAST\FunctionDeclaration) {
 			return FunctionDeclarationTransformer::transform($node, $file);
 		}
@@ -64,6 +68,10 @@ class NodeTransformer
 
 		if ($node instanceof HHAST\CompoundStatement) {
 			return self::transformList($node->getStatements(), $file);
+		}
+
+		if ($node instanceof HHAST\ClassishDeclaration) {
+			return ClassishDeclarationTransformer::transform($node, $file);
 		}
 
 		if ($node instanceof HHAST\ThrowStatement) {
