@@ -43,7 +43,7 @@ class PrefixUnaryExpressionTransformer
 				return new PhpParser\Node\Expr\ErrorSuppress($expr);
 
 			case AwaitToken::class:
-				return new PhpParser\Node\Expr\MethodCall($expr, 'wait');
+				return new PhpParser\Node\Expr\Yield_($expr);
 
 			case CloneToken::class:
 				return new PhpParser\Node\Expr\Clone_($expr);

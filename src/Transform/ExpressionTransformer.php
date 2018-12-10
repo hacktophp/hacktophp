@@ -166,7 +166,7 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof HHAST\VariableToken) {
-			return new PhpParser\Node\Expr\Variable($node->getText());
+			return new PhpParser\Node\Expr\Variable(substr($node->getText(), 1));
 		}
 	}
 }

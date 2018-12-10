@@ -68,18 +68,18 @@ class FunctionDeclarationTransformer
 
 		$return_type = $header->hasType() ? $header->getType() : null;
 
-		$psalm_atomic_type = null;
+		$psalm_return_type = null;
 
 		if ($return_type) {
 			$return_type_string = TypeTransformer::transform($return_type, $file);
 			
-			$psalm_type = Psalm\Type::parseString($return_type_string);
+			$psalm_return_type = Psalm\Type::parseString($return_type_string);
 
-			if (!$psalm_type->canBeFullyExpressedInPhp()) {
-				$docblock['specials']['return'] = [$psalm_type->toNamespacedString($file->namespace, [], null, false)];
+			if (!$psalm_return_type->canBeFullyExpressedInPhp()) {
+				$docblock['specials']['return'] = [$psalm_return_type->toNamespacedString($file->namespace, [], null, false)];
 			}
 
-			$return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_type, $file);
+			$return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $file);
 		}
 
 		if ($docblock['specials']) {
@@ -96,6 +96,12 @@ class FunctionDeclarationTransformer
 
 		if ($node->hasBody() && $node->getBody()->hasStatements()) {
 			$stmts = NodeTransformer::transform($node->getBody()->getStatements(), $file);
+
+			if ($async) {
+				$stmts = [
+					self::getAsyncCoroutine($params, $stmts, $psalm_return_type, $file)
+				];
+			}
 		}
 
 		$subnodes = [
@@ -117,6 +123,80 @@ class FunctionDeclarationTransformer
 			$function_name,
 			$subnodes,
 			$attributes
+		);
+	}
+
+	private static function getAsyncCoroutine(
+		array $params,
+		array $stmts,
+		?Psalm\Type\Union $psalm_return_type,
+		HackFile $file
+	) : PhpParser\Node\Stmt\Return_ {
+
+		$generator_docblock_type = null;
+
+		$comments = [];
+
+		if ($psalm_return_type) {
+			$atomic_types = $psalm_return_type->getTypes();
+		
+			$atomic_type = reset($atomic_types);
+
+			if ($atomic_type instanceof Psalm\Type\Atomic\TGenericObject) {
+				$generator_type = new Psalm\Type\Union([
+					new Psalm\Type\Atomic\TGenericObject(
+						'Generator',
+						[
+							Psalm\Type::getInt(),
+							Psalm\Type::getMixed(),
+							Psalm\Type::getVoid(),
+							$atomic_type->type_params[0]
+						]
+					)
+				]);
+
+				$comments = [
+					new PhpParser\Comment\Doc(
+						'/** @return ' . $generator_type->toNamespacedString($file->namespace, [], null, false) . ' */'
+					)
+				];
+			}
+		}
+
+		$closure_expr = new PhpParser\Node\Expr\Closure(
+			[
+				'params' => [],
+				'uses' => array_map(
+					function(PhpParser\Node\Param $param) {
+						return new PhpParser\Node\Expr\ClosureUse(
+							new PhpParser\Node\Expr\Variable(
+								(string) $param->var->name
+							)
+						);
+					},
+					$params
+				),
+				'returnType' => new PhpParser\Node\Name\FullyQualified('Generator'),
+				'stmts' => $stmts,
+			]
+		);
+
+		return new PhpParser\Node\Stmt\Return_(
+			new PhpParser\Node\Expr\FuncCall(
+				new PhpParser\Node\Name\FullyQualified(
+					'Sabre\\Event\\coroutine'
+				),
+				[
+					new PhpParser\Node\Arg(
+						$closure_expr,
+						false,
+						false,
+						[
+							'comments' => $comments
+						]
+					)
+				]	
+			)
 		);
 	}
 }
