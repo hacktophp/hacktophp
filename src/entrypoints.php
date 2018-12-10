@@ -1,17 +1,16 @@
 <?php
 
-namespace Facebook\HHAST;
+namespace HackToPhp;
 
-use HH\Lib\Str as Str;
+require_once('__Private/execute_async.php');
+
+use HackToPhp\HHAST\EditableNode;
+
 /**
  * @param array<string, mixed> $json
  */
 function from_json(array $json, ?string $file) : EditableNode
 {
-    $version = $json['version'] ?? null;
-    if (\is_string($version) && $version !== SCHEMA_VERSION) {
-        throw new SchemaVersionError($file ?? '! no file !', $version);
-    }
     return EditableNode::fromJSON($json['parse_tree'], $file ?? '! no file !', 0, $json['program_text']);
 }
 /**
@@ -24,7 +23,7 @@ function json_from_file_async(string $file) : \Sabre\Event\Promise
         function () use($file) : \Generator {
             try {
                 try {
-                    (yield __Private\ParserConcurrencyLease::getAsync());
+                    //(yield __Private\ParserConcurrencyLease::getAsync());
                     $results = (yield __Private\execute_async('hh_parse', '--php5-compat-mode', '--full-fidelity-json', $file));
                 } finally {
                 }
