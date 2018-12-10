@@ -88,8 +88,8 @@ class ExpressionTransformer
 				case HHAST\DecimalLiteralToken::class:
 					$value = $literal->getText();
 					
-					if ($value === '0') {
-						return new PhpParser\Node\Scalar\LNumber(0);
+					if (!strpos($value, '.')) {
+						return new PhpParser\Node\Scalar\LNumber((int) $value);
 					}
 
 					return new PhpParser\Node\Scalar\DNumber((float) $value);
@@ -107,17 +107,9 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof QualifiedName) {
-			return new PhpParser\Node\Expr\ConstFetch(
-				new PhpParser\Node\Name(
-					implode(
-				    	"\\",
-				    	array_map(
-				    		function($t) { return $t->getText(); },
-				    		$node->getDescendantsOfType(HHAST\NameToken::class)
-				    	)
-				    )
-				)
-			);
+			$name = QualifiedNameTransformer::transform($node);
+
+			return new PhpParser\Node\Expr\ConstFetch($name);
 		}
 
 		if ($node instanceof ObjectCreationExpression) {
@@ -170,15 +162,7 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof QualifiedName) {
-			return new PhpParser\Node\Name(
-				implode(
-			    	"\\",
-			    	array_map(
-			    		function($t) { return $t->getText(); },
-			    		$node->getDescendantsOfType(HHAST\NameToken::class)
-			    	)
-			    )
-			);
+			return QualifiedNameTransformer::transform($node);
 		}
 
 		if ($node instanceof HHAST\VariableToken) {

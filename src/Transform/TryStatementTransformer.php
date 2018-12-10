@@ -35,7 +35,7 @@ class TryStatementTransformer
 				$variable = ExpressionTransformer::transformVariableName($node->getVariable(), $file);
 
 				return new PhpParser\Node\Stmt\Catch_(
-					[new PhpParser\Node\Name($class_type)],
+					[$class],
 					$variable,
 					NodeTransformer::transform($node->getBody(), $file)
 				);

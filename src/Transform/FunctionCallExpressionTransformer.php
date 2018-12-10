@@ -25,16 +25,10 @@ class FunctionCallExpressionTransformer
 		}
 
 		if ($receiver instanceof HHAST\QualifiedName) {
-			$function_name = implode(
-		    	"\\",
-		    	array_map(
-		    		function($t) { return $t->getText(); },
-		    		$receiver->getDescendantsOfType(HHAST\NameToken::class)
-		    	)
-		    );
+			$name = QualifiedNameTransformer::transform($receiver);
 
 		    return new PhpParser\Node\Expr\FuncCall(
-		    	new PhpParser\Node\Name($function_name),
+		    	$name,
 		    	$args
 			);
 		}

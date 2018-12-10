@@ -22,6 +22,17 @@ class TypeTransformer
 		$string_type = '';
 
 		foreach ($children as $child) {
+			if ($child instanceof HHAST\QualifiedName) {
+				$token_text = QualifiedNameTransformer::getText($child);
+
+				if ($token_text[0] !== '\\' && $file->namespace) {
+					$token_text = $file->namespace . '\\' . $token_text;
+				}
+
+				$string_type .= $token_text;
+				continue;
+			}
+
 			if ($child instanceof HHAST\EditableToken) {
 				$token_text = $child->getText();
 
