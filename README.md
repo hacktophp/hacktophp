@@ -1,4 +1,6 @@
-# hack-to-php - WORK IN PROGRESS
+<img src="https://raw.githubusercontent.com/psalm/hack-to-php/master/hacktophp.png" alt="Hack to PHP logo" width="400px" />
+
+# WORK IN PROGRESS
 
 An experimental attempt to port Hack code to PHP.
 
