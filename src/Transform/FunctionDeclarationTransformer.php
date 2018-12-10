@@ -92,10 +92,17 @@ class FunctionDeclarationTransformer
 
 		$function_name = $header->hasName() ? $header->getName()->getText() : null;
 
+		$stmts = null;
+
+		if ($node->hasBody() && $node->getBody()->hasStatements()) {
+			$stmts = NodeTransformer::transform($node->getBody()->getStatements(), $file);
+		}
+
 		$subnodes = [
 			'byRef' => $header->hasAmpersand(),
 			'returnType' => $return_type,
 			'params' => $params,
+			'stmts' => $stmts,
 		];
 
 		if (!$function_name) {
