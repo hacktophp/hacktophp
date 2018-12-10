@@ -12,7 +12,7 @@ Goals:
 
 Steps:
  - [x] translate Hack AST-generation classes by hand
- - [ ] map HHAST classes to PHP Parser classes
- - [ ] translate unrepresented types to docblock
+ - [ ] map HHAST classes to PHP Parser classes (in progress)
+ - [ ] translate unrepresented types to docblock (in progress)
  - [ ] support generic params with `@psalm-template`
- - [ ] replace `async`/`await` with `sabre/event`
+ - [x] replace `async`/`await` with `sabre/event`
