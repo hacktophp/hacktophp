@@ -40,7 +40,7 @@ class ClassishDeclarationTransformer
 		}
 	}
 
-	public static function transformBody(HHAST\ClassishBody $node, HackFile $file) : array
+	private static function transformBody(HHAST\ClassishBody $node, HackFile $file) : array
 	{
 		$children = $node->getElements()->getChildren();
 
@@ -48,11 +48,83 @@ class ClassishDeclarationTransformer
 
 		foreach ($children as $child) {
 			if ($child instanceof HHAST\PropertyDeclaration) {
-				var_dump($child);
+				$stmts[] = self::transformProperty($child, $file);
+				continue;
 			}
+
+			if ($child instanceof HHAST\MethodishDeclaration) {
+				$smts[] = FunctionDeclarationTransformer::transform($child, $file);
+				continue;
+			}
+
 			var_dump(get_class($child));
 		}
 
 		return $stmts;
+	}
+
+	private static function transformProperty(HHAST\PropertyDeclaration $node, HackFile $file) : PhpParser\Node\Stmt\Property
+	{
+		$abstract = false;
+
+		$flags = 0;
+		$modifiers = $node->hasModifiers() ? $node->getModifiers()->getChildren() : null;
+
+		if ($modifiers) {
+			foreach ($modifiers as $modifier) {
+				if ($modifier instanceof HHAST\PublicToken) {
+					$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
+				} elseif ($modifier instanceof HHAST\ProtectedToken) {
+					$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED;
+				} elseif ($modifier instanceof HHAST\PrivateToken) {
+					$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
+				} elseif ($modifier instanceof HHAST\StaticToken) {
+					$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_STATIC;
+				}
+			}
+		}
+
+		$type = $node->hasType() ? $node->getType() : null;
+
+		$attributes = [];
+
+		if ($type) {
+			$type_string = TypeTransformer::transform($type, $file);
+			
+			$psalm_type = Psalm\Type::parseString($type_string);
+
+			$docblock = [];
+			$docblock['specials']['var'] = [$psalm_type->toNamespacedString($file->namespace, [], null, false)];
+
+			$docblock_string = Psalm\DocComment::render($docblock, '');
+
+			$attributes['comments'] = [
+				new \PhpParser\Comment\Doc(rtrim($docblock_string))
+			];
+		}
+
+		$declarators = $node->getDeclarators();
+
+		$property_properties = [];
+
+		foreach ($declarators->getChildren() as $declarator) {
+			$declarator = $declarator->getItem();
+			$default = null;
+			
+			if ($declarator->hasInitializer()) {
+				$default = ExpressionTransformer::transform($declarator->getInitializer(), $file);
+			}
+
+			$property_properties[] = new PhpParser\Node\Stmt\PropertyProperty(
+				substr($declarator->getName()->getText(), 1),
+				$default
+			);
+		}
+
+		return new PhpParser\Node\Stmt\Property(
+			$flags,
+			$property_properties,
+			$attributes
+		);
 	}
 }

@@ -8,9 +8,16 @@ use Psalm;
 
 class FunctionDeclarationTransformer
 {
-	public static function transform(HHAST\FunctionDeclaration $node, HackFile $file) : PhpParser\Node
+	/**
+	 * @param  HHAST\FunctionDeclaration|HHAST\MethodishDeclaration $node
+	 */
+	public static function transform($node, HackFile $file) : PhpParser\Node
 	{
-		$header = $node->getDeclarationHeader();
+		if ($node instanceof HHAST\MethodishDeclaration) {
+			$header = $node->getFunctionDeclHeader();
+		} else {
+			$header = $node->getDeclarationHeader();
+		}
 
 		$modifiers = $header->hasModifiers() ? $header->getModifiers()->getChildren() : null;
 
@@ -94,8 +101,15 @@ class FunctionDeclarationTransformer
 
 		$stmts = null;
 
-		if ($node->hasBody() && $node->getBody()->hasStatements()) {
-			$stmts = NodeTransformer::transform($node->getBody()->getStatements(), $file);
+		if ($node instanceof HHAST\MethodishDeclaration) {
+			$body = $node->hasFunctionBody() ? $node->getFunctionBody() : null;
+		} else {
+			$header = $node->hasBody() ? $node->getBody() : null;
+		}		
+		
+		if ($body && $body->hasStatements()) {
+			var_dump('here');
+			$stmts = NodeTransformer::transform($body->getStatements(), $file);
 
 			if ($async) {
 				$stmts = [

@@ -233,8 +233,8 @@ final class MethodishDeclaration
     if ($this->_function_body->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(CompoundStatement::class, $this->_function_body);
+    assert($this->_function_body instanceof CompoundStatement);
+    return $this->_function_body;
   }
 
   /**

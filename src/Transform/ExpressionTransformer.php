@@ -17,8 +17,7 @@ use HackToPhp\HHAST\{
 	SubscriptExpression, RightParenToken, CommaToken, ColonToken,
 	EqualEqualEqualToken, EqualGreaterThanToken, ConstToken, NameToken,
 	UseToken, RightBraceToken, VariableExpression, VarrayIntrinsicExpression,
-	XHPExpression, YieldExpression, YieldFromExpression,
-	IsExpression
+	XHPExpression, YieldExpression, YieldFromExpression
 };
 use PhpParser;
 
@@ -98,7 +97,7 @@ class ExpressionTransformer
 			throw new \UnexpectedValueException('Unknown literal expression ' . get_class($literal));
 		}
 
-		if ($node instanceof IsExpression) {
+		if ($node instanceof HHAST\IsExpression) {
 			return IsExpressionTransformer::transform($node, $file);
 		}
 
@@ -110,6 +109,41 @@ class ExpressionTransformer
 			$name = QualifiedNameTransformer::transform($node);
 
 			return new PhpParser\Node\Expr\ConstFetch($name);
+		}
+
+		if ($node instanceof MemberSelectionExpression) {
+			return new PhpParser\Node\Expr\PropertyFetch(
+				ExpressionTransformer::transform($node->getObject(), $file),
+				self::transformVariableName($node->getName(), $file)
+			);
+		}
+
+		if ($node instanceof HHAST\ShapeExpression) {
+			$fields = $node->getFields()->getChildren();
+
+			$array_items = [];
+
+			foreach ($fields as $field) {
+				$field = $field->getItem();
+				$array_items[] = new PhpParser\Node\Expr\ArrayItem(
+					ExpressionTransformer::transform($field->getName(), $file),
+					ExpressionTransformer::transform($field->getValue(), $file)
+				);
+			}
+
+			return new PhpParser\Node\Expr\Array_(
+				$array_items
+			);
+		}
+
+		if ($node instanceof LambdaExpression) {
+			return new PhpParser\Node\Expr\Closure(
+				[
+					'params' => $params,
+					'returnType' => $return_type,
+					'stmts' => $stmts,
+				]
+			);
 		}
 
 		if ($node instanceof ObjectCreationExpression) {
