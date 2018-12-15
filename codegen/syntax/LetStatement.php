@@ -349,8 +349,8 @@ final class LetStatement extends EditableNode {
    * @return SimpleInitializer
    */
   public function getInitializer(): SimpleInitializer {
-    return
-      TypeAssert\instance_of(SimpleInitializer::class, $this->_initializer);
+    \assert($this->_initializer instanceof SimpleInitializer);
+    return $this->_initializer;
   }
 
   /**

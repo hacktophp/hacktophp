@@ -196,16 +196,16 @@ final class ParameterDeclaration extends EditableNode {
     if ($this->_attribute->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute);
+    \assert($this->_attribute instanceof AttributeSpecification);
+    return $this->_attribute;
   }
 
   /**
    * @return AttributeSpecification
    */
   public function getAttributex(): AttributeSpecification {
-    return
-      TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute);
+    \assert($this->_attribute instanceof AttributeSpecification);
+    return $this->_attribute;
   }
 
   public function getVisibilityUNTYPED(): EditableNode {
@@ -426,15 +426,15 @@ final class ParameterDeclaration extends EditableNode {
     if ($this->_default_value->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(SimpleInitializer::class, $this->_default_value);
+    \assert($this->_default_value instanceof SimpleInitializer);
+    return $this->_default_value;
   }
 
   /**
    * @return SimpleInitializer
    */
   public function getDefaultValuex(): SimpleInitializer {
-    return
-      TypeAssert\instance_of(SimpleInitializer::class, $this->_default_value);
+    \assert($this->_default_value instanceof SimpleInitializer);
+    return $this->_default_value;
   }
 }

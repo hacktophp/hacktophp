@@ -365,8 +365,8 @@ final class LambdaExpression extends EditableNode {
    * @return EqualEqualGreaterThanToken
    */
   public function getArrow(): EqualEqualGreaterThanToken {
-    return
-      TypeAssert\instance_of(EqualEqualGreaterThanToken::class, $this->_arrow);
+    \assert($this->_arrow instanceof EqualEqualGreaterThanToken);
+    return $this->_arrow;
   }
 
   /**

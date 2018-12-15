@@ -266,15 +266,15 @@ final class TraitUseAliasItem extends EditableNode {
     if ($this->_aliased_name->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(SimpleTypeSpecifier::class, $this->_aliased_name);
+    \assert($this->_aliased_name instanceof SimpleTypeSpecifier);
+    return $this->_aliased_name;
   }
 
   /**
    * @return SimpleTypeSpecifier
    */
   public function getAliasedNamex(): SimpleTypeSpecifier {
-    return
-      TypeAssert\instance_of(SimpleTypeSpecifier::class, $this->_aliased_name);
+    \assert($this->_aliased_name instanceof SimpleTypeSpecifier);
+    return $this->_aliased_name;
   }
 }

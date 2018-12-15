@@ -234,8 +234,8 @@ abstract class AlternateLoopStatementGeneratedBase
    * @return EnddeclareToken | EndforToken | EndforeachToken | EndwhileToken
    */
   public function getClosingKeyword(): EditableToken {
-    return
-      TypeAssert\instance_of(EditableToken::class, $this->_closing_keyword);
+    \assert($this->_closing_keyword instanceof EditableToken);
+    return $this->_closing_keyword;
   }
 
   /**
@@ -272,8 +272,8 @@ abstract class AlternateLoopStatementGeneratedBase
    * @return SemicolonToken
    */
   public function getClosingSemicolon(): SemicolonToken {
-    return
-      TypeAssert\instance_of(SemicolonToken::class, $this->_closing_semicolon);
+    \assert($this->_closing_semicolon instanceof SemicolonToken);
+    return $this->_closing_semicolon;
   }
 
   /**

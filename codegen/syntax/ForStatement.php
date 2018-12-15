@@ -388,8 +388,8 @@ final class ForStatement
    * @return SemicolonToken
    */
   public function getFirstSemicolon(): SemicolonToken {
-    return
-      TypeAssert\instance_of(SemicolonToken::class, $this->_first_semicolon);
+    \assert($this->_first_semicolon instanceof SemicolonToken);
+    return $this->_first_semicolon;
   }
 
   /**
@@ -483,8 +483,8 @@ final class ForStatement
    * @return SemicolonToken
    */
   public function getSecondSemicolon(): SemicolonToken {
-    return
-      TypeAssert\instance_of(SemicolonToken::class, $this->_second_semicolon);
+    \assert($this->_second_semicolon instanceof SemicolonToken);
+    return $this->_second_semicolon;
   }
 
   /**

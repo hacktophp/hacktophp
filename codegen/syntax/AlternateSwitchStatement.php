@@ -487,8 +487,8 @@ final class AlternateSwitchStatement
    * @return EndswitchToken
    */
   public function getClosingEndswitch(): EndswitchToken {
-    return
-      TypeAssert\instance_of(EndswitchToken::class, $this->_closing_endswitch);
+    \assert($this->_closing_endswitch instanceof EndswitchToken);
+    return $this->_closing_endswitch;
   }
 
   /**
@@ -529,8 +529,8 @@ final class AlternateSwitchStatement
    * @return SemicolonToken
    */
   public function getClosingSemicolon(): SemicolonToken {
-    return
-      TypeAssert\instance_of(SemicolonToken::class, $this->_closing_semicolon);
+    \assert($this->_closing_semicolon instanceof SemicolonToken);
+    return $this->_closing_semicolon;
   }
 
   /**

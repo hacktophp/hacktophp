@@ -124,8 +124,8 @@ final class TraitUsePrecedenceItem extends EditableNode {
    * @return ScopeResolutionExpression
    */
   public function getName(): ScopeResolutionExpression {
-    return
-      TypeAssert\instance_of(ScopeResolutionExpression::class, $this->_name);
+    \assert($this->_name instanceof ScopeResolutionExpression);
+    return $this->_name;
   }
 
   /**

@@ -163,8 +163,8 @@ final class MemberSelectionExpression extends EditableNode {
    * @return MinusGreaterThanToken
    */
   public function getOperator(): MinusGreaterThanToken {
-    return
-      TypeAssert\instance_of(MinusGreaterThanToken::class, $this->_operator);
+    \assert($this->_operator instanceof MinusGreaterThanToken);
+    return $this->_operator;
   }
 
   /**

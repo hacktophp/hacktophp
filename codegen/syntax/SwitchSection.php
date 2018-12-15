@@ -197,15 +197,15 @@ final class SwitchSection extends EditableNode {
     if ($this->_fallthrough->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(SwitchFallthrough::class, $this->_fallthrough);
+    \assert($this->_fallthrough instanceof SwitchFallthrough);
+    return $this->_fallthrough;
   }
 
   /**
    * @return SwitchFallthrough
    */
   public function getFallthroughx(): SwitchFallthrough {
-    return
-      TypeAssert\instance_of(SwitchFallthrough::class, $this->_fallthrough);
+    \assert($this->_fallthrough instanceof SwitchFallthrough);
+    return $this->_fallthrough;
   }
 }

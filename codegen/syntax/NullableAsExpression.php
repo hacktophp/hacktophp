@@ -124,8 +124,8 @@ final class NullableAsExpression extends EditableNode {
    * @return VariableExpression
    */
   public function getLeftOperand(): VariableExpression {
-    return
-      TypeAssert\instance_of(VariableExpression::class, $this->_left_operand);
+    \assert($this->_left_operand instanceof VariableExpression);
+    return $this->_left_operand;
   }
 
   /**
@@ -190,8 +190,8 @@ final class NullableAsExpression extends EditableNode {
    * @return SimpleTypeSpecifier
    */
   public function getRightOperand(): SimpleTypeSpecifier {
-    return
-      TypeAssert\instance_of(SimpleTypeSpecifier::class, $this->_right_operand);
+    \assert($this->_right_operand instanceof SimpleTypeSpecifier);
+    return $this->_right_operand;
   }
 
   /**

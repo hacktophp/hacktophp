@@ -365,16 +365,16 @@ final class AliasDeclaration extends EditableNode {
     if ($this->_generic_parameter->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(TypeParameters::class, $this->_generic_parameter);
+    \assert($this->_generic_parameter instanceof TypeParameters);
+    return $this->_generic_parameter;
   }
 
   /**
    * @return TypeParameters
    */
   public function getGenericParameterx(): TypeParameters {
-    return
-      TypeAssert\instance_of(TypeParameters::class, $this->_generic_parameter);
+    \assert($this->_generic_parameter instanceof TypeParameters);
+    return $this->_generic_parameter;
   }
 
   public function getConstraintUNTYPED(): EditableNode {

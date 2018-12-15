@@ -138,15 +138,15 @@ final class StaticDeclarator extends EditableNode {
     if ($this->_initializer->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(SimpleInitializer::class, $this->_initializer);
+    \assert($this->_initializer instanceof SimpleInitializer);
+    return $this->_initializer;
   }
 
   /**
    * @return SimpleInitializer
    */
   public function getInitializerx(): SimpleInitializer {
-    return
-      TypeAssert\instance_of(SimpleInitializer::class, $this->_initializer);
+    \assert($this->_initializer instanceof SimpleInitializer);
+    return $this->_initializer;
   }
 }

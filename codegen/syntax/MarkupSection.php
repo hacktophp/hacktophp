@@ -143,16 +143,16 @@ final class MarkupSection extends EditableNode {
     if ($this->_prefix->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(QuestionGreaterThanToken::class, $this->_prefix);
+    \assert($this->_prefix instanceof QuestionGreaterThanToken);
+    return $this->_prefix;
   }
 
   /**
    * @return QuestionGreaterThanToken
    */
   public function getPrefixx(): QuestionGreaterThanToken {
-    return
-      TypeAssert\instance_of(QuestionGreaterThanToken::class, $this->_prefix);
+    \assert($this->_prefix instanceof QuestionGreaterThanToken);
+    return $this->_prefix;
   }
 
   public function getTextUNTYPED(): EditableNode {
@@ -255,15 +255,15 @@ final class MarkupSection extends EditableNode {
     if ($this->_expression->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(ExpressionStatement::class, $this->_expression);
+    \assert($this->_expression instanceof ExpressionStatement);
+    return $this->_expression;
   }
 
   /**
    * @return ExpressionStatement
    */
   public function getExpressionx(): ExpressionStatement {
-    return
-      TypeAssert\instance_of(ExpressionStatement::class, $this->_expression);
+    \assert($this->_expression instanceof ExpressionStatement);
+    return $this->_expression;
   }
 }

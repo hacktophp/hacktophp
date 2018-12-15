@@ -476,16 +476,16 @@ final class TypeConstDeclaration extends EditableNode {
     if ($this->_type_constraint->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(TypeConstraint::class, $this->_type_constraint);
+    \assert($this->_type_constraint instanceof TypeConstraint);
+    return $this->_type_constraint;
   }
 
   /**
    * @return TypeConstraint
    */
   public function getTypeConstraintx(): TypeConstraint {
-    return
-      TypeAssert\instance_of(TypeConstraint::class, $this->_type_constraint);
+    \assert($this->_type_constraint instanceof TypeConstraint);
+    return $this->_type_constraint;
   }
 
   public function getEqualUNTYPED(): EditableNode {

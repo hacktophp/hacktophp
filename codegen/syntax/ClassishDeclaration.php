@@ -273,16 +273,16 @@ final class ClassishDeclaration extends EditableNode {
     if ($this->_attribute->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute);
+    \assert($this->_attribute instanceof AttributeSpecification);
+    return $this->_attribute;
   }
 
   /**
    * @return AttributeSpecification
    */
   public function getAttributex(): AttributeSpecification {
-    return
-      TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute);
+    \assert($this->_attribute instanceof AttributeSpecification);
+    return $this->_attribute;
   }
 
   public function getModifiersUNTYPED(): EditableNode {
@@ -461,16 +461,16 @@ final class ClassishDeclaration extends EditableNode {
     if ($this->_type_parameters->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(TypeParameters::class, $this->_type_parameters);
+    \assert($this->_type_parameters instanceof TypeParameters);
+    return $this->_type_parameters;
   }
 
   /**
    * @return TypeParameters
    */
   public function getTypeParametersx(): TypeParameters {
-    return
-      TypeAssert\instance_of(TypeParameters::class, $this->_type_parameters);
+    \assert($this->_type_parameters instanceof TypeParameters);
+    return $this->_type_parameters;
   }
 
   public function getExtendsKeywordUNTYPED(): EditableNode {

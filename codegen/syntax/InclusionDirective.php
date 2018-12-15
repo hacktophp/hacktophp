@@ -107,8 +107,8 @@ final class InclusionDirective extends EditableNode {
    * @return InclusionExpression
    */
   public function getExpression(): InclusionExpression {
-    return
-      TypeAssert\instance_of(InclusionExpression::class, $this->_expression);
+    \assert($this->_expression instanceof InclusionExpression);
+    return $this->_expression;
   }
 
   /**

@@ -153,16 +153,16 @@ final class MethodishDeclaration
     if ($this->_attribute->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute);
+    \assert($this->_attribute instanceof AttributeSpecification);
+    return $this->_attribute;
   }
 
   /**
    * @return AttributeSpecification
    */
   public function getAttributex(): AttributeSpecification {
-    return
-      TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute);
+    \assert($this->_attribute instanceof AttributeSpecification);
+    return $this->_attribute;
   }
 
   public function getFunctionDeclHeaderUNTYPED(): EditableNode {
@@ -241,8 +241,8 @@ final class MethodishDeclaration
    * @return CompoundStatement
    */
   public function getFunctionBodyx(): CompoundStatement {
-    return
-      TypeAssert\instance_of(CompoundStatement::class, $this->_function_body);
+    \assert($this->_function_body instanceof CompoundStatement);
+    return $this->_function_body;
   }
 
   public function getSemicolonUNTYPED(): EditableNode {

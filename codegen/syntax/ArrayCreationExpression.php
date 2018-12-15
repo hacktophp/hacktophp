@@ -124,8 +124,8 @@ final class ArrayCreationExpression extends EditableNode {
    * @return LeftBracketToken
    */
   public function getLeftBracket(): LeftBracketToken {
-    return
-      TypeAssert\instance_of(LeftBracketToken::class, $this->_left_bracket);
+    \assert($this->_left_bracket instanceof LeftBracketToken);
+    return $this->_left_bracket;
   }
 
   /**
@@ -218,8 +218,8 @@ final class ArrayCreationExpression extends EditableNode {
    * @return RightBracketToken
    */
   public function getRightBracket(): RightBracketToken {
-    return
-      TypeAssert\instance_of(RightBracketToken::class, $this->_right_bracket);
+    \assert($this->_right_bracket instanceof RightBracketToken);
+    return $this->_right_bracket;
   }
 
   /**

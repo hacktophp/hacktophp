@@ -252,8 +252,8 @@ final class ClosureTypeSpecifier extends EditableNode {
    * @return LeftParenToken
    */
   public function getOuterLeftParen(): LeftParenToken {
-    return
-      TypeAssert\instance_of(LeftParenToken::class, $this->_outer_left_paren);
+    \assert($this->_outer_left_paren instanceof LeftParenToken);
+    return $this->_outer_left_paren;
   }
 
   /**
@@ -342,8 +342,8 @@ final class ClosureTypeSpecifier extends EditableNode {
    * @return FunctionToken
    */
   public function getFunctionKeyword(): FunctionToken {
-    return
-      TypeAssert\instance_of(FunctionToken::class, $this->_function_keyword);
+    \assert($this->_function_keyword instanceof FunctionToken);
+    return $this->_function_keyword;
   }
 
   /**
@@ -385,8 +385,8 @@ final class ClosureTypeSpecifier extends EditableNode {
    * @return LeftParenToken
    */
   public function getInnerLeftParen(): LeftParenToken {
-    return
-      TypeAssert\instance_of(LeftParenToken::class, $this->_inner_left_paren);
+    \assert($this->_inner_left_paren instanceof LeftParenToken);
+    return $this->_inner_left_paren;
   }
 
   /**
@@ -477,8 +477,8 @@ final class ClosureTypeSpecifier extends EditableNode {
    * @return RightParenToken
    */
   public function getInnerRightParen(): RightParenToken {
-    return
-      TypeAssert\instance_of(RightParenToken::class, $this->_inner_right_paren);
+    \assert($this->_inner_right_paren instanceof RightParenToken);
+    return $this->_inner_right_paren;
   }
 
   /**
@@ -608,8 +608,8 @@ final class ClosureTypeSpecifier extends EditableNode {
    * @return RightParenToken
    */
   public function getOuterRightParen(): RightParenToken {
-    return
-      TypeAssert\instance_of(RightParenToken::class, $this->_outer_right_paren);
+    \assert($this->_outer_right_paren instanceof RightParenToken);
+    return $this->_outer_right_paren;
   }
 
   /**

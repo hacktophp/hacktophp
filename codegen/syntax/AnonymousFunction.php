@@ -483,16 +483,16 @@ final class AnonymousFunction extends EditableNode {
     if ($this->_coroutine_keyword->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(CoroutineToken::class, $this->_coroutine_keyword);
+    \assert($this->_coroutine_keyword instanceof CoroutineToken);
+    return $this->_coroutine_keyword;
   }
 
   /**
    * @return CoroutineToken
    */
   public function getCoroutineKeywordx(): CoroutineToken {
-    return
-      TypeAssert\instance_of(CoroutineToken::class, $this->_coroutine_keyword);
+    \assert($this->_coroutine_keyword instanceof CoroutineToken);
+    return $this->_coroutine_keyword;
   }
 
   public function getFunctionKeywordUNTYPED(): EditableNode {
@@ -531,8 +531,8 @@ final class AnonymousFunction extends EditableNode {
    * @return FunctionToken
    */
   public function getFunctionKeyword(): FunctionToken {
-    return
-      TypeAssert\instance_of(FunctionToken::class, $this->_function_keyword);
+    \assert($this->_function_keyword instanceof FunctionToken);
+    return $this->_function_keyword;
   }
 
   /**
@@ -894,16 +894,16 @@ final class AnonymousFunction extends EditableNode {
     if ($this->_use->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(AnonymousFunctionUseClause::class, $this->_use);
+    \assert($this->_use instanceof AnonymousFunctionUseClause);
+    return $this->_use;
   }
 
   /**
    * @return AnonymousFunctionUseClause
    */
   public function getUsex(): AnonymousFunctionUseClause {
-    return
-      TypeAssert\instance_of(AnonymousFunctionUseClause::class, $this->_use);
+    \assert($this->_use instanceof AnonymousFunctionUseClause);
+    return $this->_use;
   }
 
   public function getBodyUNTYPED(): EditableNode {

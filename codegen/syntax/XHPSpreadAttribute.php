@@ -183,8 +183,8 @@ final class XHPSpreadAttribute extends EditableNode {
    * @return DotDotDotToken
    */
   public function getSpreadOperator(): DotDotDotToken {
-    return
-      TypeAssert\instance_of(DotDotDotToken::class, $this->_spread_operator);
+    \assert($this->_spread_operator instanceof DotDotDotToken);
+    return $this->_spread_operator;
   }
 
   /**

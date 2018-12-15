@@ -584,16 +584,16 @@ final class AlternateIfStatement extends EditableNode {
     if ($this->_else_clause->isMissing()) {
       return null;
     }
-    return
-      TypeAssert\instance_of(AlternateElseClause::class, $this->_else_clause);
+    \assert($this->_else_clause instanceof AlternateElseClause);
+    return $this->_else_clause;
   }
 
   /**
    * @return AlternateElseClause
    */
   public function getElseClausex(): AlternateElseClause {
-    return
-      TypeAssert\instance_of(AlternateElseClause::class, $this->_else_clause);
+    \assert($this->_else_clause instanceof AlternateElseClause);
+    return $this->_else_clause;
   }
 
   public function getEndifKeywordUNTYPED(): EditableNode {
