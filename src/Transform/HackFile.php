@@ -31,9 +31,4 @@ class HackFile
 	 * @var array<string, string>
 	 */
 	public $aliased_constants = [];
-
-	/**
-	 * @var PhpParser\Node\Expr|null
-	 */
-	public $pipe_expr;
 }

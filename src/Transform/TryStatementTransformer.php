@@ -7,11 +7,11 @@ use PhpParser;
 
 class TryStatementTransformer
 {
-	public static function transform(HHAST\TryStatement $node, HackFile $file) : PhpParser\Node
+	public static function transform(HHAST\TryStatement $node, HackFile $file, Scope $scope) : PhpParser\Node
 	{
-		$stmts = NodeTransformer::transform($node->getCompoundStatement(), $file);
+		$stmts = NodeTransformer::transform($node->getCompoundStatement(), $file, $scope);
 
-		$catches = $node->hasCatchClauses() ? self::transformCatches($node->getCatchClauses(), $file) : null;
+		$catches = $node->hasCatchClauses() ? self::transformCatches($node->getCatchClauses(), $file, $scope) : null;
 		$finally = $node->hasFinallyClause()
 			? new PhpParser\Node\Expr\Finally_(
 				NodeTransformer::transform($node->getFinally()->getStatement())
@@ -25,19 +25,19 @@ class TryStatementTransformer
 		);
 	}
 
-	private static function transformCatches(HHAST\EditableList $node, HackFile $file) : array
+	private static function transformCatches(HHAST\EditableList $node, HackFile $file, Scope $scope) : array
 	{
 		return array_map(
-			function(HHAST\CatchClause $node) use ($file) {
-				$class_type = TypeTransformer::transform($node->getType(), $file);
+			function(HHAST\CatchClause $node) use ($file, $scope) {
+				$class_type = TypeTransformer::transform($node->getType(), $file, $scope);
 				$psalm_type = array_values(\Psalm\Type::parseString($class_type)->getTypes())[0];
-				$class = TypeTransformer::getPhpParserTypeFromAtomicPsalm($psalm_type, $file);
-				$variable = ExpressionTransformer::transformVariableName($node->getVariable(), $file);
+				$class = TypeTransformer::getPhpParserTypeFromAtomicPsalm($psalm_type, $file, $scope);
+				$variable = ExpressionTransformer::transformVariableName($node->getVariable(), $file, $scope);
 
 				return new PhpParser\Node\Stmt\Catch_(
 					[$class],
 					$variable,
-					NodeTransformer::transform($node->getBody(), $file)
+					NodeTransformer::transform($node->getBody(), $file, $scope)
 				);
 			},
 			$node->getChildren()

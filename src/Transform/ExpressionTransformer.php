@@ -23,9 +23,9 @@ use PhpParser;
 
 class ExpressionTransformer
 {
-	public static function transformStatement(HHAST\ExpressionStatement $node, HackFile $file) : PhpParser\Node
+	public static function transformStatement(HHAST\ExpressionStatement $node, HackFile $file, Scope $scope) : PhpParser\Node
 	{
-		return new PhpParser\Node\Stmt\Expression(self::transform($node->getExpressionx(), $file));
+		return new PhpParser\Node\Stmt\Expression(self::transform($node->getExpressionx(), $file, $scope));
 	}
 
 	/** 
@@ -45,30 +45,32 @@ class ExpressionTransformer
 	 * VarrayIntrinsicExpression | XHPExpression | YieldExpression |
 	 * YieldFromExpression $node 
 	 */
-	public static function transform(HHAST\EditableNode $node, HackFile $file) : PhpParser\Node\Expr
+	public static function transform(HHAST\EditableNode $node, HackFile $file, Scope $scope) : PhpParser\Node\Expr
 	{
 		if ($node instanceof ParenthesizedExpression) {
-			return ExpressionTransformer::transform($node->getExpression(), $file);
+			return ExpressionTransformer::transform($node->getExpression(), $file, $scope);
 		}
 
 		if ($node instanceof BinaryExpression) {
-			return BinaryExpressionTransformer::transform($node, $file);
+			return BinaryExpressionTransformer::transform($node, $file, $scope);
 		}
 
 		if ($node instanceof VariableExpression) {
 			$expr = $node->getExpression();
 
 			if ($expr instanceof HHAST\VariableToken) {
+				$scope->referenced_vars[$expr->getText()] = $expr->getText();
+				
 				return new PhpParser\Node\Expr\Variable(substr($expr->getText(), 1));
 			}
 
-			return new PhpParser\Node\Expr\Variable(self::transform($expr, $file));
+			return new PhpParser\Node\Expr\Variable(self::transform($expr, $file, $scope));
 		}
 
 		if ($node instanceof SubscriptExpression) {
 			return new PhpParser\Node\Expr\ArrayDimFetch(
-				self::transform($node->getReceiver(), $file),
-				$node->hasIndex() ? self::transform($node->getIndex(), $file) : null
+				self::transform($node->getReceiver(), $file, $scope),
+				$node->hasIndex() ? self::transform($node->getIndex(), $file, $scope) : null
 			);
 		}
 
@@ -100,7 +102,7 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof HHAST\IsExpression) {
-			return IsExpressionTransformer::transform($node, $file);
+			return IsExpressionTransformer::transform($node, $file, $scope);
 		}
 
 		if ($node instanceof NameToken) {
@@ -115,8 +117,8 @@ class ExpressionTransformer
 
 		if ($node instanceof MemberSelectionExpression) {
 			return new PhpParser\Node\Expr\PropertyFetch(
-				ExpressionTransformer::transform($node->getObject(), $file),
-				self::transformVariableName($node->getName(), $file)
+				ExpressionTransformer::transform($node->getObject(), $file, $scope),
+				self::transformVariableName($node->getName(), $file, $scope)
 			);
 		}
 
@@ -128,8 +130,8 @@ class ExpressionTransformer
 			foreach ($fields as $field) {
 				$field = $field->getItem();
 				$array_items[] = new PhpParser\Node\Expr\ArrayItem(
-					ExpressionTransformer::transform($field->getValue(), $file),
-					ExpressionTransformer::transform($field->getName(), $file)
+					ExpressionTransformer::transform($field->getValue(), $file, $scope),
+					ExpressionTransformer::transform($field->getName(), $file, $scope)
 				);
 			}
 
@@ -146,7 +148,7 @@ class ExpressionTransformer
 			foreach ($fields as $field) {
 				$field = $field->getItem();
 				$array_items[] = new PhpParser\Node\Expr\ArrayItem(
-					ExpressionTransformer::transform($field, $file)
+					ExpressionTransformer::transform($field, $file, $scope)
 				);
 			}
 
@@ -163,8 +165,8 @@ class ExpressionTransformer
 			foreach ($fields as $field) {
 				$field = $field->getItem();
 				$array_items[] = new PhpParser\Node\Expr\ArrayItem(
-					ExpressionTransformer::transform($field, $file),
-					ExpressionTransformer::transform($field, $file)
+					ExpressionTransformer::transform($field, $file, $scope),
+					ExpressionTransformer::transform($field, $file, $scope)
 				);
 			}
 
@@ -181,8 +183,8 @@ class ExpressionTransformer
 			foreach ($fields as $field) {
 				$field = $field->getItem();
 				$array_items[] = new PhpParser\Node\Expr\ArrayItem(
-					ExpressionTransformer::transform($field->getValue(), $file),
-					ExpressionTransformer::transform($field->getKey(), $file)
+					ExpressionTransformer::transform($field->getValue(), $file, $scope),
+					ExpressionTransformer::transform($field->getKey(), $file, $scope)
 				);
 			}
 
@@ -199,7 +201,7 @@ class ExpressionTransformer
 			foreach ($fields as $field) {
 				$field = $field->getItem();
 				$array_items[] = new PhpParser\Node\Expr\ArrayItem(
-					ExpressionTransformer::transform($field, $file)
+					ExpressionTransformer::transform($field, $file, $scope)
 				);
 			}
 
@@ -209,28 +211,28 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof LambdaExpression) {
-			return LambdaExpressionTransformer::transform($node, $file);
+			return LambdaExpressionTransformer::transform($node, $file, $scope);
 		}
 
 		if ($node instanceof ConditionalExpression) {
 			return new PhpParser\Node\Expr\Ternary(
-				ExpressionTransformer::transform($node->getTest(), $file),
-				$node->hasConsequence() ? ExpressionTransformer::transform($node->getConsequence(), $file) : null,
-				ExpressionTransformer::transform($node->getAlternative(), $file)
+				ExpressionTransformer::transform($node->getTest(), $file, $scope),
+				$node->hasConsequence() ? ExpressionTransformer::transform($node->getConsequence(), $file, $scope) : null,
+				ExpressionTransformer::transform($node->getAlternative(), $file, $scope)
 			);
 		}
 
 		if ($node instanceof ScopeResolutionExpression) {
 			return new PhpParser\Node\Expr\ClassConstFetch(
-				self::transformVariableName($node->getQualifier(), $file),
-				self::transformVariableName($node->getName(), $file)
+				self::transformVariableName($node->getQualifier(), $file, $scope),
+				self::transformVariableName($node->getName(), $file, $scope)
 			);
 		}
 
 		if ($node instanceof ObjectCreationExpression) {
 			$object = $node->getObject();
 
-			$args = FunctionCallExpressionTransformer::transformArguments($object->getArgumentList(), $file);
+			$args = FunctionCallExpressionTransformer::transformArguments($object->getArgumentList(), $file, $scope);
 
 			switch (get_class($object)) {
 				case HHAST\AnonymousClass::class:
@@ -239,11 +241,11 @@ class ExpressionTransformer
 
 				case HHAST\ConstructorCall::class:
 					if ($object->getType() instanceof VariableExpression) {
-						$class = self::transform($object->getType(), $file);
+						$class = self::transform($object->getType(), $file, $scope);
 					} else {
-						$class_type = TypeTransformer::transform($object->getType(), $file);
+						$class_type = TypeTransformer::transform($object->getType(), $file, $scope);
 						$psalm_type = array_values(\Psalm\Type::parseString($class_type)->getTypes())[0];
-						$class = TypeTransformer::getPhpParserTypeFromAtomicPsalm($psalm_type, $file);
+						$class = TypeTransformer::getPhpParserTypeFromAtomicPsalm($psalm_type, $file, $scope);
 
 						if (!$class instanceof PhpParser\Node\Name) {
 							throw new \UnexpectedValueException('Unexpected new class ' . $class);
@@ -260,11 +262,11 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof FunctionCallExpression) {
-			return FunctionCallExpressionTransformer::transform($node, $file);
+			return FunctionCallExpressionTransformer::transform($node, $file, $scope);
 		}
 
 		if ($node instanceof CastExpression) {
-			$expression = self::transform($node->getOperand(), $file);
+			$expression = self::transform($node->getOperand(), $file, $scope);
 			$type = $node->getType();
 
 			switch (get_class($type)) {
@@ -300,11 +302,11 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof HHAST\ListItem) {
-			return self::transform($node->getItem(), $file);
+			return self::transform($node->getItem(), $file, $scope);
 		}
 
 		if ($node instanceof HHAST\SimpleInitializer) {
-			return self::transform($node->getValue(), $file);
+			return self::transform($node->getValue(), $file, $scope);
 		}
 
 		if ($node instanceof HHAST\PipeVariableExpression) {
@@ -316,13 +318,13 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof PrefixUnaryExpression) {
-			return PrefixUnaryExpressionTransformer::transform($node, $file);
+			return PrefixUnaryExpressionTransformer::transform($node, $file, $scope);
 		}
 
 		throw new \UnexpectedValueException('Unknown expression type ' . get_class($node));
 	}
 
-	public static function transformVariableName(HHAST\EditableNode $node, HackFile $file) : PhpParser\Node
+	public static function transformVariableName(HHAST\EditableNode $node, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		if ($node instanceof NameToken) {
 			return new PhpParser\Node\Identifier($node->getText());

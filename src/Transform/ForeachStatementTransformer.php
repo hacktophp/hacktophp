@@ -7,13 +7,13 @@ use PhpParser;
 
 class ForeachStatementTransformer
 {
-	public static function transform(HHAST\ForeachStatement $node, HackFile $file) : PhpParser\Node
+	public static function transform(HHAST\ForeachStatement $node, HackFile $file, Scope $scope) : PhpParser\Node
 	{
-		$expression = ExpressionTransformer::transform($node->getCollection(), $file);
-		$value_var = ExpressionTransformer::transform($node->getValue(), $file);
-		$key_var = $node->hasKey() ? ExpressionTransformer::transform($node->getKey(), $file) : null;
+		$expression = ExpressionTransformer::transform($node->getCollection(), $file, $scope);
+		$value_var = ExpressionTransformer::transform($node->getValue(), $file, $scope);
+		$key_var = $node->hasKey() ? ExpressionTransformer::transform($node->getKey(), $file, $scope) : null;
 
-		$stmts = NodeTransformer::transform($node->getBody(), $file);
+		$stmts = NodeTransformer::transform($node->getBody(), $file, $scope);
 
 		return new PhpParser\Node\Stmt\Foreach_(
 			$expression,

@@ -11,7 +11,7 @@ class FunctionDeclarationTransformer
 	/**
 	 * @param  HHAST\FunctionDeclaration|HHAST\MethodishDeclaration $node
 	 */
-	public static function transform($node, HackFile $file) : PhpParser\Node
+	public static function transform($node, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		if ($node instanceof HHAST\MethodishDeclaration) {
 			$header = $node->getFunctionDeclHeader();
@@ -65,7 +65,7 @@ class FunctionDeclarationTransformer
 				$param_name = $params_list_param->getName()->getText();
 
 				if ($params_list_param->hasType()) {
-					$param_type_string = TypeTransformer::transform($params_list_param->getType(), $file);
+					$param_type_string = TypeTransformer::transform($params_list_param->getType(), $file, $scope);
 
 					$psalm_type = Psalm\Type::parseString($param_type_string);
 
@@ -80,7 +80,7 @@ class FunctionDeclarationTransformer
 						$docblock['specials']['param'] = [$namespaced_type_string . ' ' . $param_name];
 					}
 
-					$param_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_type, $file);
+					$param_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_type, $file, $scope);
 				}
 				
 				$params[] = new PhpParser\Node\Param(
@@ -96,7 +96,7 @@ class FunctionDeclarationTransformer
 		$psalm_return_type = null;
 
 		if ($return_type) {
-			$return_type_string = TypeTransformer::transform($return_type, $file);
+			$return_type_string = TypeTransformer::transform($return_type, $file, $scope);
 
 			$psalm_return_type = Psalm\Type::parseString($return_type_string);
 
@@ -104,7 +104,7 @@ class FunctionDeclarationTransformer
 				$docblock['specials']['return'] = [$psalm_return_type->toNamespacedString($file->namespace, [], null, false)];
 			}
 
-			$return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $file);
+			$return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $file, $scope);
 		}
 
 		if ($docblock['specials']) {
@@ -124,11 +124,11 @@ class FunctionDeclarationTransformer
 		}		
 		
 		if ($body && $body->hasStatements()) {
-			$stmts = NodeTransformer::transform($body->getStatements(), $file);
+			$stmts = NodeTransformer::transform($body->getStatements(), $file, $scope);
 
 			if ($async) {
 				$stmts = [
-					self::getAsyncCoroutine($params, $stmts, $psalm_return_type, $file)
+					self::getAsyncCoroutine($params, $stmts, $psalm_return_type, $file, $scope)
 				];
 			}
 		}

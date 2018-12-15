@@ -28,7 +28,7 @@ class ConstDeclarationTransformer
 		$attributes = [];
 
 		if ($type) {
-			$type_string = TypeTransformer::transform($type, $file);
+			$type_string = TypeTransformer::transform($type, $file, $scope);
 			
 			$psalm_type = Psalm\Type::parseString($type_string);
 
@@ -51,7 +51,7 @@ class ConstDeclarationTransformer
 
 		foreach ($declarators->getChildren() as $declarator) {
 			$declarator = $declarator->getItem();
-			$value = ExpressionTransformer::transform($declarator->getInitializer(), $file);
+			$value = ExpressionTransformer::transform($declarator->getInitializer(), $file, $scope);
 
 			$const_consts[] = new PhpParser\Node\Const_(
 				$declarator->getName()->getText(),

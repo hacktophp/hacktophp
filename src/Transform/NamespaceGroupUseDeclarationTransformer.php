@@ -7,7 +7,7 @@ use PhpParser;
 
 class NamespaceGroupUseDeclarationTransformer
 {
-	public static function transform(HHAST\NamespaceGroupUseDeclaration $node, HackFile $file) : PhpParser\Node
+	public static function transform(HHAST\NamespaceGroupUseDeclaration $node, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		$kind = $node->getKind();
 		$prefix = QualifiedNameTransformer::transform($node->getPrefix());

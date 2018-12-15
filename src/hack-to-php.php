@@ -21,7 +21,7 @@ if (!is_string($file_path)) {
 
 $hackfile = new HackToPhp\Transform\HackFile();
 
-$stmts = HackToPhp\Transform\NodeTransformer::transform(HackToPhp\from_file($file_path), $hackfile);
+$stmts = HackToPhp\Transform\NodeTransformer::transform(HackToPhp\from_file($file_path), $hackfile, new HackToPhp\Transform\Scope());
 
 $prettyPrinter = new \PhpParser\PrettyPrinter\Standard;
 echo $prettyPrinter->prettyPrint($stmts);

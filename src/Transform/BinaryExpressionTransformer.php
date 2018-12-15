@@ -22,16 +22,16 @@ use PhpParser;
 
 class BinaryExpressionTransformer
 {
-	public static function transform(HHAST\BinaryExpression $node, HackFile $file) : PhpParser\Node\Expr
+	public static function transform(HHAST\BinaryExpression $node, HackFile $file, Scope $scope) : PhpParser\Node\Expr
 	{
 		$operator = $node->getOperator();
 
 		if ($operator instanceof BarGreaterThanToken) {
-			return PipeTransformer::transform($node->getLeftOperand(), $node->getRightOperand(), $file);
+			return PipeTransformer::transform($node->getLeftOperand(), $node->getRightOperand(), $file, $scope);
 		}
 		
-		$left_expr = ExpressionTransformer::transform($node->getLeftOperand(), $file);
-		$right_expr = ExpressionTransformer::transform($node->getRightOperand(), $file);
+		$left_expr = ExpressionTransformer::transform($node->getLeftOperand(), $file, $scope);
+		$right_expr = ExpressionTransformer::transform($node->getRightOperand(), $file, $scope);
 
 		switch (get_class($operator)) {
 			case ExclamationEqualToken::class:

@@ -7,13 +7,13 @@ use PhpParser;
 
 class IfStatementTransformer
 {
-	public static function transform(HHAST\IfStatement $node, HackFile $file) : PhpParser\Node
+	public static function transform(HHAST\IfStatement $node, HackFile $file, Scope $scope) : PhpParser\Node
 	{
-		$cond = ExpressionTransformer::transform($node->getCondition(), $file);
+		$cond = ExpressionTransformer::transform($node->getCondition(), $file, $scope);
 
-		$stmts = NodeTransformer::transform($node->getStatement(), $file);
+		$stmts = NodeTransformer::transform($node->getStatement(), $file, $scope);
 
-		$elseifs = $node->hasElseifClauses() ? self::transformElseifs($node->getElseifClauses(), $file) : null;
+		$elseifs = $node->hasElseifClauses() ? self::transformElseifs($node->getElseifClauses(), $file, $scope) : null;
 		$else = $node->hasElseClause()
 			? new PhpParser\Node\Expr\Else_(
 				NodeTransformer::transform($node->getElse()->getStatement())
@@ -30,12 +30,12 @@ class IfStatementTransformer
 		);
 	}
 
-	private static function transformElseifs(HHAST\EditableList $node, HackFile $file) : array
+	private static function transformElseifs(HHAST\EditableList $node, HackFile $file, Scope $scope) : array
 	{
 		return array_map(
-			function(HHAST\ElseifClause $node) use ($file) {
+			function(HHAST\ElseifClause $node) use ($file, $scope) {
 				return new PhpParser\Node\Expr\Else_(
-					NodeTransformer::transform($node->getStatement(), $file)
+					NodeTransformer::transform($node->getStatement(), $file, $scope)
 				);
 			},
 			$node->getChildren()

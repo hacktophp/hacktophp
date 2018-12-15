@@ -7,11 +7,11 @@ use PhpParser;
 
 class FunctionCallExpressionTransformer
 {
-	public static function transform(HHAST\FunctionCallExpression $node, HackFile $file) : PhpParser\Node
+	public static function transform(HHAST\FunctionCallExpression $node, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		$receiver = $node->getReceiver();
 
-		$args = self::transformArguments($node->getArgumentList(), $file);
+		$args = self::transformArguments($node->getArgumentList(), $file, $scope);
 
 		if ($receiver instanceof HHAST\ScopeResolutionExpression) {
 			$qualifier = $receiver->getQualifier();
@@ -21,14 +21,14 @@ class FunctionCallExpressionTransformer
 			} elseif ($qualifier instanceof HHAST\QualifiedName) {
 				$class = QualifiedNameTransformer::transform($qualifier);
 			} else {
-				$class = ExpressionTransformer::transformVariableName($qualifier, $file);
+				$class = ExpressionTransformer::transformVariableName($qualifier, $file, $scope);
 			}
 
 			if ($class === null) {
 				throw new \UnexpectedValueException('$class for ' . get_class($qualifier) . ' cannot be null');
 			}
 
-			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $file);
+			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $file, $scope);
 
 			return new PhpParser\Node\Expr\StaticCall(
 				$class,
@@ -40,7 +40,7 @@ class FunctionCallExpressionTransformer
 		if ($receiver instanceof HHAST\QualifiedName) {
 			$name = QualifiedNameTransformer::transform($receiver);
 
-			$name_string = QualifiedNameTransformer::getText($receiver, $file);
+			$name_string = QualifiedNameTransformer::getText($receiver, $file, $scope);
 
 			if ($name_string === '\HH\Asio\join') {
 				return new PhpParser\Node\Expr\MethodCall($args[0]->value, 'wait');
@@ -94,8 +94,8 @@ class FunctionCallExpressionTransformer
 		}
 
 		if ($receiver instanceof HHAST\MemberSelectionExpression) {
-			$object = ExpressionTransformer::transform($receiver->getObject(), $file);
-			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $file);
+			$object = ExpressionTransformer::transform($receiver->getObject(), $file, $scope);
+			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $file, $scope);
 
 			return new PhpParser\Node\Expr\MethodCall(
 				$object,
@@ -107,16 +107,16 @@ class FunctionCallExpressionTransformer
 		var_dump($receiver);
 	}
 
-	public static function transformArguments(?HHAST\EditableList $node, HackFile $file) : array
+	public static function transformArguments(?HHAST\EditableList $node, HackFile $file, Scope $scope) : array
 	{
 		if (!$node) {
 			return [];
 		}
 
 		return array_map(
-			function (HHAST\EditableNode $node) use ($file) {
+			function (HHAST\EditableNode $node) use ($file, $scope) {
 				return new PhpParser\Node\Arg(
-					ExpressionTransformer::transform($node->getItem(), $file)
+					ExpressionTransformer::transform($node->getItem(), $file, $scope)
 				);
 			},
 			$node->getChildren()

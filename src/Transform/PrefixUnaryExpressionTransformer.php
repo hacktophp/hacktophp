@@ -12,10 +12,10 @@ use PhpParser;
 
 class PrefixUnaryExpressionTransformer
 {
-	public static function transform(HHAST\PrefixUnaryExpression $node, HackFile $file) : PhpParser\Node\Expr
+	public static function transform(HHAST\PrefixUnaryExpression $node, HackFile $file, Scope $scope) : PhpParser\Node\Expr
 	{
 		$operator = $node->getOperator();
-		$expr = ExpressionTransformer::transform($node->getOperand(), $file);
+		$expr = ExpressionTransformer::transform($node->getOperand(), $file, $scope);
 
 		switch (get_class($node->getOperator())) {
 			case ExclamationToken::class:

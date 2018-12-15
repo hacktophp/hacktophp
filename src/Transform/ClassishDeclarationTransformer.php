@@ -8,7 +8,7 @@ use Psalm;
 
 class ClassishDeclarationTransformer
 {
-	public static function transform(HHAST\ClassishDeclaration $node, HackFile $file) : PhpParser\Node
+	public static function transform(HHAST\ClassishDeclaration $node, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		$modifiers = $node->hasModifiers() ? $node->getModifiers()->getChildren() : null;
 
@@ -34,13 +34,13 @@ class ClassishDeclarationTransformer
 			return new PhpParser\Node\Stmt\Class_(
 				$class_name,
 				[
-					'stmts' => self::transformBody($node->getBody(), $file)
+					'stmts' => self::transformBody($node->getBody(), $file, $scope)
 				]
 			);
 		}
 	}
 
-	private static function transformBody(HHAST\ClassishBody $node, HackFile $file) : array
+	private static function transformBody(HHAST\ClassishBody $node, HackFile $file, Scope $scope) : array
 	{
 		$children = $node->getElements()->getChildren();
 
@@ -48,12 +48,12 @@ class ClassishDeclarationTransformer
 
 		foreach ($children as $child) {
 			if ($child instanceof HHAST\PropertyDeclaration) {
-				$stmts[] = self::transformProperty($child, $file);
+				$stmts[] = self::transformProperty($child, $file, $scope);
 				continue;
 			}
 
 			if ($child instanceof HHAST\MethodishDeclaration) {
-				$stmts[] = FunctionDeclarationTransformer::transform($child, $file);
+				$stmts[] = FunctionDeclarationTransformer::transform($child, $file, $scope);
 				continue;
 			}
 
@@ -68,7 +68,7 @@ class ClassishDeclarationTransformer
 		return $stmts;
 	}
 
-	private static function transformProperty(HHAST\PropertyDeclaration $node, HackFile $file) : PhpParser\Node\Stmt\Property
+	private static function transformProperty(HHAST\PropertyDeclaration $node, HackFile $file, Scope $scope) : PhpParser\Node\Stmt\Property
 	{
 		$abstract = false;
 
@@ -94,7 +94,7 @@ class ClassishDeclarationTransformer
 		$attributes = [];
 
 		if ($type) {
-			$type_string = TypeTransformer::transform($type, $file);
+			$type_string = TypeTransformer::transform($type, $file, $scope);
 			
 			$psalm_type = Psalm\Type::parseString($type_string);
 
@@ -120,7 +120,7 @@ class ClassishDeclarationTransformer
 			$default = null;
 			
 			if ($declarator->hasInitializer()) {
-				$default = ExpressionTransformer::transform($declarator->getInitializer(), $file);
+				$default = ExpressionTransformer::transform($declarator->getInitializer(), $file, $scope);
 			}
 
 			$property_properties[] = new PhpParser\Node\Stmt\PropertyProperty(

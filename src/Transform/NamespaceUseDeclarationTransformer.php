@@ -7,7 +7,7 @@ use PhpParser;
 
 class NamespaceUseDeclarationTransformer
 {
-	public static function transform(HHAST\NamespaceUseDeclaration $node, HackFile $file) : PhpParser\Node
+	public static function transform(HHAST\NamespaceUseDeclaration $node, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		$kind = $node->getKind();
 

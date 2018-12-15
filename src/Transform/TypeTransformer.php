@@ -15,20 +15,20 @@ class TypeTransformer
 	 *     HHAST\SoftTypeSpecifier | HHAST\NoreturnToken | HHAST\TupleTypeSpecifier | HHAST\TypeConstant |
 	 *     HHAST\VarrayTypeSpecifier | HHAST\VectorArrayTypeSpecifier | HHAST\VectorTypeSpecifier $node
 	 */
-	public static function transform(HHAST\EditableNode $node, HackFile $file) : string
+	public static function transform(HHAST\EditableNode $node, HackFile $file, Scope $scope) : string
 	{
 		if ($node instanceof HHAST\ShapeTypeSpecifier) {
-			return self::transformShape($node, $file);
+			return self::transformShape($node, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\KeysetTypeSpecifier) {
-			$keyset_type = self::transform($node->getType(), $file);
+			$keyset_type = self::transform($node->getType(), $file, $scope);
 
 			return 'array<' . $keyset_type . ',' . $keyset_type . '>';
 		}
 
 		if ($node instanceof HHAST\VectorTypeSpecifier) {
-			$vec_type = self::transform($node->getType(), $file);
+			$vec_type = self::transform($node->getType(), $file, $scope);
 
 			return 'array<int,' . $vec_type . '>';
 		}
@@ -39,20 +39,20 @@ class TypeTransformer
 			$dictionary_types = [];
 
 			foreach ($members as $member) {
-				$dictionary_types[] = self::transform($member->getItem(), $file);
+				$dictionary_types[] = self::transform($member->getItem(), $file, $scope);
 			}
 
 			return 'array<' . implode(',', $dictionary_types) . '>';
 		}
 
 		if ($node instanceof HHAST\ClassnameTypeSpecifier) {
-			$type = self::transform($node->getType(), $file);
+			$type = self::transform($node->getType(), $file, $scope);
 
 			return 'class-string';
 		}
 
 		if ($node instanceof HHAST\EditableToken) {
-			return self::transformToken($node, $file);
+			return self::transformToken($node, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\TypeConstant) {
@@ -81,11 +81,11 @@ class TypeTransformer
 			}
 
 			if ($child instanceof HHAST\EditableToken) {
-				$string_type .= self::transformToken($child, $file);
+				$string_type .= self::transformToken($child, $file, $scope);
 				continue;
 			}
 
-			$string_type .= self::transform($child, $file);
+			$string_type .= self::transform($child, $file, $scope);
 		}
 
 		if (!$string_type) {
@@ -95,12 +95,12 @@ class TypeTransformer
 		return $string_type;
 	}
 
-	public static function getPhpParserTypeFromPsalm(Psalm\Type\Union $psalm_type, HackFile $file)
+	public static function getPhpParserTypeFromPsalm(Psalm\Type\Union $psalm_type, HackFile $file, Scope $scope)
 	{
 		$atomic_types = $psalm_type->getTypes();
 		
 		if (count($atomic_types) === 1) {
-			return self::getPhpParserTypeFromAtomicPsalm(reset($atomic_types), $file);
+			return self::getPhpParserTypeFromAtomicPsalm(reset($atomic_types), $file, $scope);
 		}
 
 		foreach ($atomic_types as $atomic_type) {
@@ -109,12 +109,12 @@ class TypeTransformer
 			}
 
 			return new PhpParser\Node\NullableType(
-				self::getPhpParserTypeFromAtomicPsalm($atomic_type, $file)
+				self::getPhpParserTypeFromAtomicPsalm($atomic_type, $file, $scope)
 			);
 		}
 	}
 
-	public static function getPhpParserTypeFromAtomicPsalm(Psalm\Type\Atomic $psalm_type, HackFile $file)
+	public static function getPhpParserTypeFromAtomicPsalm(Psalm\Type\Atomic $psalm_type, HackFile $file, Scope $scope)
 	{
 		if ($psalm_type instanceof Psalm\Type\Atomic\TArray) {
 			return 'array';
@@ -133,7 +133,7 @@ class TypeTransformer
 		}
 	}
 
-	public static function transformShape(HHAST\ShapeTypeSpecifier $node, HackFile $file) : string
+	public static function transformShape(HHAST\ShapeTypeSpecifier $node, HackFile $file, Scope $scope) : string
 	{
 		$children = $node->getFields()->getChildren();
 
@@ -161,7 +161,7 @@ class TypeTransformer
 				continue;
 			}
 
-			$type = self::transform($field_item->getType(), $file);
+			$type = self::transform($field_item->getType(), $file, $scope);
 
 			$field_types[] = $name_text . ':' . $type;
 		}
@@ -169,7 +169,7 @@ class TypeTransformer
 		return 'array{' . implode(',', $field_types) . '}';
 	}
 
-	public static function transformToken(HHAST\EditableToken $node, HackFile $file) : string
+	public static function transformToken(HHAST\EditableToken $node, HackFile $file, Scope $scope) : string
 	{
 		$token_text = $node->getText();
 
