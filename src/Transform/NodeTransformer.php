@@ -54,6 +54,18 @@ class NodeTransformer
 			return $node->getText();
 		}
 
+		if ($node instanceof HHAST\BreakStatement) {
+			return new PhpParser\Node\Stmt\Break_(
+				$node->hasLevel() ? ExpressionTransformer::transform($node->getLevel(), $file) : null
+			);
+		}
+
+		if ($node instanceof HHAST\ContinueStatement) {
+			return new PhpParser\Node\Stmt\Continue_(
+				$node->hasLevel() ? ExpressionTransformer::transform($node->getLevel(), $file) : null
+			);
+		}
+
 		if ($node instanceof HHAST\IfStatement) {
 			return IfStatementTransformer::transform($node, $file);
 		}
@@ -62,12 +74,24 @@ class NodeTransformer
 			return ForStatementTransformer::transform($node, $file);
 		}
 
+		if ($node instanceof HHAST\ForeachStatement) {
+			return ForeachStatementTransformer::transform($node, $file);
+		}
+
+		if ($node instanceof HHAST\SwitchStatement) {
+			return SwitchStatementTransformer::transform($node, $file);
+		}
+
 		if ($node instanceof HHAST\TryStatement) {
 			return TryStatementTransformer::transform($node, $file);
 		}
 
 		if ($node instanceof HHAST\CompoundStatement) {
 			return self::transformList($node->getStatements(), $file);
+		}
+
+		if ($node instanceof HHAST\ConstDeclaration) {
+			return ConstDeclarationTransformer::transform($node, $file, false);
 		}
 
 		if ($node instanceof HHAST\ClassishDeclaration) {

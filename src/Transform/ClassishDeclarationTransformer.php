@@ -53,11 +53,16 @@ class ClassishDeclarationTransformer
 			}
 
 			if ($child instanceof HHAST\MethodishDeclaration) {
-				$smts[] = FunctionDeclarationTransformer::transform($child, $file);
+				$stmts[] = FunctionDeclarationTransformer::transform($child, $file);
 				continue;
 			}
 
-			var_dump(get_class($child));
+			if ($child instanceof HHAST\ConstDeclaration) {
+				$stmts[] = ConstDeclarationTransformer::transform($child, $file, true);
+				continue;
+			}
+
+			throw new \UnexpectedValueException('Unrecognised class member ' . get_class($child));
 		}
 
 		return $stmts;
@@ -93,7 +98,10 @@ class ClassishDeclarationTransformer
 			
 			$psalm_type = Psalm\Type::parseString($type_string);
 
-			$docblock = [];
+			$docblock = [
+				'description' => '',
+				'specials' => [],
+			];
 			$docblock['specials']['var'] = [$psalm_type->toNamespacedString($file->namespace, [], null, false)];
 
 			$docblock_string = Psalm\DocComment::render($docblock, '');

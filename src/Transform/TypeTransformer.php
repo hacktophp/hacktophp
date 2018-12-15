@@ -17,11 +17,58 @@ class TypeTransformer
 	 */
 	public static function transform(HHAST\EditableNode $node, HackFile $file) : string
 	{
+		if ($node instanceof HHAST\ShapeTypeSpecifier) {
+			return self::transformShape($node, $file);
+		}
+
+		if ($node instanceof HHAST\KeysetTypeSpecifier) {
+			$keyset_type = self::transform($node->getType(), $file);
+
+			return 'array<' . $keyset_type . ',' . $keyset_type . '>';
+		}
+
+		if ($node instanceof HHAST\VectorTypeSpecifier) {
+			$vec_type = self::transform($node->getType(), $file);
+
+			return 'array<int,' . $vec_type . '>';
+		}
+
+		if ($node instanceof HHAST\DictionaryTypeSpecifier) {
+			$members = $node->getMembers()->getChildren();
+
+			$dictionary_types = [];
+
+			foreach ($members as $member) {
+				$dictionary_types[] = self::transform($member->getItem(), $file);
+			}
+
+			return 'array<' . implode(',', $dictionary_types) . '>';
+		}
+
+		if ($node instanceof HHAST\ClassnameTypeSpecifier) {
+			$type = self::transform($node->getType(), $file);
+
+			return 'class-string';
+		}
+
+		if ($node instanceof HHAST\EditableToken) {
+			return self::transformToken($node, $file);
+		}
+
+		if ($node instanceof HHAST\TypeConstant) {
+			// TODO support typed constants
+			return 'mixed';
+		}
+
 		$children = $node->getChildren();
 
 		$string_type = '';
 
 		foreach ($children as $child) {
+			if ($child instanceof HHAST\ListItem) {
+				$child = $child->getItem();
+			}
+
 			if ($child instanceof HHAST\QualifiedName) {
 				$token_text = QualifiedNameTransformer::getText($child);
 
@@ -34,29 +81,15 @@ class TypeTransformer
 			}
 
 			if ($child instanceof HHAST\EditableToken) {
-				$token_text = $child->getText();
-
-				switch ($token_text) {
-					case 'vec':
-					case 'dict':
-						$token_text = 'array';
-						break;
-				}
-
-				if ($child instanceof HHAST\NameToken) {
-					if ($token_text === 'Awaitable') {
-						$token_text = 'Sabre\\Event\\Promise';
-					} else {
-						if ($file->namespace) {
-							$token_text = $file->namespace . '\\' . $token_text;
-						}
-					}
-				}
-
-				$string_type .= $token_text;
-			} else {
-				$string_type .= self::transform($child, $file);
+				$string_type .= self::transformToken($child, $file);
+				continue;
 			}
+
+			$string_type .= self::transform($child, $file);
+		}
+
+		if (!$string_type) {
+			throw new \UnexpectedValueException('empty type');
 		}
 
 		return $string_type;
@@ -92,7 +125,75 @@ class TypeTransformer
 		}
 
 		if ($psalm_type instanceof Psalm\Type\Atomic\TNamedObject) {
+			if ($psalm_type->value === 'static') {
+				return new PhpParser\Node\Name('static');
+			}
+
 			return new PhpParser\Node\Name($psalm_type->toPhpString($file->namespace, [], null, 7, 2));
 		}
+	}
+
+	public static function transformShape(HHAST\ShapeTypeSpecifier $node, HackFile $file) : string
+	{
+		$children = $node->getFields()->getChildren();
+
+		$field_types = [];
+
+		foreach ($children as $child) {
+			$field_item = $child->getItem();
+
+			$name = $field_item->getName();
+
+			$name_text = null;
+
+			if ($name instanceof HHAST\LiteralExpression) {
+				$literal = $name->getExpression();
+
+				switch (get_class($literal)) {
+					case HHAST\SingleQuotedStringLiteralToken::class:
+					case HHAST\DoubleQuotedStringLiteralToken::class:
+						$name_text = substr($literal->getText(), 1, -1);
+						break;
+				}
+			}
+
+			if ($name_text === null) {
+				continue;
+			}
+
+			$type = self::transform($field_item->getType(), $file);
+
+			$field_types[] = $name_text . ':' . $type;
+		}
+
+		return 'array{' . implode(',', $field_types) . '}';
+	}
+
+	public static function transformToken(HHAST\EditableToken $node, HackFile $file) : string
+	{
+		$token_text = $node->getText();
+
+		switch ($token_text) {
+			case 'vec':
+			case 'dict':
+			case 'keyset':
+				return 'array';
+		}
+
+		if ($node instanceof HHAST\NameToken) {
+			if ($token_text === 'Awaitable') {
+				return 'Sabre\\Event\\Promise';
+			}
+
+			if ($file->namespace) {
+				return $file->namespace . '\\' . $token_text;
+			}
+		}
+
+		if ($node instanceof HHAST\ThisToken) {
+			return 'static';
+		}
+
+		return $token_text;
 	}
 }

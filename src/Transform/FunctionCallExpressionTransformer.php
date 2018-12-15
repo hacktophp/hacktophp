@@ -16,14 +16,18 @@ class FunctionCallExpressionTransformer
 		if ($receiver instanceof HHAST\ScopeResolutionExpression) {
 			$qualifier = $receiver->getQualifier();
 
-			if ($qualifier instanceof HHAST\NameToken) {
+			if ($qualifier instanceof HHAST\EditableToken) {
 				$class = new PhpParser\Node\Name($qualifier->getText());
 			} elseif ($qualifier instanceof HHAST\QualifiedName) {
 				$class = QualifiedNameTransformer::transform($qualifier);
 			} else {
 				$class = ExpressionTransformer::transformVariableName($qualifier, $file);
 			}
-			
+
+			if ($class === null) {
+				throw new \UnexpectedValueException('$class for ' . get_class($qualifier) . ' cannot be null');
+			}
+
 			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $file);
 
 			return new PhpParser\Node\Expr\StaticCall(

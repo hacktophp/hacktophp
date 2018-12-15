@@ -19,14 +19,32 @@ class FunctionDeclarationTransformer
 			$header = $node->getDeclarationHeader();
 		}
 
+		$function_name = $header->hasName() ? $header->getName()->getText() : null;
+
 		$modifiers = $header->hasModifiers() ? $header->getModifiers()->getChildren() : null;
 
 		$async = false;
+
+		$flags = 0;
 
 		if ($modifiers) {
 			foreach ($modifiers as $modifier) {
 				if ($modifier instanceof HHAST\AsyncToken) {
 					$async = true;
+				}
+
+				if ($modifier instanceof HHAST\PublicToken) {
+					$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
+				} elseif ($modifier instanceof HHAST\ProtectedToken) {
+					$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED;
+				} elseif ($modifier instanceof HHAST\PrivateToken) {
+					$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
+				} elseif ($modifier instanceof HHAST\StaticToken) {
+					$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_STATIC;
+				} elseif ($modifier instanceof HHAST\FinalToken) {
+					$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_FINAL;
+				} elseif ($modifier instanceof HHAST\AbstractToken) {
+					$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT;
 				}
 			}
 		}
@@ -79,7 +97,7 @@ class FunctionDeclarationTransformer
 
 		if ($return_type) {
 			$return_type_string = TypeTransformer::transform($return_type, $file);
-			
+
 			$psalm_return_type = Psalm\Type::parseString($return_type_string);
 
 			if (!$psalm_return_type->canBeFullyExpressedInPhp()) {
@@ -97,18 +115,15 @@ class FunctionDeclarationTransformer
 			];
 		}
 
-		$function_name = $header->hasName() ? $header->getName()->getText() : null;
-
 		$stmts = null;
 
 		if ($node instanceof HHAST\MethodishDeclaration) {
 			$body = $node->hasFunctionBody() ? $node->getFunctionBody() : null;
 		} else {
-			$header = $node->hasBody() ? $node->getBody() : null;
+			$body = $node->hasBody() ? $node->getBody() : null;
 		}		
 		
 		if ($body && $body->hasStatements()) {
-			var_dump('here');
 			$stmts = NodeTransformer::transform($body->getStatements(), $file);
 
 			if ($async) {
@@ -125,8 +140,10 @@ class FunctionDeclarationTransformer
 			'stmts' => $stmts,
 		];
 
-		if (!$function_name) {
-			return new PhpParser\Node\Stmt\Function_(
+		if ($node instanceof HHAST\MethodishDeclaration) {
+			$subnodes['flags'] = $flags;
+
+			return new PhpParser\Node\Stmt\ClassMethod(
 				$function_name,
 				$subnodes,
 				$attributes
