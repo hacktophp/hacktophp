@@ -24,10 +24,16 @@ class BinaryExpressionTransformer
 {
 	public static function transform(HHAST\BinaryExpression $node, HackFile $file) : PhpParser\Node\Expr
 	{
+		$operator = $node->getOperator();
+
+		if ($operator instanceof BarGreaterThanToken) {
+			return PipeTransformer::transform($node->getLeftOperand(), $node->getRightOperand(), $file);
+		}
+		
 		$left_expr = ExpressionTransformer::transform($node->getLeftOperand(), $file);
 		$right_expr = ExpressionTransformer::transform($node->getRightOperand(), $file);
 
-		switch (get_class($node->getOperator())) {
+		switch (get_class($operator)) {
 			case ExclamationEqualToken::class:
 				return new PhpParser\Node\Expr\BinaryOp\NotEqual($left_expr, $right_expr);
 
@@ -35,7 +41,7 @@ class BinaryExpressionTransformer
 				return new PhpParser\Node\Expr\BinaryOp\NotIdentical($left_expr, $right_expr);
 
 			case PercentToken::class:
-				return new PhpParser\Node\Expr\BinaryA\Mod($left_expr, $right_expr);
+				return new PhpParser\Node\Expr\BinaryOp\Mod($left_expr, $right_expr);
 
 			case PercentEqualToken::class:
 				return new PhpParser\Node\Expr\AssignOp\Mod($left_expr, $right_expr);
@@ -153,9 +159,6 @@ class BinaryExpressionTransformer
 
 			case BarEqualToken::class:
 				return new PhpParser\Node\Expr\AssignOp\BitwiseOr($left_expr, $right_expr);
-
-			case BarGreaterThanToken::class:
-				return PipeTransformer::transform($left_expr, $right_expr, $file);
 
 			case BarBarToken::class:
 				return new PhpParser\Node\Expr\BinaryOp\BooleanOr($left_expr, $right_expr);

@@ -307,6 +307,14 @@ class ExpressionTransformer
 			return self::transform($node->getValue(), $file);
 		}
 
+		if ($node instanceof HHAST\PipeVariableExpression) {
+			if (!$file->pipe_expr) {
+				throw new \UnexpectedValueException('No pipe expression to replace');
+			}
+
+			return $file->pipe_expr;
+		}
+
 		if ($node instanceof PrefixUnaryExpression) {
 			return PrefixUnaryExpressionTransformer::transform($node, $file);
 		}
