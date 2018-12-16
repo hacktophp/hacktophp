@@ -105,6 +105,9 @@ class ExpressionTransformer
 
 			switch (get_class($literal)) {
 				case HHAST\SingleQuotedStringLiteralToken::class:
+					return new PhpParser\Node\Scalar\String_(
+						str_replace(['\\\\', '\\\''], ['\\', '\''], substr($literal->getText(), 1, -1))
+					);
 				case HHAST\DoubleQuotedStringLiteralToken::class:
 					return new PhpParser\Node\Scalar\String_(
 						stripcslashes(substr($literal->getText(), 1, -1))
