@@ -55,6 +55,11 @@ class TypeTransformer
 			return self::transformToken($node, $file, $scope);
 		}
 
+		if ($node instanceof HHAST\ClosureTypeSpecifier) {
+			// TODO support closure types
+			return '\Closure';
+		}
+
 		if ($node instanceof HHAST\TypeConstant) {
 			// TODO support typed constants
 			return 'mixed';

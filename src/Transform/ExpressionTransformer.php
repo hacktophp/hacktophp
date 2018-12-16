@@ -107,7 +107,7 @@ class ExpressionTransformer
 				case HHAST\SingleQuotedStringLiteralToken::class:
 				case HHAST\DoubleQuotedStringLiteralToken::class:
 					return new PhpParser\Node\Scalar\String_(
-						str_replace(['\\\\', '\\\''], ['\\', '\''], substr($literal->getText(), 1, -1))
+						stripcslashes(substr($literal->getText(), 1, -1))
 					);
 
 				case HHAST\NullLiteralToken::class:
@@ -140,13 +140,13 @@ class ExpressionTransformer
 								function($item) use ($file, $scope) {
 									if ($item instanceof HHAST\ExecutionStringLiteralHeadToken) {
 										return new PhpParser\Node\Scalar\EncapsedStringPart(
-											str_replace(['\\\\', '\\\''], ['\\', '\''], substr($item->getText(), 1))
+											stripcslashes(substr($item->getText(), 1))
 										);
 									}
 
 									if ($item instanceof HHAST\ExecutionStringLiteralTailToken) {
 										return new PhpParser\Node\Scalar\EncapsedStringPart(
-											str_replace(['\\\\', '\\\''], ['\\', '\''], substr($item->getText(), 0, -1))
+											stripcslashes(substr($item->getText(), 0, -1))
 										);
 									}
 
@@ -162,13 +162,13 @@ class ExpressionTransformer
 							function($item) use ($file, $scope) {
 								if ($item instanceof HHAST\DoubleQuotedStringLiteralHeadToken) {
 									return new PhpParser\Node\Scalar\EncapsedStringPart(
-										str_replace(['\\\\', '\\\''], ['\\', '\''], substr($item->getText(), 1))
+										stripcslashes(substr($item->getText(), 1))
 									);
 								}
 
 								if ($item instanceof HHAST\DoubleQuotedStringLiteralTailToken) {
 									return new PhpParser\Node\Scalar\EncapsedStringPart(
-										str_replace(['\\\\', '\\\''], ['\\', '\''], substr($item->getText(), 0, -1))
+										stripcslashes(substr($item->getText(), 0, -1))
 									);
 								}
 

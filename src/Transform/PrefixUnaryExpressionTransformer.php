@@ -55,6 +55,6 @@ class PrefixUnaryExpressionTransformer
 				return new PhpParser\Node\Expr\BitwiseNot($expr);
 		}
 			
-		throw new \UnexpectedValueException('Unrecognized binary op');
+		throw new \UnexpectedValueException('Unrecognized binary op ' . get_class($node->getOperator()));
 	}
 }

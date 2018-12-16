@@ -148,7 +148,25 @@ class FunctionDeclarationTransformer
 		array &$docblock
 	) : PhpParser\Node\Param {
 		$param_type = null;
-		$param_name = $params_list_param->getName()->getText();
+		$param_name_node = $params_list_param->getName();
+
+		$variadic = false;
+
+		$by_ref = false;
+
+		if ($param_name_node instanceof HHAST\DecoratedExpression) {
+			$decorator = $param_name_node->getDecorator();
+
+			if ($decorator instanceof HHAST\DotDotDotToken) {
+				$variadic = true;
+			} elseif ($decorator instanceof HHAST\AmpersandToken) {
+				$by_ref = true;
+			}
+
+			$param_name_node = $param_name_node->getExpression();
+		}
+
+		$param_name = $param_name_node->getText();
 
 		if ($params_list_param->hasType()) {
 			$param_type_string = TypeTransformer::transform($params_list_param->getType(), $file, $scope);
@@ -174,7 +192,9 @@ class FunctionDeclarationTransformer
 		return new PhpParser\Node\Param(
 			new PhpParser\Node\Expr\Variable(substr($param_name, 1)),
 			null,
-			$param_type
+			$param_type,
+			false,
+			$variadic
 		);
 	}
 

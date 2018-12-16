@@ -42,7 +42,7 @@ class NamespaceUseDeclarationTransformer
 			return new PhpParser\Node\Stmt\Use_($uses);
 		}
 
-		if ($kind instanceof HHAST\TypeToken) {
+		if (!$kind || $kind instanceof HHAST\TypeToken) {
 			foreach ($uses as $use) {
 				$file->aliased_types[(string) $use->alias] = (string) $use->name;
 			}
@@ -65,5 +65,7 @@ class NamespaceUseDeclarationTransformer
 
 			return new PhpParser\Node\Stmt\Use_($uses, PhpParser\Node\Stmt\Use_::TYPE_CONSTANT);
 		}
+
+		throw new \UnexpectedValueException('Nothing returned for ' . ($kind ? get_class($kind) : 'null'));
 	}
 }

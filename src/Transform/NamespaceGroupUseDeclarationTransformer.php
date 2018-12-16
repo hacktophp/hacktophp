@@ -12,7 +12,6 @@ class NamespaceGroupUseDeclarationTransformer
 		$kind = $node->getKind();
 		$prefix = QualifiedNameTransformer::transform($node->getPrefix());
 
-
 		$uses = array_map(
 			function(HHAST\NamespaceUseClause $clause) {
 				$name = $clause->getName();
@@ -38,7 +37,7 @@ class NamespaceGroupUseDeclarationTransformer
 		
 		if ($kind instanceof HHAST\NamespaceToken) {
 			foreach ($uses as $use) {
-				$file->aliased_namespaces[(string) $use->alias] = (string) $use->name;
+				$file->aliased_namespaces[(string) $use->alias] = $prefix . '\\' . $use->name;
 			}
 			
 			return new PhpParser\Node\Stmt\GroupUse($prefix, $uses);
@@ -46,7 +45,7 @@ class NamespaceGroupUseDeclarationTransformer
 
 		if ($kind instanceof HHAST\TypeToken) {
 			foreach ($uses as $use) {
-				$file->aliased_types[(string) $use->alias] = (string) $use->name;
+				$file->aliased_types[(string) $use->alias] = $prefix . '\\' . $use->name;
 			}
 			
 			return new PhpParser\Node\Stmt\GroupUse($prefix, $uses);
@@ -54,7 +53,7 @@ class NamespaceGroupUseDeclarationTransformer
 
 		if ($kind instanceof HHAST\FunctionToken) {
 			foreach ($uses as $use) {
-				$file->aliased_functions[(string) $use->alias] = (string) $use->name;
+				$file->aliased_functions[(string) $use->alias] = $prefix . '\\' . $use->name;
 			}
 
 			return new PhpParser\Node\Stmt\GroupUse($prefix, $uses, PhpParser\Node\Stmt\Use_::TYPE_FUNCTION);
@@ -62,7 +61,7 @@ class NamespaceGroupUseDeclarationTransformer
 
 		if ($kind instanceof HHAST\ConstToken) {
 			foreach ($uses as $use) {
-				$file->aliased_constants[(string) $use->alias] = (string) $use->name;
+				$file->aliased_constants[(string) $use->alias] = $prefix . '\\' . $use->name;
 			}
 
 			return new PhpParser\Node\Stmt\GroupUse($prefix, $uses, PhpParser\Node\Stmt\Use_::TYPE_CONSTANT);

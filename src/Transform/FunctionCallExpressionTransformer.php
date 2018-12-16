@@ -57,6 +57,33 @@ class FunctionCallExpressionTransformer
 				);
 			}
 
+			if ($name_string === '\HH\Lib\Str\join') {
+				return new PhpParser\Node\Expr\FuncCall(
+			    	new PhpParser\Node\Name\FullyQualified('implode'),
+			    	[$args[1], $args[0]]
+				);
+			}
+
+			if ($name_string === '\HH\Lib\Str\split') {
+				$new_args = [$args[1], $args[0]];
+
+				if (isset($args[2])) {
+					$new_args[] = $args[2];
+				}
+
+				return new PhpParser\Node\Expr\FuncCall(
+			    	new PhpParser\Node\Name\FullyQualified('implode'),
+			    	$new_args
+				);
+			}
+
+			if ($name_string === '\HH\Lib\Vec\map') {
+				return new PhpParser\Node\Expr\FuncCall(
+			    	new PhpParser\Node\Name\FullyQualified('array_map'),
+			    	[$args[1], $args[0]]
+				);
+			}
+
 			if ($name_string === '\is_dict') {
 				return new PhpParser\Node\Expr\FuncCall(
 			    	new PhpParser\Node\Name\FullyQualified('is_array'),
@@ -122,7 +149,7 @@ class FunctionCallExpressionTransformer
 			);
 		}
 
-		if ($receiver instanceof HHAST\LambdaExpression) {
+		if ($receiver instanceof HHAST\LambdaExpression || $receiver instanceof HHAST\VariableExpression) {
 			$closure = ExpressionTransformer::transform($receiver, $file, $scope);
 
 			return new PhpParser\Node\Expr\FuncCall(
@@ -142,8 +169,26 @@ class FunctionCallExpressionTransformer
 
 		return array_map(
 			function (HHAST\EditableNode $node) use ($file, $scope) {
+				$item = $node->getItem();
+
+				$by_ref = false;
+				$unpack = false;
+
+				if ($item instanceof HHAST\PrefixUnaryExpression) {
+					if ($item->getOperator() instanceof HHAST\AmpersandToken) {
+						$item = $item->getOperand();
+						// not necssary in PHP
+						//$by_ref = true;
+					} elseif ($item->getOperator() instanceof HHAST\DotDotDotToken) {
+						$item = $item->getOperand();
+						$unpack = true;
+					}
+				}
+
 				return new PhpParser\Node\Arg(
-					ExpressionTransformer::transform($node->getItem(), $file, $scope)
+					ExpressionTransformer::transform($item, $file, $scope),
+					$by_ref,
+					$unpack
 				);
 			},
 			$node->getChildren()
