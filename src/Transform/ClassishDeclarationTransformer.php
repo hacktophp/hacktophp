@@ -30,11 +30,16 @@ class ClassishDeclarationTransformer
 
 		$class_implements = $node->hasImplementsList() ? $node->getImplementsList() : null;
 
+		$comments = ExpressionTransformer::getTokenComments($class_type);
+
 		if ($class_type instanceof HHAST\ClassToken) {
 			return new PhpParser\Node\Stmt\Class_(
 				$class_name,
 				[
-					'stmts' => self::transformBody($node->getBody(), $file, $scope)
+					'stmts' => self::transformBody($node->getBody(), $file, $scope),
+				],
+				[
+					'comments' => $comments,
 				]
 			);
 		}
@@ -44,6 +49,9 @@ class ClassishDeclarationTransformer
 				$class_name,
 				[
 					'stmts' => self::transformBody($node->getBody(), $file, $scope)
+				],
+				[
+					'comments' => $comments,
 				]
 			);
 		}
@@ -53,6 +61,9 @@ class ClassishDeclarationTransformer
 				$class_name,
 				[
 					'stmts' => self::transformBody($node->getBody(), $file, $scope)
+				],
+				[
+					'comments' => $comments,
 				]
 			);
 		}
@@ -154,6 +165,11 @@ class ClassishDeclarationTransformer
 						$child->getClauses()->getChildren()
 					)
 				);
+				continue;
+			}
+
+			if ($child instanceof HHAST\TypeConstDeclaration) {
+				// TODO support this
 				continue;
 			}
 

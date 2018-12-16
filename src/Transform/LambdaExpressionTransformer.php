@@ -48,15 +48,13 @@ class LambdaExpressionTransformer
 		if ($body instanceof HHAST\CompoundStatement) {
 			$stmts = NodeTransformer::transform($body, $file, $scope);
 
-			if (count($stmts) !== 1 || !$stmts[0] instanceof PhpParser\Node\Stmt\Expression) {
-				throw new \UnexpectedValueException('Bad compound statement');
+			if (count($stmts) === 1) {
+				$stmts = [
+					new PhpParser\Node\Stmt\Return_(
+						$stmts[0]->expr
+					)
+				];
 			}
-
-			$stmts = [
-				new PhpParser\Node\Stmt\Return_(
-					$stmts[0]->expr
-				)
-			];
 		} else {
 			$stmts = [
 				new PhpParser\Node\Stmt\Return_(

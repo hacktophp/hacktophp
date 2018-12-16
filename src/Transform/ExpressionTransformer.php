@@ -536,4 +536,27 @@ class ExpressionTransformer
 			return new PhpParser\Node\Identifier($node->getText());
 		}
 	}
+
+	public static function getTokenComments(HHAST\EditableToken $token) : array
+	{
+		$comment_nodes = $token->hasLeading()
+			? array_merge(
+				$token->getLeading()->getChildrenOfType(HHAST\SingleLineComment::class),
+				$token->getLeading()->getChildrenOfType(HHAST\DelimitedComment::class)
+			) : [];
+
+		$comments = [];
+
+		foreach ($comment_nodes as $comment_node) {
+			$comment_text = $comment_node->getText();
+
+			if (strpos(ltrim($comment_text), '/**') === 0) {
+				$comments[] = new PhpParser\Comment\Doc($comment_text);
+			} else {
+				$comments[] = new PhpParser\Comment($comment_text);
+			}
+		}
+
+		return $comments;
+	}
 }

@@ -27,8 +27,17 @@ class FunctionDeclarationTransformer
 
 		$flags = 0;
 
+		$attributes = [
+			'comments' => ExpressionTransformer::getTokenComments($header->getKeyword())
+		];
+
 		if ($modifiers) {
 			foreach ($modifiers as $modifier) {
+				$attributes['comments'] = array_merge(
+					$attributes['comments'],
+					ExpressionTransformer::getTokenComments($modifier)
+				);
+
 				if ($modifier instanceof HHAST\AsyncToken) {
 					$async = true;
 				}
@@ -50,8 +59,6 @@ class FunctionDeclarationTransformer
 		}
 
 		$docblock = ['description' => '', 'specials' => []];
-
-		$attributes = [];
 
 		$params = [];
 
@@ -89,9 +96,7 @@ class FunctionDeclarationTransformer
 		if ($docblock['specials']) {
 			$docblock_string = Psalm\DocComment::render($docblock, '');
 
-			$attributes['comments'] = [
-				new \PhpParser\Comment\Doc(rtrim($docblock_string))
-			];
+			$attributes['comments'][] = new \PhpParser\Comment\Doc(rtrim($docblock_string));
 		}
 
 		$stmts = null;

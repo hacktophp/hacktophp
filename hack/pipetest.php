@@ -38,6 +38,14 @@ yield from @foo();
 
 eval('echo 5;');
 
+ /** a single line doc comment */
+// a thing
+ /*
+ another thing
+ */
+ /**
+ * foo
+ */
 class C {
 	use T1;
 	use A\T2;
@@ -48,6 +56,11 @@ class C {
 	use T4 {
 		bar as bat;
 		far as fat;
+	}
+
+	/** @return Bar */
+	public function bart() : EditableList<Foo> {
+		echo 'hello';
 	}
 }
 

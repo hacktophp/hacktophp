@@ -13,6 +13,10 @@ class FunctionCallExpressionTransformer
 
 		$args = self::transformArguments($node->getArgumentList(), $file, $scope);
 
+		if ($receiver instanceof HHAST\ParenthesizedExpression) {
+			$receiver = $receiver->getExpression();
+		}
+
 		if ($receiver instanceof HHAST\ScopeResolutionExpression) {
 			$qualifier = $receiver->getQualifier();
 
@@ -117,6 +121,17 @@ class FunctionCallExpressionTransformer
 				$args
 			);
 		}
+
+		if ($receiver instanceof HHAST\LambdaExpression) {
+			$closure = ExpressionTransformer::transform($receiver, $file, $scope);
+
+			return new PhpParser\Node\Expr\FuncCall(
+		    	$closure,
+		    	$args
+			);
+		}
+
+		throw new \UnexpectedValueException(get_class($receiver) . ' call not recognized');
 	}
 
 	public static function transformArguments(?HHAST\EditableList $node, HackFile $file, Scope $scope) : array

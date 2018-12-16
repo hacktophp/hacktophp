@@ -174,7 +174,11 @@ class NodeTransformer
 		}
 
 		if ($node instanceof HHAST\ReturnStatement) {
-			return new PhpParser\Node\Stmt\Return_(ExpressionTransformer::transform($node->getExpression(), $file, $scope));
+			return new PhpParser\Node\Stmt\Return_(
+				$node->hasExpression()
+					? ExpressionTransformer::transform($node->getExpression(), $file, $scope)
+					: null
+			);
 		}
 
 		if ($node instanceof HHAST\InclusionDirective) {
