@@ -24,9 +24,6 @@ class PrefixUnaryExpressionTransformer
 			case DollarToken::class:
 				throw new \UnexpectedValueException('Unsupported dollar token');
 
-			case AmpersandToken::class:
-				return new PhpParser\Node\Expr\AssignRef($expr);
-
 			case PlusToken::class:
 				return new PhpParser\Node\Expr\UnaryPlus($expr);
 

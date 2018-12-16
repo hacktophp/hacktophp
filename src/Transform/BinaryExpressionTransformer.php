@@ -31,7 +31,22 @@ class BinaryExpressionTransformer
 		}
 		
 		$left_expr = ExpressionTransformer::transform($node->getLeftOperand(), $file, $scope);
-		$right_expr = ExpressionTransformer::transform($node->getRightOperand(), $file, $scope);
+
+		$right_operand = $node->getRightOperand();
+
+		if ($operator instanceof EqualToken) {
+			if ($right_operand instanceof HHAST\PrefixUnaryExpression
+				&& $right_operand->getOperator() instanceof AmpersandToken
+			) {
+				$right_expr = ExpressionTransformer::transform($right_operand->getOperand(), $file, $scope);
+				return new PhpParser\Node\Expr\AssignRef($left_expr, $right_expr);
+			}
+
+			$right_expr = ExpressionTransformer::transform($right_operand, $file, $scope);
+			return new PhpParser\Node\Expr\Assign($left_expr, $right_expr);
+		}
+
+		$right_expr = ExpressionTransformer::transform($right_operand, $file, $scope);
 
 		switch (get_class($operator)) {
 			case ExclamationEqualToken::class:
@@ -108,9 +123,6 @@ class BinaryExpressionTransformer
 
 			case LessThanGreaterThanToken::class:
 				return new PhpParser\Node\Expr\BinaryOp\NotIdentical($left_expr, $right_expr);
-
-			case EqualToken::class:
-				return new PhpParser\Node\Expr\Assign($left_expr, $right_expr);
 
 			case EqualEqualToken::class:
 				return new PhpParser\Node\Expr\BinaryOp\Equal($left_expr, $right_expr);

@@ -87,6 +87,20 @@ class FunctionCallExpressionTransformer
 				);
 			}
 
+			if ($name_string === 'exit') {
+				return new PhpParser\Node\Expr\Exit_(
+			    	isset($args[0]) ? $args[0]->value : null,
+			    	['kind' => PhpParser\Node\Expr\Exit_::KIND_EXIT]
+				);
+			}
+
+			if ($name_string === 'die') {
+				return new PhpParser\Node\Expr\Exit_(
+			    	isset($args[0]) ? $args[0]->value : null,
+			    	['kind' => PhpParser\Node\Expr\Exit_::KIND_DIE]
+				);
+			}
+
 			return new PhpParser\Node\Expr\FuncCall(
 		    	new PhpParser\Node\Name($name_string),
 		    	$args
@@ -103,8 +117,6 @@ class FunctionCallExpressionTransformer
 				$args
 			);
 		}
-
-		var_dump($receiver);
 	}
 
 	public static function transformArguments(?HHAST\EditableList $node, HackFile $file, Scope $scope) : array

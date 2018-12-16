@@ -15,9 +15,11 @@ class LambdaExpressionTransformer
 
 		$param_names = [];
 
+		$docblock = ['description' => '', 'specials' => []];
+
 		if ($signature instanceof HHAST\VariableToken) {
 			$param_name = $signature->getText();
-			
+
 			$param_names[$param_name] = true;
 
 			$params[] = new PhpParser\Node\Param(
@@ -28,34 +30,11 @@ class LambdaExpressionTransformer
 			$params_list_params = $signature->getParameters()->getDescendantsOfType(HHAST\ParameterDeclaration::class);
 
 			foreach ($params_list_params as $params_list_param) {
-				$param_type = null;
-				$param_name = $params_list_param->getName()->getText();
-
-				if ($params_list_param->hasType()) {
-					$param_type_string = TypeTransformer::transform($params_list_param->getType(), $file, $scope);
-
-					$psalm_type = Psalm\Type::parseString($param_type_string);
-
-					if (!$psalm_type->canBeFullyExpressedInPhp()) {
-						$namespaced_type_string = $psalm_type->toNamespacedString(
-							$file->namespace,
-							[],
-							null,
-							false
-						);
-
-						$docblock['specials']['param'] = [$namespaced_type_string . ' ' . $param_name];
-					}
-
-					$param_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_type, $file, $scope);
-				}
-
-				$param_names[$param_name] = true;
-				
-				$params[] = new PhpParser\Node\Param(
-					new PhpParser\Node\Expr\Variable(substr($param_name, 1)),
-					null,
-					$param_type
+				$params[] = FunctionDeclarationTransformer::getParam(
+					$params_list_param,
+					$file,
+					$scope,
+					$docblock
 				);
 			}
 		}

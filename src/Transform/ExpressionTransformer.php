@@ -25,7 +25,33 @@ class ExpressionTransformer
 {
 	public static function transformStatement(HHAST\ExpressionStatement $node, HackFile $file, Scope $scope) : PhpParser\Node
 	{
-		return new PhpParser\Node\Stmt\Expression(self::transform($node->getExpressionx(), $file, $scope));
+		$inner_expression = $node->getExpression();
+
+		if ($inner_expression instanceof HHAST\NameToken) {
+			$name_string = $inner_expression->getText();
+
+			if ($name_string === 'exit') {
+				return new PhpParser\Node\Stmt\Expression(
+					new PhpParser\Node\Expr\Exit_(
+				    	isset($args[0]) ? $args[0]->value : null,
+				    	['kind' => PhpParser\Node\Expr\Exit_::KIND_EXIT]
+					)
+				);
+			}
+
+			if ($name_string === 'die') {
+				return new PhpParser\Node\Stmt\Expression(
+					new PhpParser\Node\Expr\Exit_(
+				    	isset($args[0]) ? $args[0]->value : null,
+				    	['kind' => PhpParser\Node\Expr\Exit_::KIND_DIE]
+					)
+				);
+			}
+
+			throw new \UnexpectedValueException('Unrecognised expression statement token');
+		}
+
+		return new PhpParser\Node\Stmt\Expression(self::transform($inner_expression, $file, $scope));
 	}
 
 	/** 
@@ -60,14 +86,14 @@ class ExpressionTransformer
 
 			if ($expr instanceof HHAST\VariableToken) {
 				$scope->referenced_vars[$expr->getText()] = $expr->getText();
-				
+
 				return new PhpParser\Node\Expr\Variable(substr($expr->getText(), 1));
 			}
 
 			return new PhpParser\Node\Expr\Variable(self::transform($expr, $file, $scope));
 		}
 
-		if ($node instanceof SubscriptExpression) {
+		if ($node instanceof SubscriptExpression || $node instanceof HHAST\EmbeddedSubscriptExpression) {
 			return new PhpParser\Node\Expr\ArrayDimFetch(
 				self::transform($node->getReceiver(), $file, $scope),
 				$node->hasIndex() ? self::transform($node->getIndex(), $file, $scope) : null
@@ -96,6 +122,61 @@ class ExpressionTransformer
 					}
 
 					return new PhpParser\Node\Scalar\DNumber((float) $value);
+
+				case HHAST\ExecutionStringLiteralToken::class:
+					return new PhpParser\Node\Expr\ShellExec([
+						new PhpParser\Node\Scalar\EncapsedStringPart(
+							substr($literal->getText(), 1, -1)
+						)
+					]);
+
+				case HHAST\EditableList::class:
+					$children = $literal->getChildren();
+					$first_child = $children[0];
+
+					if ($first_child instanceof HHAST\ExecutionStringLiteralHeadToken) {
+						return new PhpParser\Node\Expr\ShellExec(
+							array_map(
+								function($item) use ($file, $scope) {
+									if ($item instanceof HHAST\ExecutionStringLiteralHeadToken) {
+										return new PhpParser\Node\Scalar\EncapsedStringPart(
+											str_replace(['\\\\', '\\\''], ['\\', '\''], substr($item->getText(), 1))
+										);
+									}
+
+									if ($item instanceof HHAST\ExecutionStringLiteralTailToken) {
+										return new PhpParser\Node\Scalar\EncapsedStringPart(
+											str_replace(['\\\\', '\\\''], ['\\', '\''], substr($item->getText(), 0, -1))
+										);
+									}
+
+									return self::transform($item, $file, $scope);
+								},
+								$literal->getChildren()
+							)
+						);
+					}
+
+					return new PhpParser\Node\Scalar\Encapsed(
+						array_map(
+							function($item) use ($file, $scope) {
+								if ($item instanceof HHAST\DoubleQuotedStringLiteralHeadToken) {
+									return new PhpParser\Node\Scalar\EncapsedStringPart(
+										str_replace(['\\\\', '\\\''], ['\\', '\''], substr($item->getText(), 1))
+									);
+								}
+
+								if ($item instanceof HHAST\DoubleQuotedStringLiteralTailToken) {
+									return new PhpParser\Node\Scalar\EncapsedStringPart(
+										str_replace(['\\\\', '\\\''], ['\\', '\''], substr($item->getText(), 0, -1))
+									);
+								}
+
+								return self::transform($item, $file, $scope);
+							},
+							$literal->getChildren()
+						)
+					);
 			}
 
 			throw new \UnexpectedValueException('Unknown literal expression ' . get_class($literal));
@@ -115,7 +196,9 @@ class ExpressionTransformer
 			return new PhpParser\Node\Expr\ConstFetch($name);
 		}
 
-		if ($node instanceof MemberSelectionExpression) {
+		if ($node instanceof MemberSelectionExpression
+			|| $node instanceof HHAST\EmbeddedMemberSelectionExpression
+		) {
 			return new PhpParser\Node\Expr\PropertyFetch(
 				ExpressionTransformer::transform($node->getObject(), $file, $scope),
 				self::transformVariableName($node->getName(), $file, $scope)
@@ -193,15 +276,18 @@ class ExpressionTransformer
 			);
 		}
 
-		if ($node instanceof HHAST\ElementInitializer) {
+		if ($node instanceof HHAST\ArrayCreationExpression) {
 			$fields = $node->hasMembers() ? $node->getMembers()->getChildren() : [];
 
 			$array_items = [];
 
 			foreach ($fields as $field) {
 				$field = $field->getItem();
+				$value = $field instanceof HHAST\ElementInitializer ? $field->getValue() : $field;
+				$key = $field instanceof HHAST\ElementInitializer ? $field->getKey() : null;
 				$array_items[] = new PhpParser\Node\Expr\ArrayItem(
-					ExpressionTransformer::transform($field, $file, $scope)
+					ExpressionTransformer::transform($value, $file, $scope),
+					$key ? ExpressionTransformer::transform($key, $file, $scope) : null
 				);
 			}
 
@@ -212,6 +298,30 @@ class ExpressionTransformer
 
 		if ($node instanceof LambdaExpression) {
 			return LambdaExpressionTransformer::transform($node, $file, $scope);
+		}
+
+		if ($node instanceof AnonymousFunction) {
+			return AnonymousFunctionTransformer::transform($node, $file, $scope);
+		}
+
+		if ($node instanceof EmptyExpression) {
+			return new PhpParser\Node\Expr\Empty_(
+				self::transform($node->getArgument(), $file, $scope)
+			);
+		}
+
+		if ($node instanceof IssetExpression) {
+			$vars = array_map(
+				function (HHAST\ListItem $node) use ($file, $scope) {
+					$node = $node->getItem();
+					return ExpressionTransformer::transform($node, $file, $scope);
+				},
+				$node->getArgumentList()->getChildren()
+			);
+
+			return new PhpParser\Node\Expr\Isset_(
+				$vars
+			);
 		}
 
 		if ($node instanceof ConditionalExpression) {
@@ -305,8 +415,80 @@ class ExpressionTransformer
 			return self::transform($node->getItem(), $file, $scope);
 		}
 
+		if ($node instanceof HHAST\ListExpression) {
+			$fields = $node->hasMembers() ? $node->getMembers()->getChildren() : [];
+
+			$array_items = [];
+
+			foreach ($fields as $field) {
+				$field = $field->getItem();
+				$value = $field instanceof HHAST\ElementInitializer ? $field->getValue() : $field;
+
+				if (!$value) {
+					$array_items[] = null;
+					continue;
+				}
+
+				$key = $field instanceof HHAST\ElementInitializer ? $field->getKey() : null;
+				$array_items[] = new PhpParser\Node\Expr\ArrayItem(
+					ExpressionTransformer::transform($value, $file, $scope),
+					$key ? ExpressionTransformer::transform($key, $file, $scope) : null
+				);
+			}
+
+			return new PhpParser\Node\Expr\List_(
+				$array_items
+			);
+		}
+
 		if ($node instanceof HHAST\SimpleInitializer) {
 			return self::transform($node->getValue(), $file, $scope);
+		}
+
+		if ($node instanceof HHAST\YieldExpression) {
+			$operand = $node->getOperand();
+
+			if ($operand instanceof HHAST\ElementInitializer) {
+				return new PhpParser\Node\Expr\Yield_(
+					self::transform($operand->getValue(), $file, $scope),
+					self::transform($operand->getKey(), $file, $scope)
+				);
+			}
+
+			return new PhpParser\Node\Expr\Yield_(
+				self::transform($operand, $file, $scope)
+			);
+		}
+
+		if ($node instanceof HHAST\YieldFromExpression) {
+			$operand = $node->getOperand();
+
+			return new PhpParser\Node\Expr\YieldFrom(
+				self::transform($operand, $file, $scope)
+			);
+		}
+
+		if ($node instanceof HHAST\EvalExpression) {
+			return new PhpParser\Node\Expr\Eval_(
+				self::transform($node->getArgument(), $file, $scope)
+			);
+		}
+
+		if ($node instanceof HHAST\InstanceofExpression) {
+			$left_operand = self::transform($node->getLeftOperand(), $file, $scope);
+			$right_operand = self::transform($node->getLeftOperand(), $file, $scope);
+
+			return new PhpParser\Node\Expr\Instanceof_(
+				$left_operand,
+				$right_operand
+			);
+		}
+
+		if ($node instanceof HHAST\InclusionExpression) {
+			return new PhpParser\Node\Expr\Include_(
+				self::transform($node->getFilename(), $file, $scope),
+				PhpParser\Node\Expr\Include_::TYPE_INCLUDE
+			);
 		}
 
 		if ($node instanceof HHAST\PipeVariableExpression) {
@@ -319,6 +501,18 @@ class ExpressionTransformer
 
 		if ($node instanceof PrefixUnaryExpression) {
 			return PrefixUnaryExpressionTransformer::transform($node, $file, $scope);
+		}
+
+		if ($node instanceof PostfixUnaryExpression) {
+			$expr = self::transform($node->getOperand(), $file, $scope);
+
+			switch (get_class($node->getOperator())) {
+				case HHAST\PlusPlusToken::class:
+					return new PhpParser\Node\Expr\PostInc($expr);
+
+				case HHAST\MinusMinusToken::class:
+					return new PhpParser\Node\Expr\PostDec($expr);
+			}
 		}
 
 		throw new \UnexpectedValueException('Unknown expression type ' . get_class($node));

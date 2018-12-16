@@ -78,6 +78,14 @@ class NodeTransformer
 			return ForeachStatementTransformer::transform($node, $file, $scope);
 		}
 
+		if ($node instanceof HHAST\WhileStatement) {
+			return WhileStatementTransformer::transform($node, $file, $scope);
+		}
+
+		if ($node instanceof HHAST\DoStatement) {
+			return DoStatementTransformer::transform($node, $file, $scope);
+		}
+
 		if ($node instanceof HHAST\SwitchStatement) {
 			return SwitchStatementTransformer::transform($node, $file, $scope);
 		}
@@ -86,7 +94,70 @@ class NodeTransformer
 			return TryStatementTransformer::transform($node, $file, $scope);
 		}
 
+		if ($node instanceof HHAST\UnsetStatement) {
+			$vars = array_map(
+				function (HHAST\ListItem $node) use ($file, $scope) {
+					$node = $node->getItem();
+					return ExpressionTransformer::transform($node, $file, $scope);
+				},
+				$node->getVariables()->getChildren()
+			);
+
+			return new PhpParser\Node\Stmt\Unset_(
+				$vars
+			);
+		}
+
+		if ($node instanceof HHAST\EchoStatement) {
+			$exprs = array_map(
+				function (HHAST\ListItem $node) use ($file, $scope) {
+					$node = $node->getItem();
+					return ExpressionTransformer::transform($node, $file, $scope);
+				},
+				$node->getExpressions()->getChildren()
+			);
+
+			return new PhpParser\Node\Stmt\Echo_(
+				$exprs
+			);
+		}
+
+		if ($node instanceof HHAST\GlobalStatement) {
+			$vars = array_map(
+				function (HHAST\ListItem $node) use ($file, $scope) {
+					$node = $node->getItem();
+					return ExpressionTransformer::transformVariableName($node, $file, $scope);
+				},
+				$node->getVariables()->getChildren()
+			);
+
+			return new PhpParser\Node\Stmt\Global_(
+				$vars
+			);
+		}
+
+		if ($node instanceof HHAST\FunctionStaticStatement) {
+			$vars = array_map(
+				function (HHAST\ListItem $node) use ($file, $scope) {
+					$node = $node->getItem();
+					return new PhpParser\Node\Stmt\StaticVar(
+						ExpressionTransformer::transformVariableName($node->getName(), $file, $scope),
+						$node->hasInitializer() ? ExpressionTransformer::transform($node->getInitializer(), $file, $scope) : null
+					);
+				},
+				$node->getDeclarations()->getChildren()
+			);
+
+			return new PhpParser\Node\Stmt\Static_(
+				$vars
+			);
+		}
+
 		if ($node instanceof HHAST\CompoundStatement) {
+			if (!$node->hasStatements()) {
+				return [];
+			}
+
 			return self::transformList($node->getStatements(), $file, $scope);
 		}
 
@@ -104,6 +175,36 @@ class NodeTransformer
 
 		if ($node instanceof HHAST\ReturnStatement) {
 			return new PhpParser\Node\Stmt\Return_(ExpressionTransformer::transform($node->getExpression(), $file, $scope));
+		}
+
+		if ($node instanceof HHAST\InclusionDirective) {
+			$require = $node->getExpression()->getRequire();
+
+			switch (get_class($require)) {
+				case HHAST\IncludeToken::class:
+					$type = PhpParser\Node\Expr\Include_::TYPE_INCLUDE;
+					break;
+				case HHAST\RequireToken::class:
+					$type = PhpParser\Node\Expr\Include_::TYPE_REQUIRE;
+					break;
+				case HHAST\Include_onceToken::class:
+					$type = PhpParser\Node\Expr\Include_::TYPE_INCLUDE_ONCE;
+					break;
+				case HHAST\Require_onceToken::class:
+					$type = PhpParser\Node\Expr\Include_::TYPE_REQUIRE_ONCE;
+					break;
+				default:
+					throw new \UnexpectedValueException('Unknown inclusion type');
+			}
+
+			$filename = $node->getExpression()->getFilename();
+
+			return new PhpParser\Node\Stmt\Expression(
+				new PhpParser\Node\Expr\Include_(
+					ExpressionTransformer::transform($filename, $file, $scope),
+					$type
+				)
+			);
 		}
 
 		if ($node instanceof HHAST\UsingStatementBlockScoped) {

@@ -38,6 +38,26 @@ class ClassishDeclarationTransformer
 				]
 			);
 		}
+
+		if ($class_type instanceof HHAST\InterfaceToken) {
+			return new PhpParser\Node\Stmt\Interface_(
+				$class_name,
+				[
+					'stmts' => self::transformBody($node->getBody(), $file, $scope)
+				]
+			);
+		}
+
+		if ($class_type instanceof HHAST\TraitToken) {
+			return new PhpParser\Node\Stmt\Trait_(
+				$class_name,
+				[
+					'stmts' => self::transformBody($node->getBody(), $file, $scope)
+				]
+			);
+		}
+
+		throw new \UnexpectedValueException('Classish thing not recognised');
 	}
 
 	private static function transformBody(HHAST\ClassishBody $node, HackFile $file, Scope $scope) : array
@@ -59,6 +79,81 @@ class ClassishDeclarationTransformer
 
 			if ($child instanceof HHAST\ConstDeclaration) {
 				$stmts[] = ConstDeclarationTransformer::transform($child, $file, true);
+				continue;
+			}
+
+			if ($child instanceof HHAST\TraitUse) {
+				$stmts[] = new PhpParser\Node\Stmt\TraitUse(
+					array_map(
+						function(HHAST\ListItem $trait_use_item) use ($file, $scope) {
+							$trait_use_item = $trait_use_item->getItem();
+							$specifier = $trait_use_item->getSpecifier();
+
+							if ($specifier instanceof HHAST\NameToken) {
+								return new PhpParser\Node\Name($specifier->getText());
+							}
+
+							return QualifiedNameTransformer::transform($specifier, $file);
+						},
+						$child->getNames()->getChildren()
+					)
+				);
+				continue;
+			}
+
+			if ($child instanceof HHAST\TraitUseConflictResolution) {
+				$stmts[] = new PhpParser\Node\Stmt\TraitUse(
+					array_map(
+						function(HHAST\ListItem $trait_use_item) use ($file, $scope) {
+							$trait_use_item = $trait_use_item->getItem();
+							$specifier = $trait_use_item->getSpecifier();
+
+							if ($specifier instanceof HHAST\NameToken) {
+								return new PhpParser\Node\Name($specifier->getText());
+							}
+
+							return QualifiedNameTransformer::transform($specifier, $file);
+						},
+						$child->getNames()->getChildren()
+					),
+					array_map(
+						function(HHAST\ListItem $trait_use_item) use ($file, $scope) {
+							$trait_use_item = $trait_use_item->getItem();
+
+							$modifiers = $trait_use_item->getModifiers();
+
+							$flags = null;
+
+							if ($modifiers) {
+								$flags = 0;
+
+								foreach ($modifiers as $modifier) {
+									if ($modifier instanceof HHAST\PublicToken) {
+										$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
+									} elseif ($modifier instanceof HHAST\ProtectedToken) {
+										$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED;
+									} elseif ($modifier instanceof HHAST\PrivateToken) {
+										$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
+									}
+								}
+							}
+
+							if ($trait_use_item instanceof HHAST\TraitUseAliasItem) {
+								$specifier = $trait_use_item->getAliasingName()->getSpecifier();
+
+								return new PhpParser\Node\Stmt\TraitUseAdaptation\Alias(
+									null,
+									$trait_use_item->getAliasingName()->getSpecifier()->getText(),
+									$flags,
+									$trait_use_item->getAliasedName()->getSpecifier()->getText()
+								);
+							}
+
+							return $adaptation;
+						},
+						$child->getClauses()->getChildren()
+					)
+				);
 				continue;
 			}
 
