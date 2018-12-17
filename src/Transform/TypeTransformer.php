@@ -187,7 +187,7 @@ class TypeTransformer
 
 		if ($node instanceof HHAST\NameToken) {
 			if (isset($template_map[$token_text])) {
-				return $template_map[$token_text];
+				return $token_text;
 			}
 
 			if ($token_text === 'Awaitable') {

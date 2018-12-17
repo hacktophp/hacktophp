@@ -210,7 +210,7 @@ class FunctionDeclarationTransformer
 		if ($params_list_param->hasType()) {
 			$param_type_string = TypeTransformer::transform($params_list_param->getType(), $file, $scope, $template_map);
 
-			$psalm_type = Psalm\Type::parseString($param_type_string);
+			$psalm_type = Psalm\Type::parseString($param_type_string, false, $template_map);
 
 			if (!$psalm_type->canBeFullyExpressedInPhp()) {
 				$namespaced_type_string = $psalm_type->toNamespacedString(
