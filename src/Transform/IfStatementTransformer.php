@@ -15,8 +15,8 @@ class IfStatementTransformer
 
 		$elseifs = $node->hasElseifClauses() ? self::transformElseifs($node->getElseifClauses(), $file, $scope) : null;
 		$else = $node->hasElseClause()
-			? new PhpParser\Node\Expr\Else_(
-				NodeTransformer::transform($node->getElse()->getStatement())
+			? new PhpParser\Node\Stmt\Else_(
+				NodeTransformer::transform($node->getElseClause()->getStatement(), $file, $scope)
 			)
 			: null;
 
@@ -34,7 +34,7 @@ class IfStatementTransformer
 	{
 		return array_map(
 			function(HHAST\ElseifClause $node) use ($file, $scope) {
-				return new PhpParser\Node\Expr\Else_(
+				return new PhpParser\Node\Stmt\ElseIf_(
 					NodeTransformer::transform($node->getStatement(), $file, $scope)
 				);
 			},

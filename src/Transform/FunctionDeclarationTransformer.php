@@ -27,6 +27,38 @@ class FunctionDeclarationTransformer
 
 		$flags = 0;
 
+		$templates = [];
+
+		$template_map = [];
+
+		if ($header->hasTypeParameterList()) {
+			$type_parameters = $header
+				->getTypeParameterList()
+				->getParameters()
+				->getDescendantsOfType(HHAST\TypeParameter::class);
+
+			foreach ($type_parameters as $type_parameter) {
+				$type_parameter_name = $type_parameter->getName()->getText();
+
+				$constraints = [];
+				if ($type_parameter->hasConstraints()) {
+					$constraint_nodes = $type_parameter
+						->getConstraints()
+						->getDescendantsOfType(HHAST\TypeConstraint::class);
+
+					foreach ($constraint_nodes as $constraint_node) {
+						$constraint_node_type = TypeTransformer::transform($constraint_node->getType(), $file, $scope);
+						$template_map[$type_parameter_name] = $constraint_node_type;
+						if ($constraint_node->getKeyword() instanceof HHAST\AsToken) {
+							$constraints[] = ' as \\' . $constraint_node_type;
+						}
+					}
+				}
+
+				$templates[] = $type_parameter_name . implode(' ', $constraints);
+			}
+		}
+
 		$attributes = [
 			'comments' => ExpressionTransformer::getTokenComments($header->getKeyword())
 		];
@@ -58,7 +90,12 @@ class FunctionDeclarationTransformer
 			}
 		}
 
-		$docblock = ['description' => '', 'specials' => []];
+		$docblock = [
+			'description' => '',
+			'specials' => [
+				'psalm-template' => $templates
+			]
+		];
 
 		$params = [];
 
@@ -72,7 +109,8 @@ class FunctionDeclarationTransformer
 					$params_list_param,
 					$file,
 					$scope,
-					$docblock
+					$docblock,
+					$template_map
 				);
 			}
 		}
@@ -145,7 +183,8 @@ class FunctionDeclarationTransformer
 		HHAST\ParameterDeclaration $params_list_param,
 		HackFile $file,
 		Scope $scope,
-		array &$docblock
+		array &$docblock,
+		array $template_map = []
 	) : PhpParser\Node\Param {
 		$param_type = null;
 		$param_name_node = $params_list_param->getName();
@@ -169,7 +208,7 @@ class FunctionDeclarationTransformer
 		$param_name = $param_name_node->getText();
 
 		if ($params_list_param->hasType()) {
-			$param_type_string = TypeTransformer::transform($params_list_param->getType(), $file, $scope);
+			$param_type_string = TypeTransformer::transform($params_list_param->getType(), $file, $scope, $template_map);
 
 			$psalm_type = Psalm\Type::parseString($param_type_string);
 

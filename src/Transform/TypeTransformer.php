@@ -15,7 +15,7 @@ class TypeTransformer
 	 *     HHAST\SoftTypeSpecifier | HHAST\NoreturnToken | HHAST\TupleTypeSpecifier | HHAST\TypeConstant |
 	 *     HHAST\VarrayTypeSpecifier | HHAST\VectorArrayTypeSpecifier | HHAST\VectorTypeSpecifier $node
 	 */
-	public static function transform(HHAST\EditableNode $node, HackFile $file, Scope $scope) : string
+	public static function transform(HHAST\EditableNode $node, HackFile $file, Scope $scope, array $template_map = []) : string
 	{
 		if ($node instanceof HHAST\ShapeTypeSpecifier) {
 			return self::transformShape($node, $file, $scope);
@@ -52,7 +52,7 @@ class TypeTransformer
 		}
 
 		if ($node instanceof HHAST\EditableToken) {
-			return self::transformToken($node, $file, $scope);
+			return self::transformToken($node, $file, $scope, $template_map);
 		}
 
 		if ($node instanceof HHAST\ClosureTypeSpecifier) {
@@ -86,7 +86,7 @@ class TypeTransformer
 			}
 
 			if ($child instanceof HHAST\EditableToken) {
-				$string_type .= self::transformToken($child, $file, $scope);
+				$string_type .= self::transformToken($child, $file, $scope, $template_map);
 				continue;
 			}
 
@@ -174,7 +174,7 @@ class TypeTransformer
 		return 'array{' . implode(',', $field_types) . '}';
 	}
 
-	public static function transformToken(HHAST\EditableToken $node, HackFile $file, Scope $scope) : string
+	public static function transformToken(HHAST\EditableToken $node, HackFile $file, Scope $scope, array $template_map = []) : string
 	{
 		$token_text = $node->getText();
 
@@ -186,6 +186,10 @@ class TypeTransformer
 		}
 
 		if ($node instanceof HHAST\NameToken) {
+			if (isset($template_map[$token_text])) {
+				return $template_map[$token_text];
+			}
+
 			if ($token_text === 'Awaitable') {
 				return 'Sabre\\Event\\Promise';
 			}

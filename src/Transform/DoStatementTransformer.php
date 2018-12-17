@@ -5,7 +5,7 @@ namespace HackToPhp\Transform;
 use HackToPhp\HHAST;
 use PhpParser;
 
-class WhileStatementTransformer
+class DoStatementTransformer
 {
 	public static function transform(HHAST\DoStatement $node, HackFile $file, Scope $scope) : PhpParser\Node
 	{

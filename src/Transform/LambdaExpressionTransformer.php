@@ -26,7 +26,7 @@ class LambdaExpressionTransformer
 				new PhpParser\Node\Expr\Variable(substr($param_name, 1)),
 				null
 			);
-		} elseif ($signature) {
+		} elseif ($signature && $signature->hasParameters()) {
 			$params_list_params = $signature->getParameters()->getDescendantsOfType(HHAST\ParameterDeclaration::class);
 
 			foreach ($params_list_params as $params_list_param) {
