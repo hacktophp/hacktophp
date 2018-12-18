@@ -33,6 +33,10 @@ class TypeTransformer
 			return 'array<int,' . $vec_type . '>';
 		}
 
+		if ($node instanceof HHAST\TupleTypeSpecifier) {
+			return self::transformTuple($node, $file, $scope);
+		}
+
 		if ($node instanceof HHAST\DictionaryTypeSpecifier) {
 			$members = $node->getMembers()->getChildren();
 
@@ -169,6 +173,24 @@ class TypeTransformer
 			$type = self::transform($field_item->getType(), $file, $scope);
 
 			$field_types[] = $name_text . ':' . $type;
+		}
+
+		return 'array{' . implode(',', $field_types) . '}';
+	}
+
+
+	public static function transformTuple(HHAST\TupleTypeSpecifier $node, HackFile $file, Scope $scope) : string
+	{
+		$children = $node->getTypes()->getChildren();
+
+		$field_types = [];
+
+		foreach ($children as $i => $child) {
+			$field_item = $child->getItem();
+
+			$type = self::transform($field_item, $file, $scope);
+
+			$field_types[] = $i . ':' . $type;
 		}
 
 		return 'array{' . implode(',', $field_types) . '}';

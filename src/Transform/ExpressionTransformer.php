@@ -101,88 +101,7 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof LiteralExpression) {
-			$literal = $node->getExpression();
-
-			switch (get_class($literal)) {
-				case HHAST\SingleQuotedStringLiteralToken::class:
-					return new PhpParser\Node\Scalar\String_(
-						str_replace(['\\\\', '\\\''], ['\\', '\''], substr($literal->getText(), 1, -1))
-					);
-				case HHAST\DoubleQuotedStringLiteralToken::class:
-					return new PhpParser\Node\Scalar\String_(
-						stripcslashes(substr($literal->getText(), 1, -1))
-					);
-
-				case HHAST\NullLiteralToken::class:
-				case HHAST\BooleanLiteralToken::class:
-					return new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name($literal->getText()));
-
-				case HHAST\DecimalLiteralToken::class:
-					$value = $literal->getText();
-					
-					if (!strpos($value, '.')) {
-						return new PhpParser\Node\Scalar\LNumber((int) $value);
-					}
-
-					return new PhpParser\Node\Scalar\DNumber((float) $value);
-
-				case HHAST\ExecutionStringLiteralToken::class:
-					return new PhpParser\Node\Expr\ShellExec([
-						new PhpParser\Node\Scalar\EncapsedStringPart(
-							substr($literal->getText(), 1, -1)
-						)
-					]);
-
-				case HHAST\EditableList::class:
-					$children = $literal->getChildren();
-					$first_child = $children[0];
-
-					if ($first_child instanceof HHAST\ExecutionStringLiteralHeadToken) {
-						return new PhpParser\Node\Expr\ShellExec(
-							array_map(
-								function($item) use ($file, $scope) {
-									if ($item instanceof HHAST\ExecutionStringLiteralHeadToken) {
-										return new PhpParser\Node\Scalar\EncapsedStringPart(
-											stripcslashes(substr($item->getText(), 1))
-										);
-									}
-
-									if ($item instanceof HHAST\ExecutionStringLiteralTailToken) {
-										return new PhpParser\Node\Scalar\EncapsedStringPart(
-											stripcslashes(substr($item->getText(), 0, -1))
-										);
-									}
-
-									return self::transform($item, $file, $scope);
-								},
-								$literal->getChildren()
-							)
-						);
-					}
-
-					return new PhpParser\Node\Scalar\Encapsed(
-						array_map(
-							function($item) use ($file, $scope) {
-								if ($item instanceof HHAST\DoubleQuotedStringLiteralHeadToken) {
-									return new PhpParser\Node\Scalar\EncapsedStringPart(
-										stripcslashes(substr($item->getText(), 1))
-									);
-								}
-
-								if ($item instanceof HHAST\DoubleQuotedStringLiteralTailToken) {
-									return new PhpParser\Node\Scalar\EncapsedStringPart(
-										stripcslashes(substr($item->getText(), 0, -1))
-									);
-								}
-
-								return self::transform($item, $file, $scope);
-							},
-							$literal->getChildren()
-						)
-					);
-			}
-
-			throw new \UnexpectedValueException('Unknown literal expression ' . get_class($literal));
+			return LiteralExpressionTransformer::transform($node, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\IsExpression) {
@@ -228,6 +147,23 @@ class ExpressionTransformer
 
 		if ($node instanceof HHAST\VectorIntrinsicExpression) {
 			$fields = $node->hasMembers() ? $node->getMembers()->getChildren() : [];
+
+			$array_items = [];
+
+			foreach ($fields as $field) {
+				$field = $field->getItem();
+				$array_items[] = new PhpParser\Node\Expr\ArrayItem(
+					ExpressionTransformer::transform($field, $file, $scope)
+				);
+			}
+
+			return new PhpParser\Node\Expr\Array_(
+				$array_items
+			);
+		}
+
+		if ($node instanceof HHAST\TupleExpression) {
+			$fields = $node->hasItems() ? $node->getItems()->getChildren() : [];
 
 			$array_items = [];
 
@@ -343,35 +279,7 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof ObjectCreationExpression) {
-			$object = $node->getObject();
-
-			$args = FunctionCallExpressionTransformer::transformArguments($object->getArgumentList(), $file, $scope);
-
-			switch (get_class($object)) {
-				case HHAST\AnonymousClass::class:
-					$class = new PhpParser\Stmt\Class_();
-					break;
-
-				case HHAST\ConstructorCall::class:
-					if ($object->getType() instanceof VariableExpression) {
-						$class = self::transform($object->getType(), $file, $scope);
-					} else {
-						$class_type = TypeTransformer::transform($object->getType(), $file, $scope);
-						$psalm_type = array_values(\Psalm\Type::parseString($class_type)->getTypes())[0];
-						$class = TypeTransformer::getPhpParserTypeFromAtomicPsalm($psalm_type, $file, $scope);
-
-						if (!$class instanceof PhpParser\Node\Name) {
-							throw new \UnexpectedValueException('Unexpected new class ' . $class);
-						}
-					}
-
-					break;
-			}
-
-			return new PhpParser\Node\Expr\New_(
-				$class,
-				$args
-			);
+			return ObjectCreationExpressionTransformer::transform($node, $file, $scope);
 		}
 
 		if ($node instanceof FunctionCallExpression) {
@@ -379,39 +287,7 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof CastExpression) {
-			$expression = self::transform($node->getOperand(), $file, $scope);
-			$type = $node->getType();
-
-			switch (get_class($type)) {
-				case HHAST\ArrayToken::class:
-					return new PhpParser\Node\Expr\Cast\Array_($expression);
-
-				case HHAST\BoolToken::class:
-				case HHAST\BooleanToken::class:
-					return new PhpParser\Node\Expr\Cast\Bool_($expression);
-
-				case HHAST\IntToken::class:
-				case HHAST\IntegerToken::class:
-					return new PhpParser\Node\Expr\Cast\Int_($expression);
-
-				case HHAST\DoubleToken::class:
-				case HHAST\FloatToken::class:
-					return new PhpParser\Node\Expr\Cast\Double($expression);
-
-				case HHAST\FloatToken::class:
-					return new PhpParser\Node\Expr\Cast\Float_($expression);
-
-				case HHAST\ObjectToken::class:
-					return new PhpParser\Node\Expr\Cast\Object_($expression);
-
-				case HHAST\StringToken::class:
-					return new PhpParser\Node\Expr\Cast\String_($expression);
-
-				case HHAST\UnsetToken::class:
-					return new PhpParser\Node\Expr\Cast\Unset_($expression);
-			}
-			
-			throw new \UnexpectedValueException('Unrecognised cast ' . get_class($node->getType()));
+			return CastExpressionTransformer::transform($node, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\ListItem) {
