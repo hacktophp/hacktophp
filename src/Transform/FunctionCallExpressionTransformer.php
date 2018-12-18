@@ -118,6 +118,13 @@ class FunctionCallExpressionTransformer
 				);
 			}
 
+			if ($name_string === 'vec'
+				|| $name_string === 'keyset'
+				|| $name_string === 'dict'
+			) {
+				return new PhpParser\Node\Expr\Cast\Array_($args[0]->value);
+			}
+
 			if ($name_string === 'exit') {
 				return new PhpParser\Node\Expr\Exit_(
 			    	isset($args[0]) ? $args[0]->value : null,

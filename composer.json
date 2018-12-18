@@ -6,7 +6,7 @@
         "php": "^7.1",
         "nikic/php-parser": "^4.0",
         "sabre/event": "^5.0",
-        "vimeo/psalm": "^3.0"
+        "vimeo/psalm": "dev-master"
     },
     "license": "MIT",
     "authors": [

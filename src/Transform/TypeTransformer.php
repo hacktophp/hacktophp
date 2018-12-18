@@ -50,9 +50,9 @@ class TypeTransformer
 		}
 
 		if ($node instanceof HHAST\ClassnameTypeSpecifier) {
-			$type = self::transform($node->getType(), $file, $scope);
+			$type = self::transform($node->getType(), $file, $scope, $template_map);
 
-			return 'class-string';
+			return $type . '::class';
 		}
 
 		if ($node instanceof HHAST\EditableToken) {
@@ -130,7 +130,7 @@ class TypeTransformer
 		}
 
 		if ($psalm_type instanceof Psalm\Type\Atomic\Scalar) {
-			return (string) $psalm_type;
+			return $psalm_type->toPhpString($file->namespace, [], null, 7, 2);
 		}
 
 		if ($psalm_type instanceof Psalm\Type\Atomic\TNamedObject) {
