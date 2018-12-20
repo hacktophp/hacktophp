@@ -91,8 +91,9 @@ class FunctionDeclarationTransformer
 		}
 
 		$docblock = [
-			'description' => '',
+			'description' => null,
 			'specials' => [
+				'params' => [],
 				'psalm-template' => $templates
 			]
 		];
@@ -131,7 +132,9 @@ class FunctionDeclarationTransformer
 			$return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $file, $scope);
 		}
 
-		if ($docblock['specials']) {
+		$docblock['specials'] = array_filter($docblock['specials']);
+
+		if (array_filter($docblock['specials'])) {
 			$docblock_string = Psalm\DocComment::render($docblock, '');
 
 			$attributes['comments'][] = new \PhpParser\Comment\Doc(rtrim($docblock_string));
@@ -220,7 +223,7 @@ class FunctionDeclarationTransformer
 					false
 				);
 
-				$docblock['specials']['param'] = [$namespaced_type_string . ' ' . $param_name];
+				$docblock['specials']['param'][] = $namespaced_type_string . ' ' . $param_name;
 			}
 
 			$param_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_type, $file, $scope);

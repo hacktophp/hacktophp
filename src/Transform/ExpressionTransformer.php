@@ -355,7 +355,7 @@ class ExpressionTransformer
 
 		if ($node instanceof HHAST\InstanceofExpression) {
 			$left_operand = self::transform($node->getLeftOperand(), $file, $scope);
-			$right_operand = self::transform($node->getLeftOperand(), $file, $scope);
+			$right_operand = self::transform($node->getRightOperand(), $file, $scope);
 
 			return new PhpParser\Node\Expr\Instanceof_(
 				$left_operand,

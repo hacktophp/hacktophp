@@ -14,11 +14,23 @@ class IfStatementTransformer
 		$stmts = NodeTransformer::transform($node->getStatement(), $file, $scope);
 
 		$elseifs = $node->hasElseifClauses() ? self::transformElseifs($node->getElseifClauses(), $file, $scope) : null;
-		$else = $node->hasElseClause()
-			? new PhpParser\Node\Stmt\Else_(
-				NodeTransformer::transform($node->getElseClause()->getStatement(), $file, $scope)
-			)
-			: null;
+		$else = null;
+
+		if ($node->hasElseClause()) {
+			$else_statement = $node->getElseClause()->getStatement();
+
+			if ($else_statement instanceof HHAST\IfStatement) {
+				$else_stmts = [
+					self::transform($else_statement, $file, $scope)
+				];
+			} else {
+				$else_stmts = NodeTransformer::transform($else_statement->getStatements(), $file, $scope);
+			}
+
+			$else = new PhpParser\Node\Stmt\Else_(
+				$else_stmts
+			);
+		}
 
 		return new PhpParser\Node\Stmt\If_(
 			$cond,
@@ -35,6 +47,7 @@ class IfStatementTransformer
 		return array_map(
 			function(HHAST\ElseifClause $node) use ($file, $scope) {
 				return new PhpParser\Node\Stmt\ElseIf_(
+					ExpressionTransformer::transform($node->getCondition()),
 					NodeTransformer::transform($node->getStatement(), $file, $scope)
 				);
 			},

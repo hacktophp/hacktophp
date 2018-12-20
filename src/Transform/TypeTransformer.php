@@ -60,8 +60,29 @@ class TypeTransformer
 		}
 
 		if ($node instanceof HHAST\ClosureTypeSpecifier) {
-			// TODO support closure types
-			return '\Closure';
+			$params = [];
+
+			if ($node->hasParameterList()) {
+				$children = $node->getParameterList()->getChildren();
+
+				foreach ($children as $child) {
+					$child = $child->getItem();
+
+					if ($child instanceof HHAST\ClosureParameterTypeSpecifier) {
+						$params[] = self::transform($child->getType(), $file, $scope, $template_map);
+					} elseif ($child instanceof HHAST\VariadicParameter) {
+						$params[] = '...' . self::transform($child->getType(), $file, $scope, $template_map);
+					}
+				}
+			}
+
+			$return_type = '';
+
+			if ($node->hasReturnType()) {
+				$return_type = ':' . self::transform($node->getReturnType(), $file, $scope, $template_map);
+			}
+
+			return '\Closure(' . implode(', ', $params) . ')' . $return_type;
 		}
 
 		if ($node instanceof HHAST\TypeConstant) {
@@ -117,8 +138,14 @@ class TypeTransformer
 				continue;
 			}
 
+			$inner_type = self::getPhpParserTypeFromAtomicPsalm($atomic_type, $file, $scope);
+
+			if ($inner_type === null) {
+				return null;
+			}
+
 			return new PhpParser\Node\NullableType(
-				self::getPhpParserTypeFromAtomicPsalm($atomic_type, $file, $scope)
+				$inner_type
 			);
 		}
 	}
@@ -135,7 +162,7 @@ class TypeTransformer
 
 		if ($psalm_type instanceof Psalm\Type\Atomic\TNamedObject) {
 			if ($psalm_type->value === 'static') {
-				return new PhpParser\Node\Name('static');
+				return null;
 			}
 
 			return new PhpParser\Node\Name($psalm_type->toPhpString($file->namespace, [], null, 7, 2));

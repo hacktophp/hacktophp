@@ -173,6 +173,11 @@ class ClassishDeclarationTransformer
 				continue;
 			}
 
+			if ($child instanceof HHAST\RequireClause) {
+				// TODO support this
+				continue;
+			}
+
 			throw new \UnexpectedValueException('Unrecognised class member ' . get_class($child));
 		}
 
