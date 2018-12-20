@@ -37,6 +37,7 @@ class ClassishDeclarationTransformer
 				$class_name,
 				[
 					'stmts' => self::transformBody($node->getBody(), $file, $scope),
+					'flags' => $abstract ? PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT : 0
 				],
 				[
 					'comments' => $comments,

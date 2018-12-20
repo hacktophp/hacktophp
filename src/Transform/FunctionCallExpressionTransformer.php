@@ -84,6 +84,20 @@ class FunctionCallExpressionTransformer
 				);
 			}
 
+			if ($name_string === '\HH\Lib\Dict\filter') {
+				return new PhpParser\Node\Expr\FuncCall(
+			    	new PhpParser\Node\Name\FullyQualified('array_filter'),
+			    	$args
+				);
+			}
+
+			if ($name_string === '\HH\Lib\C\count') {
+				return new PhpParser\Node\Expr\FuncCall(
+			    	new PhpParser\Node\Name\FullyQualified('count'),
+			    	$args
+				);
+			}
+
 			if ($name_string === '\is_dict') {
 				return new PhpParser\Node\Expr\FuncCall(
 			    	new PhpParser\Node\Name\FullyQualified('is_array'),
