@@ -116,20 +116,21 @@ class FunctionDeclarationTransformer
 			}
 		}
 
-		$return_type = $header->hasType() ? $header->getType() : null;
+		$hhast_return_type = $header->hasType() ? $header->getType() : null;
 
 		$psalm_return_type = null;
+		$php_return_type = null;
 
-		if ($return_type) {
-			$return_type_string = TypeTransformer::transform($return_type, $file, $scope);
+		if ($hhast_return_type) {
+			$return_type_string = TypeTransformer::transform($hhast_return_type, $file, $scope);
 
 			$psalm_return_type = Psalm\Type::parseString($return_type_string);
 
-			if (!$psalm_return_type->canBeFullyExpressedInPhp()) {
+			//if (!$psalm_return_type->canBeFullyExpressedInPhp()) {
 				$docblock['specials']['return'] = [$psalm_return_type->toNamespacedString($file->namespace, [], null, false)];
-			}
+			//}
 
-			$return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $file, $scope);
+			//$php_return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $file, $scope);
 		}
 
 		$docblock['specials'] = array_filter($docblock['specials']);
@@ -160,7 +161,7 @@ class FunctionDeclarationTransformer
 
 		$subnodes = [
 			'byRef' => $header->hasAmpersand(),
-			'returnType' => $return_type,
+			'returnType' => $php_return_type,
 			'params' => $params,
 			'stmts' => $stmts,
 		];
@@ -228,8 +229,6 @@ class FunctionDeclarationTransformer
 
 			$param_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_type, $file, $scope);
 		}
-
-		$param_names[$param_name] = true;
 		
 		return new PhpParser\Node\Param(
 			new PhpParser\Node\Expr\Variable(substr($param_name, 1)),
