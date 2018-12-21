@@ -162,7 +162,7 @@ class NodeTransformer
 		}
 
 		if ($node instanceof HHAST\ConstDeclaration) {
-			return ConstDeclarationTransformer::transform($node, $file, false);
+			return ConstDeclarationTransformer::transform($node, $file, $scope, false);
 		}
 
 		if ($node instanceof HHAST\ClassishDeclaration) {

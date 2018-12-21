@@ -19,15 +19,19 @@ class ObjectCreationExpressionTransformer
 				break;
 
 			case HHAST\ConstructorCall::class:
-				if ($object->getType() instanceof VariableExpression) {
+				if ($object->getType() instanceof HHAST\VariableExpression) {
 					$class = ExpressionTransformer::transform($object->getType(), $file, $scope);
 				} else {
 					$class_type = TypeTransformer::transform($object->getType(), $file, $scope);
-					$psalm_type = array_values(\Psalm\Type::parseString($class_type)->getTypes())[0];
-					$class = TypeTransformer::getPhpParserTypeFromAtomicPsalm($psalm_type, $file, $scope);
+					if ($class_type === 'static') {
+						$class = new \PhpParser\Node\Name('static');
+					} else {
+						$psalm_type = array_values(\Psalm\Type::parseString($class_type)->getTypes())[0];
+						$class = TypeTransformer::getPhpParserTypeFromAtomicPsalm($psalm_type, $file, $scope);
 
-					if (!$class instanceof PhpParser\Node\Name) {
-						throw new \UnexpectedValueException('Unexpected new class ' . $class);
+						if (!$class instanceof PhpParser\Node\Name) {
+							throw new \UnexpectedValueException('Unexpected new class ' . get_class($class));
+						}
 					}
 				}
 

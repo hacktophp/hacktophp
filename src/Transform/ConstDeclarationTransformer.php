@@ -8,7 +8,7 @@ use Psalm;
 
 class ConstDeclarationTransformer
 {
-	public static function transform(HHAST\ConstDeclaration $node, HackFile $file, bool $class_method) : PhpParser\Node\Stmt
+	public static function transform(HHAST\ConstDeclaration $node, HackFile $file, Scope $scope, bool $class_method) : PhpParser\Node\Stmt
 	{
 		$abstract = false;
 
@@ -51,6 +51,9 @@ class ConstDeclarationTransformer
 
 		foreach ($declarators->getChildren() as $declarator) {
 			$declarator = $declarator->getItem();
+			if (!$declarator->hasInitializer()) {
+				continue;
+			}
 			$value = ExpressionTransformer::transform($declarator->getInitializer(), $file, $scope);
 
 			$const_consts[] = new PhpParser\Node\Const_(

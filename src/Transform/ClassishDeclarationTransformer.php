@@ -90,7 +90,7 @@ class ClassishDeclarationTransformer
 			}
 
 			if ($child instanceof HHAST\ConstDeclaration) {
-				$stmts[] = ConstDeclarationTransformer::transform($child, $file, true);
+				$stmts[] = ConstDeclarationTransformer::transform($child, $file, $scope, true);
 				continue;
 			}
 

@@ -414,6 +414,12 @@ class ExpressionTransformer
 		if ($node instanceof HHAST\ClassToken) {
 			return new PhpParser\Node\Identifier($node->getText());
 		}
+
+		if ($node instanceof HHAST\StaticToken) {
+			return new PhpParser\Node\Identifier('static');
+		}
+
+		throw new \UnexpectedValueException('Cannot transform variable name of type ' . get_class($node));
 	}
 
 	public static function getTokenComments(HHAST\EditableToken $token) : array
