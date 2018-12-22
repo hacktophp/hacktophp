@@ -230,6 +230,57 @@ class NodeTransformer
 			);
 		}
 
+		if ($node instanceof HHAST\EnumDeclaration) {
+			$class_name = $node->getName()->getText();
+
+			$enumerators = $node->getEnumerators()->getChildren();
+
+			$consts = [];
+
+			foreach ($enumerators as $enumerator) {
+				$enum_name = $enumerator->getName()->getText();
+				$enum_value = $enumerator->getValue();
+
+				$enum_value = ExpressionTransformer::transform($enum_value, $file, $scope);
+
+				$consts[] = new PhpParser\Node\Stmt\ClassConst(
+					[
+						new PhpParser\Node\Const_(
+							$enum_name,
+							$enum_value
+						)
+					]
+				);
+			}
+
+			$comment = new PhpParser\Comment\Doc(
+				rtrim(
+					\Psalm\DocComment::render(
+						[
+							'description' => 'Generated enum class, do not extend',
+							'specials' => [],
+						],
+						''
+					)
+				)
+			);
+
+			return new PhpParser\Node\Stmt\Class_(
+				$class_name,
+				[
+					'stmts' => $consts,
+					'flags' => PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT
+				],
+				[
+					'comments' => [$comment],
+				]
+			);
+		}
+
+		if ($node instanceof HHAST\AliasDeclaration) {
+			return new PhpParser\Node\Stmt\Nop();
+		}
+
 		throw new \UnexpectedValueException('Unknown type ' . get_class($node));
 	}
 }

@@ -9,7 +9,13 @@ class IsExpressionTransformer
 {
 	public static function transform(HHAST\IsExpression $node, HackFile $file, Scope $scope)
 	{
-		$specifier = $node->getRightOperand()->getSpecifier();
+		$right_operand = $node->getRightOperand();
+		
+		if ($right_operand instanceof HHAST\GenericTypeSpecifier) {
+			$specifier = $right_operand->getClassType();
+		} else {
+			$specifier = $right_operand->getSpecifier();
+		}
 
 		switch (get_class($specifier)) {
 			case HHAST\StringToken::class:
@@ -47,6 +53,25 @@ class IsExpressionTransformer
 				return new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_object'),
 					[ExpressionTransformer::transform($node->getLeftOperand(), $file, $scope)]
+				);
+
+			case HHAST\NameToken::class:
+				if ($specifier->getText() === 'nonnull') {
+					return new PhpParser\Node\Expr\BinaryOp\NotIdentical(
+						ExpressionTransformer::transform($node->getLeftOperand(), $file, $scope),
+						new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
+					);
+				}
+
+				return new PhpParser\Node\Expr\Instanceof_(
+					ExpressionTransformer::transform($node->getLeftOperand(), $file, $scope),
+					new PhpParser\Node\Name($specifier->getText())
+				);
+
+			case HHAST\QualifiedName::class:
+				return new PhpParser\Node\Expr\Instanceof_(
+					ExpressionTransformer::transform($node->getLeftOperand(), $file, $scope),
+					QualifiedNameTransformer::transform($specifier)
 				);
 		}
 

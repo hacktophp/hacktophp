@@ -35,6 +35,11 @@ class LiteralExpressionTransformer
 
 				return new PhpParser\Node\Scalar\DNumber((float) $value);
 
+			case HHAST\FloatingLiteralToken::class:
+				$value = $literal->getText();
+
+				return new PhpParser\Node\Scalar\DNumber((float) $value);
+
 			case HHAST\ExecutionStringLiteralToken::class:
 				return new PhpParser\Node\Expr\ShellExec([
 					new PhpParser\Node\Scalar\EncapsedStringPart(

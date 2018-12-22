@@ -22,7 +22,7 @@ class TypeTransformer
 		}
 
 		if ($node instanceof HHAST\KeysetTypeSpecifier) {
-			$keyset_type = self::transform($node->getType(), $file, $scope);
+			$keyset_type = self::transform($node->getTypeUNTYPED(), $file, $scope);
 
 			return 'array<' . $keyset_type . ',' . $keyset_type . '>';
 		}
@@ -50,6 +50,10 @@ class TypeTransformer
 		}
 
 		if ($node instanceof HHAST\ClassnameTypeSpecifier) {
+			if (!$node->hasType()) {
+				return 'class-string';
+			}
+
 			$type = self::transform($node->getType(), $file, $scope, $template_map);
 
 			return $type . '::class';

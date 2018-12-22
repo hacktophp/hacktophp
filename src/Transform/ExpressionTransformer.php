@@ -27,6 +27,10 @@ class ExpressionTransformer
 	{
 		$inner_expression = $node->getExpression();
 
+		if (!$inner_expression) {
+			return new PhpParser\Node\Stmt\Nop();
+		}
+
 		if ($inner_expression instanceof HHAST\NameToken) {
 			$name_string = $inner_expression->getText();
 
@@ -128,7 +132,7 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof HHAST\ShapeExpression) {
-			$fields = $node->getFields()->getChildren();
+			$fields = $node->hasFields() ? $node->getFields()->getChildren() : [];
 
 			$array_items = [];
 
@@ -394,6 +398,65 @@ class ExpressionTransformer
 			}
 		}
 
+		if ($node instanceof HHAST\AwaitableCreationExpression) {
+			$old_scope = $scope;
+
+			$body = $node->getCompoundStatement();
+
+			$scope = new Scope();
+			$scope->pipe_expr = $old_scope->pipe_expr;
+
+			$stmts = NodeTransformer::transform($body, $file, $scope);
+
+			$uses = [];
+
+			foreach ($scope->referenced_vars as $var) {
+				if (!isset($param_names[$var])) {
+					$uses[] = new PhpParser\Node\Expr\ClosureUse(
+						new PhpParser\Node\Expr\Variable(
+							substr($var, 1)
+						)
+					);
+				}
+			}
+
+			$scope = $old_scope;
+
+			return new PhpParser\Node\Expr\FuncCall(
+				new PhpParser\Node\Expr\Closure(
+					[
+						'params' => [],
+						'stmts' => $stmts,
+						'uses' => $uses,
+					]
+				)
+			);
+		}
+
+		if ($node instanceof HHAST\CollectionLiteralExpression) {
+			$name = TypeTransformer::transform($node->getName(), $file, $scope);
+			return new PhpParser\Node\Expr\New_(
+				new PhpParser\Node\Name\FullyQualified($name),
+				[
+
+				]
+			);
+		}
+
+		if ($node instanceof HHAST\NullableAsExpression) {
+			$left = ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $file, $scope);
+			$right = TypeTransformer::transform($node->getRightOperand(), $file, $scope);
+			return new PhpParser\Node\Expr\Ternary(
+				new PhpParser\Node\Expr\Instanceof_($left, new PhpParser\Node\Name\FullyQualified($right)),
+				$left,
+				new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
+			);
+		}
+
+		if ($node instanceof HHAST\AsExpression) {
+			return ExpressionTransformer::transform($node->getLeftOperand(), $file, $scope);
+		}
+
 		throw new \UnexpectedValueException('Unknown expression type ' . get_class($node));
 	}
 
@@ -417,6 +480,14 @@ class ExpressionTransformer
 
 		if ($node instanceof HHAST\StaticToken) {
 			return new PhpParser\Node\Identifier('static');
+		}
+
+		if ($node instanceof HHAST\SelfToken) {
+			return new PhpParser\Node\Identifier('self');
+		}
+
+		if ($node instanceof HHAST\VariableExpression) {
+			return self::transform($node, $file, $scope);
 		}
 
 		throw new \UnexpectedValueException('Cannot transform variable name of type ' . get_class($node));

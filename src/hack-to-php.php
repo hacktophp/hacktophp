@@ -23,8 +23,6 @@ if (!file_exists($file_path)) {
 	die('File/folder does not exist' . PHP_EOL);
 }
 
-$hackfile = new HackToPhp\Transform\HackFile();
-
 /**
  * @param string $dir_path
  * @param array<string> $file_extensions
@@ -55,8 +53,31 @@ function getFilesInDir($dir_path, array $file_extensions)
 
 $file_paths = is_dir($file_path) ? getFilesInDir($file_path, ['php']) : [$file_path];
 
+$parser_caches = [];
+
 foreach ($file_paths as $file_path) {
-	$stmts = HackToPhp\Transform\NodeTransformer::transform(HackToPhp\from_file($file_path), $hackfile, new HackToPhp\Transform\Scope());
+	$parser_caches[$file_path] = HackToPhp\from_file($file_path);
+}
+
+$project = new HackToPhp\Transform\Project();
+
+foreach ($file_paths as $file_path) {
+	HackToPhp\Transform\TypeCollector::collect(
+		$parser_caches[$file_path],
+		$project,
+		new HackToPhp\Transform\HackFile(),
+		new HackToPhp\Transform\Scope()
+	);
+}
+
+foreach ($file_paths as $file_path) {
+	echo $file_path . PHP_EOL;
+	
+	$stmts = HackToPhp\Transform\NodeTransformer::transform(
+		$parser_caches[$file_path],
+		new HackToPhp\Transform\HackFile(),
+		new HackToPhp\Transform\Scope()
+	);
 
 	$prettyPrinter = new \PhpParser\PrettyPrinter\Standard;
 	echo $prettyPrinter->prettyPrint($stmts);

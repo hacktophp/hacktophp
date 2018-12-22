@@ -21,6 +21,9 @@
         },
         "classmap": [
             "codegen"
+        ],
+        "files": [
+            "src/Facebook/TypeAssert/functions.php"
         ]
     }
 }

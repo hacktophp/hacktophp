@@ -25,7 +25,7 @@ class FunctionCallExpressionTransformer
 			} elseif ($qualifier instanceof HHAST\QualifiedName) {
 				$class = QualifiedNameTransformer::transform($qualifier);
 			} else {
-				$class = ExpressionTransformer::transformVariableName($qualifier, $file, $scope);
+				$class = ExpressionTransformer::transform($qualifier, $file, $scope);
 			}
 
 			if ($class === null) {
@@ -170,6 +170,23 @@ class FunctionCallExpressionTransformer
 			);
 		}
 
+		if ($receiver instanceof HHAST\SafeMemberSelectionExpression) {
+			$object = ExpressionTransformer::transform($receiver->getObject(), $file, $scope);
+			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $file, $scope);
+
+			$method_call = new PhpParser\Node\Expr\MethodCall(
+				$object,
+				$name,
+				$args
+			);
+
+			return new PhpParser\Node\Expr\Ternary(
+				$object,
+				$method_call,
+				new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
+			);
+		}
+
 		if ($receiver instanceof HHAST\LambdaExpression || $receiver instanceof HHAST\VariableExpression) {
 			$closure = ExpressionTransformer::transform($receiver, $file, $scope);
 
@@ -202,6 +219,15 @@ class FunctionCallExpressionTransformer
 						//$by_ref = true;
 					} elseif ($item->getOperator() instanceof HHAST\DotDotDotToken) {
 						$item = $item->getOperand();
+						$unpack = true;
+					}
+				} elseif ($item instanceof HHAST\DecoratedExpression) {
+					if ($item->getDecorator() instanceof HHAST\AmpersandToken) {
+						$item = $item->getExpression();
+						// not necssary in PHP
+						//$by_ref = true;
+					} elseif ($item->getDecorator() instanceof HHAST\DotDotDotToken) {
+						$item = $item->getExpression();
 						$unpack = true;
 					}
 				}

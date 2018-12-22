@@ -74,7 +74,7 @@ class ClassishDeclarationTransformer
 
 	private static function transformBody(HHAST\ClassishBody $node, HackFile $file, Scope $scope) : array
 	{
-		$children = $node->getElements()->getChildren();
+		$children = $node->hasElements() ? $node->getElements()->getChildren() : [];
 
 		$stmts = [];
 
@@ -99,7 +99,12 @@ class ClassishDeclarationTransformer
 					array_map(
 						function(HHAST\ListItem $trait_use_item) use ($file, $scope) {
 							$trait_use_item = $trait_use_item->getItem();
-							$specifier = $trait_use_item->getSpecifier();
+
+							if ($trait_use_item instanceof HHAST\GenericTypeSpecifier) {
+								$specifier = $trait_use_item->getClassType();
+							} else {
+								$specifier = $trait_use_item->getSpecifier();
+							}
 
 							if ($specifier instanceof HHAST\NameToken) {
 								return new PhpParser\Node\Name($specifier->getText());

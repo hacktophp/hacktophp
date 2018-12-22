@@ -13,8 +13,8 @@ class TryStatementTransformer
 
 		$catches = $node->hasCatchClauses() ? self::transformCatches($node->getCatchClauses(), $file, $scope) : null;
 		$finally = $node->hasFinallyClause()
-			? new PhpParser\Node\Expr\Finally_(
-				NodeTransformer::transform($node->getFinally()->getStatement())
+			? new PhpParser\Node\Stmt\Finally_(
+				NodeTransformer::transform($node->getFinallyClause()->getBody(), $file, $scope)
 			)
 			: null;
 
