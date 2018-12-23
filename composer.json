@@ -25,13 +25,13 @@
         },
         "files": [
             "src/Facebook/TypeAssert/functions.php",
+            "src/Facebook/HHAST/__Private/execute_async.php",
             "src/HHLib/Str.php",
             "src/HHLib/Dict.php",
             "generated-php/codegen/editable_node_from_json.php",
             "generated-php/codegen/editable_token_from_data.php",
             "generated-php/codegen/editable_trivia_from_json.php",
             "generated-php/src/nodes/Missing.php",
-            "generated-php/src/__Private/execute_async.php",
             "generated-php/src/__Private/fold_map.php"
         ]
     }
