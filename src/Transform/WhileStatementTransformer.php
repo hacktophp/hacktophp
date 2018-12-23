@@ -7,11 +7,11 @@ use PhpParser;
 
 class WhileStatementTransformer
 {
-	public static function transform(HHAST\WhileStatement $node, HackFile $file, Scope $scope) : PhpParser\Node
+	public static function transform(HHAST\WhileStatement $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
 	{
-		$expression = ExpressionTransformer::transform($node->getCondition(), $file, $scope);
+		$expression = ExpressionTransformer::transform($node->getCondition(), $project, $file, $scope);
 
-		$stmts = NodeTransformer::transform($node->getBody(), $file, $scope);
+		$stmts = NodeTransformer::transform($node->getBody(), $project, $file, $scope);
 
 		return new PhpParser\Node\Stmt\While_(
 			$expression,

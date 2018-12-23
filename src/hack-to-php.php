@@ -53,28 +53,30 @@ function getFilesInDir($dir_path, array $file_extensions)
 
 $file_paths = is_dir($file_path) ? getFilesInDir($file_path, ['php']) : [$file_path];
 
-$parser_caches = [];
-
-foreach ($file_paths as $file_path) {
-	$parser_caches[$file_path] = HackToPhp\from_file($file_path);
-}
 
 $project = new HackToPhp\Transform\Project();
 
+echo 'Looking for types' . PHP_EOL;
+
 foreach ($file_paths as $file_path) {
+	$ast = HackToPhp\from_file($file_path);
 	HackToPhp\Transform\TypeCollector::collect(
-		$parser_caches[$file_path],
+		$ast,
 		$project,
 		new HackToPhp\Transform\HackFile(),
 		new HackToPhp\Transform\Scope()
 	);
 }
 
+var_dump($project->types);
+
+echo 'Converting files' . PHP_EOL;
+
 foreach ($file_paths as $file_path) {
-	echo $file_path . PHP_EOL;
-	
+	$ast = HackToPhp\from_file($file_path);
 	$stmts = HackToPhp\Transform\NodeTransformer::transform(
-		$parser_caches[$file_path],
+		$ast,
+		$project,
 		new HackToPhp\Transform\HackFile(),
 		new HackToPhp\Transform\Scope()
 	);

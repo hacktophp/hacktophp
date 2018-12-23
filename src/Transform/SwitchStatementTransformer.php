@@ -7,10 +7,10 @@ use PhpParser;
 
 class SwitchStatementTransformer
 {
-	public static function transform(HHAST\SwitchStatement $node, HackFile $file, Scope $scope) : PhpParser\Node
+	public static function transform(HHAST\SwitchStatement $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
 	{
-		$expression = ExpressionTransformer::transform($node->getExpression(), $file, $scope);
-		$cases = self::transformCases($node->getSections(), $file, $scope);
+		$expression = ExpressionTransformer::transform($node->getExpression(), $project, $file, $scope);
+		$cases = self::transformCases($node->getSections(), $project, $file, $scope);
 
 		return new PhpParser\Node\Stmt\Switch_(
 			$expression,
@@ -18,7 +18,7 @@ class SwitchStatementTransformer
 		);
 	}
 
-	private static function transformCases(HHAST\EditableList $node, HackFile $file, Scope $scope) : array
+	private static function transformCases(HHAST\EditableList $node, Project $project, HackFile $file, Scope $scope) : array
 	{
 		$cases = [];
 
@@ -33,15 +33,15 @@ class SwitchStatementTransformer
 
 			foreach ($case_labels as $label) {
 				$cases[] = new PhpParser\Node\Stmt\Case_(
-					$label instanceof HHAST\DefaultLabel ? null : ExpressionTransformer::transform($label->getExpression(), $file, $scope)
+					$label instanceof HHAST\DefaultLabel ? null : ExpressionTransformer::transform($label->getExpression(), $project, $file, $scope)
 				);
 			}
 
 			$case_label_expressions = [];
 
 			$cases[] = new PhpParser\Node\Stmt\Case_(
-				$last_label instanceof HHAST\DefaultLabel ? null : ExpressionTransformer::transform($last_label->getExpression(), $file, $scope),
-				NodeTransformer::transform($section->getStatements(), $file, $scope)
+				$last_label instanceof HHAST\DefaultLabel ? null : ExpressionTransformer::transform($last_label->getExpression(), $project, $file, $scope),
+				NodeTransformer::transform($section->getStatements(), $project, $file, $scope)
 			);
 		}
 

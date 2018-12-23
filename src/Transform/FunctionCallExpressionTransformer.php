@@ -7,11 +7,11 @@ use PhpParser;
 
 class FunctionCallExpressionTransformer
 {
-	public static function transform(HHAST\FunctionCallExpression $node, HackFile $file, Scope $scope) : PhpParser\Node
+	public static function transform(HHAST\FunctionCallExpression $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		$receiver = $node->getReceiver();
 
-		$args = self::transformArguments($node->getArgumentList(), $file, $scope);
+		$args = self::transformArguments($node->getArgumentList(), $project, $file, $scope);
 
 		if ($receiver instanceof HHAST\ParenthesizedExpression) {
 			$receiver = $receiver->getExpression();
@@ -25,14 +25,14 @@ class FunctionCallExpressionTransformer
 			} elseif ($qualifier instanceof HHAST\QualifiedName) {
 				$class = QualifiedNameTransformer::transform($qualifier);
 			} else {
-				$class = ExpressionTransformer::transform($qualifier, $file, $scope);
+				$class = ExpressionTransformer::transform($qualifier, $project, $file, $scope);
 			}
 
 			if ($class === null) {
 				throw new \UnexpectedValueException('$class for ' . get_class($qualifier) . ' cannot be null');
 			}
 
-			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $file, $scope);
+			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $project, $file, $scope);
 
 			return new PhpParser\Node\Expr\StaticCall(
 				$class,
@@ -44,7 +44,7 @@ class FunctionCallExpressionTransformer
 		if ($receiver instanceof HHAST\QualifiedName) {
 			$name = QualifiedNameTransformer::transform($receiver);
 
-			$name_string = QualifiedNameTransformer::getText($receiver, $file, $scope);
+			$name_string = QualifiedNameTransformer::getText($receiver, $file);
 
 			if ($name_string === '\HH\Asio\join') {
 				return new PhpParser\Node\Expr\MethodCall($args[0]->value, 'wait');
@@ -160,8 +160,8 @@ class FunctionCallExpressionTransformer
 		}
 
 		if ($receiver instanceof HHAST\MemberSelectionExpression) {
-			$object = ExpressionTransformer::transform($receiver->getObject(), $file, $scope);
-			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $file, $scope);
+			$object = ExpressionTransformer::transform($receiver->getObject(), $project, $file, $scope);
+			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $project, $file, $scope);
 
 			return new PhpParser\Node\Expr\MethodCall(
 				$object,
@@ -171,8 +171,8 @@ class FunctionCallExpressionTransformer
 		}
 
 		if ($receiver instanceof HHAST\SafeMemberSelectionExpression) {
-			$object = ExpressionTransformer::transform($receiver->getObject(), $file, $scope);
-			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $file, $scope);
+			$object = ExpressionTransformer::transform($receiver->getObject(), $project, $file, $scope);
+			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $project, $file, $scope);
 
 			$method_call = new PhpParser\Node\Expr\MethodCall(
 				$object,
@@ -188,7 +188,7 @@ class FunctionCallExpressionTransformer
 		}
 
 		if ($receiver instanceof HHAST\LambdaExpression || $receiver instanceof HHAST\VariableExpression) {
-			$closure = ExpressionTransformer::transform($receiver, $file, $scope);
+			$closure = ExpressionTransformer::transform($receiver, $project, $file, $scope);
 
 			return new PhpParser\Node\Expr\FuncCall(
 		    	$closure,
@@ -199,14 +199,14 @@ class FunctionCallExpressionTransformer
 		throw new \UnexpectedValueException(get_class($receiver) . ' call not recognized');
 	}
 
-	public static function transformArguments(?HHAST\EditableList $node, HackFile $file, Scope $scope) : array
+	public static function transformArguments(?HHAST\EditableList $node, Project $project, HackFile $file, Scope $scope) : array
 	{
 		if (!$node) {
 			return [];
 		}
 
 		return array_map(
-			function (HHAST\EditableNode $node) use ($file, $scope) {
+			function (HHAST\EditableNode $node) use ($project, $file, $scope) {
 				$item = $node->getItem();
 
 				$by_ref = false;
@@ -233,7 +233,7 @@ class FunctionCallExpressionTransformer
 				}
 
 				return new PhpParser\Node\Arg(
-					ExpressionTransformer::transform($item, $file, $scope),
+					ExpressionTransformer::transform($item, $project, $file, $scope),
 					$by_ref,
 					$unpack
 				);

@@ -11,7 +11,7 @@ class FunctionDeclarationTransformer
 	/**
 	 * @param  HHAST\FunctionDeclaration|HHAST\MethodishDeclaration $node
 	 */
-	public static function transform($node, HackFile $file, Scope $scope) : PhpParser\Node
+	public static function transform($node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		if ($node instanceof HHAST\MethodishDeclaration) {
 			$header = $node->getFunctionDeclHeader();
@@ -47,7 +47,7 @@ class FunctionDeclarationTransformer
 						->getDescendantsOfType(HHAST\TypeConstraint::class);
 
 					foreach ($constraint_nodes as $constraint_node) {
-						$constraint_node_type = TypeTransformer::transform($constraint_node->getType(), $file, $scope);
+						$constraint_node_type = TypeTransformer::transform($constraint_node->getType(), $project, $file, $scope);
 						$template_map[$type_parameter_name] = $constraint_node_type;
 						if ($constraint_node->getKeyword() instanceof HHAST\AsToken) {
 							$constraints[] = ' as \\' . $constraint_node_type;
@@ -108,6 +108,7 @@ class FunctionDeclarationTransformer
 			foreach ($params_list_params as $params_list_param) {
 				$params[] = self::getParam(
 					$params_list_param,
+					$project,
 					$file,
 					$scope,
 					$docblock,
@@ -122,7 +123,7 @@ class FunctionDeclarationTransformer
 		$php_return_type = null;
 
 		if ($hhast_return_type) {
-			$return_type_string = TypeTransformer::transform($hhast_return_type, $file, $scope);
+			$return_type_string = TypeTransformer::transform($hhast_return_type, $project, $file, $scope, $template_map);
 
 			$psalm_return_type = Psalm\Type::parseString($return_type_string);
 
@@ -130,7 +131,7 @@ class FunctionDeclarationTransformer
 				$docblock['specials']['return'] = [$psalm_return_type->toNamespacedString($file->namespace, [], null, false)];
 			//}
 
-			//$php_return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $file, $scope);
+			//$php_return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $project, $file, $scope);
 		}
 
 		$docblock['specials'] = array_filter($docblock['specials']);
@@ -150,11 +151,11 @@ class FunctionDeclarationTransformer
 		}		
 		
 		if ($body && $body->hasStatements()) {
-			$stmts = NodeTransformer::transform($body->getStatements(), $file, $scope);
+			$stmts = NodeTransformer::transform($body->getStatements(), $project, $file, $scope);
 
 			if ($async) {
 				$stmts = [
-					self::getAsyncCoroutine($params, $stmts, $psalm_return_type, $file, $scope)
+					self::getAsyncCoroutine($params, $stmts, $psalm_return_type, $file)
 				];
 			}
 		}
@@ -185,6 +186,7 @@ class FunctionDeclarationTransformer
 
 	public static function getParam(
 		HHAST\ParameterDeclaration $params_list_param,
+		Project $project,
 		HackFile $file,
 		Scope $scope,
 		array &$docblock,
@@ -212,7 +214,7 @@ class FunctionDeclarationTransformer
 		$param_name = $param_name_node->getText();
 
 		if ($params_list_param->hasType()) {
-			$param_type_string = TypeTransformer::transform($params_list_param->getType(), $file, $scope, $template_map);
+			$param_type_string = TypeTransformer::transform($params_list_param->getType(), $project, $file, $scope, $template_map);
 
 			$psalm_type = Psalm\Type::parseString($param_type_string, false, $template_map);
 
@@ -227,7 +229,7 @@ class FunctionDeclarationTransformer
 				$docblock['specials']['param'][] = $namespaced_type_string . ' ' . $param_name;
 			}
 
-			$param_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_type, $file, $scope);
+			$param_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_type, $project, $file, $scope);
 		}
 		
 		return new PhpParser\Node\Param(

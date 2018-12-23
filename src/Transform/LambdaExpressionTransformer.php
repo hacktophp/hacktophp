@@ -7,7 +7,7 @@ use PhpParser;
 
 class LambdaExpressionTransformer
 {
-	public static function transform(HHAST\LambdaExpression $node, HackFile $file, Scope $scope) : PhpParser\Node\Expr\Closure
+	public static function transform(HHAST\LambdaExpression $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node\Expr\Closure
 	{
 		$params = [];
 
@@ -41,6 +41,7 @@ class LambdaExpressionTransformer
 				
 				$params[] = FunctionDeclarationTransformer::getParam(
 					$params_list_param,
+					$project,
 					$file,
 					$scope,
 					$docblock
@@ -55,7 +56,7 @@ class LambdaExpressionTransformer
 		$scope->pipe_expr = $old_scope->pipe_expr;
 
 		if ($body instanceof HHAST\CompoundStatement) {
-			$stmts = NodeTransformer::transform($body, $file, $scope);
+			$stmts = NodeTransformer::transform($body, $project, $file, $scope);
 
 			if (count($stmts) === 1) {
 				$stmts = [
@@ -67,7 +68,7 @@ class LambdaExpressionTransformer
 		} else {
 			$stmts = [
 				new PhpParser\Node\Stmt\Return_(
-					ExpressionTransformer::transform($body, $file, $scope)
+					ExpressionTransformer::transform($body, $project, $file, $scope)
 				)
 			];
 		}

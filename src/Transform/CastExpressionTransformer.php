@@ -7,9 +7,9 @@ use PhpParser;
 
 class CastExpressionTransformer
 {
-	public static function transform(HHAST\CastExpression $node, HackFile $file, Scope $scope) : PhpParser\Node\Expr
+	public static function transform(HHAST\CastExpression $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node\Expr
 	{
-		$expression = ExpressionTransformer::transform($node->getOperand(), $file, $scope);
+		$expression = ExpressionTransformer::transform($node->getOperand(), $project, $file, $scope);
 		$type = $node->getType();
 
 		switch (get_class($type)) {

@@ -7,22 +7,22 @@ use PhpParser;
 
 class NodeTransformer
 {
-	public static function transformList(HHAST\EditableList $list, HackFile $file, Scope $scope)
+	public static function transformList(HHAST\EditableList $list, Project $project, HackFile $file, Scope $scope)
 	{
 		return array_map(
-			function(HHAST\EditableNode $node) use ($file, $scope) { return self::transform($node, $file, $scope); },
+			function(HHAST\EditableNode $node) use ($project, $file, $scope) { return self::transform($node, $project, $file, $scope); },
 			$list->getChildren()
 		);
 	}
 
-	public static function transform(HHAST\EditableNode $node, HackFile $file, Scope $scope)
+	public static function transform(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope)
 	{
 		if ($node instanceof HHAST\EditableList) {
-			return self::transformList($node, $file, $scope);
+			return self::transformList($node, $project, $file, $scope);
 		}
 		
 		if ($node instanceof HHAST\Script) {
-			return ScriptTransformer::transform($node, $file, $scope);
+			return ScriptTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\MarkupSection) {
@@ -31,15 +31,15 @@ class NodeTransformer
 		}
 
 		if ($node instanceof HHAST\NamespaceUseDeclaration) {
-			return NamespaceUseDeclarationTransformer::transform($node, $file, $scope);
+			return NamespaceUseDeclarationTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\NamespaceGroupUseDeclaration) {
-			return NamespaceGroupUseDeclarationTransformer::transform($node, $file, $scope);
+			return NamespaceGroupUseDeclarationTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\FunctionDeclaration) {
-			return FunctionDeclarationTransformer::transform($node, $file, $scope);
+			return FunctionDeclarationTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\EndOfFile) {
@@ -47,7 +47,7 @@ class NodeTransformer
 		}
 
 		if ($node instanceof HHAST\ExpressionStatement) {
-			return ExpressionTransformer::transformStatement($node, $file, $scope);
+			return ExpressionTransformer::transformStatement($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\EditableToken) {
@@ -56,49 +56,49 @@ class NodeTransformer
 
 		if ($node instanceof HHAST\BreakStatement) {
 			return new PhpParser\Node\Stmt\Break_(
-				$node->hasLevel() ? ExpressionTransformer::transform($node->getLevel(), $file, $scope) : null
+				$node->hasLevel() ? ExpressionTransformer::transform($node->getLevel(), $project, $file, $scope) : null
 			);
 		}
 
 		if ($node instanceof HHAST\ContinueStatement) {
 			return new PhpParser\Node\Stmt\Continue_(
-				$node->hasLevel() ? ExpressionTransformer::transform($node->getLevel(), $file, $scope) : null
+				$node->hasLevel() ? ExpressionTransformer::transform($node->getLevel(), $project, $file, $scope) : null
 			);
 		}
 
 		if ($node instanceof HHAST\IfStatement) {
-			return IfStatementTransformer::transform($node, $file, $scope);
+			return IfStatementTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\ForStatement) {
-			return ForStatementTransformer::transform($node, $file, $scope);
+			return ForStatementTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\ForeachStatement) {
-			return ForeachStatementTransformer::transform($node, $file, $scope);
+			return ForeachStatementTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\WhileStatement) {
-			return WhileStatementTransformer::transform($node, $file, $scope);
+			return WhileStatementTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\DoStatement) {
-			return DoStatementTransformer::transform($node, $file, $scope);
+			return DoStatementTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\SwitchStatement) {
-			return SwitchStatementTransformer::transform($node, $file, $scope);
+			return SwitchStatementTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\TryStatement) {
-			return TryStatementTransformer::transform($node, $file, $scope);
+			return TryStatementTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\UnsetStatement) {
 			$vars = array_map(
-				function (HHAST\ListItem $node) use ($file, $scope) {
+				function (HHAST\ListItem $node) use ($project, $file, $scope) {
 					$node = $node->getItem();
-					return ExpressionTransformer::transform($node, $file, $scope);
+					return ExpressionTransformer::transform($node, $project, $file, $scope);
 				},
 				$node->getVariables()->getChildren()
 			);
@@ -110,9 +110,9 @@ class NodeTransformer
 
 		if ($node instanceof HHAST\EchoStatement) {
 			$exprs = array_map(
-				function (HHAST\ListItem $node) use ($file, $scope) {
+				function (HHAST\ListItem $node) use ($project, $file, $scope) {
 					$node = $node->getItem();
-					return ExpressionTransformer::transform($node, $file, $scope);
+					return ExpressionTransformer::transform($node, $project, $file, $scope);
 				},
 				$node->getExpressions()->getChildren()
 			);
@@ -124,9 +124,9 @@ class NodeTransformer
 
 		if ($node instanceof HHAST\GlobalStatement) {
 			$vars = array_map(
-				function (HHAST\ListItem $node) use ($file, $scope) {
+				function (HHAST\ListItem $node) use ($project, $file, $scope) {
 					$node = $node->getItem();
-					return ExpressionTransformer::transformVariableName($node, $file, $scope);
+					return ExpressionTransformer::transformVariableName($node, $project, $file, $scope);
 				},
 				$node->getVariables()->getChildren()
 			);
@@ -138,11 +138,11 @@ class NodeTransformer
 
 		if ($node instanceof HHAST\FunctionStaticStatement) {
 			$vars = array_map(
-				function (HHAST\ListItem $node) use ($file, $scope) {
+				function (HHAST\ListItem $node) use ($project, $file, $scope) {
 					$node = $node->getItem();
 					return new PhpParser\Node\Stmt\StaticVar(
-						ExpressionTransformer::transformVariableName($node->getName(), $file, $scope),
-						$node->hasInitializer() ? ExpressionTransformer::transform($node->getInitializer(), $file, $scope) : null
+						ExpressionTransformer::transformVariableName($node->getName(), $project, $file, $scope),
+						$node->hasInitializer() ? ExpressionTransformer::transform($node->getInitializer(), $project, $file, $scope) : null
 					);
 				},
 				$node->getDeclarations()->getChildren()
@@ -158,25 +158,25 @@ class NodeTransformer
 				return [];
 			}
 
-			return self::transformList($node->getStatements(), $file, $scope);
+			return self::transformList($node->getStatements(), $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\ConstDeclaration) {
-			return ConstDeclarationTransformer::transform($node, $file, $scope, false);
+			return ConstDeclarationTransformer::transform($node, $project, $file, $scope, false);
 		}
 
 		if ($node instanceof HHAST\ClassishDeclaration) {
-			return ClassishDeclarationTransformer::transform($node, $file, $scope);
+			return ClassishDeclarationTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\ThrowStatement) {
-			return new PhpParser\Node\Stmt\Throw_(ExpressionTransformer::transform($node->getExpression(), $file, $scope));
+			return new PhpParser\Node\Stmt\Throw_(ExpressionTransformer::transform($node->getExpression(), $project, $file, $scope));
 		}
 
 		if ($node instanceof HHAST\ReturnStatement) {
 			return new PhpParser\Node\Stmt\Return_(
 				$node->hasExpression()
-					? ExpressionTransformer::transform($node->getExpression(), $file, $scope)
+					? ExpressionTransformer::transform($node->getExpression(), $project, $file, $scope)
 					: null
 			);
 		}
@@ -205,7 +205,7 @@ class NodeTransformer
 
 			return new PhpParser\Node\Stmt\Expression(
 				new PhpParser\Node\Expr\Include_(
-					ExpressionTransformer::transform($filename, $file, $scope),
+					ExpressionTransformer::transform($filename, $project, $file, $scope),
 					$type
 				)
 			);
@@ -213,13 +213,13 @@ class NodeTransformer
 
 		if ($node instanceof HHAST\UsingStatementBlockScoped) {
 			$stmts = array_map(
-				function (HHAST\ListItem $node) use ($file, $scope) {
-					return new PhpParser\Node\Stmt\Expression(ExpressionTransformer::transform($node->getItem(), $file, $scope));
+				function (HHAST\ListItem $node) use ($project, $file, $scope) {
+					return new PhpParser\Node\Stmt\Expression(ExpressionTransformer::transform($node->getItem(), $project, $file, $scope));
 				},
 				$node->getExpressions()->getChildren()
 			);
 
-			$using_body_statements = NodeTransformer::transform($node->getBody(), $file, $scope);
+			$using_body_statements = NodeTransformer::transform($node->getBody(), $project, $file, $scope);
 
 			$stmts = array_merge($stmts, $using_body_statements);
 
@@ -241,7 +241,7 @@ class NodeTransformer
 				$enum_name = $enumerator->getName()->getText();
 				$enum_value = $enumerator->getValue();
 
-				$enum_value = ExpressionTransformer::transform($enum_value, $file, $scope);
+				$enum_value = ExpressionTransformer::transform($enum_value, $project, $file, $scope);
 
 				$consts[] = new PhpParser\Node\Stmt\ClassConst(
 					[

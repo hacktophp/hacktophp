@@ -7,7 +7,7 @@ use PhpParser;
 
 class LiteralExpressionTransformer
 {
-	public static function transform(HHAST\LiteralExpression $node, HackFile $file, Scope $scope) : PhpParser\Node\Expr
+	public static function transform(HHAST\LiteralExpression $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node\Expr
 	{
 		$literal = $node->getExpression();
 
@@ -54,7 +54,7 @@ class LiteralExpressionTransformer
 				if ($first_child instanceof HHAST\ExecutionStringLiteralHeadToken) {
 					return new PhpParser\Node\Expr\ShellExec(
 						array_map(
-							function($item) use ($file, $scope) {
+							function($item) use ($project, $file, $scope) {
 								if ($item instanceof HHAST\ExecutionStringLiteralHeadToken) {
 									return new PhpParser\Node\Scalar\EncapsedStringPart(
 										stripcslashes(substr($item->getText(), 1))
@@ -67,7 +67,7 @@ class LiteralExpressionTransformer
 									);
 								}
 
-								return ExpressionTransformer::transform($item, $file, $scope);
+								return ExpressionTransformer::transform($item, $project, $file, $scope);
 							},
 							$literal->getChildren()
 						)
@@ -76,7 +76,7 @@ class LiteralExpressionTransformer
 
 				return new PhpParser\Node\Scalar\Encapsed(
 					array_map(
-						function($item) use ($file, $scope) {
+						function($item) use ($project, $file, $scope) {
 							if ($item instanceof HHAST\DoubleQuotedStringLiteralHeadToken) {
 								return new PhpParser\Node\Scalar\EncapsedStringPart(
 									stripcslashes(substr($item->getText(), 1))
@@ -89,7 +89,7 @@ class LiteralExpressionTransformer
 								);
 							}
 
-							return ExpressionTransformer::transform($item, $file, $scope);
+							return ExpressionTransformer::transform($item, $project, $file, $scope);
 						},
 						$literal->getChildren()
 					)

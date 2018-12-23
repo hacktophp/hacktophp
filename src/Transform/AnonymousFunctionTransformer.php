@@ -7,7 +7,7 @@ use PhpParser;
 
 class AnonymousFunctionTransformer
 {
-	public static function transform(HHAST\AnonymousFunction $node, HackFile $file, Scope $scope) : PhpParser\Node\Expr\Closure
+	public static function transform(HHAST\AnonymousFunction $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node\Expr\Closure
 	{
 		$params = [];
 
@@ -20,13 +20,14 @@ class AnonymousFunctionTransformer
 		foreach ($params_list_params as $params_list_param) {
 			$params[] = FunctionDeclarationTransformer::getParam(
 				$params_list_param,
+				$project,
 				$file,
 				$scope,
 				$docblock
 			);
 		}
 
-		$stmts = $node->hasBody() ? NodeTransformer::transform($node->getBody(), $file, $scope) : [];
+		$stmts = $node->hasBody() ? NodeTransformer::transform($node->getBody(), $project, $file, $scope) : [];
 
 		$uses = [];
 

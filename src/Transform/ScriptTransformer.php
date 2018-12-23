@@ -7,7 +7,7 @@ use PhpParser;
 
 class ScriptTransformer
 {
-	public static function transform(HHAST\Script $node, HackFile $file, Scope $scope)
+	public static function transform(HHAST\Script $node, Project $project, HackFile $file, Scope $scope)
 	{
 		$declarations = array_values($node->getDeclarations()->getChildren());
 
@@ -20,8 +20,8 @@ class ScriptTransformer
 					new PhpParser\Node\Stmt\Namespace_(
 						new PhpParser\Node\Name($file->namespace),
 						array_map(
-							function(HHAST\EditableNode $node) use ($file, $scope) {
-								return NodeTransformer::transform($node, $file, $scope);
+							function(HHAST\EditableNode $node) use ($project, $file, $scope) {
+								return NodeTransformer::transform($node, $project, $file, $scope);
 							},
 							array_slice($declarations, $i + 1)
 						)
@@ -29,7 +29,7 @@ class ScriptTransformer
 				];
 			}
 
-			$stmts[] = NodeTransformer::transform($declaration, $file, $scope);
+			$stmts[] = NodeTransformer::transform($declaration, $project, $file, $scope);
 		}
 
 		return $stmts;

@@ -22,15 +22,15 @@ use PhpParser;
 
 class BinaryExpressionTransformer
 {
-	public static function transform(HHAST\BinaryExpression $node, HackFile $file, Scope $scope) : PhpParser\Node\Expr
+	public static function transform(HHAST\BinaryExpression $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node\Expr
 	{
 		$operator = $node->getOperator();
 
 		if ($operator instanceof BarGreaterThanToken) {
-			return PipeTransformer::transform($node->getLeftOperand(), $node->getRightOperand(), $file, $scope);
+			return PipeTransformer::transform($node->getLeftOperand(), $node->getRightOperand(), $project, $file, $scope);
 		}
 		
-		$left_expr = ExpressionTransformer::transform($node->getLeftOperand(), $file, $scope);
+		$left_expr = ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope);
 
 		$right_operand = $node->getRightOperand();
 
@@ -38,15 +38,15 @@ class BinaryExpressionTransformer
 			if ($right_operand instanceof HHAST\PrefixUnaryExpression
 				&& $right_operand->getOperator() instanceof AmpersandToken
 			) {
-				$right_expr = ExpressionTransformer::transform($right_operand->getOperand(), $file, $scope);
+				$right_expr = ExpressionTransformer::transform($right_operand->getOperand(), $project, $file, $scope);
 				return new PhpParser\Node\Expr\AssignRef($left_expr, $right_expr);
 			}
 
-			$right_expr = ExpressionTransformer::transform($right_operand, $file, $scope);
+			$right_expr = ExpressionTransformer::transform($right_operand, $project, $file, $scope);
 			return new PhpParser\Node\Expr\Assign($left_expr, $right_expr);
 		}
 
-		$right_expr = ExpressionTransformer::transform($right_operand, $file, $scope);
+		$right_expr = ExpressionTransformer::transform($right_operand, $project, $file, $scope);
 
 		switch (get_class($operator)) {
 			case ExclamationEqualToken::class:

@@ -8,6 +8,6 @@ use Psalm;
 
 class Project
 {
-	/** @var array<string, Psalm\Type\Union */
+	/** @var array<string, string> */
 	public $types = [];
 }

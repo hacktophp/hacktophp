@@ -11,7 +11,7 @@ class TypeCollector
 	public static function collect(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope)
 	{
 		if ($node instanceof HHAST\EditableList) {
-			return self::transformList($node, $file, $scope);
+			return self::transformList($node, $project, $file, $scope);
 		}
 		
 		if ($node instanceof HHAST\Script) {
@@ -102,16 +102,23 @@ class TypeCollector
 
 			$enumerators = $node->getEnumerators()->getChildren();
 
-			$types = [];
-
 			$enum_union = [];
 
 			foreach ($enumerators as $enumerator) {
 				$enum_union[] = $name . '::' . $enumerator->getName()->getText();
 			}
 
-			$project->types[$name] = Psalm\Type::parseString(implode('|', $enum_union));
+			$project->types[$name] = implode('|', $enum_union);
 
+			return;
+		}
+
+		if ($node instanceof HHAST\AliasDeclaration) {
+			$name = ($file->namespace ? $file->namespace . '\\' : '') . $node->getName()->getText();
+
+			$type = TypeTransformer::transform($node->getType(), $project, $file, $scope);
+
+			$project->types[$name] = $type;
 			return;
 		}
 	}

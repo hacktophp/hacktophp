@@ -8,7 +8,7 @@ use Psalm;
 
 class ClassishDeclarationTransformer
 {
-	public static function transform(HHAST\ClassishDeclaration $node, HackFile $file, Scope $scope) : PhpParser\Node
+	public static function transform(HHAST\ClassishDeclaration $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		$modifiers = $node->hasModifiers() ? $node->getModifiers()->getChildren() : null;
 
@@ -36,7 +36,7 @@ class ClassishDeclarationTransformer
 			return new PhpParser\Node\Stmt\Class_(
 				$class_name,
 				[
-					'stmts' => self::transformBody($node->getBody(), $file, $scope),
+					'stmts' => self::transformBody($node->getBody(), $project, $file, $scope),
 					'flags' => $abstract ? PhpParser\Node\Stmt\Class_::MODIFIER_ABSTRACT : 0
 				],
 				[
@@ -49,7 +49,7 @@ class ClassishDeclarationTransformer
 			return new PhpParser\Node\Stmt\Interface_(
 				$class_name,
 				[
-					'stmts' => self::transformBody($node->getBody(), $file, $scope)
+					'stmts' => self::transformBody($node->getBody(), $project, $file, $scope)
 				],
 				[
 					'comments' => $comments,
@@ -61,7 +61,7 @@ class ClassishDeclarationTransformer
 			return new PhpParser\Node\Stmt\Trait_(
 				$class_name,
 				[
-					'stmts' => self::transformBody($node->getBody(), $file, $scope)
+					'stmts' => self::transformBody($node->getBody(), $project, $file, $scope)
 				],
 				[
 					'comments' => $comments,
@@ -72,7 +72,7 @@ class ClassishDeclarationTransformer
 		throw new \UnexpectedValueException('Classish thing not recognised');
 	}
 
-	private static function transformBody(HHAST\ClassishBody $node, HackFile $file, Scope $scope) : array
+	private static function transformBody(HHAST\ClassishBody $node, Project $project, HackFile $file, Scope $scope) : array
 	{
 		$children = $node->hasElements() ? $node->getElements()->getChildren() : [];
 
@@ -80,24 +80,24 @@ class ClassishDeclarationTransformer
 
 		foreach ($children as $child) {
 			if ($child instanceof HHAST\PropertyDeclaration) {
-				$stmts[] = self::transformProperty($child, $file, $scope);
+				$stmts[] = self::transformProperty($child, $project, $file, $scope);
 				continue;
 			}
 
 			if ($child instanceof HHAST\MethodishDeclaration) {
-				$stmts[] = FunctionDeclarationTransformer::transform($child, $file, $scope);
+				$stmts[] = FunctionDeclarationTransformer::transform($child, $project, $file, $scope);
 				continue;
 			}
 
 			if ($child instanceof HHAST\ConstDeclaration) {
-				$stmts[] = ConstDeclarationTransformer::transform($child, $file, $scope, true);
+				$stmts[] = ConstDeclarationTransformer::transform($child, $project, $file, $scope, true);
 				continue;
 			}
 
 			if ($child instanceof HHAST\TraitUse) {
 				$stmts[] = new PhpParser\Node\Stmt\TraitUse(
 					array_map(
-						function(HHAST\ListItem $trait_use_item) use ($file, $scope) {
+						function(HHAST\ListItem $trait_use_item) use ($project, $file, $scope) {
 							$trait_use_item = $trait_use_item->getItem();
 
 							if ($trait_use_item instanceof HHAST\GenericTypeSpecifier) {
@@ -121,7 +121,7 @@ class ClassishDeclarationTransformer
 			if ($child instanceof HHAST\TraitUseConflictResolution) {
 				$stmts[] = new PhpParser\Node\Stmt\TraitUse(
 					array_map(
-						function(HHAST\ListItem $trait_use_item) use ($file, $scope) {
+						function(HHAST\ListItem $trait_use_item) use ($project, $file, $scope) {
 							$trait_use_item = $trait_use_item->getItem();
 							$specifier = $trait_use_item->getSpecifier();
 
@@ -134,7 +134,7 @@ class ClassishDeclarationTransformer
 						$child->getNames()->getChildren()
 					),
 					array_map(
-						function(HHAST\ListItem $trait_use_item) use ($file, $scope) {
+						function(HHAST\ListItem $trait_use_item) use ($project, $file, $scope) {
 							$trait_use_item = $trait_use_item->getItem();
 
 							$modifiers = $trait_use_item->getModifiers();
@@ -190,7 +190,7 @@ class ClassishDeclarationTransformer
 		return $stmts;
 	}
 
-	private static function transformProperty(HHAST\PropertyDeclaration $node, HackFile $file, Scope $scope) : PhpParser\Node\Stmt\Property
+	private static function transformProperty(HHAST\PropertyDeclaration $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node\Stmt\Property
 	{
 		$abstract = false;
 
@@ -216,7 +216,7 @@ class ClassishDeclarationTransformer
 		$attributes = [];
 
 		if ($type) {
-			$type_string = TypeTransformer::transform($type, $file, $scope);
+			$type_string = TypeTransformer::transform($type, $project, $file, $scope);
 			
 			$psalm_type = Psalm\Type::parseString($type_string);
 
@@ -242,7 +242,7 @@ class ClassishDeclarationTransformer
 			$default = null;
 			
 			if ($declarator->hasInitializer()) {
-				$default = ExpressionTransformer::transform($declarator->getInitializer(), $file, $scope);
+				$default = ExpressionTransformer::transform($declarator->getInitializer(), $project, $file, $scope);
 			}
 
 			$property_properties[] = new PhpParser\Node\Stmt\PropertyProperty(
