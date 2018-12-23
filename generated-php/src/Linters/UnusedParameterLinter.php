@@ -52,7 +52,9 @@ final class UnusedParameterLinter extends AutoFixingASTLinter
         if ($body === null || $body instanceof SemicolonToken) {
             return null;
         }
-        $statements = $body->getStatements();
+        $statements = ($body instanceof \Facebook\HHAST\Linters\CompoundStatement ? $body : (function () {
+            throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Linters\\CompoundStatement');
+        })())->getStatements();
         if ($statements !== null) {
             $match = C\find($statements->getDescendantsOfType(VariableToken::class), function ($x) use($name) {
                 return $x->getText() === $name->getText();

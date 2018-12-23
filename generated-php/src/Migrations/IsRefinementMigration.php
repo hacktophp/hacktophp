@@ -56,8 +56,12 @@ final class IsRefinementMigration extends BaseMigration
             if ($make_replacement === null) {
                 return $node;
             }
-            $replacement = new HHAST\IsExpression($node->getArgumentListx()->getItems()[0], new HHAST\IsToken(new HHAST\WhiteSpace(' '), new HHAST\WhiteSpace(' ')), $make_replacement());
-            $parent = C\lastx($parents);
+            $replacement = new HHAST\IsExpression($node->getArgumentListx()->getItems()[0] instanceof \Facebook\HHAST\Migrations\nonnull ? $node->getArgumentListx()->getItems()[0] : (function () {
+                throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\nonnull');
+            })(), new HHAST\IsToken(new HHAST\WhiteSpace(' '), new HHAST\WhiteSpace(' ')), $make_replacement());
+            $parent = C\lastx($parents instanceof \Facebook\HHAST\Migrations\nonnull ? $parents : (function () {
+                throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\nonnull');
+            })());
             if ($parent instanceof HHAST\ListItem || $parent instanceof HHAST\IfStatement || $parent instanceof HHAST\ParenthesizedExpression) {
                 $first = $replacement->getFirstTokenx();
                 $last = $replacement->getLastTokenx();

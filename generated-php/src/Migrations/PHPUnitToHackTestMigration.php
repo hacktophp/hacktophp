@@ -49,7 +49,9 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         if (!$obj instanceof HHAST\VariableExpression) {
             return $in;
         }
-        $var = $obj->getExpression();
+        $var = $obj->getExpression() instanceof \Facebook\HHAST\Migrations\HHAST\VariableToken ? $obj->getExpression() : (function () {
+            throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\VariableToken');
+        })();
         if ($var->getText() !== '$this') {
             return $in;
         }
@@ -116,14 +118,20 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         $attrs = $decl->getAttribute();
         if ($attrs === null) {
             if ($comment_text !== null) {
-                $leading = $decl->getFirstTokenx()->getLeading()->replace($comment, $comment->withText($comment_text));
+                $leading = ($decl->getFirstTokenx()->getLeading() instanceof \Facebook\HHAST\Migrations\HHAST\EditableList<Facebook\HHAST\Migrations\_> ? $decl->getFirstTokenx()->getLeading() : (function () {
+                    throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\EditableList<Facebook\\HHAST\\Migrations\\_>');
+                })())->replace($comment, $comment->withText($comment_text));
             } else {
                 $leading = array();
-                foreach ($decl->getFirstTokenx()->getLeading()->getItems() as $item) {
+                foreach (($decl->getFirstTokenx()->getLeading() instanceof \Facebook\HHAST\Migrations\HHAST\EditableList<Facebook\HHAST\Migrations\_> ? $decl->getFirstTokenx()->getLeading() : (function () {
+                    throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\EditableList<Facebook\\HHAST\\Migrations\\_>');
+                })())->getItems() as $item) {
                     if ($item === $comment) {
                         break;
                     }
-                    $leading[] = $item;
+                    $leading[] = $item instanceof \Facebook\HHAST\Migrations\HHAST\EditableTrivia ? $item : (function () {
+                        throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\EditableTrivia');
+                    })();
                 }
                 $leading = HHAST\EditableList::createNonEmptyListOrMissing($this->trimWhitespace($leading));
             }
@@ -136,8 +144,12 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         $decl = $decl->withAttribute($attrs);
         $first = $decl->getFunctionDeclHeader()->getFirstTokenx();
         $leading = \array_map(function ($n) {
-            return $n;
-        }, $first->getLeading()->getItems());
+            return $n instanceof \Facebook\HHAST\Migrations\HHAST\EditableNode ? $n : (function () {
+                throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\EditableNode');
+            })();
+        }, ($first->getLeading() instanceof \Facebook\HHAST\Migrations\HHAST\EditableList<Facebook\HHAST\Migrations\_> ? $first->getLeading() : (function () {
+            throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\EditableList<Facebook\\HHAST\\Migrations\\_>');
+        })())->getItems());
         return $decl->replace($first, $first->withLeading(HHAST\EditableList::createNonEmptyListOrMissing($this->trimWhitespace($leading))));
     }
     /**
@@ -258,7 +270,9 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             if ($m instanceof HHAST\PrivateToken || $m instanceof HHAST\ProtectedToken) {
                 return new HHAST\PublicToken(HHAST\Missing(), new HHAST\WhiteSpace(' '));
             }
-            return $m->withLeading(HHAST\Missing())->withTrailing(new HHAST\WhiteSpace(' '));
+            return ($m instanceof \Facebook\HHAST\Migrations\HHAST\EditableToken ? $m : (function () {
+                throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\EditableToken');
+            })())->withLeading(HHAST\Missing())->withTrailing(new HHAST\WhiteSpace(' '));
         }, ($node->getModifiers() ? $node->getModifiers()->getItems() : null) ?? array());
         $new_modifiers[] = new HHAST\AsyncToken(HHAST\Missing(), new HHAST\WhiteSpace(' '));
         $new_modifiers[0] = $new_modifiers[0]->withLeading($leading);
@@ -297,11 +311,17 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         $first = $node->getFirstTokenx();
         $leading = $first->getLeading();
         $items = $leading instanceof HHAST\EditableList ? \array_map(function ($it) {
-            return $it;
+            return $it instanceof \Facebook\HHAST\Migrations\HHAST\EditableNode ? $it : (function () {
+                throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\EditableNode');
+            })();
         }, $leading->getItems()) : array($leading);
         $idx = C\find_key($items, function ($it) use($comment) {
             return $it === $comment;
-        });
+        }) instanceof \Facebook\HHAST\Migrations\nonnull ? C\find_key($items, function ($it) use($comment) {
+            return $it === $comment;
+        }) : (function () {
+            throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\nonnull');
+        })();
         return $node->replace($first, $first->withLeading(HHAST\EditableList::createNonEmptyListOrMissing(Vec\take($items, $idx))));
     }
     /**
@@ -356,7 +376,13 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         if ($idx === null) {
             return $statements;
         }
-        $expect_exception = $statements[$idx]->getExpressionx();
+        $expect_exception = ($statements[$idx] instanceof \Facebook\HHAST\Migrations\HHAST\ExpressionStatement ? $statements[$idx] : (function () {
+            throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\ExpressionStatement');
+        })())->getExpressionx() instanceof \Facebook\HHAST\Migrations\HHAST\FunctionCallExpression ? ($statements[$idx] instanceof \Facebook\HHAST\Migrations\HHAST\ExpressionStatement ? $statements[$idx] : (function () {
+            throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\ExpressionStatement');
+        })())->getExpressionx() : (function () {
+            throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\FunctionCallExpression');
+        })();
         $pre = Vec\take($statements, $idx);
         $post = Vec\drop($statements, $idx + 1);
         if (C\is_empty($post)) {
