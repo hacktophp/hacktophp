@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<795e57963fabee4ad832993e59e5d52a>>
+ */
 namespace Facebook\HHAST;
 
 final class EndOfFileToken extends EditableTokenWithFixedText

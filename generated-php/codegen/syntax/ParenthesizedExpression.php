@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<45d5817de78fbb7e5dad129bed9ef60c>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -135,12 +140,13 @@ final class ParenthesizedExpression extends EditableNode
      * @return AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
      * CastExpression | CollectionLiteralExpression | ConditionalExpression |
      * EmptyExpression | FunctionCallExpression | InclusionExpression |
-     * InstanceofExpression | IssetExpression | LambdaExpression |
+     * InstanceofExpression | IsExpression | IssetExpression | LambdaExpression |
      * LiteralExpression | MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
      * QualifiedName | ScopeResolutionExpression | SubscriptExpression |
-     * QuestionToken | NameToken | VariableExpression | VectorIntrinsicExpression
-     * | XHPExpression | YieldExpression
+     * RightParenToken | QuestionToken | NameToken | TupleExpression |
+     * VariableExpression | VectorIntrinsicExpression | XHPExpression |
+     * YieldExpression
      */
     /**
      * @return EditableNode
@@ -153,12 +159,13 @@ final class ParenthesizedExpression extends EditableNode
      * @return AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
      * CastExpression | CollectionLiteralExpression | ConditionalExpression |
      * EmptyExpression | FunctionCallExpression | InclusionExpression |
-     * InstanceofExpression | IssetExpression | LambdaExpression |
+     * InstanceofExpression | IsExpression | IssetExpression | LambdaExpression |
      * LiteralExpression | MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
      * QualifiedName | ScopeResolutionExpression | SubscriptExpression |
-     * QuestionToken | NameToken | VariableExpression | VectorIntrinsicExpression
-     * | XHPExpression | YieldExpression
+     * RightParenToken | QuestionToken | NameToken | TupleExpression |
+     * VariableExpression | VectorIntrinsicExpression | XHPExpression |
+     * YieldExpression
      */
     /**
      * @return EditableNode

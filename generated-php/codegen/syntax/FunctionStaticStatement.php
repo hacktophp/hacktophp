@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<0778d4161d8d42f7246d448261462a00>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;

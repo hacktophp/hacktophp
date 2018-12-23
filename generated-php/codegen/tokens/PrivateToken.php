@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<705f108256ccb7d2218db7de4bf98bcf>>
+ */
 namespace Facebook\HHAST;
 
 final class PrivateToken extends EditableTokenWithVariableText

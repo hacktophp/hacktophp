@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<7340a1b66509f40efaeeeebe2bc10795>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -231,13 +236,16 @@ final class ShapeExpression extends EditableNode
         return !$this->_right_paren->isMissing();
     }
     /**
-     * @return RightParenToken
+     * @return null | RightParenToken
      */
     /**
-     * @return RightParenToken
+     * @return null|RightParenToken
      */
     public function getRightParen()
     {
+        if ($this->_right_paren->isMissing()) {
+            return null;
+        }
         return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
     }
     /**
@@ -248,7 +256,7 @@ final class ShapeExpression extends EditableNode
      */
     public function getRightParenx()
     {
-        return $this->getRightParen();
+        return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
     }
 }
 

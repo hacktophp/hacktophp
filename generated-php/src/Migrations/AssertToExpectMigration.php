@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\Missing as Missing;
@@ -154,7 +162,7 @@ final class AssertToExpectMigration extends StepBasedMigration
         return self::getNewNode($node, $actual, $args, $func_name);
     }
     /**
-     * @return Traversable<IMigrationStep>
+     * @return iterable<mixed, IMigrationStep>
      */
     public function getSteps()
     {

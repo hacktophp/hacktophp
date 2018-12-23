@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<2c433c9915f8240bc6e8c215e62ea9d8>>
+ */
 namespace Facebook\HHAST;
 
 final class AmpersandAmpersandToken extends EditableTokenWithFixedText

@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2015-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\__Private\Asio;
 
 final class AsyncPoll implements AsyncIterator
@@ -11,11 +19,11 @@ final class AsyncPoll implements AsyncIterator
         return new self();
     }
     /**
-     * @param Traversable<\Sabre\Event\Promise<Tv>> $awaitables
+     * @param iterable<mixed, \Sabre\Event\Promise<Tv>> $awaitables
      *
      * @return static
      */
-    public static function from(Traversable $awaitables)
+    public static function from(iterable $awaitables)
     {
         $poll = new self();
         $poll->addMulti($awaitables);
@@ -59,11 +67,11 @@ final class AsyncPoll implements AsyncIterator
         $this->notifiers = AwaitAllWaitHandle::fromVec(array($awaitable, $this->notifiers));
     }
     /**
-     * @param Traversable<\Sabre\Event\Promise<Tv>> $awaitables
+     * @param iterable<mixed, \Sabre\Event\Promise<Tv>> $awaitables
      *
      * @return void
      */
-    public function addMulti(Traversable $awaitables)
+    public function addMulti(iterable $awaitables)
     {
         invariant($this->lastAdded !== null, 'Unable to add item, iteration already finished');
         $last_added = $this->lastAdded;

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<d4eb3c6230e6951facc686abdf5efa66>>
+ */
 namespace Facebook\HHAST;
 
 final class XHPElementNameToken extends EditableTokenWithVariableText

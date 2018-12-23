@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<3a86db03cdcf68537b27ae2acc4ad7a8>>
+ */
 namespace Facebook\HHAST;
 
 final class TupleToken extends EditableTokenWithVariableText

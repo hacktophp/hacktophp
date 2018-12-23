@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<3871c08635f11951fd29f62f9f74a3c6>>
+ */
 namespace Facebook\HHAST;
 
 final class DictToken extends EditableTokenWithVariableText

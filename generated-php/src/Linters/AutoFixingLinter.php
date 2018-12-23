@@ -1,19 +1,27 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\__Private\LSP as LSP;
 interface AutoFixingLinter
 {
     /**
-     * @return \Sabre\Event\Promise<Traversable<Terror>>
+     * @return \Sabre\Event\Promise<iterable<mixed, Terror>>
      */
     public function getLintErrorsAsync();
     /**
-     * @param Traversable<Terror> $errors
+     * @param iterable<mixed, Terror> $errors
      *
      * @return File
      */
-    public function getFixedFile(Traversable $errors);
+    public function getFixedFile(iterable $errors);
     /**
      * @return string
      */

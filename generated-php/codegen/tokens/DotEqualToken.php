@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<09e526ab37ca4db6744d90044d60f273>>
+ */
 namespace Facebook\HHAST;
 
 final class DotEqualToken extends EditableTokenWithFixedText

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<03990ae1d17a571c5c39bf582823c25f>>
+ */
 namespace Facebook\HHAST;
 
 final class SemicolonToken extends EditableTokenWithFixedText

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<6658a2501630801d976e92cddd83f887>>
+ */
 namespace Facebook\HHAST;
 
 final class FallthroughToken extends EditableTokenWithVariableText

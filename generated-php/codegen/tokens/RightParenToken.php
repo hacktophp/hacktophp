@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<74c19dd218e641fc3334574185decc7c>>
+ */
 namespace Facebook\HHAST;
 
 final class RightParenToken extends EditableTokenWithFixedText

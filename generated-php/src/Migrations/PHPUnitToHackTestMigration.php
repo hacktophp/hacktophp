@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\Migrations;
 
 use Facebook\HHAST as HHAST;
@@ -381,7 +389,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         return new HHAST\FunctionCallExpression(new HHAST\MemberSelectionExpression($expect_call, new HHAST\MinusGreaterThanToken($m, $m), new HHAST\NameToken($m, $m, 'toThrow')), new HHAST\LeftParenToken($m, $m), $exception, new HHAST\RightParenToken($m, $m));
     }
     /**
-     * @return Traversable<IMigrationStep>
+     * @return iterable<mixed, IMigrationStep>
      */
     public final function getSteps()
     {

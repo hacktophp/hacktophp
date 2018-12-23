@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<f55cf61d2535c48dd80032191b8df534>>
+ */
 namespace Facebook\HHAST;
 
 final class XHPCommentToken extends EditableTokenWithVariableText

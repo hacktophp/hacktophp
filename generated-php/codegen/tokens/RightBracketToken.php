@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<fb436f7cb884f5988fc263918b833853>>
+ */
 namespace Facebook\HHAST;
 
 final class RightBracketToken extends EditableTokenWithFixedText

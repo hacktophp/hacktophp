@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<fcb8a1e13969a7d6db98395187114ddb>>
+ */
 namespace Facebook\HHAST;
 
 final class OrToken extends EditableTokenWithVariableText

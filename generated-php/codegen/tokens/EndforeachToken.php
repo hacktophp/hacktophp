@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<541e31aa126170b62b27f011de50d0ea>>
+ */
 namespace Facebook\HHAST;
 
 final class EndforeachToken extends EditableTokenWithVariableText

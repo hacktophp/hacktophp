@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\__Private;
 
 use Facebook\CLILib\ITerminal as ITerminal;
@@ -25,11 +33,11 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
     }
     /**
      * @param mixed $config
-     * @param Traversable<Linters\LintError> $errors
+     * @param iterable<mixed, Linters\LintError> $errors
      *
      * @return \Sabre\Event\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
      */
-    public function linterRaisedErrorsAsync(Linters\BaseLinter $linter, $config, Traversable $errors)
+    public function linterRaisedErrorsAsync(Linters\BaseLinter $linter, $config, iterable $errors)
     {
         return \Sabre\Event\coroutine(
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */
@@ -45,11 +53,11 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
     }
     /**
      * @param mixed $config
-     * @param Traversable<Linters\LintError> $errors
+     * @param iterable<mixed, Linters\LintError> $errors
      *
      * @return \Sabre\Event\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
      */
-    private function linterRaisedErrorsImplAsync(Linters\BaseLinter $linter, $config, Traversable $errors)
+    private function linterRaisedErrorsImplAsync(Linters\BaseLinter $linter, $config, iterable $errors)
     {
         return \Sabre\Event\coroutine(
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */

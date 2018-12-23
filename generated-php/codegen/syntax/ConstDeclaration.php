@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<e88134e868f94521b20e9623dad5e9a2>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -252,7 +257,8 @@ final class ConstDeclaration extends EditableNode
     /**
      * @return ClassnameTypeSpecifier | GenericTypeSpecifier |
      * KeysetTypeSpecifier | null | NullableTypeSpecifier | SimpleTypeSpecifier |
-     * TypeConstant | VarrayTypeSpecifier | VectorTypeSpecifier
+     * TupleTypeSpecifier | TypeConstant | VarrayTypeSpecifier |
+     * VectorTypeSpecifier
      */
     /**
      * @return null|EditableNode
@@ -267,7 +273,8 @@ final class ConstDeclaration extends EditableNode
     /**
      * @return ClassnameTypeSpecifier | GenericTypeSpecifier |
      * KeysetTypeSpecifier | NullableTypeSpecifier | SimpleTypeSpecifier |
-     * TypeConstant | VarrayTypeSpecifier | VectorTypeSpecifier
+     * TupleTypeSpecifier | TypeConstant | VarrayTypeSpecifier |
+     * VectorTypeSpecifier
      */
     /**
      * @return EditableNode

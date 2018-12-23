@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<5297b6428ed22bef002ee08b82a85391>>
+ */
 namespace Facebook\HHAST;
 
 final class BoolToken extends EditableTokenWithVariableText

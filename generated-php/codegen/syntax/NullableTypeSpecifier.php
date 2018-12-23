@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<7db4f1fcd2c82bab6fe5d2d1384e477e>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -125,10 +130,9 @@ final class NullableTypeSpecifier extends EditableNode
     }
     /**
      * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
-     * GenericTypeSpecifier | KeysetTypeSpecifier | MapArrayTypeSpecifier |
-     * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
-     * TupleTypeSpecifier | TypeConstant | VectorArrayTypeSpecifier |
-     * VectorTypeSpecifier
+     * GenericTypeSpecifier | MapArrayTypeSpecifier | ShapeTypeSpecifier |
+     * SimpleTypeSpecifier | SoftTypeSpecifier | TupleTypeSpecifier |
+     * TypeConstant | VectorArrayTypeSpecifier | VectorTypeSpecifier
      */
     /**
      * @return EditableNode
@@ -139,10 +143,9 @@ final class NullableTypeSpecifier extends EditableNode
     }
     /**
      * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
-     * GenericTypeSpecifier | KeysetTypeSpecifier | MapArrayTypeSpecifier |
-     * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
-     * TupleTypeSpecifier | TypeConstant | VectorArrayTypeSpecifier |
-     * VectorTypeSpecifier
+     * GenericTypeSpecifier | MapArrayTypeSpecifier | ShapeTypeSpecifier |
+     * SimpleTypeSpecifier | SoftTypeSpecifier | TupleTypeSpecifier |
+     * TypeConstant | VectorArrayTypeSpecifier | VectorTypeSpecifier
      */
     /**
      * @return EditableNode

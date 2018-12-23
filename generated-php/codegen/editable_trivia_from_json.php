@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<5a9b950d6b28df577677852c567b7c27>>
+ */
 namespace Facebook\HHAST\__Private;
 
 use Facebook\HHAST as HHAST;

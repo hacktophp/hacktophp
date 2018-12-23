@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<7e842c726e7c444f18015c33077adf22>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -88,13 +93,16 @@ final class ClassishBody extends EditableNode
         return !$this->_left_brace->isMissing();
     }
     /**
-     * @return LeftBraceToken
+     * @return null | LeftBraceToken
      */
     /**
-     * @return LeftBraceToken
+     * @return null|LeftBraceToken
      */
     public function getLeftBrace()
     {
+        if ($this->_left_brace->isMissing()) {
+            return null;
+        }
         return TypeAssert\instance_of(LeftBraceToken::class, $this->_left_brace);
     }
     /**
@@ -105,7 +113,7 @@ final class ClassishBody extends EditableNode
      */
     public function getLeftBracex()
     {
-        return $this->getLeftBrace();
+        return TypeAssert\instance_of(LeftBraceToken::class, $this->_left_brace);
     }
     /**
      * @return EditableNode

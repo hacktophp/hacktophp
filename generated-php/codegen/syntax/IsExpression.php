@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<ca21f6d340049b7ae5a328e941483487>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -88,8 +93,10 @@ final class IsExpression extends EditableNode
         return !$this->_left_operand->isMissing();
     }
     /**
-     * @return FunctionCallWithTypeArgumentsExpression | PipeVariableExpression |
-     * PrefixUnaryExpression | VariableExpression
+     * @return FunctionCallExpression | LiteralExpression |
+     * MemberSelectionExpression | ParenthesizedExpression |
+     * PipeVariableExpression | PrefixUnaryExpression | RightParenToken |
+     * VariableExpression
      */
     /**
      * @return EditableNode
@@ -99,8 +106,10 @@ final class IsExpression extends EditableNode
         return TypeAssert\instance_of(EditableNode::class, $this->_left_operand);
     }
     /**
-     * @return FunctionCallWithTypeArgumentsExpression | PipeVariableExpression |
-     * PrefixUnaryExpression | VariableExpression
+     * @return FunctionCallExpression | LiteralExpression |
+     * MemberSelectionExpression | ParenthesizedExpression |
+     * PipeVariableExpression | PrefixUnaryExpression | RightParenToken |
+     * VariableExpression
      */
     /**
      * @return EditableNode

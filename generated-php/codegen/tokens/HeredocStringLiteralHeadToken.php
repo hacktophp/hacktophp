@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<7389eff8584584ac796099d38e34713e>>
+ */
 namespace Facebook\HHAST;
 
 final class HeredocStringLiteralHeadToken extends EditableTokenWithVariableText

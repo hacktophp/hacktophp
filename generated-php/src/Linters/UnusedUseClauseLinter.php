@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\{ConstToken as ConstToken, EditableList as EditableList, EditableNode as EditableNode, EditableToken as EditableToken, FunctionToken as FunctionToken, INamespaceUseDeclaration as INamespaceUseDeclaration, NamespaceGroupUseDeclaration as NamespaceGroupUseDeclaration, NamespaceUseDeclaration as NamespaceUseDeclaration, NamespaceUseClause as NamespaceUseClause, NamespaceToken as NamespaceToken, NameToken as NameToken, TypeToken as TypeToken, QualifiedName as QualifiedName};

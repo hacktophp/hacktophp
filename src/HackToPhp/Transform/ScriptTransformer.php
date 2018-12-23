@@ -24,7 +24,10 @@ class ScriptTransformer
 								return NodeTransformer::transform($node, $project, $file, $scope);
 							},
 							array_slice($declarations, $i + 1)
-						)
+						),
+						[
+							'comments' => ExpressionTransformer::getTokenComments($declaration->getKeyword())
+						]
 					)
 				];
 			}

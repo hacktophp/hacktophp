@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\{DollarToken as DollarToken, DotToken as DotToken, DoubleQuotedStringLiteralToken as DoubleQuotedStringLiteralToken, DoubleQuotedStringLiteralHeadToken as DoubleQuotedStringLiteralHeadToken, DoubleQuotedStringLiteralTailToken as DoubleQuotedStringLiteralTailToken, EditableList as EditableList, EditableNode as EditableNode, EmbeddedBracedExpression as EmbeddedBracedExpression, HeredocStringLiteralHeadToken as HeredocStringLiteralHeadToken, LiteralExpression as LiteralExpression, NameToken as NameToken, StringLiteralBodyToken as StringLiteralBodyToken, VariableToken as VariableToken};

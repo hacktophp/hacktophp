@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<1422e387045a0f6af092f1f9adf3866c>>
+ */
 namespace Facebook\HHAST;
 
 final class BackslashToken extends EditableTokenWithFixedText

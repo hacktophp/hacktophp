@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<1c046505ac8916bd99667f98144be1a0>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -92,12 +97,13 @@ final class BinaryExpression extends EditableNode
      * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
      * CollectionLiteralExpression | DarrayIntrinsicExpression |
      * DictionaryIntrinsicExpression | EmptyExpression | FunctionCallExpression |
-     * InstanceofExpression | IssetExpression | KeysetIntrinsicExpression |
-     * ListExpression | LiteralExpression | MemberSelectionExpression |
-     * ObjectCreationExpression | ParenthesizedExpression |
-     * PipeVariableExpression | PostfixUnaryExpression | PrefixUnaryExpression |
-     * QualifiedName | ScopeResolutionExpression | SubscriptExpression |
-     * LessThanToken | NameToken | RightBraceToken | VariableExpression |
+     * InstanceofExpression | IsExpression | IssetExpression |
+     * KeysetIntrinsicExpression | ListExpression | LiteralExpression |
+     * MemberSelectionExpression | ObjectCreationExpression |
+     * ParenthesizedExpression | PipeVariableExpression | PostfixUnaryExpression
+     * | PrefixUnaryExpression | QualifiedName | ScopeResolutionExpression |
+     * ShapeExpression | SubscriptExpression | RightParenToken | LessThanToken |
+     * NameToken | RightBraceToken | VariableExpression |
      * VarrayIntrinsicExpression | VectorIntrinsicExpression | XHPExpression
      */
     /**
@@ -112,12 +118,13 @@ final class BinaryExpression extends EditableNode
      * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
      * CollectionLiteralExpression | DarrayIntrinsicExpression |
      * DictionaryIntrinsicExpression | EmptyExpression | FunctionCallExpression |
-     * InstanceofExpression | IssetExpression | KeysetIntrinsicExpression |
-     * ListExpression | LiteralExpression | MemberSelectionExpression |
-     * ObjectCreationExpression | ParenthesizedExpression |
-     * PipeVariableExpression | PostfixUnaryExpression | PrefixUnaryExpression |
-     * QualifiedName | ScopeResolutionExpression | SubscriptExpression |
-     * LessThanToken | NameToken | RightBraceToken | VariableExpression |
+     * InstanceofExpression | IsExpression | IssetExpression |
+     * KeysetIntrinsicExpression | ListExpression | LiteralExpression |
+     * MemberSelectionExpression | ObjectCreationExpression |
+     * ParenthesizedExpression | PipeVariableExpression | PostfixUnaryExpression
+     * | PrefixUnaryExpression | QualifiedName | ScopeResolutionExpression |
+     * ShapeExpression | SubscriptExpression | RightParenToken | LessThanToken |
+     * NameToken | RightBraceToken | VariableExpression |
      * VarrayIntrinsicExpression | VectorIntrinsicExpression | XHPExpression
      */
     /**
@@ -226,17 +233,17 @@ final class BinaryExpression extends EditableNode
      * ConditionalExpression | DarrayIntrinsicExpression |
      * DictionaryIntrinsicExpression | EmptyExpression | EvalExpression |
      * FunctionCallExpression | FunctionCallWithTypeArgumentsExpression |
-     * InclusionExpression | InstanceofExpression | IssetExpression |
-     * KeysetIntrinsicExpression | LambdaExpression | LiteralExpression |
-     * MemberSelectionExpression | null | NullableAsExpression |
-     * ObjectCreationExpression | ParenthesizedExpression | Php7AnonymousFunction
-     * | PipeVariableExpression | PostfixUnaryExpression | PrefixUnaryExpression
-     * | PrefixedStringExpression | QualifiedName | SafeMemberSelectionExpression
-     * | ScopeResolutionExpression | ShapeExpression | SubscriptExpression |
-     * SemicolonToken | QuestionToken | EndOfFileToken | NameToken |
-     * TupleExpression | VariableExpression | VarrayIntrinsicExpression |
-     * VectorIntrinsicExpression | XHPExpression | YieldExpression |
-     * YieldFromExpression
+     * InclusionExpression | InstanceofExpression | IsExpression |
+     * IssetExpression | KeysetIntrinsicExpression | LambdaExpression |
+     * LiteralExpression | MemberSelectionExpression | null |
+     * NullableAsExpression | ObjectCreationExpression | ParenthesizedExpression
+     * | Php7AnonymousFunction | PipeVariableExpression | PostfixUnaryExpression
+     * | PrefixUnaryExpression | PrefixedStringExpression | QualifiedName |
+     * SafeMemberSelectionExpression | ScopeResolutionExpression |
+     * ShapeExpression | SubscriptExpression | SemicolonToken | QuestionToken |
+     * EndOfFileToken | NameToken | TupleExpression | VariableExpression |
+     * VarrayIntrinsicExpression | VectorIntrinsicExpression | XHPExpression |
+     * YieldExpression | YieldFromExpression
      */
     /**
      * @return null|EditableNode
@@ -255,9 +262,9 @@ final class BinaryExpression extends EditableNode
      * ConditionalExpression | DarrayIntrinsicExpression |
      * DictionaryIntrinsicExpression | EmptyExpression | EvalExpression |
      * FunctionCallExpression | FunctionCallWithTypeArgumentsExpression |
-     * InclusionExpression | InstanceofExpression | IssetExpression |
-     * KeysetIntrinsicExpression | LambdaExpression | LiteralExpression |
-     * MemberSelectionExpression | NullableAsExpression |
+     * InclusionExpression | InstanceofExpression | IsExpression |
+     * IssetExpression | KeysetIntrinsicExpression | LambdaExpression |
+     * LiteralExpression | MemberSelectionExpression | NullableAsExpression |
      * ObjectCreationExpression | ParenthesizedExpression | Php7AnonymousFunction
      * | PipeVariableExpression | PostfixUnaryExpression | PrefixUnaryExpression
      * | PrefixedStringExpression | QualifiedName | SafeMemberSelectionExpression

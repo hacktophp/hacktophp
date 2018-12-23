@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<faa12b15f2f839b71a6dad46ab21e861>>
+ */
 namespace Facebook\HHAST;
 
 final class CoroutineToken extends EditableTokenWithVariableText

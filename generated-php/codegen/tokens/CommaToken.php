@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<cd12287bd3a3da25054d7073c1ada813>>
+ */
 namespace Facebook\HHAST;
 
 final class CommaToken extends EditableTokenWithFixedText

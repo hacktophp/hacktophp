@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<4456cfba91b9442a975c974415b35a53>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -99,8 +104,8 @@ final class FunctionCallExpression extends EditableNode
      * @return ArrayCreationExpression | FunctionCallExpression |
      * LiteralExpression | MemberSelectionExpression | ParenthesizedExpression |
      * PrefixUnaryExpression | QualifiedName | SafeMemberSelectionExpression |
-     * ScopeResolutionExpression | SubscriptExpression | IfToken | NameToken |
-     * VariableExpression
+     * ScopeResolutionExpression | SubscriptExpression | GreaterThanToken |
+     * CatchToken | IfToken | NameToken | VariableExpression
      */
     /**
      * @return EditableNode
@@ -113,8 +118,8 @@ final class FunctionCallExpression extends EditableNode
      * @return ArrayCreationExpression | FunctionCallExpression |
      * LiteralExpression | MemberSelectionExpression | ParenthesizedExpression |
      * PrefixUnaryExpression | QualifiedName | SafeMemberSelectionExpression |
-     * ScopeResolutionExpression | SubscriptExpression | IfToken | NameToken |
-     * VariableExpression
+     * ScopeResolutionExpression | SubscriptExpression | GreaterThanToken |
+     * CatchToken | IfToken | NameToken | VariableExpression
      */
     /**
      * @return EditableNode

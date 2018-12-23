@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<dcd276936f4a5700689da460b5b27bdf>>
+ */
 namespace Facebook\HHAST;
 
 final class DarrayToken extends EditableTokenWithVariableText

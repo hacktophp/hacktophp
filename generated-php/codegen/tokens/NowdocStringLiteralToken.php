@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<d19ecaf80c8765e217338d43be830fec>>
+ */
 namespace Facebook\HHAST;
 
 final class NowdocStringLiteralToken extends EditableTokenWithVariableText

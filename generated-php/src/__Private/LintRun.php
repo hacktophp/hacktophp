@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\__Private;
 
 use Facebook\HHAST\Linters\{BaseLinter as BaseLinter, File as File, LinterException as LinterException};
@@ -149,7 +157,7 @@ final class LintRun
                         continue;
                     }
                     $ext = Str\lowercase($info->getExtension());
-                    if ($ext === 'hh' || $ext === 'php') {
+                    if ($ext === 'hh' || $ext === 'php' || $ext === 'hack' || $ext === 'hck') {
                         $files[] = $this->getFileForPath($info->getPathname());
                     }
                 }

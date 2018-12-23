@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<2fe31ec5e096ff30d74231212781c0cf>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -72,8 +77,10 @@ final class ErrorSyntax extends EditableNode
         return !$this->_error->isMissing();
     }
     /**
-     * @return CommaToken | SemicolonToken | EqualToken | DecimalLiteralToken |
-     * NameToken | SingleQuotedStringLiteralToken | VariableToken |
+     * @return LeftParenToken | RightParenToken | PlusToken | CommaToken |
+     * SemicolonToken | LessThanToken | EqualToken | GreaterThanToken |
+     * DecimalLiteralToken | ExtendsToken | IntToken | NameToken |
+     * SingleQuotedStringLiteralToken | StringToken | VariableToken |
      * LeftBraceToken | RightBraceToken
      */
     /**
@@ -84,8 +91,10 @@ final class ErrorSyntax extends EditableNode
         return TypeAssert\instance_of(EditableToken::class, $this->_error);
     }
     /**
-     * @return CommaToken | SemicolonToken | EqualToken | DecimalLiteralToken |
-     * NameToken | SingleQuotedStringLiteralToken | VariableToken |
+     * @return LeftParenToken | RightParenToken | PlusToken | CommaToken |
+     * SemicolonToken | LessThanToken | EqualToken | GreaterThanToken |
+     * DecimalLiteralToken | ExtendsToken | IntToken | NameToken |
+     * SingleQuotedStringLiteralToken | StringToken | VariableToken |
      * LeftBraceToken | RightBraceToken
      */
     /**

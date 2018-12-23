@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<e602ab2015251845bf5bae0403015d06>>
+ */
 namespace Facebook\HHAST;
 
 final class AwaitToken extends EditableTokenWithVariableText

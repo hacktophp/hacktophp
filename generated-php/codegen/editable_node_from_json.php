@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<b3e5dda58e32eed54c8d5ade7868651d>>
+ */
 namespace Facebook\HHAST\__Private;
 
 use Facebook\HHAST as HHAST;
@@ -92,6 +97,8 @@ function editable_node_from_json(array $json, string $file, int $offset, string 
             return HHAST\CollectionLiteralExpression::fromJSON($json, $file, $offset, $source);
         case 'compound_statement':
             return HHAST\CompoundStatement::fromJSON($json, $file, $offset, $source);
+        case 'concurrent_statement':
+            return HHAST\ConcurrentStatement::fromJSON($json, $file, $offset, $source);
         case 'conditional_expression':
             return HHAST\ConditionalExpression::fromJSON($json, $file, $offset, $source);
         case 'const_declaration':
@@ -218,6 +225,8 @@ function editable_node_from_json(array $json, string $file, int $offset, string 
             return HHAST\MemberSelectionExpression::fromJSON($json, $file, $offset, $source);
         case 'methodish_declaration':
             return HHAST\MethodishDeclaration::fromJSON($json, $file, $offset, $source);
+        case 'methodish_trait_resolution':
+            return HHAST\MethodishTraitResolution::fromJSON($json, $file, $offset, $source);
         case 'namespace_body':
             return HHAST\NamespaceBody::fromJSON($json, $file, $offset, $source);
         case 'namespace_declaration':

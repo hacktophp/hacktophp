@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<55be1017dad8694ffb0ba561734d0a9d>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -96,16 +101,15 @@ final class ListItem extends EditableNode
      * NullableTypeSpecifier | ObjectCreationExpression | ParameterDeclaration |
      * ParenthesizedExpression | PipeVariableExpression | PostfixUnaryExpression
      * | PrefixUnaryExpression | PropertyDeclarator | QualifiedName |
-     * ReifiedTypeArgument | SafeMemberSelectionExpression |
-     * ScopeResolutionExpression | ShapeExpression | ShapeTypeSpecifier |
-     * SimpleTypeSpecifier | StaticDeclarator | SubscriptExpression |
-     * XHPCategoryNameToken | ConstToken | NameToken | ReturnToken |
-     * VariableToken | TraitUseAliasItem | TraitUsePrecedenceItem |
-     * TupleExpression | TupleTypeSpecifier | TypeConstant | TypeParameter |
-     * VariableExpression | VariadicParameter | VarrayIntrinsicExpression |
-     * VarrayTypeSpecifier | VectorArrayTypeSpecifier | VectorIntrinsicExpression
-     * | VectorTypeSpecifier | WhereConstraint | XHPClassAttribute |
-     * XHPExpression | XHPSimpleClassAttribute
+     * SafeMemberSelectionExpression | ScopeResolutionExpression |
+     * ShapeExpression | ShapeTypeSpecifier | SimpleTypeSpecifier |
+     * StaticDeclarator | SubscriptExpression | XHPCategoryNameToken | ConstToken
+     * | NameToken | ReturnToken | VariableToken | TraitUseAliasItem |
+     * TraitUsePrecedenceItem | TupleExpression | TupleTypeSpecifier |
+     * TypeConstant | TypeParameter | VariableExpression | VariadicParameter |
+     * VarrayIntrinsicExpression | VarrayTypeSpecifier | VectorArrayTypeSpecifier
+     * | VectorIntrinsicExpression | VectorTypeSpecifier | WhereConstraint |
+     * XHPClassAttribute | XHPExpression | XHPSimpleClassAttribute
      */
     /**
      * @return null|EditableNode
@@ -133,16 +137,16 @@ final class ListItem extends EditableNode
      * MemberSelectionExpression | NamespaceUseClause | NullableTypeSpecifier |
      * ObjectCreationExpression | ParameterDeclaration | ParenthesizedExpression
      * | PipeVariableExpression | PostfixUnaryExpression | PrefixUnaryExpression
-     * | PropertyDeclarator | QualifiedName | ReifiedTypeArgument |
-     * SafeMemberSelectionExpression | ScopeResolutionExpression |
-     * ShapeExpression | ShapeTypeSpecifier | SimpleTypeSpecifier |
-     * StaticDeclarator | SubscriptExpression | XHPCategoryNameToken | ConstToken
-     * | NameToken | ReturnToken | VariableToken | TraitUseAliasItem |
-     * TraitUsePrecedenceItem | TupleExpression | TupleTypeSpecifier |
-     * TypeConstant | TypeParameter | VariableExpression | VariadicParameter |
-     * VarrayIntrinsicExpression | VarrayTypeSpecifier | VectorArrayTypeSpecifier
-     * | VectorIntrinsicExpression | VectorTypeSpecifier | WhereConstraint |
-     * XHPClassAttribute | XHPExpression | XHPSimpleClassAttribute
+     * | PropertyDeclarator | QualifiedName | SafeMemberSelectionExpression |
+     * ScopeResolutionExpression | ShapeExpression | ShapeTypeSpecifier |
+     * SimpleTypeSpecifier | StaticDeclarator | SubscriptExpression |
+     * XHPCategoryNameToken | ConstToken | NameToken | ReturnToken |
+     * VariableToken | TraitUseAliasItem | TraitUsePrecedenceItem |
+     * TupleExpression | TupleTypeSpecifier | TypeConstant | TypeParameter |
+     * VariableExpression | VariadicParameter | VarrayIntrinsicExpression |
+     * VarrayTypeSpecifier | VectorArrayTypeSpecifier | VectorIntrinsicExpression
+     * | VectorTypeSpecifier | WhereConstraint | XHPClassAttribute |
+     * XHPExpression | XHPSimpleClassAttribute
      */
     /**
      * @return EditableNode

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<dd77b2b8bbf0648acd0658b0470810ec>>
+ */
 namespace Facebook\HHAST;
 
 final class StarToken extends EditableTokenWithFixedText

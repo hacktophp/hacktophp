@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<426c12b1880cf2c49e04ad89e32aabf1>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -133,7 +138,8 @@ final class TupleTypeSpecifier extends EditableNode
     }
     /**
      * @return EditableList<EditableNode> | EditableList<SimpleTypeSpecifier> |
-     * EditableList<VectorArrayTypeSpecifier> | EditableList<VectorTypeSpecifier>
+     * EditableList<TupleTypeSpecifier> | EditableList<VectorArrayTypeSpecifier>
+     * | EditableList<VectorTypeSpecifier>
      */
     /**
      * @return EditableList<EditableNode>
@@ -144,7 +150,8 @@ final class TupleTypeSpecifier extends EditableNode
     }
     /**
      * @return EditableList<EditableNode> | EditableList<SimpleTypeSpecifier> |
-     * EditableList<VectorArrayTypeSpecifier> | EditableList<VectorTypeSpecifier>
+     * EditableList<TupleTypeSpecifier> | EditableList<VectorArrayTypeSpecifier>
+     * | EditableList<VectorTypeSpecifier>
      */
     /**
      * @return EditableList<EditableNode>

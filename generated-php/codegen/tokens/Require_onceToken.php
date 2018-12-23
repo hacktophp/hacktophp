@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<237663ded115f0a036265fb61aa07235>>
+ */
 namespace Facebook\HHAST;
 
 final class Require_onceToken extends EditableTokenWithVariableText

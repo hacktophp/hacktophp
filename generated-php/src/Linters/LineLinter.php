@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\Linters\{BaseLinter as BaseLinter};
@@ -23,12 +31,12 @@ abstract class LineLinter extends BaseLinter
         return idx($this->getLinesFromFile(), $l);
     }
     /**
-     * @return \Sabre\Event\Promise<Traversable<Terror>>
+     * @return \Sabre\Event\Promise<array<int, Terror>>
      */
     public function getLintErrorsAsync()
     {
         return \Sabre\Event\coroutine(
-            /** @return \Generator<int, mixed, void, Traversable<Terror>> */
+            /** @return \Generator<int, mixed, void, array<int, Terror>> */
             function () : \Generator {
                 $lines = $this->getLinesFromFile();
                 $errs = array();
@@ -57,7 +65,7 @@ abstract class LineLinter extends BaseLinter
     }
     /** Parse a single line of code and attempts to find lint errors */
     /**
-     * @return Traversable<Terror>
+     * @return iterable<mixed, Terror>
      */
     public abstract function getLintErrorsForLine(string $line, int $line_number);
 }

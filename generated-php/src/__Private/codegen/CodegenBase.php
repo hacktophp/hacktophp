@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\__Private;
 
 use Facebook\HackCodegen\{HackCodegenConfig as HackCodegenConfig, HackCodegenFactory as HackCodegenFactory, HackfmtFormatter as HackfmtFormatter};
@@ -6,7 +14,7 @@ use HH\Lib\{C as C, Dict as Dict, Vec as Vec};
 abstract class CodegenBase
 {
     /**
-     * @var array{trivia:Schema\Traversable<array{trivia_kind_name:string, trivia_type_name:string}>, tokens:Schema\Traversable<array{token_kind:string, token_text:null|string}>, AST:Schema\Traversable<array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>}>, description:string, version:string}
+     * @var array{trivia:iterable<mixed, array{trivia_kind_name:string, trivia_type_name:string}>, tokens:iterable<mixed, array{token_kind:string, token_text:null|string}>, AST:iterable<mixed, array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>}>, description:string, version:string}
      */
     private $schema;
     /**
@@ -47,7 +55,7 @@ abstract class CodegenBase
         return new HackCodegenFactory($config->withFormatter(new HackfmtFormatter($config)));
     }
     /**
-     * @return array{trivia:Schema\Traversable<array{trivia_kind_name:string, trivia_type_name:string}>, tokens:Schema\Traversable<array{token_kind:string, token_text:null|string}>, AST:Schema\Traversable<array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>}>, description:string, version:string}
+     * @return array{trivia:iterable<mixed, array{trivia_kind_name:string, trivia_type_name:string}>, tokens:iterable<mixed, array{token_kind:string, token_text:null|string}>, AST:iterable<mixed, array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>}>, description:string, version:string}
      */
     protected final function getSchema()
     {
@@ -81,7 +89,7 @@ abstract class CodegenBase
         return $ret;
     }
     /**
-     * @return array<string, array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>}>
+     * @return array<string, array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>}>
      */
     protected function getSchemaASTByKindName()
     {

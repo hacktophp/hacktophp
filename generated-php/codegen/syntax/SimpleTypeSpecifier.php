@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<2d5a6ff24cad262808e1b227d6ba82dd>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -75,9 +80,9 @@ final class SimpleTypeSpecifier extends EditableNode
      * @return QualifiedName | XHPClassNameToken | ConstructToken | ArrayToken |
      * ArraykeyToken | BoolToken | BooleanToken | DarrayToken | DictToken |
      * DoubleToken | FloatToken | IntToken | IntegerToken | KeysetToken |
-     * MixedToken | NameToken | NoreturnToken | NumToken | ObjectToken |
-     * ParentToken | RealToken | ResourceToken | SelfToken | StringToken |
-     * ThisToken | VarToken | VarrayToken | VecToken | VoidToken
+     * MixedToken | NameToken | NoreturnToken | NullLiteralToken | NumToken |
+     * ObjectToken | ParentToken | RealToken | ResourceToken | SelfToken |
+     * StringToken | ThisToken | VarToken | VarrayToken | VecToken | VoidToken
      */
     /**
      * @return EditableNode
@@ -90,9 +95,9 @@ final class SimpleTypeSpecifier extends EditableNode
      * @return QualifiedName | XHPClassNameToken | ConstructToken | ArrayToken |
      * ArraykeyToken | BoolToken | BooleanToken | DarrayToken | DictToken |
      * DoubleToken | FloatToken | IntToken | IntegerToken | KeysetToken |
-     * MixedToken | NameToken | NoreturnToken | NumToken | ObjectToken |
-     * ParentToken | RealToken | ResourceToken | SelfToken | StringToken |
-     * ThisToken | VarToken | VarrayToken | VecToken | VoidToken
+     * MixedToken | NameToken | NoreturnToken | NullLiteralToken | NumToken |
+     * ObjectToken | ParentToken | RealToken | ResourceToken | SelfToken |
+     * StringToken | ThisToken | VarToken | VarrayToken | VecToken | VoidToken
      */
     /**
      * @return EditableNode

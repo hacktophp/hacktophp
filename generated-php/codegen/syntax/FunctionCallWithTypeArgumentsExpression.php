@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<1784a6cb61eaac5c1869e675b74d70f6>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -237,7 +242,7 @@ final class FunctionCallWithTypeArgumentsExpression extends EditableNode
     }
     /**
      * @return EditableList<EditableNode> | EditableList<LiteralExpression> |
-     * EditableList<TupleExpression> | EditableList<VariableExpression> | null
+     * EditableList<VariableExpression> | null
      */
     /**
      * @return EditableList<EditableNode>|null
@@ -251,7 +256,7 @@ final class FunctionCallWithTypeArgumentsExpression extends EditableNode
     }
     /**
      * @return EditableList<EditableNode> | EditableList<LiteralExpression> |
-     * EditableList<TupleExpression> | EditableList<VariableExpression>
+     * EditableList<VariableExpression>
      */
     /**
      * @return EditableList<EditableNode>

@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\__Private;
 
 use Facebook\HackCodegen\{CodegenClass as CodegenClass, CodegenConstructor as CodegenConstructor, CodegenMethod as CodegenMethod, HackBuilderKeys as HackBuilderKeys, HackBuilderValues as HackBuilderValues};
@@ -20,7 +28,7 @@ final class CodegenSyntax extends CodegenBase
         }
     }
     /**
-     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>} $syntax
+     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>} $syntax
      *
      * @return bool
      */
@@ -29,7 +37,7 @@ final class CodegenSyntax extends CodegenBase
         return C\contains_key(self::getKindsWithManualSubclasses(), $syntax['kind_name']);
     }
     /**
-     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>} $syntax
+     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>} $syntax
      *
      * @return CodegenClass
      */
@@ -93,9 +101,9 @@ final class CodegenSyntax extends CodegenBase
         return 'EditableNode';
     }
     /**
-     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>} $syntax
+     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>} $syntax
      *
-     * @return Traversable<CodegenMethod>
+     * @return iterable<mixed, CodegenMethod>
      */
     private function generateFieldMethods($syntax, string $underscored)
     {
@@ -122,7 +130,7 @@ final class CodegenSyntax extends CodegenBase
         })))->setReturnType($spec['class'])->setBodyf('return TypeAssert\\instance_of(%s::class, $this->_%s);', C\firstx(\explode('<', $spec['class'])), $underscored));
     }
     /**
-     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>} $syntax
+     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>} $syntax
      *
      * @return CodegenConstructor
      */
@@ -136,7 +144,7 @@ final class CodegenSyntax extends CodegenBase
         }, $syntax['fields']))->getCode());
     }
     /**
-     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>} $syntax
+     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>} $syntax
      *
      * @return CodegenMethod
      */
@@ -152,7 +160,7 @@ final class CodegenSyntax extends CodegenBase
         }, $syntax['fields']))->getCode());
     }
     /**
-     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>} $syntax
+     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>} $syntax
      *
      * @return CodegenMethod
      */
@@ -168,7 +176,7 @@ final class CodegenSyntax extends CodegenBase
         }), HackBuilderValues::dict(HackBuilderKeys::export(), HackBuilderValues::literal()))->add(';')->getCode());
     }
     /**
-     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>} $syntax
+     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>} $syntax
      *
      * @return CodegenMethod
      */
@@ -191,7 +199,7 @@ final class CodegenSyntax extends CodegenBase
         }, $fields))->getCode());
     }
     /**
-     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>} $syntax
+     * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>} $syntax
      *
      * @return mixed
      */

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<797a99a4f0c850d130d7fc8ca0e82be5>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -100,7 +105,8 @@ final class SubscriptExpression extends EditableNode
      * FunctionCallExpression | LiteralExpression | MemberSelectionExpression |
      * ParenthesizedExpression | PrefixUnaryExpression |
      * SafeMemberSelectionExpression | ScopeResolutionExpression |
-     * SubscriptExpression | RightParenToken | NameToken | VariableExpression
+     * SubscriptExpression | RightParenToken | NameToken | TryToken |
+     * VariableExpression
      */
     /**
      * @return EditableNode
@@ -114,7 +120,8 @@ final class SubscriptExpression extends EditableNode
      * FunctionCallExpression | LiteralExpression | MemberSelectionExpression |
      * ParenthesizedExpression | PrefixUnaryExpression |
      * SafeMemberSelectionExpression | ScopeResolutionExpression |
-     * SubscriptExpression | RightParenToken | NameToken | VariableExpression
+     * SubscriptExpression | RightParenToken | NameToken | TryToken |
+     * VariableExpression
      */
     /**
      * @return EditableNode
@@ -197,7 +204,7 @@ final class SubscriptExpression extends EditableNode
      * MemberSelectionExpression | null | ObjectCreationExpression |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
      * SafeMemberSelectionExpression | ScopeResolutionExpression |
-     * SubscriptExpression | EchoToken | NameToken | ReturnToken |
+     * SubscriptExpression | EchoToken | NameToken | ReturnToken | ThrowToken |
      * VariableExpression
      */
     /**
@@ -216,7 +223,7 @@ final class SubscriptExpression extends EditableNode
      * MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
      * SafeMemberSelectionExpression | ScopeResolutionExpression |
-     * SubscriptExpression | EchoToken | NameToken | ReturnToken |
+     * SubscriptExpression | EchoToken | NameToken | ReturnToken | ThrowToken |
      * VariableExpression
      */
     /**

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<f4b9e34684eacae559c66d29445b7984>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -176,13 +181,16 @@ final class TypeParameters extends EditableNode
         return !$this->_right_angle->isMissing();
     }
     /**
-     * @return GreaterThanToken
+     * @return null | GreaterThanToken
      */
     /**
-     * @return GreaterThanToken
+     * @return null|GreaterThanToken
      */
     public function getRightAngle()
     {
+        if ($this->_right_angle->isMissing()) {
+            return null;
+        }
         return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
     }
     /**
@@ -193,7 +201,7 @@ final class TypeParameters extends EditableNode
      */
     public function getRightAnglex()
     {
-        return $this->getRightAngle();
+        return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
     }
 }
 

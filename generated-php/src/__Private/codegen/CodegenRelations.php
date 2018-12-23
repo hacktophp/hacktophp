@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\__Private;
 
 use Facebook\HHAST as HHAST;
@@ -14,7 +22,7 @@ final class CodegenRelations extends CodegenBase
     /**
      * @var string
      *
-     * @param array{trivia:Schema\Traversable<array{trivia_kind_name:string, trivia_type_name:string}>, tokens:Schema\Traversable<array{token_kind:string, token_text:null|string}>, AST:Schema\Traversable<array{kind_name:string, type_name:string, description:string, prefix:string, fields:Schema\Traversable<array{field_name:string}>}>, description:string, version:string} $schema
+     * @param array{trivia:iterable<mixed, array{trivia_kind_name:string, trivia_type_name:string}>, tokens:iterable<mixed, array{token_kind:string, token_text:null|string}>, AST:iterable<mixed, array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>}>, description:string, version:string} $schema
      */
     public function __construct(string $hhvmRoot, $schema)
     {
@@ -120,7 +128,7 @@ final class CodegenRelations extends CodegenBase
         });
     }
     /**
-     * @return Traversable<string>
+     * @return iterable<mixed, string>
      */
     private function getTestFilesInDirectory(string $root)
     {
@@ -209,7 +217,7 @@ final class CodegenRelations extends CodegenBase
     /**
      * @param array<string, mixed> $json
      *
-     * @return Traversable<array<string, mixed>>
+     * @return iterable<mixed, array<string, mixed>>
      */
     public function flatten(array $json)
     {

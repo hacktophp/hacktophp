@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\Linters;
 
 use HH\Lib\{C as C, Math as Math, Str as Str, Vec as Vec};
@@ -6,12 +14,12 @@ final class NewlineAtEndOfFileLinter extends BaseLinter implements AutoFixingLin
 {
     use AutoFixingLinterTrait;
     /**
-     * @return \Sabre\Event\Promise<Traversable<LintError>>
+     * @return \Sabre\Event\Promise<array<int, LintError>>
      */
     public function getLintErrorsAsync()
     {
         return \Sabre\Event\coroutine(
-            /** @return \Generator<int, mixed, void, Traversable<LintError>> */
+            /** @return \Generator<int, mixed, void, array<int, LintError>> */
             function () : \Generator {
                 $contents = $this->getFile()->getContents();
                 $fixed = $this->getFixedFile(array())->getContents();
@@ -46,11 +54,11 @@ final class NewlineAtEndOfFileLinter extends BaseLinter implements AutoFixingLin
         return 'Replace trailng whitespace with newline';
     }
     /**
-     * @param Traversable<LintError> $_
+     * @param iterable<mixed, LintError> $_
      *
      * @return File
      */
-    public function getFixedFile(Traversable $_)
+    public function getFixedFile(iterable $_)
     {
         return $this->getFile()->withContents(Str\trim_right($this->getFile()->getContents()) . '
 ');

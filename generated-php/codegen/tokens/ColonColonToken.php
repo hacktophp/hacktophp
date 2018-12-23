@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<1a49d8f88aa02cee60badd8039b5dd5a>>
+ */
 namespace Facebook\HHAST;
 
 final class ColonColonToken extends EditableTokenWithFixedText

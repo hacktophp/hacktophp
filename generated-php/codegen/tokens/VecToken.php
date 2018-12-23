@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<41a547f321642e88b0d7034b0c13cff8>>
+ */
 namespace Facebook\HHAST;
 
 final class VecToken extends EditableTokenWithVariableText

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<42cdb156fbdc1eda1880779da164fa2e>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -86,13 +91,13 @@ final class ExpressionStatement extends EditableNode
      * DictionaryIntrinsicExpression | EmptyExpression | EvalExpression |
      * FunctionCallExpression | FunctionCallWithTypeArgumentsExpression |
      * HaltCompilerExpression | InclusionExpression | InstanceofExpression |
-     * IssetExpression | LambdaExpression | LiteralExpression |
+     * IsExpression | IssetExpression | LambdaExpression | LiteralExpression |
      * MemberSelectionExpression | null | ObjectCreationExpression |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
      * QualifiedName | SafeMemberSelectionExpression | ScopeResolutionExpression
-     * | SubscriptExpression | RightParenToken | CommaToken | ColonToken |
-     * EqualEqualEqualToken | EqualGreaterThanToken | ConstToken | NameToken |
-     * UseToken | RightBraceToken | VariableExpression |
+     * | ShapeExpression | SubscriptExpression | RightParenToken | CommaToken |
+     * ColonToken | EqualEqualEqualToken | EqualGreaterThanToken | ConstToken |
+     * NameToken | UseToken | RightBraceToken | VariableExpression |
      * VarrayIntrinsicExpression | XHPExpression | YieldExpression |
      * YieldFromExpression
      */
@@ -113,13 +118,13 @@ final class ExpressionStatement extends EditableNode
      * DictionaryIntrinsicExpression | EmptyExpression | EvalExpression |
      * FunctionCallExpression | FunctionCallWithTypeArgumentsExpression |
      * HaltCompilerExpression | InclusionExpression | InstanceofExpression |
-     * IssetExpression | LambdaExpression | LiteralExpression |
+     * IsExpression | IssetExpression | LambdaExpression | LiteralExpression |
      * MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
      * QualifiedName | SafeMemberSelectionExpression | ScopeResolutionExpression
-     * | SubscriptExpression | RightParenToken | CommaToken | ColonToken |
-     * EqualEqualEqualToken | EqualGreaterThanToken | ConstToken | NameToken |
-     * UseToken | RightBraceToken | VariableExpression |
+     * | ShapeExpression | SubscriptExpression | RightParenToken | CommaToken |
+     * ColonToken | EqualEqualEqualToken | EqualGreaterThanToken | ConstToken |
+     * NameToken | UseToken | RightBraceToken | VariableExpression |
      * VarrayIntrinsicExpression | XHPExpression | YieldExpression |
      * YieldFromExpression
      */

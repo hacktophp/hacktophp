@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<9a6730df8d9c115e5fa9613db2d34fc4>>
+ */
 namespace Facebook\HHAST;
 
 final class BreakToken extends EditableTokenWithVariableText

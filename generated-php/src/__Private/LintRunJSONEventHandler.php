@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\__Private;
 
 use Facebook\CLILib\ITerminal as ITerminal;
@@ -20,11 +28,11 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
     public function __construct(ITerminal $terminal);
     /**
      * @param mixed $_config
-     * @param Traversable<Linters\LintError> $errors
+     * @param iterable<mixed, Linters\LintError> $errors
      *
      * @return \Sabre\Event\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
      */
-    public function linterRaisedErrorsAsync(Linters\BaseLinter $_linter, $_config, Traversable $errors)
+    public function linterRaisedErrorsAsync(Linters\BaseLinter $_linter, $_config, iterable $errors)
     {
         return \Sabre\Event\coroutine(
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */
@@ -63,11 +71,11 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
         return array('passed' => !$this->errors, 'errors' => $this->errors);
     }
     /**
-     * @param Traversable<Linters\LintError> $errors
+     * @param iterable<mixed, Linters\LintError> $errors
      *
      * @return array<int, mixed>
      */
-    private static function transformErrors(Traversable $errors)
+    private static function transformErrors(iterable $errors)
     {
         return \array_map(function ($error) use($range, $start, $end) {
             $range = $error->getRange();

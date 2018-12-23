@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<a81108032d005501ae42d6a670761a8d>>
+ */
 namespace Facebook\HHAST;
 
 final class DoubleQuotedStringLiteralToken extends EditableTokenWithVariableText

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<0cfd0237442f7edbac968977d9c7e7cd>>
+ */
 namespace Facebook\HHAST;
 
 final class HaltCompilerToken extends EditableTokenWithVariableText

@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\__Private;
 
 use HH\Lib\{C as C, Str as Str, Vec as Vec};
@@ -98,7 +106,7 @@ final class CodegenTokens extends CodegenBase
     /**
      * @param mixed $token
      *
-     * @return Traversable<CodegenMethod>
+     * @return iterable<mixed, CodegenMethod>
      */
     private function generateFieldMethods($token)
     {

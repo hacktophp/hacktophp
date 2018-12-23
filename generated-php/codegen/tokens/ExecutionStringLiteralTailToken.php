@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<7f75390715b185843ba5950b3060e2cc>>
+ */
 namespace Facebook\HHAST;
 
 final class ExecutionStringLiteralTailToken extends EditableTokenWithVariableText

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<958b018fbe4e0b9149e311850f5bd5f8>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -88,8 +93,8 @@ final class FieldInitializer extends EditableNode
         return !$this->_name->isMissing();
     }
     /**
-     * @return LiteralExpression | ScopeResolutionExpression | QuestionToken |
-     * VariableExpression
+     * @return LiteralExpression | ScopeResolutionExpression | DotDotDotToken |
+     * QuestionToken | VariableExpression
      */
     /**
      * @return EditableNode
@@ -99,8 +104,8 @@ final class FieldInitializer extends EditableNode
         return TypeAssert\instance_of(EditableNode::class, $this->_name);
     }
     /**
-     * @return LiteralExpression | ScopeResolutionExpression | QuestionToken |
-     * VariableExpression
+     * @return LiteralExpression | ScopeResolutionExpression | DotDotDotToken |
+     * QuestionToken | VariableExpression
      */
     /**
      * @return EditableNode
@@ -134,13 +139,16 @@ final class FieldInitializer extends EditableNode
         return !$this->_arrow->isMissing();
     }
     /**
-     * @return EqualGreaterThanToken
+     * @return null | EqualGreaterThanToken
      */
     /**
-     * @return EqualGreaterThanToken
+     * @return null|EqualGreaterThanToken
      */
     public function getArrow()
     {
+        if ($this->_arrow->isMissing()) {
+            return null;
+        }
         return TypeAssert\instance_of(EqualGreaterThanToken::class, $this->_arrow);
     }
     /**
@@ -151,7 +159,7 @@ final class FieldInitializer extends EditableNode
      */
     public function getArrowx()
     {
-        return $this->getArrow();
+        return TypeAssert\instance_of(EqualGreaterThanToken::class, $this->_arrow);
     }
     /**
      * @return EditableNode

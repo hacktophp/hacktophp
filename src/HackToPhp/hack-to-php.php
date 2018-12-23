@@ -12,10 +12,14 @@ $valid_long_options = [
 
 $options = getopt(implode('', $valid_short_options), $valid_long_options);
 
-$input_path = $options['input'] ?? null;
+$input_paths = $options['input'] ?? null;
 $output_path = $options['output'] ?? null;
 
-if (!is_string($input_path)) {
+if (is_string($input_paths)) {
+	$input_paths = [$input_paths];
+}
+
+if (!is_array($input_paths) || !$input_paths) {
 	die('Expecting input folder' . PHP_EOL);
 }
 
@@ -23,8 +27,36 @@ if (!is_string($output_path)) {
 	die('Expecting output folder' . PHP_EOL);
 }
 
-if (!file_exists($input_path)) {
-	die('Input file/folder does not exist' . PHP_EOL);
+$working_dir = getcwd() . DIRECTORY_SEPARATOR;
+
+$common_path = null;
+
+foreach ($input_paths as $i => $input_path) {
+	if (!file_exists($working_dir . $input_path)) {
+		die('Input ' . $working_dir . $input_path . ' does not exist' . PHP_EOL);
+	}
+
+	$input_path = $input_paths[$i] = realpath($working_dir . $input_path);
+
+	if ($common_path === null) {
+		$common_path = $input_path;
+	} else {
+		$path_parts = explode(DIRECTORY_SEPARATOR, $common_path);
+
+		$new_common_path = array_shift($path_parts);
+
+		while ($path_parts) {
+			$new_path = $new_common_path . DIRECTORY_SEPARATOR . $path_parts[0];
+			
+			if (preg_match('/^' . preg_quote($new_path, '//') . '/', $input_path)) {
+				$new_common_path .= DIRECTORY_SEPARATOR . array_shift($path_parts);
+			} else {
+				break;
+			}
+		}
+
+		$common_path = $new_common_path;
+	}
 }
 
 if (!file_exists($output_path)) {
@@ -36,14 +68,7 @@ if (!file_exists($output_path)) {
 	}
 } else {
 	$output_path = realpath($output_path);
-
-	if (is_dir($output_path) && !is_dir($input_path)) {
-		die('Output path must be a file if input path is' . PHP_EOL);
-	}
 }
-
-$input_path = realpath($input_path);
-
 
 /**
  * @param string $dir_path
@@ -73,14 +98,35 @@ function getFilesInDir($dir_path, array $file_extensions)
     return $file_paths;
 }
 
-$input_file_paths = is_dir($input_path) ? getFilesInDir($input_path, ['php']) : [$input_path];
+$input_file_paths = [];
 
+foreach ($input_paths as $input_path) {
+	if (is_dir($input_path)) {
+		$dir_input_file_paths = getFilesInDir($input_path, ['php']) ;
+
+		foreach ($dir_input_file_paths as $dir_input_file_path) {
+			$stubbed_path = preg_replace('/^' . preg_quote($common_path, '//') . '/', '', $dir_input_file_path);
+			$output_file_path = $output_path . $stubbed_path;
+			
+			if (!file_exists(dirname($output_file_path))) {
+				mkdir(dirname($output_file_path), 0777, true);
+			}
+
+			$input_file_paths[$dir_input_file_path] = $output_file_path;
+		}
+	} else {
+		if (is_dir($output_path)) {
+			die('If input path is a file, output path must be as well');
+		}
+		$input_file_paths[$input_path] = $output_path;
+	}
+}
 
 $project = new HackToPhp\Transform\Project();
 
 echo 'Looking for types' . PHP_EOL;
 
-foreach ($input_file_paths as $input_file_path) {
+foreach ($input_file_paths as $input_file_path => $_) {
 	$ast = Facebook\HHAST\from_file($input_file_path);
 	HackToPhp\Transform\TypeCollector::collect(
 		$ast,
@@ -92,7 +138,7 @@ foreach ($input_file_paths as $input_file_path) {
 
 echo 'Converting files' . PHP_EOL;
 
-foreach ($input_file_paths as $input_file_path) {
+foreach ($input_file_paths as $input_file_path => $output_file_path) {
 	$ast = Facebook\HHAST\from_file($input_file_path);
 	echo 'Transforming ' . $input_file_path . PHP_EOL;
 	$stmts = HackToPhp\Transform\NodeTransformer::transform(
@@ -105,19 +151,8 @@ foreach ($input_file_paths as $input_file_path) {
 	$prettyPrinter = new \PhpParser\PrettyPrinter\Standard;
 	$file_output = '<?php' . PHP_EOL . $prettyPrinter->prettyPrint($stmts) . PHP_EOL;
 	
-	if ($input_file_path === $input_path) {
-		//echo $file_output;
-		echo 'Saving to ' . $output_path . PHP_EOL;
-		file_put_contents($output_path, $file_output);
-	} else {
-		$stubbed_path = preg_replace('/^' . preg_quote($input_path, '//') . '/', '', $input_file_path);
-		$output_file_path = $output_path . $stubbed_path;
-		if (!file_exists(dirname($output_file_path))) {
-			mkdir(dirname($output_file_path), 0777, true);
-		}
-		//echo $file_output;
-		echo 'Saving to ' . $output_file_path . PHP_EOL;
-		file_put_contents($output_file_path, $file_output);
-	}
+	//echo $file_output;
+	echo 'Saving to ' . $output_file_path . PHP_EOL;
+	file_put_contents($output_file_path, $file_output);
 }
 

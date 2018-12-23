@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<f5a4fe78fb1e65d5a4d454a23cd47af2>>
+ */
 namespace Facebook\HHAST;
 
 final class RequiredToken extends EditableTokenWithVariableText

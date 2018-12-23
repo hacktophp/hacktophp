@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<6bcfa249e5eeeca8920d468d47f2b738>>
+ */
 namespace Facebook\HHAST;
 
 final class LeftBraceToken extends EditableTokenWithFixedText

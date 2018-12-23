@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<3a66aa9928a1a85f83cd97c122a1fea1>>
+ */
 namespace Facebook\HHAST;
 
 final class XHPBodyToken extends EditableTokenWithVariableText

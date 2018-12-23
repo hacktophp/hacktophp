@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<5ce396a70aca4e4679fc3dd480989601>>
+ */
 namespace Facebook\HHAST;
 
 final class XorToken extends EditableTokenWithVariableText

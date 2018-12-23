@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<622280109da024471064b84230d4ad71>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -88,9 +93,9 @@ final class AsExpression extends EditableNode
         return !$this->_left_operand->isMissing();
     }
     /**
-     * @return CollectionLiteralExpression | LiteralExpression |
-     * MemberSelectionExpression | ParenthesizedExpression | TupleExpression |
-     * VariableExpression
+     * @return CollectionLiteralExpression | FunctionCallExpression |
+     * LiteralExpression | MemberSelectionExpression | ParenthesizedExpression |
+     * TupleExpression | VariableExpression
      */
     /**
      * @return EditableNode
@@ -100,9 +105,9 @@ final class AsExpression extends EditableNode
         return TypeAssert\instance_of(EditableNode::class, $this->_left_operand);
     }
     /**
-     * @return CollectionLiteralExpression | LiteralExpression |
-     * MemberSelectionExpression | ParenthesizedExpression | TupleExpression |
-     * VariableExpression
+     * @return CollectionLiteralExpression | FunctionCallExpression |
+     * LiteralExpression | MemberSelectionExpression | ParenthesizedExpression |
+     * TupleExpression | VariableExpression
      */
     /**
      * @return EditableNode
@@ -180,8 +185,9 @@ final class AsExpression extends EditableNode
         return !$this->_right_operand->isMissing();
     }
     /**
-     * @return ClosureTypeSpecifier | NullableTypeSpecifier | ShapeTypeSpecifier
-     * | SimpleTypeSpecifier | SoftTypeSpecifier | TupleTypeSpecifier
+     * @return ClosureTypeSpecifier | GenericTypeSpecifier |
+     * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
+     * SoftTypeSpecifier | TupleTypeSpecifier
      */
     /**
      * @return EditableNode
@@ -191,8 +197,9 @@ final class AsExpression extends EditableNode
         return TypeAssert\instance_of(EditableNode::class, $this->_right_operand);
     }
     /**
-     * @return ClosureTypeSpecifier | NullableTypeSpecifier | ShapeTypeSpecifier
-     * | SimpleTypeSpecifier | SoftTypeSpecifier | TupleTypeSpecifier
+     * @return ClosureTypeSpecifier | GenericTypeSpecifier |
+     * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
+     * SoftTypeSpecifier | TupleTypeSpecifier
      */
     /**
      * @return EditableNode

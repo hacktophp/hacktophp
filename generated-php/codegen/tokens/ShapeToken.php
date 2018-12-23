@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<9f91fff2cdd526df78fbb41bc1a352cf>>
+ */
 namespace Facebook\HHAST;
 
 final class ShapeToken extends EditableTokenWithVariableText

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<55a7fe5d6d7ebc95c3b32d3cf4fe2b07>>
+ */
 namespace Facebook\HHAST;
 
 final class MixedToken extends EditableTokenWithVariableText

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<fc53fd25665ea7ec00367d79ceddc299>>
+ */
 namespace Facebook\HHAST;
 
 final class AtToken extends EditableTokenWithFixedText

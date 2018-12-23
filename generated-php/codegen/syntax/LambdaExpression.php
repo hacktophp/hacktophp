@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<dea38ef6a8d31d9576828daa23cace07>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -343,9 +348,10 @@ final class LambdaExpression extends EditableNode
     /**
      * @return ArrayIntrinsicExpression | BinaryExpression | CastExpression |
      * CompoundStatement | ConditionalExpression | FunctionCallExpression |
-     * LambdaExpression | LiteralExpression | MemberSelectionExpression |
-     * ObjectCreationExpression | ParenthesizedExpression | PrefixUnaryExpression
-     * | SubscriptExpression | VariableExpression
+     * IsExpression | LambdaExpression | LiteralExpression |
+     * MemberSelectionExpression | ObjectCreationExpression |
+     * ParenthesizedExpression | PrefixUnaryExpression | SubscriptExpression |
+     * VariableExpression
      */
     /**
      * @return EditableNode
@@ -357,9 +363,10 @@ final class LambdaExpression extends EditableNode
     /**
      * @return ArrayIntrinsicExpression | BinaryExpression | CastExpression |
      * CompoundStatement | ConditionalExpression | FunctionCallExpression |
-     * LambdaExpression | LiteralExpression | MemberSelectionExpression |
-     * ObjectCreationExpression | ParenthesizedExpression | PrefixUnaryExpression
-     * | SubscriptExpression | VariableExpression
+     * IsExpression | LambdaExpression | LiteralExpression |
+     * MemberSelectionExpression | ObjectCreationExpression |
+     * ParenthesizedExpression | PrefixUnaryExpression | SubscriptExpression |
+     * VariableExpression
      */
     /**
      * @return EditableNode

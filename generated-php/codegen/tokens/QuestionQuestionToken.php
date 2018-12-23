@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<56bf279972581732cdbb6f5579f35559>>
+ */
 namespace Facebook\HHAST;
 
 final class QuestionQuestionToken extends EditableTokenWithFixedText

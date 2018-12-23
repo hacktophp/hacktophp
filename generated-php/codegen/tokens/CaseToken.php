@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<3b1684c6ff096435a2ccf07d36c8fc68>>
+ */
 namespace Facebook\HHAST;
 
 final class CaseToken extends EditableTokenWithVariableText

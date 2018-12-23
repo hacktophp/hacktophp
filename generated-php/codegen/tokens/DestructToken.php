@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<d73ddf83481d12a23575aaf53924017c>>
+ */
 namespace Facebook\HHAST;
 
 final class DestructToken extends EditableTokenWithVariableText

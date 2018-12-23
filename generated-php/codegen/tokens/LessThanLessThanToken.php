@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<d24036e642d237450510ca07e6536651>>
+ */
 namespace Facebook\HHAST;
 
 final class LessThanLessThanToken extends EditableTokenWithFixedText

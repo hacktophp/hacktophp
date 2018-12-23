@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<8e67dd198969c8969652d86f1944f619>>
+ */
 namespace Facebook\HHAST;
 
 final class PercentEqualToken extends EditableTokenWithFixedText

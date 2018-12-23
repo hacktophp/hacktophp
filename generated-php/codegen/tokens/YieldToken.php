@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<97938a089cb2c157302c7bc43f9bfbd9>>
+ */
 namespace Facebook\HHAST;
 
 final class YieldToken extends EditableTokenWithVariableText

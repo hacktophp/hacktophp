@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<88cb887684e9bfd5708423c36a26493c>>
+ */
 namespace Facebook\HHAST;
 
 final class SuspendToken extends EditableTokenWithVariableText

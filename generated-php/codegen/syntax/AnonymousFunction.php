@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<fbc33bbb5560b7f04f8c84ef48b49a77>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -639,7 +644,8 @@ final class AnonymousFunction extends EditableNode
     /**
      * @return ClosureTypeSpecifier | GenericTypeSpecifier |
      * MapArrayTypeSpecifier | null | NullableTypeSpecifier | SimpleTypeSpecifier
-     * | SoftTypeSpecifier | TupleTypeSpecifier | VectorArrayTypeSpecifier
+     * | SoftTypeSpecifier | TupleTypeSpecifier | VectorArrayTypeSpecifier |
+     * VectorTypeSpecifier
      */
     /**
      * @return null|EditableNode
@@ -654,7 +660,8 @@ final class AnonymousFunction extends EditableNode
     /**
      * @return ClosureTypeSpecifier | GenericTypeSpecifier |
      * MapArrayTypeSpecifier | NullableTypeSpecifier | SimpleTypeSpecifier |
-     * SoftTypeSpecifier | TupleTypeSpecifier | VectorArrayTypeSpecifier
+     * SoftTypeSpecifier | TupleTypeSpecifier | VectorArrayTypeSpecifier |
+     * VectorTypeSpecifier
      */
     /**
      * @return EditableNode

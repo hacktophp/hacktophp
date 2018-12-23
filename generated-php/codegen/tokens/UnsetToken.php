@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<76faacca21baf19db71368c6aae215b1>>
+ */
 namespace Facebook\HHAST;
 
 final class UnsetToken extends EditableTokenWithVariableText

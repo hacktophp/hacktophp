@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<353df4653399174cf493a48886333f8c>>
+ */
 namespace Facebook\HHAST;
 
 final class DecimalLiteralToken extends EditableTokenWithVariableText

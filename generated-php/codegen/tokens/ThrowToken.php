@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<4940c60c99cc13905eabb86edd818a30>>
+ */
 namespace Facebook\HHAST;
 
 final class ThrowToken extends EditableTokenWithVariableText

@@ -1,4 +1,12 @@
 <?php
+/*
+ *  Copyright (c) 2017-present, Facebook, Inc.
+ *  All rights reserved.
+ *
+ *  This source code is licensed under the MIT license found in the
+ *  LICENSE file in the root directory of this source tree.
+ *
+ */
 namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\EditableNode as EditableNode;
@@ -64,12 +72,12 @@ abstract class ASTLinter extends BaseLinter
         return $node->getCode();
     }
     /**
-     * @return \Sabre\Event\Promise<Traversable<ASTLintError<Tnode>>>
+     * @return \Sabre\Event\Promise<array<int, ASTLintError<Tnode>>>
      */
     public final function getLintErrorsAsync()
     {
         return \Sabre\Event\coroutine(
-            /** @return \Generator<int, mixed, void, Traversable<ASTLintError<Tnode>>> */
+            /** @return \Generator<int, mixed, void, array<int, ASTLintError<Tnode>>> */
             function () : \Generator {
                 $this->ast = (yield self::getASTFromFileAsync($this->getFile()));
                 $target = static::getTargetType();

@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<7319c46a309f8c3fbd7bae405cb4dd3c>>
+ */
 namespace Facebook\HHAST;
 
 final class CloneToken extends EditableTokenWithVariableText

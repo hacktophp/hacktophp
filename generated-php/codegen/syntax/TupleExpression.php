@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<b2f189859651a5e47d28e7a4475d2784>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -184,9 +189,9 @@ final class TupleExpression extends EditableNode
         return !$this->_items->isMissing();
     }
     /**
-     * @return EditableList<EditableNode> |
-     * EditableList<ArrayIntrinsicExpression> | EditableList<BinaryExpression> |
-     * EditableList<CastExpression> | EditableList<FunctionCallExpression> |
+     * @return EditableList<ArrayCreationExpression> | EditableList<EditableNode>
+     * | EditableList<ArrayIntrinsicExpression> | EditableList<BinaryExpression>
+     * | EditableList<CastExpression> | EditableList<FunctionCallExpression> |
      * EditableList<LiteralExpression> | EditableList<VariableExpression> | null
      */
     /**
@@ -200,9 +205,9 @@ final class TupleExpression extends EditableNode
         return TypeAssert\instance_of(EditableList::class, $this->_items);
     }
     /**
-     * @return EditableList<EditableNode> |
-     * EditableList<ArrayIntrinsicExpression> | EditableList<BinaryExpression> |
-     * EditableList<CastExpression> | EditableList<FunctionCallExpression> |
+     * @return EditableList<ArrayCreationExpression> | EditableList<EditableNode>
+     * | EditableList<ArrayIntrinsicExpression> | EditableList<BinaryExpression>
+     * | EditableList<CastExpression> | EditableList<FunctionCallExpression> |
      * EditableList<LiteralExpression> | EditableList<VariableExpression>
      */
     /**

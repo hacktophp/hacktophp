@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<b0092395297b162c6edc0601deb51c34>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -239,7 +244,8 @@ final class VectorIntrinsicExpression extends EditableNode
         return !$this->_members->isMissing();
     }
     /**
-     * @return EditableList<EditableNode> | EditableList<BinaryExpression> |
+     * @return EditableList<EditableNode> |
+     * EditableList<ArrayIntrinsicExpression> | EditableList<BinaryExpression> |
      * EditableList<CollectionLiteralExpression> |
      * EditableList<ConditionalExpression> |
      * EditableList<DictionaryIntrinsicExpression> |
@@ -262,7 +268,8 @@ final class VectorIntrinsicExpression extends EditableNode
         return TypeAssert\instance_of(EditableList::class, $this->_members);
     }
     /**
-     * @return EditableList<EditableNode> | EditableList<BinaryExpression> |
+     * @return EditableList<EditableNode> |
+     * EditableList<ArrayIntrinsicExpression> | EditableList<BinaryExpression> |
      * EditableList<CollectionLiteralExpression> |
      * EditableList<ConditionalExpression> |
      * EditableList<DictionaryIntrinsicExpression> |

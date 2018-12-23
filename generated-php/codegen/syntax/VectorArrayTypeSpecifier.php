@@ -1,4 +1,9 @@
 <?php
+/**
+ * This file is generated. Do not modify it manually!
+ *
+ * @generated SignedSource<<20fa8999e65132e2dadd524b825f7fa7>>
+ */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert as TypeAssert;
@@ -184,9 +189,9 @@ final class VectorArrayTypeSpecifier extends EditableNode
         return !$this->_type->isMissing();
     }
     /**
-     * @return DarrayTypeSpecifier | GenericTypeSpecifier | NullableTypeSpecifier
-     * | ShapeTypeSpecifier | SimpleTypeSpecifier | TupleTypeSpecifier |
-     * VarrayTypeSpecifier | VectorArrayTypeSpecifier
+     * @return DarrayTypeSpecifier | GenericTypeSpecifier | MapArrayTypeSpecifier
+     * | NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
+     * TupleTypeSpecifier | VarrayTypeSpecifier | VectorArrayTypeSpecifier
      */
     /**
      * @return EditableNode
@@ -196,9 +201,9 @@ final class VectorArrayTypeSpecifier extends EditableNode
         return TypeAssert\instance_of(EditableNode::class, $this->_type);
     }
     /**
-     * @return DarrayTypeSpecifier | GenericTypeSpecifier | NullableTypeSpecifier
-     * | ShapeTypeSpecifier | SimpleTypeSpecifier | TupleTypeSpecifier |
-     * VarrayTypeSpecifier | VectorArrayTypeSpecifier
+     * @return DarrayTypeSpecifier | GenericTypeSpecifier | MapArrayTypeSpecifier
+     * | NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
+     * TupleTypeSpecifier | VarrayTypeSpecifier | VectorArrayTypeSpecifier
      */
     /**
      * @return EditableNode
