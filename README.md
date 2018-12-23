@@ -1,8 +1,8 @@
-<img src="https://psalm.github.io/hack-to-php/logo.svg" alt="Hack to PHP logo" width="400px" height="164px" />
+<img src="https://psalm.github.io/hack-to-php/logo.svg" alt="Hack to PHP logo" width="200px" height="82px" />
 
-# WORK IN PROGRESS
+# EXPERIMENTAL
 
-An experimental attempt to port Hack code to PHP.
+An attempt to port Hack code to PHP.
 
 Goals:
 
