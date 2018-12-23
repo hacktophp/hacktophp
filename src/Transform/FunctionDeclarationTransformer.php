@@ -11,8 +11,13 @@ class FunctionDeclarationTransformer
 	/**
 	 * @param  HHAST\FunctionDeclaration|HHAST\MethodishDeclaration $node
 	 */
-	public static function transform($node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
-	{
+	public static function transform(
+		$node,
+		Project $project,
+		HackFile $file,
+		Scope $scope,
+		array &$class_stmts = []
+	) : PhpParser\Node {
 		if ($node instanceof HHAST\MethodishDeclaration) {
 			$header = $node->getFunctionDeclHeader();
 		} else {
@@ -98,6 +103,7 @@ class FunctionDeclarationTransformer
 			]
 		];
 
+		$additional_function_stmts = [];
 		$params = [];
 
 		$params_list_params = $header->hasParameterList()
@@ -112,7 +118,9 @@ class FunctionDeclarationTransformer
 					$file,
 					$scope,
 					$docblock,
-					$template_map
+					$template_map,
+					$additional_function_stmts,
+					$class_stmts
 				);
 			}
 		}
@@ -152,12 +160,15 @@ class FunctionDeclarationTransformer
 		
 		if ($body && $body->hasStatements()) {
 			$stmts = NodeTransformer::transform($body->getStatements(), $project, $file, $scope);
+			$stmts = array_merge($additional_function_stmts, $stmts);
 
 			if ($async) {
 				$stmts = [
 					self::getAsyncCoroutine($params, $stmts, $psalm_return_type, $file)
 				];
 			}
+		} else {
+			$stms = $additional_function_stmts;
 		}
 
 		$subnodes = [
@@ -190,10 +201,16 @@ class FunctionDeclarationTransformer
 		HackFile $file,
 		Scope $scope,
 		array &$docblock,
-		array $template_map = []
+		array $template_map = [],
+		array &$function_stmts = [],
+		array &$class_stmts = []
 	) : PhpParser\Node\Param {
 		$param_type = null;
 		$param_name_node = $params_list_param->getName();
+
+		$default_value = $params_list_param->hasDefaultValue()
+			? ExpressionTransformer::transform($params_list_param->getDefaultValue(), $project, $file, $scope)
+			: null;
 
 		$variadic = false;
 
@@ -213,28 +230,81 @@ class FunctionDeclarationTransformer
 
 		$param_name = $param_name_node->getText();
 
+		$namespaced_type_string = null;
+
 		if ($params_list_param->hasType()) {
 			$param_type_string = TypeTransformer::transform($params_list_param->getType(), $project, $file, $scope, $template_map);
 
 			$psalm_type = Psalm\Type::parseString($param_type_string, false, $template_map);
 
-			if (!$psalm_type->canBeFullyExpressedInPhp()) {
-				$namespaced_type_string = $psalm_type->toNamespacedString(
-					$file->namespace,
-					[],
-					null,
-					false
-				);
+			$namespaced_type_string = $psalm_type->toNamespacedString(
+				$file->namespace,
+				[],
+				null,
+				false
+			);
 
+			if (!$psalm_type->canBeFullyExpressedInPhp()) {
 				$docblock['specials']['param'][] = $namespaced_type_string . ' ' . $param_name;
 			}
 
 			$param_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_type, $project, $file, $scope);
 		}
+
+		if ($params_list_param->hasVisibility()) {
+			$modifier = $params_list_param->getVisibility();
+
+			if ($modifier instanceof HHAST\PublicToken) {
+				$flags = PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
+			} elseif ($modifier instanceof HHAST\ProtectedToken) {
+				$flags = PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED;
+			} elseif ($modifier instanceof HHAST\PrivateToken) {
+				$flags = PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
+			} else {
+				throw new \UnexpectedValueException('Weird property visibility');
+			}
+
+			$attributes = [];
+
+			if ($namespaced_type_string) {
+				$docblock = [
+					'description' => '',
+					'specials' => [],
+				];
+				$docblock['specials']['var'] = [$namespaced_type_string];
+
+				$docblock_string = Psalm\DocComment::render($docblock, '');
+
+				$attributes['comments'] = [
+					new \PhpParser\Comment\Doc(rtrim($docblock_string))
+				];
+			}
+
+			$class_stmts[] = new PhpParser\Node\Stmt\Property(
+				$flags,
+				[
+					new PhpParser\Node\Stmt\PropertyProperty(
+						substr($param_name, 1),
+						$default_value
+					)
+				],
+				$attributes
+			);
+
+			$function_stmts[] = new PhpParser\Node\Stmt\Expression(
+				new PhpParser\Node\Expr\Assign(
+					new PhpParser\Node\Expr\PropertyFetch(
+						new PhpParser\Node\Expr\Variable('this'),
+						substr($param_name, 1)
+					),
+					new PhpParser\Node\Expr\Variable(substr($param_name, 1))
+				)
+			);
+		}
 		
 		return new PhpParser\Node\Param(
 			new PhpParser\Node\Expr\Variable(substr($param_name, 1)),
-			null,
+			$default_value,
 			$param_type,
 			false,
 			$variadic

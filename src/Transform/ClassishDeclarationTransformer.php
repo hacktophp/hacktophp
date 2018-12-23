@@ -85,7 +85,7 @@ class ClassishDeclarationTransformer
 			}
 
 			if ($child instanceof HHAST\MethodishDeclaration) {
-				$stmts[] = FunctionDeclarationTransformer::transform($child, $project, $file, $scope);
+				$stmts[] = FunctionDeclarationTransformer::transform($child, $project, $file, $scope, $stmts);
 				continue;
 			}
 

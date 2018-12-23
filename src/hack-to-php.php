@@ -68,8 +68,6 @@ foreach ($file_paths as $file_path) {
 	);
 }
 
-var_dump($project->types);
-
 echo 'Converting files' . PHP_EOL;
 
 foreach ($file_paths as $file_path) {
