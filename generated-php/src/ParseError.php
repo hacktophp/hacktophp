@@ -1,0 +1,39 @@
+<?php
+namespace Facebook\HHAST;
+
+use HH\Lib\Str as Str;
+abstract class ParseError extends \Exception
+{
+    /**
+     * @var string
+     */
+    private $targetFile;
+    /**
+     * @var string
+     */
+    private $rawMessage;
+    /**
+     * @var string
+     */
+    public function __construct(string $targetFile, ?int $_offset, string $rawMessage)
+    {
+        $this->targetFile = $targetFile;
+        $this->rawMessage = $rawMessage;
+        parent::__construct(Str\format('In file "%s": %s', $targetFile, $rawMessage));
+    }
+    /**
+     * @return string
+     */
+    public function getTargetFile()
+    {
+        return $this->targetFile;
+    }
+    /**
+     * @return string
+     */
+    public function getRawMessage()
+    {
+        return $this->rawMessage;
+    }
+}
+

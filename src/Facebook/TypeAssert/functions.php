@@ -1,5 +1,7 @@
 <?php
 
+namespace Facebook\TypeAssert;
+
 /**
  * @template T
  * @param T::class $class
@@ -24,6 +26,19 @@ function not_null($object)
 {
 	if ($object === null) {
 		throw new \UnexpectedValueException('Object should not be null ');
+	}
+
+	return $object;
+}
+
+/**
+ * @param mixed $i
+ * @return int
+ */
+function int($object) : int
+{
+	if (!\is_int($object)) {
+		throw new \UnexpectedValueException('Object should be an int');
 	}
 
 	return $object;

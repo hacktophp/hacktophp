@@ -58,6 +58,8 @@ class FunctionDeclarationTransformer
 							$constraints[] = ' as \\' . $constraint_node_type;
 						}
 					}
+				} else {
+					$template_map[$type_parameter_name] = 'mixed';
 				}
 
 				$templates[] = $type_parameter_name . implode(' ', $constraints);
