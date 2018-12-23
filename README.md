@@ -4,7 +4,7 @@
 
 An attempt to port Hack code to PHP.
 
-This project uses HHVM's parser (`hh_parse`) together with a transpiled version of [hhvm/hhast](https://github.com/hhvm/hhast) to turn Hack code into a PHP-based abstract syntax tree. It then generates [PHP-Parser]((https://github.com/nikic/php-parser))-equivalent nodes for the Hack code AST.
+This project uses HHVM's parser (`hh_parse`) together with a transpiled version of [hhvm/hhast](https://github.com/hhvm/hhast) to turn Hack code into a PHP-based abstract syntax tree. It then generates [PHP-Parser](https://github.com/nikic/php-parser)-equivalent nodes for the Hack code AST.
 
 Async handling:
  - Uses [`sabre/event`](https://github.com/sabre/event) to mimic `async`/`await`
