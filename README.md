@@ -10,10 +10,17 @@ Goals:
  - Generate the tool's AST classes from [hhvm/hhast](https://github.com/hhvm/hhast)
  - Use [`sabre/event`](https://github.com/sabre/event) to mimic `async`/`await`
 
-Steps:
- - [x] translate Hack AST-generation classes by hand
- - [x] map HHAST classes to PHP Parser classes (in progress)
- - [x] translate unrepresented types to docblock (in progress)
- - [x] support generic params with `@psalm-template`
- - [x] replace `async`/`await` with `sabre/event`
- - [ ] search for all types defined in the project and copy into each file that uses them
+Unsupported features:
+- Pretty much all of the standard library, but I'm adding things slowly
+- XHP
+- Class constant types e.g.
+  ```php
+  class A {
+    const type Foo = int;
+  }
+  ```
+- Parameterised `extends`, `implements` and `trait`
+- `require extends`
+- User attributes
+- types of `const` (Psalm does a reasonably good job inferring them, but it should be added for completeness)
+- probably many more things I haven't considered
