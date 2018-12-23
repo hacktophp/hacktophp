@@ -1,4 +1,4 @@
-<img src="https://cdn.rawgit.com/psalm/hack-to-php/master/logo.svg" alt="Hack to PHP logo" width="400px" height="164px" />
+<img src="https://psalm.github.io/hack-to-php/logo.svg" alt="Hack to PHP logo" width="400px" height="164px" />
 
 # WORK IN PROGRESS
 
