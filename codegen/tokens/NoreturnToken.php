@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<87325081ee763690eba2528aa9e836fa>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class NoreturnToken extends EditableTokenWithVariableText {

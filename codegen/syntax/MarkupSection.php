@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<bf6a4e3092776a7feb0cb3c285708c16>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class MarkupSection extends EditableNode {

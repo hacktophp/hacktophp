@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<353df4653399174cf493a48886333f8c>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class DecimalLiteralToken extends EditableTokenWithVariableText {

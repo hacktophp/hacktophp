@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<afd37d143ae3bbe200f0d6f14e42e82a>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class FloatingLiteralToken extends EditableTokenWithVariableText {

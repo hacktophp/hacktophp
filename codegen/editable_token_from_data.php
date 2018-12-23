@@ -4,8 +4,8 @@
  *
  * @generated SignedSource<<7e6751d96c6b659722a49b478b4fd56a>>
  */
-namespace HackToPhp\HHAST\__Private;
-use HackToPhp\HHAST;
+namespace Facebook\HHAST\__Private;
+use Facebook\HHAST;
 
 function editable_token_from_data(
   string $file,

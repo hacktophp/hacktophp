@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<e197cab58cb484f5f67851e264ebb629>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class HaltCompilerExpression extends EditableNode {

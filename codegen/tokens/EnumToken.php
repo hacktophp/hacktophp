@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<e6419eb8ca47cb6a212203dfd1657e28>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class EnumToken extends EditableTokenWithVariableText {

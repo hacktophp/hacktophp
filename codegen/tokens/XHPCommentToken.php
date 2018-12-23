@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<f55cf61d2535c48dd80032191b8df534>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class XHPCommentToken extends EditableTokenWithVariableText {

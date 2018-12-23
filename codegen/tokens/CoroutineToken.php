@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<faa12b15f2f839b71a6dad46ab21e861>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class CoroutineToken extends EditableTokenWithVariableText {

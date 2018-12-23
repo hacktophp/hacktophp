@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<46853d426079cb2391938c7e06563b61>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class TildeToken extends EditableTokenWithFixedText {

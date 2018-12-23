@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<3349405ffb9eb9d60befa607625b5239>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class DeclareBlockStatement extends EditableNode {

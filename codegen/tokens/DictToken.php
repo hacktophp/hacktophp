@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<3871c08635f11951fd29f62f9f74a3c6>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class DictToken extends EditableTokenWithVariableText {

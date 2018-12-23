@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<97a466cdb217d52884d0bec5222308c4>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class EqualToken extends EditableTokenWithFixedText {

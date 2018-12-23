@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<60c615b42cf4ca4e819171c337314f5a>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class TypeToken extends EditableTokenWithVariableText {

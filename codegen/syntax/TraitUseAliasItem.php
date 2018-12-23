@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<2a13db192b3d143ed1641971bab0d13b>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class TraitUseAliasItem extends EditableNode {

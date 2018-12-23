@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<b84770db0293b7ca49e89027c6ea6b25>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class QuestionToken extends EditableTokenWithFixedText {

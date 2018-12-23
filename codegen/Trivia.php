@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<9488bcb9d1e88f74517bcd8442aa4d83>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 final class AfterHaltCompiler extends EditableTrivia {
 

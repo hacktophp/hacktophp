@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<9137857cc97d039828470ef4bfa2a30b>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class DollarToken extends EditableTokenWithFixedText {

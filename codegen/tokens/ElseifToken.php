@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<4c35e1a9cd59c698b7e7b8674c2c60e3>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class ElseifToken extends EditableTokenWithVariableText {

@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<1e1acd17552711df94d875ff2f3dbf36>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class TupleExpression extends EditableNode {

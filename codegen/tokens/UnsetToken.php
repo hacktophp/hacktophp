@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<76faacca21baf19db71368c6aae215b1>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class UnsetToken extends EditableTokenWithVariableText {

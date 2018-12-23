@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<8a0298be636102197b9fb4147f982ad6>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class GotoLabel extends EditableNode {

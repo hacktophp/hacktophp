@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<f2861a941fcf8e88f2b4276a6de9a7bc>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class FunctionCallExpression extends EditableNode {

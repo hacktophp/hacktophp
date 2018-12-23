@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<8af418dd148dfdb36b8ba95c979b4819>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class KeysetIntrinsicExpression extends EditableNode {

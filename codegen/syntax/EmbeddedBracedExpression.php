@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<6aedcde9623d7eef999d29547c7e8136>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class EmbeddedBracedExpression extends EditableNode {

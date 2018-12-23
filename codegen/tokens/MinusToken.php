@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<c143f09000b28a8b964a51aa72506ff7>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class MinusToken extends EditableTokenWithFixedText {

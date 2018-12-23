@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<1cdab1a5365210762fadedd2153ced8a>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class FinallyClause extends EditableNode {

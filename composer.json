@@ -16,14 +16,21 @@
         }
     ],
     "autoload": {
-        "psr-4": {
-            "HackToPhp\\": "src"
-        },
         "classmap": [
             "codegen"
         ],
+        "psr-4": {
+            "HackToPhp\\": "src/HackToPhp",
+            "Facebook\\HHAST\\": "src/Facebook/HHAST"
+        },
         "files": [
-            "src/Facebook/TypeAssert/functions.php"
+            "src/Facebook/TypeAssert/functions.php",
+            "codegen/editable_node_from_json.php",
+            "codegen/editable_token_from_data.php",
+            "codegen/editable_trivia_from_json.php",
+            "src/Facebook/HHAST/Missing.php",
+            "src/Facebook/HHAST/__Private/execute_async.php",
+            "src/Facebook/HHAST/__Private/fold_map.php"
         ]
     }
 }

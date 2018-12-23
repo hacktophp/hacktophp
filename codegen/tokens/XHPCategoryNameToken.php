@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<a348da8389fc0015eccf2c4ac52ddf1d>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class XHPCategoryNameToken extends EditableTokenWithVariableText {

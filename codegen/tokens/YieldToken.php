@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<97938a089cb2c157302c7bc43f9bfbd9>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class YieldToken extends EditableTokenWithVariableText {

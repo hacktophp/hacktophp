@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<33a0af6e527da45e1c245749475abf4c>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class AnonymousFunction extends EditableNode {

@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<15257798cec262aae7022dae37566f98>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class DictionaryTypeSpecifier extends EditableNode {

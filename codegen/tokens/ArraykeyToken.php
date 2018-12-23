@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<f62e4cfd53bf7b85eccabfcacf0290ae>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class ArraykeyToken extends EditableTokenWithVariableText {

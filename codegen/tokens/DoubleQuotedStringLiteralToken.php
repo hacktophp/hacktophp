@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<a81108032d005501ae42d6a670761a8d>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class DoubleQuotedStringLiteralToken

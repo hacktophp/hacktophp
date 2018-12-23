@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<dd6466e39bf96392a097f795856d869f>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class PrefixedStringExpression extends EditableNode {

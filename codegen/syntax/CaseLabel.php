@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<95ba351dd1e2416868685f615e77dcfc>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class CaseLabel extends EditableNode {

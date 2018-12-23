@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<9699fd92dfc4cc119a4ba5aa0ce70091>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class ElseClause extends EditableNode implements IControlFlowStatement {

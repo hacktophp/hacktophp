@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<8e67dd198969c8969652d86f1944f619>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class PercentEqualToken extends EditableTokenWithFixedText {

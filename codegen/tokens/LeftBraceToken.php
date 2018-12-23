@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<6bcfa249e5eeeca8920d468d47f2b738>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class LeftBraceToken extends EditableTokenWithFixedText {

@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<b7a1514549bc1d2d38e140b2ba81fd5f>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class SwitchFallthrough extends EditableNode {

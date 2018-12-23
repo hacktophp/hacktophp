@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<033d68712fa7b0a06f188f75cf97f9bc>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class HeredocStringLiteralToken extends EditableTokenWithVariableText {

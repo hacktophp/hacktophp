@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<f2c23fd0a030acf19891174b52d810ab>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class FieldSpecifier extends EditableNode {

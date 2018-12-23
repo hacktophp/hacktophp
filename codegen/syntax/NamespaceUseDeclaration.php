@@ -4,10 +4,10 @@
  *
  * @generated SignedSource<<fc9ce1fb37896c4298f2a586f0cfb3f5>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
-use HackToPhp\HHAST\EditableToken;
+use Facebook\HHAST\EditableToken;
 
 final class NamespaceUseDeclaration
   extends EditableNode

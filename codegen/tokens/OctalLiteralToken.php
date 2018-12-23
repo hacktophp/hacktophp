@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<ddb5f3a3bb330d83849c375ec4fc4f5e>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class OctalLiteralToken extends EditableTokenWithVariableText {

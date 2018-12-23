@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<954899c7bb0796e80afe72c6330afc77>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class PipeVariableExpression extends EditableNode {

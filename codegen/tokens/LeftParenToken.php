@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<35d8805d7254764d6acfe827b2f214c0>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class LeftParenToken extends EditableTokenWithFixedText {

@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<5ce396a70aca4e4679fc3dd480989601>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class XorToken extends EditableTokenWithVariableText {

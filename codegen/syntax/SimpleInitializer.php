@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<d13ceb1786a12012ae19e4eb23d7925a>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class SimpleInitializer extends EditableNode {

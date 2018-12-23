@@ -1,2 +1,2 @@
 #!/usr/bin/env php
-<?php require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'hack-to-php.php';
+<?php require_once dirname(__DIR__) . '/src/HackToPhp/hack-to-php.php';

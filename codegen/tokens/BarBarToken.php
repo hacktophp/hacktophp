@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<40d042858cc01c91b89cb793e9bc2588>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class BarBarToken extends EditableTokenWithFixedText {

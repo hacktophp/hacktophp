@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<41a547f321642e88b0d7034b0c13cff8>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class VecToken extends EditableTokenWithVariableText {

@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<4e626bf1e7d09c964612075ee6331908>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class ExecutionStringLiteralHeadToken

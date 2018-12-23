@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<210cc98a634bbd2f1b95432e25adab1b>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class DoStatement

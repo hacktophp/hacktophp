@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<bba9ce2e5be75dbaf7212090f51fcf73>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class NamespaceGroupUseDeclaration

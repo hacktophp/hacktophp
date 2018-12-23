@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<1422e387045a0f6af092f1f9adf3866c>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class BackslashToken extends EditableTokenWithFixedText {

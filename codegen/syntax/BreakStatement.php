@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<b061253e00bf5cad5fd6f6e1da4e0a38>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class BreakStatement extends EditableNode {

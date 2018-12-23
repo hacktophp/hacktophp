@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<7b29a3e817b054028efe47ac14feb26f>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class ColonToken extends EditableTokenWithFixedText {

@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<69cf78ce3709f1128b56b0361474224f>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class WhileToken extends EditableTokenWithVariableText {

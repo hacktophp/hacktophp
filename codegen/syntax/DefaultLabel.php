@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<d9bac9601f00d81a1848e52e1c61111a>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class DefaultLabel extends EditableNode {

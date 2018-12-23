@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<88cb887684e9bfd5708423c36a26493c>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class SuspendToken extends EditableTokenWithVariableText {

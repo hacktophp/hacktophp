@@ -1,14 +1,8 @@
 <?php
 
-namespace HackToPhp\HHAST\__Private;
+namespace Facebook\HHAST\__Private;
 
-use HackToPhp\HHAST;
-
-require_once(dirname(__DIR__) . '/src/HHAST/Missing.php');
-
-require_once(dirname(__DIR__) . '/src/HHAST/__PRIVATE/fold_map.php');
-
-require_once(__DIR__ . '/Trivia.php');
+use Facebook\HHAST;
 
 /**
  * @param  array<string, mixed>  $json 

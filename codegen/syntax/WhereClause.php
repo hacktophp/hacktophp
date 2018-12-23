@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<43aff8c12ee3eaf77324c4f77b29fddd>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class WhereClause extends EditableNode {

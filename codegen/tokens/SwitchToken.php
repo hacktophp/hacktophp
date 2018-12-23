@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<0315de91c0ba77994d718b1f81e90395>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class SwitchToken extends EditableTokenWithVariableText {

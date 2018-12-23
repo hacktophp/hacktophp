@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<5e3a2a17d865e8210130a9a5525fd2fd>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class AlternateIfStatement extends EditableNode {

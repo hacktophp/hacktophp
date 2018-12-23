@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<8dd5f2ff611b1a1199460338933e50e7>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class CastExpression extends EditableNode {

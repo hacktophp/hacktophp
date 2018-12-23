@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<2f7cbd7162c3e89d32dded377e273746>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class ExclamationToken extends EditableTokenWithFixedText {

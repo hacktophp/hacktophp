@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<dd77b2b8bbf0648acd0658b0470810ec>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class StarToken extends EditableTokenWithFixedText {

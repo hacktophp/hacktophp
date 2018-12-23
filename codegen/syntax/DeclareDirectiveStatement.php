@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<7d8c2c9395b8ed9305920fb0503663f7>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class DeclareDirectiveStatement extends EditableNode {

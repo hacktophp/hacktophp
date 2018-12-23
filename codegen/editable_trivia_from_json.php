@@ -4,8 +4,8 @@
  *
  * @generated SignedSource<<5a9b950d6b28df577677852c567b7c27>>
  */
-namespace HackToPhp\HHAST\__Private;
-use HackToPhp\HHAST;
+namespace Facebook\HHAST\__Private;
+use Facebook\HHAST;
 
 require_once(__DIR__ . '/Trivia.php');
 

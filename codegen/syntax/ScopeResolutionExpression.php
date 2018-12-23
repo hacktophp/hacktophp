@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<a4d26ce02300bc32a1759e2797559c86>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class ScopeResolutionExpression extends EditableNode {

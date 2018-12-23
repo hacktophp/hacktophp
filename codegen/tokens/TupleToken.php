@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<3a86db03cdcf68537b27ae2acc4ad7a8>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class TupleToken extends EditableTokenWithVariableText {

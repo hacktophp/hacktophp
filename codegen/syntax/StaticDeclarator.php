@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<e71beb716e6e854c61f4a7280c81a3f3>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class StaticDeclarator extends EditableNode {

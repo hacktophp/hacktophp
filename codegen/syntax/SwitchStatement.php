@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<fe76961e126174d88fac5c2173c1f912>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class SwitchStatement

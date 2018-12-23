@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<6658a2501630801d976e92cddd83f887>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class FallthroughToken extends EditableTokenWithVariableText {

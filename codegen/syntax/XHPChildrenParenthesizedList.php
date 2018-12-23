@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<45205ee6dbb85aa08d61a64d3de85dfc>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class XHPChildrenParenthesizedList extends EditableNode {

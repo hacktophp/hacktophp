@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<9e8b13a41d02b94eae0eab6a59a4996f>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 use Facebook\TypeAssert;
 
 final class XHPOpen extends EditableNode {

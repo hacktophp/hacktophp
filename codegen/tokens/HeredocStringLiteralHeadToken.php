@@ -4,7 +4,7 @@
  *
  * @generated SignedSource<<7389eff8584584ac796099d38e34713e>>
  */
-namespace HackToPhp\HHAST;
+namespace Facebook\HHAST;
 
 
 final class HeredocStringLiteralHeadToken
