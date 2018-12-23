@@ -6,14 +6,14 @@ namespace Facebook\HHAST\__Private;
  * @psalm-template TOutput
  * @psalm-template TAccumulation
  *
- * @param Traversable<TInput> $items
+ * @param iterable<mixed, TInput> $items
  * @param \Closure(TInput, TAccumulation):TOutput $mapper
  * @param \Closure(TInput, TAccumulation):TAccumulation $accumulator
  * @param TAccumulation $initial
  *
  * @return array<int, TOutput>
  */
-function fold_map($items, \Closure $mapper, \Closure $accumulator, $initial)
+function fold_map(iterable $items, \Closure $mapper, \Closure $accumulator, $initial)
 {
     $acc = $initial;
     $result = array();

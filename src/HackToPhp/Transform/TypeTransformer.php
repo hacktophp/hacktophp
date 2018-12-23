@@ -240,6 +240,10 @@ class TypeTransformer
 			case 'dict':
 			case 'keyset':
 				return 'array';
+
+			// means something different in Hack
+			case 'Traversable':
+				return 'iterable';
 		}
 
 		if ($node instanceof HHAST\NameToken) {
