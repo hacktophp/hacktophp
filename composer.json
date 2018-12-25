@@ -35,5 +35,13 @@
             "generated-php/src/nodes/Missing.php",
             "generated-php/src/__Private/fold_map.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4" : {
+            "HackToPhp\\Test\\": "tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
     }
 }

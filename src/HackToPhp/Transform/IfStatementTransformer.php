@@ -13,6 +13,10 @@ class IfStatementTransformer
 
 		$stmts = NodeTransformer::transform($node->getStatement(), $project, $file, $scope);
 
+		if (!is_array($stmts)) {
+			$stmts = [$stmts];
+		}
+
 		$elseifs = $node->hasElseifClauses() ? self::transformElseifs($node->getElseifClauses(), $project, $file, $scope) : null;
 		$else = null;
 
@@ -25,6 +29,10 @@ class IfStatementTransformer
 				];
 			} else {
 				$else_stmts = NodeTransformer::transform($else_statement->getStatements(), $project, $file, $scope);
+			}
+
+			if (!is_array($else_stmts)) {
+				throw new \UnexpectedValueException('Else statements should be array');
 			}
 
 			$else = new PhpParser\Node\Stmt\Else_(
@@ -46,9 +54,16 @@ class IfStatementTransformer
 	{
 		return array_map(
 			function(HHAST\ElseifClause $node) use ($project, $file, $scope) {
+				$elseif_conditional = ExpressionTransformer::transform($node->getCondition(), $project, $file, $scope);
+				$elseif_statements = NodeTransformer::transform($node->getStatement(), $project, $file, $scope);
+
+				if (!is_array($elseif_statements)) {
+					$elseif_statements = [$elseif_statements];
+				}
+
 				return new PhpParser\Node\Stmt\ElseIf_(
-					ExpressionTransformer::transform($node->getCondition()),
-					NodeTransformer::transform($node->getStatement(), $project, $file, $scope)
+					$elseif_conditional,
+					$elseif_statements
 				);
 			},
 			$node->getChildren()

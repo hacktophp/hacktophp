@@ -10,4 +10,9 @@ class Project
 {
 	/** @var array<string, string> */
 	public $types = [];
+
+	/**
+	 * @var bool
+	 */
+	public $use_php_return_types = false;
 }

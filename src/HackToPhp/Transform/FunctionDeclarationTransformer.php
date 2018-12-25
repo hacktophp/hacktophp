@@ -137,11 +137,13 @@ class FunctionDeclarationTransformer
 
 			$psalm_return_type = Psalm\Type::parseString($return_type_string);
 
-			//if (!$psalm_return_type->canBeFullyExpressedInPhp()) {
+			if (!$psalm_return_type->canBeFullyExpressedInPhp() || !$project->use_php_return_types) {
 				$docblock['specials']['return'] = [$psalm_return_type->toNamespacedString($file->namespace, [], null, false)];
-			//}
+			}
 
-			//$php_return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $project, $file, $scope);
+			if ($project->use_php_return_types) {
+				$php_return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $project, $file, $scope);
+			}
 		}
 
 		$docblock['specials'] = array_filter($docblock['specials']);

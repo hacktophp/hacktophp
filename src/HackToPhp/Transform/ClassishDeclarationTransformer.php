@@ -242,8 +242,17 @@ class ClassishDeclarationTransformer
 		$flags = 0;
 		$modifiers = $node->hasModifiers() ? $node->getModifiers()->getChildren() : null;
 
+		$attributes = [
+			'comments' => []
+		];
+
 		if ($modifiers) {
 			foreach ($modifiers as $modifier) {
+				$attributes['comments'] = array_merge(
+					$attributes['comments'],
+					ExpressionTransformer::getTokenComments($modifier)
+				);
+
 				if ($modifier instanceof HHAST\PublicToken) {
 					$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
 				} elseif ($modifier instanceof HHAST\ProtectedToken) {
@@ -258,8 +267,6 @@ class ClassishDeclarationTransformer
 
 		$type = $node->hasType() ? $node->getType() : null;
 
-		$attributes = [];
-
 		if ($type) {
 			$type_string = TypeTransformer::transform($type, $project, $file, $scope);
 			
@@ -273,9 +280,7 @@ class ClassishDeclarationTransformer
 
 			$docblock_string = Psalm\DocComment::render($docblock, '');
 
-			$attributes['comments'] = [
-				new \PhpParser\Comment\Doc(rtrim($docblock_string))
-			];
+			$attributes['comments'][] = new \PhpParser\Comment\Doc(rtrim($docblock_string));
 		}
 
 		$declarators = $node->getDeclarators();
