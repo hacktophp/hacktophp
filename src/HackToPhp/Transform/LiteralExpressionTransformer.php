@@ -89,6 +89,12 @@ class LiteralExpressionTransformer
 								);
 							}
 
+							if ($item instanceof HHAST\StringLiteralBodyToken) {
+								return new PhpParser\Node\Scalar\EncapsedStringPart(
+									stripcslashes($item->getText())
+								);
+							}
+
 							return ExpressionTransformer::transform($item, $project, $file, $scope);
 						},
 						$literal->getChildren()
