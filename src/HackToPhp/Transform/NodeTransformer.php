@@ -281,6 +281,19 @@ class NodeTransformer
 			return new PhpParser\Node\Stmt\Nop();
 		}
 
+		if ($node instanceof HHAST\DeclareDirectiveStatement) {
+			$expr = $node->getExpression();
+			$key = $expr->getLeftOperand();
+			$value = $expr->getRightOperand();
+
+			return new PhpParser\Node\Stmt\Declare_([
+				new PhpParser\Node\Stmt\DeclareDeclare(
+					$key->getText(),
+					ExpressionTransformer::transform($value, $project, $file, $scope)
+				)
+			]);
+		}
+
 		throw new \UnexpectedValueException('Unknown type ' . get_class($node));
 	}
 }

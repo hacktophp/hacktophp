@@ -35,7 +35,7 @@ class NamespaceGroupUseDeclarationTransformer
 			$node->getClauses()->getDescendantsOfType(HHAST\NamespaceUseClause::class)
 		);
 		
-		if ($kind instanceof HHAST\NamespaceToken) {
+		if ($kind instanceof HHAST\NamespaceToken || !$kind) {
 			foreach ($uses as $use) {
 				$file->aliased_namespaces[(string) $use->alias] = $prefix . '\\' . $use->name;
 			}

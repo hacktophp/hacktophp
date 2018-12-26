@@ -87,7 +87,7 @@ class AnonymousFunctionTransformer
 						true
 					);
 				} else {
-					var_dump($use_node);
+					throw new \UnexpectedValueException('Bad');
 				}
 			}
 		}

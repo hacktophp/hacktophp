@@ -75,7 +75,7 @@ class ExpressionTransformer
 	 * VarrayIntrinsicExpression | XHPExpression | YieldExpression |
 	 * YieldFromExpression $node 
 	 */
-	public static function transform(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node\Expr
+	public static function transform(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		if ($node instanceof ParenthesizedExpression) {
 			return ExpressionTransformer::transform($node->getExpression(), $project, $file, $scope);
@@ -257,6 +257,10 @@ class ExpressionTransformer
 
 		if ($node instanceof AnonymousFunction || $node instanceof HHAST\Php7AnonymousFunction) {
 			return AnonymousFunctionTransformer::transform($node, $project, $file, $scope);
+		}
+
+		if ($node instanceof HHAST\AnonymousClass) {
+			return ClassishDeclarationTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof EmptyExpression) {
@@ -492,6 +496,20 @@ class ExpressionTransformer
 			);
 
 			return ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope);
+		}
+
+		if ($node instanceof HHAST\DefineExpression) {
+			$args = FunctionCallExpressionTransformer::transformArguments(
+				$node->getArgumentList(),
+				$project, 
+				$file,
+				$scope
+			);
+
+			return new PhpParser\Node\Expr\FuncCall(
+		    	new PhpParser\Node\Name('define'),
+		    	$args
+			);
 		}
 
 		throw new \UnexpectedValueException('Unknown expression type ' . get_class($node));

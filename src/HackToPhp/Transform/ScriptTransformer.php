@@ -30,12 +30,14 @@ class ScriptTransformer
 				}
 
 				$stmts[] = new PhpParser\Node\Stmt\Namespace_(
-					new PhpParser\Node\Name($file->namespace),
+					$file->namespace ? new PhpParser\Node\Name($file->namespace) : null,
 					$namespace_stmts,
 					[
 						'comments' => ExpressionTransformer::getTokenComments($declaration->getKeyword())
 					]
 				);
+
+				$file->namespace = '';
 
 				continue;
 			}

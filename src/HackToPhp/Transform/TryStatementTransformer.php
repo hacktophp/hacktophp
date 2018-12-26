@@ -11,7 +11,7 @@ class TryStatementTransformer
 	{
 		$stmts = NodeTransformer::transform($node->getCompoundStatement(), $project, $file, $scope);
 
-		$catches = $node->hasCatchClauses() ? self::transformCatches($node->getCatchClauses(), $project, $file, $scope) : null;
+		$catches = $node->hasCatchClauses() ? self::transformCatches($node->getCatchClauses(), $project, $file, $scope) : [];
 		$finally = $node->hasFinallyClause()
 			? new PhpParser\Node\Stmt\Finally_(
 				NodeTransformer::transform($node->getFinallyClause()->getBody(), $project, $file, $scope)

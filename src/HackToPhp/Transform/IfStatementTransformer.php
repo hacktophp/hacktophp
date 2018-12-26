@@ -28,7 +28,9 @@ class IfStatementTransformer
 					self::transform($else_statement, $project, $file, $scope)
 				];
 			} else {
-				$else_stmts = NodeTransformer::transform($else_statement->getStatements(), $project, $file, $scope);
+				$else_stmts = $else_statement->hasStatements()
+					? NodeTransformer::transform($else_statement->getStatements(), $project, $file, $scope)
+					: [];
 			}
 
 			if (!is_array($else_stmts)) {

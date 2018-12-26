@@ -15,6 +15,10 @@ class ForeachStatementTransformer
 
 		$stmts = NodeTransformer::transform($node->getBody(), $project, $file, $scope);
 
+		if (!is_array($stmts)) {
+			$stmts = [];
+		}
+
 		return new PhpParser\Node\Stmt\Foreach_(
 			$expression,
 			$value_var,

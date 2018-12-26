@@ -8,15 +8,26 @@ use Psalm;
 
 class ClassishDeclarationTransformer
 {
-	public static function transform(HHAST\ClassishDeclaration $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
+	/**
+	 * @param  HHAST\ClassishDeclaration|HHAST\AnonymousClass $node
+	 */
+	public static function transform($node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
 	{
-		$modifiers = $node->hasModifiers() ? $node->getModifiers()->getChildren() : null;
+		$modifiers = null;
+
+		if ($node instanceof HHAST\ClassishDeclaration && $node->hasModifiers()) {
+			$modifiers = $node->getModifiers()->getChildren();
+		}
 
 		$flags = 0;
 
-		$class_type = $node->getKeyword();
+		$class_name = null;
+		$class_type = null;
 
-		$class_name = $node->getName()->getText();
+		if ($node instanceof HHAST\ClassishDeclaration) {
+			$class_type = $node->getKeyword();
+			$class_name = $node->getName()->getText();
+		}
 
 		if ($modifiers) {
 			foreach ($modifiers as $modifier) {
@@ -68,9 +79,9 @@ class ClassishDeclarationTransformer
 			}
 		}
 
-		$comments = ExpressionTransformer::getTokenComments($class_type);
+		$comments = $class_type ? ExpressionTransformer::getTokenComments($class_type) : [];
 
-		if ($class_type instanceof HHAST\ClassToken) {
+		if ($class_type instanceof HHAST\ClassToken || !$class_type) {
 			return new PhpParser\Node\Stmt\Class_(
 				$class_name,
 				[
@@ -201,13 +212,38 @@ class ClassishDeclarationTransformer
 							}
 
 							if ($trait_use_item instanceof HHAST\TraitUseAliasItem) {
-								$specifier = $trait_use_item->getAliasingName()->getSpecifier();
+								$aliasing_name = $trait_use_item->getAliasingName();
+
+								if ($aliasing_name instanceof HHAST\ScopeResolutionExpression) {
+									$qualifier = $aliasing_name->getQualifier();
+
+									if ($qualifier instanceof HHAST\EditableToken) {
+										$class = $qualifier->getText();
+									} elseif ($qualifier instanceof HHAST\QualifiedName) {
+										$class = QualifiedNameTransformer::getText($qualifier);
+									} elseif ($qualifier instanceof HHAST\SimpleTypeSpecifier) {
+										$class = $qualifier->getSpecifier()->getText();
+									} else {
+										throw new \UnexpectedValueException('Bad');
+									}
+
+									$relative_method_id = $class . '::' . $aliasing_name->getName()->getText();
+								} else {
+									$specifier = $aliasing_name->getSpecifier();
+									$relative_method_id = $specifier->getText();
+								}
+
+								$aliased_name = $trait_use_item->getAliasedName();
+
+								if ($aliased_name instanceof HHAST\SimpleTypeSpecifier) {
+									$aliased_name = $aliased_name->getSpecifier();
+								}
 
 								return new PhpParser\Node\Stmt\TraitUseAdaptation\Alias(
 									null,
-									$trait_use_item->getAliasingName()->getSpecifier()->getText(),
+									$relative_method_id,
 									$flags,
-									$trait_use_item->getAliasedName()->getSpecifier()->getText()
+									$aliased_name->getText()
 								);
 							}
 
