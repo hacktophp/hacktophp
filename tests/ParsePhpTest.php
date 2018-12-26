@@ -68,8 +68,8 @@ class ParsePhpTest extends BaseTestCase
         $prettyPrinter = new \PhpParser\PrettyPrinter\Standard;
 
         $this->assertSame(
-            str_replace('"', '\'', $prettyPrinter->prettyPrint($parser_stmts)),
-            rtrim($prettyPrinter->prettyPrint($transformed_stmts))
+            str_replace('\'', '"', $prettyPrinter->prettyPrint($parser_stmts)),
+            str_replace('\'', '"', rtrim($prettyPrinter->prettyPrint($transformed_stmts)))
         );
     }
 }

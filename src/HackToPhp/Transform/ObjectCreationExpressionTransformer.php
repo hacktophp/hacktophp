@@ -15,7 +15,7 @@ class ObjectCreationExpressionTransformer
 
 		switch (get_class($object)) {
 			case HHAST\AnonymousClass::class:
-				$class = new PhpParser\Node\Stmt\Class_();
+				$class = ExpressionTransformer::transform($object, $project, $file, $scope);
 				break;
 
 			case HHAST\ConstructorCall::class:

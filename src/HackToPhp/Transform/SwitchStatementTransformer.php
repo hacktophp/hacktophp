@@ -41,7 +41,7 @@ class SwitchStatementTransformer
 
 			$cases[] = new PhpParser\Node\Stmt\Case_(
 				$last_label instanceof HHAST\DefaultLabel ? null : ExpressionTransformer::transform($last_label->getExpression(), $project, $file, $scope),
-				NodeTransformer::transform($section->getStatements(), $project, $file, $scope)
+				$section->hasStatements() ? NodeTransformer::transform($section->getStatements(), $project, $file, $scope) : []
 			);
 		}
 

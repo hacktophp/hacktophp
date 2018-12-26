@@ -136,7 +136,10 @@ class FunctionCallExpressionTransformer
 				|| $name_string === 'keyset'
 				|| $name_string === 'dict'
 			) {
-				return new PhpParser\Node\Expr\Cast\Array_($args[0]->value);
+				return new PhpParser\Node\Expr\Cast\Array_(
+					$args[0]->value,
+					['kind' => PhpParser\Node\Expr\Array_::KIND_SHORT]
+				);
 			}
 
 			if ($name_string === 'exit') {
@@ -187,16 +190,12 @@ class FunctionCallExpressionTransformer
 			);
 		}
 
-		if ($receiver instanceof HHAST\LambdaExpression || $receiver instanceof HHAST\VariableExpression) {
-			$closure = ExpressionTransformer::transform($receiver, $project, $file, $scope);
+		$closure = ExpressionTransformer::transform($receiver, $project, $file, $scope);
 
-			return new PhpParser\Node\Expr\FuncCall(
-		    	$closure,
-		    	$args
-			);
-		}
-
-		throw new \UnexpectedValueException(get_class($receiver) . ' call not recognized');
+		return new PhpParser\Node\Expr\FuncCall(
+	    	$closure,
+	    	$args
+		);
 	}
 
 	public static function transformArguments(?HHAST\EditableList $node, Project $project, HackFile $file, Scope $scope) : array

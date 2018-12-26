@@ -162,14 +162,18 @@ class FunctionDeclarationTransformer
 			$body = $node->hasBody() ? $node->getBody() : null;
 		}		
 		
-		if ($body && $body->hasStatements()) {
-			$stmts = NodeTransformer::transform($body->getStatements(), $project, $file, $scope);
-			$stmts = array_merge($additional_function_stmts, $stmts);
+		if ($body) {
+			if ($body->hasStatements()) {
+				$stmts = NodeTransformer::transform($body->getStatements(), $project, $file, $scope);
+				$stmts = array_merge($additional_function_stmts, $stmts);
 
-			if ($async) {
-				$stmts = [
-					self::getAsyncCoroutine($params, $stmts, $psalm_return_type, $file)
-				];
+				if ($async) {
+					$stmts = [
+						self::getAsyncCoroutine($params, $stmts, $psalm_return_type, $file)
+					];
+				}
+			} else {
+				$stmts = [];
 			}
 		} else {
 			$stms = $additional_function_stmts;

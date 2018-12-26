@@ -59,6 +59,20 @@ class TypeTransformer
 			return $type . '::class';
 		}
 
+		if ($node instanceof HHAST\QualifiedName) {
+			$token_text = QualifiedNameTransformer::getText($node);
+
+			if ($token_text[0] !== '\\' && $file->namespace) {
+				$token_text = $file->namespace . '\\' . $token_text;
+			}
+
+			if (isset($project->types[$token_text])) {
+				return $project->types[$token_text];
+			}
+
+			return $token_text;
+		}
+
 		if ($node instanceof HHAST\EditableToken) {
 			return self::transformToken($node, $project, $file, $scope, $template_map);
 		}
@@ -103,18 +117,7 @@ class TypeTransformer
 				$child = $child->getItem();
 			}
 
-			if ($child instanceof HHAST\QualifiedName) {
-				$token_text = QualifiedNameTransformer::getText($child);
-
-				if ($token_text[0] !== '\\' && $file->namespace) {
-					$token_text = $file->namespace . '\\' . $token_text;
-				}
-
-				if (isset($project->types[$token_text])) {
-					return $project->types[$token_text];
-				}
-
-				$string_type .= $token_text;
+			if (!$child) {
 				continue;
 			}
 

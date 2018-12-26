@@ -145,7 +145,8 @@ class ExpressionTransformer
 			}
 
 			return new PhpParser\Node\Expr\Array_(
-				$array_items
+				$array_items,
+				['kind' => PhpParser\Node\Expr\Array_::KIND_SHORT]
 			);
 		}
 
@@ -162,7 +163,8 @@ class ExpressionTransformer
 			}
 
 			return new PhpParser\Node\Expr\Array_(
-				$array_items
+				$array_items,
+				['kind' => PhpParser\Node\Expr\Array_::KIND_SHORT]
 			);
 		}
 
@@ -179,7 +181,8 @@ class ExpressionTransformer
 			}
 
 			return new PhpParser\Node\Expr\Array_(
-				$array_items
+				$array_items,
+				['kind' => PhpParser\Node\Expr\Array_::KIND_SHORT]
 			);
 		}
 
@@ -197,7 +200,8 @@ class ExpressionTransformer
 			}
 
 			return new PhpParser\Node\Expr\Array_(
-				$array_items
+				$array_items,
+				['kind' => PhpParser\Node\Expr\Array_::KIND_SHORT]
 			);
 		}
 
@@ -215,11 +219,14 @@ class ExpressionTransformer
 			}
 
 			return new PhpParser\Node\Expr\Array_(
-				$array_items
+				$array_items,
+				['kind' => PhpParser\Node\Expr\Array_::KIND_SHORT]
 			);
 		}
 
-		if ($node instanceof HHAST\ArrayCreationExpression) {
+		if ($node instanceof HHAST\ArrayCreationExpression
+			|| $node instanceof HHAST\ArrayIntrinsicExpression
+		) {
 			$fields = $node->hasMembers() ? $node->getMembers()->getChildren() : [];
 
 			$array_items = [];
@@ -235,7 +242,12 @@ class ExpressionTransformer
 			}
 
 			return new PhpParser\Node\Expr\Array_(
-				$array_items
+				$array_items,
+				[
+					'kind' => $node instanceof HHAST\ArrayCreationExpression
+						? PhpParser\Node\Expr\Array_::KIND_SHORT
+						: PhpParser\Node\Expr\Array_::KIND_LONG
+					]
 			);
 		}
 
@@ -243,7 +255,7 @@ class ExpressionTransformer
 			return LambdaExpressionTransformer::transform($node, $project, $file, $scope);
 		}
 
-		if ($node instanceof AnonymousFunction) {
+		if ($node instanceof AnonymousFunction || $node instanceof HHAST\Php7AnonymousFunction) {
 			return AnonymousFunctionTransformer::transform($node, $project, $file, $scope);
 		}
 
