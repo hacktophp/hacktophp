@@ -14,12 +14,18 @@ class LiteralExpressionTransformer
 		switch (get_class($literal)) {
 			case HHAST\SingleQuotedStringLiteralToken::class:
 				return new PhpParser\Node\Scalar\String_(
-					str_replace(['\\\\', '\\\''], ['\\', '\''], substr($literal->getText(), 1, -1))
+					str_replace(['\\\\', '\\\''], ['\\', '\''], substr($literal->getText(), 1, -1)),
+					[
+						'kind' => PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED
+					]
 				);
 				
 			case HHAST\DoubleQuotedStringLiteralToken::class:
 				return new PhpParser\Node\Scalar\String_(
-					stripcslashes(substr($literal->getText(), 1, -1))
+					stripcslashes(substr($literal->getText(), 1, -1)),
+					[
+						'kind' => PhpParser\Node\Scalar\String_::KIND_DOUBLE_QUOTED
+					]
 				);
 
 			case HHAST\NullLiteralToken::class:

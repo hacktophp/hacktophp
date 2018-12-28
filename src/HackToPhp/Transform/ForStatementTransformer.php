@@ -16,7 +16,7 @@ class ForStatementTransformer
 		$stmts = NodeTransformer::transform($node->getBody(), $project, $file, $scope);
 
 		if (!is_array($stmts)) {
-			$stmts = [];
+			$stmts = [$stmts];
 		}
 
 		return new PhpParser\Node\Stmt\For_(

@@ -15,8 +15,14 @@ class ClassishDeclarationTransformer
 	{
 		$modifiers = null;
 
-		if ($node instanceof HHAST\ClassishDeclaration && $node->hasModifiers()) {
-			$modifiers = $node->getModifiers()->getChildren();
+		$comments = [];
+
+		if ($node instanceof HHAST\ClassishDeclaration) {
+			$comments = ExpressionTransformer::getTokenCommentsRecursively($node);
+
+			if ($node->hasModifiers()) {
+				$modifiers = $node->getModifiers()->getChildren();
+			}
 		}
 
 		$flags = 0;
@@ -78,8 +84,6 @@ class ClassishDeclarationTransformer
 				$implementing_interfaces[] = QualifiedNameTransformer::transform($specifier);
 			}
 		}
-
-		$comments = $class_type ? ExpressionTransformer::getTokenComments($class_type) : [];
 
 		if ($class_type instanceof HHAST\ClassToken || !$class_type) {
 			return new PhpParser\Node\Stmt\Class_(

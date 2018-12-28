@@ -557,21 +557,27 @@ class ExpressionTransformer
 	{
 		$children = $token->getChildren();
 
-		$first_child = array_shift($children);
+		foreach ($children as $child) {
+			if ($child instanceof HHAST\ListItem) {
+				$child = $child->getItem();
+			}
 
-		if ($first_child instanceof HAST\ListItem) {
-			$first_child = $first_child->getItem();
+			if ($child instanceof HHAST\Missing || $child instanceof HHAST\WhiteSpace) {
+				continue;
+			}
+
+			if ($child instanceof HHAST\EditableToken) {
+				return self::getTokenComments($child);
+			}
+
+			if (!$child) {
+				return [];
+			}
+
+			return self::getTokenCommentsRecursively($child);
 		}
 
-		if (!$first_child) {
-			return [];
-		}
-
-		if ($first_child instanceof HHAST\EditableToken) {
-			return self::getTokenComments($first_child);
-		}
-
-		return self::getTokenCommentsRecursively($first_child);
+		return [];
 	}
 
 	public static function getTokenComments(HHAST\EditableToken $token) : array

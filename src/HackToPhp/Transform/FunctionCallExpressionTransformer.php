@@ -234,7 +234,10 @@ class FunctionCallExpressionTransformer
 				return new PhpParser\Node\Arg(
 					ExpressionTransformer::transform($item, $project, $file, $scope),
 					$by_ref,
-					$unpack
+					$unpack,
+					[
+						'comments' => ExpressionTransformer::getTokenCommentsRecursively($node),		
+					]
 				);
 			},
 			$node->getChildren()

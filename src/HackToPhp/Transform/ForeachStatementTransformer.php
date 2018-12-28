@@ -13,10 +13,12 @@ class ForeachStatementTransformer
 		$value_var = ExpressionTransformer::transform($node->getValue(), $project, $file, $scope);
 		$key_var = $node->hasKey() ? ExpressionTransformer::transform($node->getKey(), $project, $file, $scope) : null;
 
+		$token_comments = ExpressionTransformer::getTokenCommentsRecursively($node);
+
 		$stmts = NodeTransformer::transform($node->getBody(), $project, $file, $scope);
 
 		if (!is_array($stmts)) {
-			$stmts = [];
+			$stmts = [$stmts];
 		}
 
 		return new PhpParser\Node\Stmt\Foreach_(
@@ -25,6 +27,9 @@ class ForeachStatementTransformer
 			[
 				'keyVar' => $key_var,
 				'stmts' => $stmts
+			],
+			[
+				'comments' => $token_comments
 			]
 		);
 	}

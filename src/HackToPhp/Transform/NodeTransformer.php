@@ -180,7 +180,10 @@ class NodeTransformer
 			return new PhpParser\Node\Stmt\Return_(
 				$node->hasExpression()
 					? ExpressionTransformer::transform($node->getExpression(), $project, $file, $scope)
-					: null
+					: null,
+				[
+					'comments' => ExpressionTransformer::getTokenComments($node->getKeyword())
+				]
 			);
 		}
 

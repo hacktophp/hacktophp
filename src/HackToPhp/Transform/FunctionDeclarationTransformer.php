@@ -316,7 +316,7 @@ class FunctionDeclarationTransformer
 			new PhpParser\Node\Expr\Variable(substr($param_name, 1)),
 			$default_value,
 			$param_type,
-			false,
+			$by_ref,
 			$variadic
 		);
 	}

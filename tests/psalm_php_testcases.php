@@ -1047,7 +1047,7 @@ class A {
 
     /** @return void */
     public function bar() {
-        $this->strs = [new stdClass()]; // no issue emitted
+        $this->strs = [new stdClass()];
     }
 }
 <?php
@@ -1057,7 +1057,7 @@ class A {
 
     /** @return void */
     public function bar() {
-        $this->strs[] = new stdClass(); // no issue emitted
+        $this->strs[] = new stdClass();
     }
 }
 <?php
@@ -1316,9 +1316,9 @@ $b[$foo][$bar][] = "bat";
 <?php
 /** @var array{0: string, 1: int} **/
 $a = ["hello", 5];
-$b = $a[0]; // string
-$c = $a[1]; // int
-list($d, $e) = $a; // $d is string, $e is int
+$b = $a[0];
+$c = $a[1];
+list($d, $e) = $a;
 <?php
 $foo = [];
 $foo["a"] = 1;
@@ -1680,7 +1680,7 @@ class B extends A {
 
 function assertInstanceOfB(A $var): void {
     if (!$var instanceof B) {
-        throw new \Exception();
+        throw new Exception();
     }
 }
 
@@ -1701,7 +1701,7 @@ class B extends A implements I {
 
 function assertInstanceOfI(A $var): void {
     if (!$var instanceof I) {
-        throw new \Exception();
+        throw new Exception();
     }
 }
 
@@ -1727,7 +1727,7 @@ class B extends A implements I1, I2 {
 
 function assertInstanceOfInterfaces(A $var): void {
     if (!$var instanceof I1 || !$var instanceof I2) {
-        throw new \Exception();
+        throw new Exception();
     }
 }
 
@@ -1745,7 +1745,7 @@ class B extends A {
 class C {
     private function assertInstanceOfB(A $var): void {
         if (!$var instanceof B) {
-            throw new \Exception();
+            throw new Exception();
         }
     }
 
@@ -1765,7 +1765,7 @@ class B {
 
     private function assertNotNullProperty(): void {
         if (!$this->a) {
-            throw new \Exception();
+            throw new Exception();
         }
     }
 
@@ -1803,7 +1803,7 @@ class B extends A {
 /** @psalm-assert B $var */
 function myAssertInstanceOfB(A $var): void {
     if (!$var instanceof B) {
-        throw new \Exception();
+        throw new Exception();
     }
 }
 
@@ -2039,7 +2039,7 @@ class B extends A implements I1, I2 {
 
 function assertInstanceOfInterfaces(A $var): void {
     if (!$var instanceof I1 && !$var instanceof I2) {
-        throw new \Exception();
+        throw new Exception();
     }
 }
 
@@ -2606,7 +2606,7 @@ foreach ($arr as $a) {
 }
 <?php
 /** @return void */
-function run_function(\Closure $fnc) {
+function run_function(Closure $fnc) {
     $fnc();
 }
 
@@ -3994,7 +3994,7 @@ defineConstant();
 echo CONSTANT;
 <?php
 $a = __LINE__;
-$b = __file__;
+$b = __FILE__;
 <?php
 class A {
     const B = [0, 1, 2];
@@ -4098,7 +4098,7 @@ class Foo
     public function bar(array $data): void
     {
         if (!isset(self::TYPES[$data["type"]])) {
-            throw new \InvalidArgumentException("Unknown type");
+            throw new InvalidArgumentException("Unknown type");
         }
 
         $class = self::TYPES[$data["type"]];
@@ -4106,7 +4106,7 @@ class Foo
         $ret = finder($data["id"]);
 
         if (!$ret || !$ret instanceof $class) {
-            throw new \InvalidArgumentException;
+            throw new InvalidArgumentException;
         }
     }
 }
@@ -4775,7 +4775,7 @@ class B {}
  */
 function takesIterableOfA(iterable $p): void {}
 
-takesIterableOfA([new B]); // should complain
+takesIterableOfA([new B]);
 <?php
 class A {}
 class B {}
@@ -4784,7 +4784,7 @@ class B {}
  */
 function takesIterableOfA(iterable $p): void {}
 
-takesIterableOfA([new B]); // should complain
+takesIterableOfA([new B]);
 <?php
 $q = rand(0,1) ? new stdClass : false;
 strlen($q);
@@ -6049,7 +6049,7 @@ function foo(A $i): B {
     if ($i instanceof B) {
         return $i;
     }
-    throw new \Exception("bad");
+    throw new Exception("bad");
 }
 
 foo(new C);
@@ -6594,7 +6594,7 @@ if (isset($arr[$b][$c])) {
 function foo(array $arr) : int {
     $b = rand(0, 3);
     if (!isset($arr[$b])) {
-        throw new \Exception("bad");
+        throw new Exception("bad");
     }
     return $arr[$b];
 }
@@ -6634,7 +6634,7 @@ function takesAList(array $arr) : B {
     if (isset($arr[1]->b)) {
         return $arr[1]->b;
     }
-    throw new \Exception("bad");
+    throw new Exception("bad");
 }
 <?php
 $arr = [1, 1, 1, 1, 2, 5, 3, 2];
@@ -6774,11 +6774,11 @@ function sameString(string $string): string {
 }
 
 if (isset($array[sameString("key1")]) || isset($array[sameString("key2")])) {
-    throw new \InvalidArgumentException();
+    throw new InvalidArgumentException();
 }
 
 if (!isset($array[sameString("key3")]) || !isset($array[sameString("key4")])) {
-    throw new \InvalidArgumentException();
+    throw new InvalidArgumentException();
 }
 <?php
 $foo = [
@@ -7107,7 +7107,7 @@ class A
     {
         do {
             if ($a->parent === null) {
-                throw new \Exception("bad");
+                throw new Exception("bad");
             }
 
             $a = $a->parent;
@@ -7125,7 +7125,7 @@ class A
     public static function foo(A $a) : void
     {
         if ($a->parent === null) {
-            throw new \Exception("bad");
+            throw new Exception("bad");
         }
 
         do {
@@ -7670,7 +7670,7 @@ foreach ([1, 2, 3] as $i) {
   }
 
   if ($b) {
-    continue; // if this is removed, no failure
+    continue;
   } else {} // if else is removed, no failure
 }
 
@@ -8800,7 +8800,7 @@ class A {
 
 $a = new A();
 $a->foo = "hello";
-$a->bar = "hello"; // not a property
+$a->bar = "hello";
 <?php
 namespace Bar;
 
@@ -9854,7 +9854,7 @@ foreach (xrange(1, 9, 2) as $number) {
 <?php
 try {
 }
-catch (\Exception $e) {
+catch (Exception $e) {
 }
 finally {
 }
@@ -10510,7 +10510,7 @@ class IteratorObj implements Iterator {
     function valid(): bool { return false; }
 }
 
-function foo(\Traversable $t): void {
+function foo(Traversable $t): void {
 }
 
 foo(new IteratorObj);
@@ -12064,7 +12064,7 @@ function foo($arr): void {
 /** @param string|null $bar */
 function foo($bar): void {
     if (!is_null($bar) && !is_string($bar)) {
-        throw new \Exception("bad");
+        throw new Exception("bad");
     }
 
     if ($bar !== null) {}
@@ -12084,7 +12084,7 @@ function foo($a) : void {
     } elseif ($a instanceof B) {
 
     } else {
-        throw new \Exception("bad");
+        throw new Exception("bad");
     }
 }
 <?php
@@ -12452,8 +12452,8 @@ class A {
 }
 
 $bar = 5;
-$a = new A($bar); // $bar is constrained to an int
-$bar = null; // ReferenceConstraintViolation issue emitted
+$a = new A($bar);
+$bar = null;
 <?php
 class A {
   /** @var int */
@@ -12488,10 +12488,10 @@ class B {
 
 if (rand(0, 1)) {
     $v = 5;
-    $c = (new A($v)); // $v is constrained to an int
+    $c = (new A($v));
 } else {
     $v = "hello";
-    $c =  (new B($v)); // $v is constrained to a string
+    $c =  (new B($v));
 }
 
 $v = 8;
@@ -12605,7 +12605,7 @@ function getOutput(): resource {
     $res = fopen("php://output", "w");
 
     if ($res === false) {
-        throw new \Exception("Cannot write");
+        throw new Exception("Cannot write");
     }
 
     return $res;
@@ -12796,10 +12796,10 @@ class B {
      */
     public function barBar(A1 $a1 = null, A2 $a2 = null) {
         if (!$a1) {
-            throw new \Exception();
+            throw new Exception();
         }
         if (!$a2) {
-            throw new \Exception();
+            throw new Exception();
         }
         return $a1;
     }
@@ -12815,10 +12815,10 @@ class B {
      */
     public function barBar(A1 $a1 = null, A2 $a2 = null) {
         if (!$a1) {
-            throw new \Exception();
+            throw new Exception();
         }
         elseif (!$a2) {
-            throw new \Exception();
+            throw new Exception();
         }
         return $a1;
     }
@@ -12831,7 +12831,7 @@ class A {
             // do a thing
             return true;
         }
-        catch (\Exception $e) {
+        catch (Exception $e) {
             throw $e;
         }
     }
@@ -12872,7 +12872,7 @@ class A {
                 return true;
 
             default:
-                throw new \Exception("badness");
+                throw new Exception("badness");
         }
     }
 }
@@ -12989,7 +12989,7 @@ function getOutput() {
     $res = fopen("php://output", "w");
 
     if ($res === false) {
-        throw new \Exception("Cannot write");
+        throw new Exception("Cannot write");
     }
 
     return $res;
@@ -13190,7 +13190,7 @@ if (rand(0,100) === 10) {
     $badge = "hello";
 }
 else {
-    throw new \Exception();
+    throw new Exception();
 }
 
 echo $badge;
@@ -13291,7 +13291,7 @@ function a(): string {
 $a = rand(0, 10) ? "hello" : null;
 
 if (rand(0, 10) > 1 && is_string($a)) {
-    throw new \Exception("bad");
+    throw new Exception("bad");
 }
 <?php
 $a = rand(0, 10) ? "hello" : null;
@@ -13443,7 +13443,7 @@ function f(string $p): void { }
 
 switch (true) {
     case $q = (bool) rand(0,1):
-        f($q); // this type problem is not detected
+        f($q);
         break;
 }
 <?php
@@ -13617,11 +13617,11 @@ class A {
 function f(A $obj): string {
   switch (true) {
     case $obj->a !== null:
-      return $obj->a; // definitely not null
+      return $obj->a;
     case !is_null($obj->b):
-      return $obj->b; // definitely not null
+      return $obj->b;
     default:
-      throw new \InvalidArgumentException("$obj->a or $obj->b must be set");
+      throw new InvalidArgumentException("$obj->a or $obj->b must be set");
   }
 }
 <?php
@@ -13638,11 +13638,11 @@ class A {
 function f(A $obj): string {
   switch (true) {
     case $obj->a:
-      return $obj->a; // definitely not null
+      return $obj->a;
     case $obj->b:
-      return $obj->b; // definitely not null
+      return $obj->b;
     default:
-      throw new \InvalidArgumentException("$obj->a or $obj->b must be set");
+      throw new InvalidArgumentException("$obj->a or $obj->b must be set");
   }
 }
 <?php
@@ -13705,7 +13705,7 @@ switch (rand(0,1)) {
     case 1:
         $dt = $a->maybeReturnsDT();
         if (!is_null($dt)) {
-            $dt = $dt->format(\DateTime::ISO8601);
+            $dt = $dt->format(DateTime::ISO8601);
         }
         break;
 }
@@ -13778,7 +13778,7 @@ switch ($a) {
         break;
 
     default:
-        throw new \Exception("should never happen");
+        throw new Exception("should never happen");
 }
 <?php
 function foo(int $a, int $b, int $c) : void {
@@ -14041,7 +14041,7 @@ class Foo
     public function __construct(string $type)
     {
         if (!in_array($type, [A::class, B::class], true)) {
-            throw new \InvalidArgumentException;
+            throw new InvalidArgumentException;
         }
         $this->type = $type;
         $this->items = [];
@@ -14078,7 +14078,7 @@ class Foo
     public function __construct(string $type)
     {
         if (!in_array($type, [A::class, B::class], true)) {
-            throw new \InvalidArgumentException;
+            throw new InvalidArgumentException;
         }
         $this->type = $type;
         $this->items = [];
@@ -14298,10 +14298,10 @@ class Foo {
     }
 }
 
-$efoo = new Foo(\Exception::class);
+$efoo = new Foo(Exception::class);
 $efoo_bar = $efoo->bar();
 
-$ffoo = new Foo(\LogicException::class);
+$ffoo = new Foo(LogicException::class);
 $ffoo_bar = $ffoo->bar();
 <?php
 class A {}
@@ -14736,7 +14736,7 @@ class Foo
     public function __construct(string $type)
     {
         if (!in_array($type, [A::class, B::class], true)) {
-            throw new \InvalidArgumentException;
+            throw new InvalidArgumentException;
         }
         $this->type = $type;
         $this->items = [];
@@ -14920,7 +14920,7 @@ class SomeIterator implements IteratorAggregate
 }
 
 /** @param \IteratorAggregate<mixed, int> $i */
-function takesIteratorOfInts(\IteratorAggregate $i) : void {
+function takesIteratorOfInts(IteratorAggregate $i) : void {
     foreach ($i as $j) {
         echo $j;
     }
@@ -15966,7 +15966,7 @@ try {
 try {
     $worked = true;
 }
-catch (\Exception $e) {
+catch (Exception $e) {
     $worked = false;
 }
 <?php
@@ -16013,7 +16013,7 @@ $foo = true;
 
 try {
   $a->bar();
-} catch (\TypeError $e) {
+} catch (TypeError $e) {
   $foo = false;
 }
 
@@ -16115,7 +16115,7 @@ function takesString(string $s): void {}
 function foo(?string $a, ?string $b, ?string $c): void {
     if ($a !== null || $b !== null || $c !== null) {
         if ($c !== null) {
-            throw new \Exception("bad");
+            throw new Exception("bad");
         }
 
         if ($a !== null) {
@@ -16619,11 +16619,11 @@ class A {
 }
 function f(A $obj): string {
   if (($obj->a !== null) == true) {
-    return $obj->a; // definitely not null
+    return $obj->a;
   } elseif (!is_null($obj->b) == true) {
     return $obj->b;
   } else {
-    throw new \InvalidArgumentException("$obj->a or $obj->b must be set");
+    throw new InvalidArgumentException("$obj->a or $obj->b must be set");
   }
 }
 <?php
@@ -16639,11 +16639,11 @@ class A {
 }
 function f(A $obj): string {
   if (($obj->a === null) == false) {
-    return $obj->a; // definitely not null
+    return $obj->a;
   } elseif (is_null($obj->b) == false) {
     return $obj->b;
   } else {
-    throw new \InvalidArgumentException("$obj->a or $obj->b must be set");
+    throw new InvalidArgumentException("$obj->a or $obj->b must be set");
   }
 }
 <?php
@@ -16849,7 +16849,7 @@ if ($a = rand(0, 5)) {
 <?php
 function sayHello(?int $a, ?int $b): void {
     if ($a === null && $b === null) {
-        throw new \LogicException();
+        throw new LogicException();
     }
 
     takesInt($a !== null ? $a : $b);
@@ -16859,7 +16859,7 @@ function takesInt(int $c) : void {}
 <?php
 function sayHello(?int $a, ?int $b): void {
     if ($a === null && $b === null) {
-        throw new \LogicException();
+        throw new LogicException();
     }
 
     if ($a !== null) {
@@ -16873,7 +16873,7 @@ function takesInt(int $c) : void {}
 <?php
 function sayHello(?int $a, ?int $b): void {
     if ($a === null && $b === null) {
-        throw new \LogicException();
+        throw new LogicException();
     }
 
     if ($a !== null) {
@@ -17413,7 +17413,7 @@ function foo($a) {
         return $a;
     }
 
-    throw new \LogicException("Runtime error");
+    throw new LogicException("Runtime error");
 }
 <?php
 $a = null;
@@ -17516,7 +17516,7 @@ foo(new B);
 bar(new B);
 <?php
 function foo(iterable $iterable) : void {
-    if (\is_array($iterable) || $iterable instanceof \Traversable) {}
+    if (is_array($iterable) || $iterable instanceof \Traversable) {}
 }
 <?php
 function f(string $s = null): string {
@@ -18575,7 +18575,7 @@ class B {
                     break;
 
                 default:
-                    throw new \Exception("bad");
+                    throw new Exception("bad");
             }
         }
 
@@ -18820,7 +18820,7 @@ class One {
 /** @return void */
 function a(One $var = null) {
     if (!$var) {
-        throw new \Exception("some exception");
+        throw new Exception("some exception");
     }
     else {
         $var->fooFoo();
@@ -19178,7 +19178,7 @@ function foo(string $s) : void {
         case "b":
         case "c":
             if ($s === "a" || $s === "b") {
-                throw new \InvalidArgumentException;
+                throw new InvalidArgumentException;
             }
 
             if ($s === "c") {}
@@ -19454,7 +19454,7 @@ function foo(string $s) : void {
         case "b":
         case "c":
             if ($s === "a" || $s === "b") {
-                throw new \InvalidArgumentException;
+                throw new InvalidArgumentException;
             }
             break;
     }
@@ -19470,7 +19470,7 @@ class Foo
     public function __construct(string $s)
     {
         if (!in_array($s, ["a", "b"], true)) {
-            throw new \InvalidArgumentException;
+            throw new InvalidArgumentException;
         }
         $this->s = $s;
     }
@@ -19482,7 +19482,7 @@ function foo(string $s) : void {
         case "b":
         case "c":
             if (in_array($s, ["a", "b"], true)) {
-                throw new \InvalidArgumentException;
+                throw new InvalidArgumentException;
             }
             break;
     }
