@@ -35,8 +35,6 @@ class BinaryExpressionTransformer
 		$right_operand = $node->getRightOperand();
 
 		if ($operator instanceof EqualToken) {
-			ExpressionTransformer::getTokenCommentsRecursively($node->getLeftOperand(), $project, $file, $scope);
-
 			if ($right_operand instanceof HHAST\PrefixUnaryExpression
 				&& $right_operand->getOperator() instanceof AmpersandToken
 			) {
