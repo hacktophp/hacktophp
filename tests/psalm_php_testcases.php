@@ -15844,6 +15844,8 @@ class C {
     use A;
 }
 <?php
+namespace Bar;
+
 trait Foo {
     public function bar() : array {
         $type = static::class;

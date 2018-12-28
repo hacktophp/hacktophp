@@ -31,4 +31,9 @@ class HackFile
 	 * @var array<string, string>
 	 */
 	public $aliased_constants = [];
+
+	/**
+	 * @var bool
+	 */
+	public $is_hack = true;
 }

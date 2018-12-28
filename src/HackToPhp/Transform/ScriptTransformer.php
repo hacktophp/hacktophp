@@ -17,7 +17,9 @@ class ScriptTransformer
 			$declaration = $declarations[$i];
 
 			if ($declaration instanceof HHAST\NamespaceDeclaration) {
-				$file->namespace = $declaration->getQualifiedNameAsString();
+				$namespace_name = $declaration->getQualifiedNameAsString();
+
+				$file->namespace = $namespace_name;
 
 				if ($declaration->hasBody() && !$declaration->getBody() instanceof HHAST\NamespaceEmptyBody) {
 					$namespace_stmts = NodeTransformer::transform($declaration->getBody()->getDeclarations(), $project, $file, $scope);
@@ -30,16 +32,20 @@ class ScriptTransformer
 				}
 
 				$stmts[] = new PhpParser\Node\Stmt\Namespace_(
-					$file->namespace ? new PhpParser\Node\Name($file->namespace) : null,
+					$namespace_name ? new PhpParser\Node\Name($namespace_name) : null,
 					$namespace_stmts,
 					[
 						'comments' => ExpressionTransformer::getTokenComments($declaration->getKeyword())
 					]
 				);
 
-				$file->namespace = '';
+				if ($declaration->hasBody() && !$declaration->getBody() instanceof HHAST\NamespaceEmptyBody) {
+					$file->namespace = '';
 
-				continue;
+					continue;
+				}
+
+				break;
 			}
 
 			$stmts[] = NodeTransformer::transform($declaration, $project, $file, $scope);

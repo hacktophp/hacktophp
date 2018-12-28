@@ -26,7 +26,10 @@ class NodeTransformer
 		}
 
 		if ($node instanceof HHAST\MarkupSection) {
-			// todo maybe more information can be gleaned
+			if ($node->getSuffix()->getName()->getText() !== 'hh') {
+				$file->is_hack = false;
+			}
+
 			return new PhpParser\Node\Stmt\Nop();
 		}
 
