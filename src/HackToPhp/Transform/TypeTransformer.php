@@ -171,6 +171,14 @@ class TypeTransformer
 			return 'void';
 		}
 
+		if ($psalm_type instanceof Psalm\Type\Atomic\TCallable) {
+			return 'callable';
+		}
+
+		if ($psalm_type instanceof Psalm\Type\Atomic\TObject) {
+			return 'object';
+		}
+
 		if ($psalm_type instanceof Psalm\Type\Atomic\Scalar) {
 			return $psalm_type->toPhpString($file->namespace, [], null, 7, 2);
 		}
@@ -250,7 +258,7 @@ class TypeTransformer
 
 			// means something different in Hack
 			case 'Traversable':
-				return 'iterable';
+				return $file->is_hack ? 'iterable' : 'Traversable';
 		}
 
 		if ($node instanceof HHAST\NameToken) {

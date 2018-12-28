@@ -11,8 +11,10 @@ class NamespaceUseDeclarationTransformer
 	{
 		$kind = $node->getKind();
 
+		$aliases = [];
+
 		$uses = array_map(
-			function(HHAST\NamespaceUseClause $clause) {
+			function(HHAST\NamespaceUseClause $clause) use ($kind) {
 				$name = $clause->getName();
 			    if ($name instanceof HHAST\NameToken) {
 			      	$full_name = $name->getText();
@@ -21,7 +23,7 @@ class NamespaceUseDeclarationTransformer
 				    	"\\",
 				    	array_map(
 				    		function($t) { return $t->getText(); },
-				    		$clause->getDescendantsOfType(HHAST\NameToken::class)
+				    		$clause->getName()->getDescendantsOfType(HHAST\NameToken::class)
 				    	)
 			    	);
 			    }
@@ -29,38 +31,42 @@ class NamespaceUseDeclarationTransformer
 			    $name_parts = explode('\\', $full_name);
 			    $name_alias = end($name_parts);
 
-				return new PhpParser\Node\Stmt\UseUse(new PhpParser\Node\Name($full_name), $name_alias);
+			    $real_alias = $clause->hasAlias() ? $clause->getAlias()->getText() : null;
+
+			    $aliases[$real_alias ?? $name_alias] = $full_name;
+
+				return new PhpParser\Node\Stmt\UseUse(new PhpParser\Node\Name($full_name), $real_alias);
 			},
 			$node->getClauses()->getDescendantsOfType(HHAST\NamespaceUseClause::class)
 		);
 		
-		if ($kind instanceof HHAST\NamespaceToken) {
-			foreach ($uses as $use) {
-				$file->aliased_namespaces[(string) $use->alias] = (string) $use->name;
+		if ($kind instanceof HHAST\NamespaceToken || !$kind) {
+			foreach ($aliases as $key => $value) {
+				$file->aliased_namespaces[$key] = $value;
 			}
 			
 			return new PhpParser\Node\Stmt\Use_($uses);
 		}
 
-		if (!$kind || $kind instanceof HHAST\TypeToken) {
-			foreach ($uses as $use) {
-				$file->aliased_types[(string) $use->alias] = (string) $use->name;
+		if ($kind instanceof HHAST\TypeToken) {
+			foreach ($aliases as $key => $value) {
+				$file->aliased_types[$key] = $value;
 			}
 			
 			return new PhpParser\Node\Stmt\Use_($uses);
 		}
 
 		if ($kind instanceof HHAST\FunctionToken) {
-			foreach ($uses as $use) {
-				$file->aliased_functions[(string) $use->alias] = (string) $use->name;
+			foreach ($aliases as $key => $value) {
+				$file->aliased_functions[$key] = $value;
 			}
 
 			return new PhpParser\Node\Stmt\Use_($uses, PhpParser\Node\Stmt\Use_::TYPE_FUNCTION);
 		}
 
 		if ($kind instanceof HHAST\ConstToken) {
-			foreach ($uses as $use) {
-				$file->aliased_constants[(string) $use->alias] = (string) $use->name;
+			foreach ($aliases as $key => $value) {
+				$file->aliased_constants[$key] = $value;
 			}
 
 			return new PhpParser\Node\Stmt\Use_($uses, PhpParser\Node\Stmt\Use_::TYPE_CONSTANT);

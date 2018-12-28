@@ -137,11 +137,13 @@ class FunctionDeclarationTransformer
 
 			$psalm_return_type = Psalm\Type::parseString($return_type_string);
 
-			if (!$psalm_return_type->canBeFullyExpressedInPhp() || !$project->use_php_return_types) {
-				$docblock['specials']['return'] = [$psalm_return_type->toNamespacedString($file->namespace, [], null, false)];
+			if ($file->is_hack) {
+				if (!$psalm_return_type->canBeFullyExpressedInPhp() || !$project->use_php_return_types) {
+					$docblock['specials']['return'] = [$psalm_return_type->toNamespacedString($file->namespace, [], null, false)];
+				}
 			}
-
-			if ($project->use_php_return_types) {
+			
+			if ($project->use_php_return_types || !$file->is_hack) {
 				$php_return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $project, $file, $scope);
 			}
 		}
@@ -252,7 +254,7 @@ class FunctionDeclarationTransformer
 				false
 			);
 
-			if (!$psalm_type->canBeFullyExpressedInPhp()) {
+			if ($file->is_hack && !$psalm_type->canBeFullyExpressedInPhp()) {
 				$docblock['specials']['param'][] = $namespaced_type_string . ' ' . $param_name;
 			}
 
