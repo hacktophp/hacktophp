@@ -55,7 +55,12 @@ class ExpressionTransformer
 			throw new \UnexpectedValueException('Unrecognised expression statement token');
 		}
 
-		return new PhpParser\Node\Stmt\Expression(self::transform($inner_expression, $project, $file, $scope));
+		$token_comments = self::getTokenCommentsRecursively($node);
+
+		return new PhpParser\Node\Stmt\Expression(
+			self::transform($inner_expression, $project, $file, $scope),
+			['comments' => $token_comments]
+		);
 	}
 
 	/** 
@@ -546,6 +551,27 @@ class ExpressionTransformer
 		}
 
 		throw new \UnexpectedValueException('Cannot transform variable name of type ' . get_class($node));
+	}
+
+	public static function getTokenCommentsRecursively(HHAST\EditableNode $token) : array
+	{
+		$children = $token->getChildren();
+
+		$first_child = array_shift($children);
+
+		if ($first_child instanceof HAST\ListItem) {
+			$first_child = $first_child->getItem();
+		}
+
+		if (!$first_child) {
+			return [];
+		}
+
+		if ($first_child instanceof HHAST\EditableToken) {
+			return self::getTokenComments($first_child);
+		}
+
+		return self::getTokenCommentsRecursively($first_child);
 	}
 
 	public static function getTokenComments(HHAST\EditableToken $token) : array
