@@ -9,10 +9,16 @@ class NodeTransformer
 {
 	public static function transformList(HHAST\EditableList $list, Project $project, HackFile $file, Scope $scope)
 	{
-		return array_map(
-			function(HHAST\EditableNode $node) use ($project, $file, $scope) { return self::transform($node, $project, $file, $scope); },
-			$list->getChildren()
-		);
+		return
+			array_filter(
+				array_map(
+					function(HHAST\EditableNode $node) use ($project, $file, $scope) { return self::transform($node, $project, $file, $scope); },
+					$list->getChildren()
+				),
+				function (PhpParser\Node\Stmt $node) {
+					return !$node instanceof PhpParser\Node\Stmt\Nop;
+				}
+			);
 	}
 
 	public static function transform(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope)

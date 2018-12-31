@@ -13,6 +13,12 @@ class IsExpressionTransformer
 		
 		if ($right_operand instanceof HHAST\GenericTypeSpecifier) {
 			$specifier = $right_operand->getClassType();
+		} elseif ($right_operand instanceof HHAST\DictionaryTypeSpecifier) {
+			$specifier = $right_operand->getKeyword();
+		} elseif ($right_operand instanceof HHAST\VectorTypeSpecifier) {
+			$specifier = $right_operand->getKeyword();
+		} elseif ($right_operand instanceof HHAST\KeysetTypeSpecifier) {
+			$specifier = $right_operand->getKeyword();
 		} else {
 			$specifier = $right_operand->getSpecifier();
 		}
@@ -37,6 +43,9 @@ class IsExpressionTransformer
 				);
 
 			case HHAST\ArrayToken::class:
+			case HHAST\DictToken::class:
+			case HHAST\VecToken::class:
+			case HHAST\KeysetToken::class:
 				return new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_array'),
 					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
@@ -52,6 +61,12 @@ class IsExpressionTransformer
 			case HHAST\ObjectToken::class:
 				return new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_object'),
+					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+				);
+
+			case HHAST\ResourceToken::class:
+				return new PhpParser\Node\Expr\FuncCall(
+					new PhpParser\Node\Name\FullyQualified('is_resource'),
 					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
 				);
 

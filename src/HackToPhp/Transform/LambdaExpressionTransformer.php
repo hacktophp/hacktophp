@@ -58,7 +58,9 @@ class LambdaExpressionTransformer
 		if ($body instanceof HHAST\CompoundStatement) {
 			$stmts = NodeTransformer::transform($body, $project, $file, $scope);
 
-			if (count($stmts) === 1 && !$stmts[0] instanceof PhpParser\Node\Stmt\TryCatch) {
+			if (count($stmts) === 1
+				&& !$stmts[0] instanceof PhpParser\Node\Stmt
+			) {
 				$stmts = [
 					new PhpParser\Node\Stmt\Return_(
 						$stmts[0]->expr

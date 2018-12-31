@@ -60,9 +60,17 @@ class LiteralExpressionTransformer
 				return new PhpParser\Node\Scalar\DNumber((float) $value);
 
 			case HHAST\HeredocStringLiteralToken::class:
+				$lines = explode("\n", $literal->getText());
+				array_pop($lines);
+				$doc_label = preg_replace('/^<<</', '', \array_shift($lines));
+
 				return new PhpParser\Node\Scalar\String_(
-					(int) $literal->getText(),
-					['kind' => PhpParser\Node\Scalar\String_::KIND_HEREDOC]
+					implode("\n", $lines),
+					[
+						'kind' => PhpParser\Node\Scalar\String_::KIND_HEREDOC,
+						'docLabel' => $doc_label,
+						'docIndentation' => '',
+					]
 				);
 
 			case HHAST\FloatingLiteralToken::class:
@@ -101,6 +109,53 @@ class LiteralExpressionTransformer
 							},
 							$literal->getChildren()
 						)
+					);
+				}
+
+				if ($first_child instanceof HHAST\HeredocStringLiteralHeadToken) {
+					$first_line = explode("\n", $first_child->getText())[0];
+					$doc_label = preg_replace('/^<<</', '', $first_line);
+					$quoted_label = preg_quote($doc_label, '/');
+
+					return new PhpParser\Node\Scalar\Encapsed(
+						array_map(
+							function($item) use ($project, $file, $scope, $quoted_label) {
+								if ($item instanceof HHAST\HeredocStringLiteralHeadToken) {
+									return new PhpParser\Node\Scalar\EncapsedStringPart(
+										PhpParser\Node\Scalar\String_::parseEscapeSequences(
+											preg_replace('/^<<<' . $quoted_label . '\n/', '', $item->getText()),
+											null
+										)
+									);
+								}
+
+								if ($item instanceof HHAST\HeredocStringLiteralTailToken) {
+									return new PhpParser\Node\Scalar\EncapsedStringPart(
+										PhpParser\Node\Scalar\String_::parseEscapeSequences(
+											preg_replace('/\n' . $quoted_label . '$/', '', $item->getText()),
+											null
+										)
+									);
+								}
+
+								if ($item instanceof HHAST\StringLiteralBodyToken) {
+									return new PhpParser\Node\Scalar\EncapsedStringPart(
+										PhpParser\Node\Scalar\String_::parseEscapeSequences(
+											$item->getText(),
+											null
+										)
+									);
+								}
+
+								return ExpressionTransformer::transform($item, $project, $file, $scope);
+							},
+							$children
+						),
+						[
+							'kind' => PhpParser\Node\Scalar\String_::KIND_HEREDOC,
+							'docLabel' => $doc_label,
+							'docIndentation' => '',
+						]
 					);
 				}
 

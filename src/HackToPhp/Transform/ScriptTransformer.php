@@ -51,6 +51,13 @@ class ScriptTransformer
 			$stmts[] = NodeTransformer::transform($declaration, $project, $file, $scope);
 		}
 
+		$stmts = array_filter(
+			$stmts,
+			function (PhpParser\Node\Stmt $node) {
+				return !$node instanceof PhpParser\Node\Stmt\Nop;
+			}
+		);
+
 		return $stmts;
 	}
 }

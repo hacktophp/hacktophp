@@ -56,6 +56,10 @@ class TypeTransformer
 
 			$type = self::transform($node->getType(), $project, $file, $scope, $template_map);
 
+			if (strpos($type, '<')) {
+				return 'class-string';
+			}
+
 			return $type . '::class';
 		}
 
@@ -109,6 +113,26 @@ class TypeTransformer
 		}
 
 		$children = $node->getChildren();
+
+		if ($node instanceof HHAST\EditableList) {
+			$string_types = [];
+			foreach ($children as $child) {
+				$child = $child->getItem();
+
+				if (!$child) {
+					continue;
+				}
+
+				if ($child instanceof HHAST\EditableToken) {
+					$string_types[] = self::transformToken($child, $project, $file, $scope, $template_map);
+					continue;
+				}
+
+				$string_types[] = self::transform($child, $project, $file, $scope);
+			}
+
+			return implode(',', $string_types);
+		}
 
 		$string_type = '';
 

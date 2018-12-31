@@ -46,6 +46,14 @@ class BinaryExpressionTransformer
 			return new PhpParser\Node\Expr\Assign($left_expr, $right_expr);
 		}
 
+		if ($operator instanceof QuestionQuestionEqualToken) {
+			$right_expr = ExpressionTransformer::transform($right_operand, $project, $file, $scope);
+			return new PhpParser\Node\Expr\Assign(
+				$left_expr,
+				new PhpParser\Node\Expr\BinaryOp\Coalesce($left_expr, $right_expr)
+			);
+		}
+
 		$right_expr = ExpressionTransformer::transform($right_operand, $project, $file, $scope);
 
 		switch (get_class($operator)) {
@@ -147,9 +155,6 @@ class BinaryExpressionTransformer
 
 			case QuestionQuestionToken::class:
 				return new PhpParser\Node\Expr\BinaryOp\Coalesce($left_expr, $right_expr);
-
-			case QuestionQuestionEqualToken::class:
-				throw new \UnexpectedValueException('Operator not supported');
 
 			case CaratToken::class:
 				return new PhpParser\Node\Expr\BinaryOp\BitwiseXor($left_expr, $right_expr);

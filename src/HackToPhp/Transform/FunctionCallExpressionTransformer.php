@@ -228,13 +228,20 @@ class FunctionCallExpressionTransformer
 						$unpack = true;
 					}
 				} elseif ($item instanceof HHAST\DecoratedExpression) {
-					if ($item->getDecorator() instanceof HHAST\AmpersandToken) {
+					if ($item->getDecorator() instanceof HHAST\AmpersandToken
+						|| $item->getDecorator() instanceof HHAST\InoutToken
+					) {
 						$item = $item->getExpression();
 						// not necssary in PHP
 						//$by_ref = true;
 					} elseif ($item->getDecorator() instanceof HHAST\DotDotDotToken) {
 						$item = $item->getExpression();
 						$unpack = true;
+					} elseif ($item->getDecorator() instanceof HHAST\InoutToken) {
+						$item = $item->getExpression();
+						$unpack = true;
+					} else {
+						throw new \UnexpectedValueException('Unrecognised decorated expression');
 					}
 				}
 

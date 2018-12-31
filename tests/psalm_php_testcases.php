@@ -1,4 +1,14 @@
 <?php
+$a = <<<EOF
+hello
+h\i
+EOF;
+<?php
+$a = <<<EOF
+\$b = $hello;
+H\i;
+EOF;
+<?php
 interface I {
     /**
      * @return $thus
@@ -13711,8 +13721,8 @@ switch (rand(0,1)) {
 }
 
 class A {
-    public function maybeReturnsDT(): ?\DateTimeInterface {
-        return rand(0,1) ? new \DateTime("now") : null;
+    public function maybeReturnsDT(): ?DateTimeInterface {
+        return rand(0,1) ? new DateTime("now") : null;
     }
 }
 <?php

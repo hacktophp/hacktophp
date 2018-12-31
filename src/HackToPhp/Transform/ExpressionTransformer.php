@@ -113,6 +113,10 @@ class ExpressionTransformer
 			return LiteralExpressionTransformer::transform($node, $project, $file, $scope);
 		}
 
+		if ($node instanceof HHAST\PrefixedStringExpression) {
+			return self::transform($node->getStr(), $project, $file, $scope);
+		}
+
 		if ($node instanceof HHAST\IsExpression) {
 			return IsExpressionTransformer::transform($node, $project, $file, $scope);
 		}
@@ -231,6 +235,7 @@ class ExpressionTransformer
 
 		if ($node instanceof HHAST\ArrayCreationExpression
 			|| $node instanceof HHAST\ArrayIntrinsicExpression
+			|| $node instanceof HHAST\DarrayIntrinsicExpression
 		) {
 			$fields = $node->hasMembers() ? $node->getMembers()->getChildren() : [];
 
