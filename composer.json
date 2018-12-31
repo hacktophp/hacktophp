@@ -1,5 +1,5 @@
 {
-    "name": "psalm/hack-to-php",
+    "name": "hacktophp/hacktophp",
     "description": "A Hack to PHP transpiler that attempts to preserve as many types as possible",
     "type": "project",
     "require": {
