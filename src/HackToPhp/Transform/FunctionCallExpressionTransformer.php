@@ -46,76 +46,83 @@ class FunctionCallExpressionTransformer
 
 			$name_string = QualifiedNameTransformer::getText($receiver, $file);
 
-			if ($name_string === '\HH\Asio\join') {
-				return new PhpParser\Node\Expr\MethodCall($args[0]->value, 'wait');
+			switch ($name_string) {
+				case '\HH\Asio\join':
+					return new PhpParser\Node\Expr\MethodCall($args[0]->value, 'wait');
+
+				case '\HH\Lib\Str\length':
+					return new PhpParser\Node\Expr\FuncCall(
+				    	new PhpParser\Node\Name\FullyQualified('strlen'),
+				    	$args
+					);
+
+				case '\HH\Lib\Str\join':
+					return new PhpParser\Node\Expr\FuncCall(
+				    	new PhpParser\Node\Name\FullyQualified('implode'),
+				    	[$args[1], $args[0]]
+					);
+
+				case '\HH\Lib\Str\split':
+					$new_args = [$args[1], $args[0]];
+
+					if (isset($args[2])) {
+						$new_args[] = $args[2];
+					}
+
+					return new PhpParser\Node\Expr\FuncCall(
+				    	new PhpParser\Node\Name\FullyQualified('explode'),
+				    	$new_args
+					);
+
+				case '\HH\Lib\Vec\map':
+					return new PhpParser\Node\Expr\FuncCall(
+				    	new PhpParser\Node\Name\FullyQualified('array_map'),
+				    	[$args[1], $args[0]]
+					);
+
+				case '\HH\Lib\Vec\slice':
+					return new PhpParser\Node\Expr\FuncCall(
+				    	new PhpParser\Node\Name\FullyQualified('array_slice'),
+				    	[$args[1], $args[0]]
+					);
+
+				case '\HH\Lib\Vec\concat':
+					return new PhpParser\Node\Expr\FuncCall(
+				    	new PhpParser\Node\Name\FullyQualified('array_merge'),
+				    	[$args[1], $args[0]]
+					);
+
+				case '\HH\Lib\Dict\filter':
+				case '\HH\Lib\Vec\filter':
+					return new PhpParser\Node\Expr\FuncCall(
+				    	new PhpParser\Node\Name\FullyQualified('array_filter'),
+				    	$args
+					);
+
+				case '\HH\Lib\C\count':
+					return new PhpParser\Node\Expr\FuncCall(
+				    	new PhpParser\Node\Name\FullyQualified('count'),
+				    	$args
+					);
+
+				case '\is_dict':
+					return new PhpParser\Node\Expr\FuncCall(
+				    	new PhpParser\Node\Name\FullyQualified('is_array'),
+				    	$args
+					);
+
+				case '\json_decode':
+					if (isset($args[3])
+						&& $args[3]->value instanceof PhpParser\Node\Expr\ConstFetch
+						&& (string) $args[3]->value->name === 'JSON_FB_HACK_ARRAYS'
+					) {
+						return new PhpParser\Node\Expr\FuncCall(
+					    	new PhpParser\Node\Name\FullyQualified('json_decode'),
+					    	array_slice($args, 0, 3)
+						);
+					}
 			}
-
-			if ($name_string === '\HH\Lib\Str\length') {
-				return new PhpParser\Node\Expr\FuncCall(
-			    	new PhpParser\Node\Name\FullyQualified('strlen'),
-			    	$args
-				);
-			}
-
-			if ($name_string === '\HH\Lib\Str\join') {
-				return new PhpParser\Node\Expr\FuncCall(
-			    	new PhpParser\Node\Name\FullyQualified('implode'),
-			    	[$args[1], $args[0]]
-				);
-			}
-
-			if ($name_string === '\HH\Lib\Str\split') {
-				$new_args = [$args[1], $args[0]];
-
-				if (isset($args[2])) {
-					$new_args[] = $args[2];
-				}
-
-				return new PhpParser\Node\Expr\FuncCall(
-			    	new PhpParser\Node\Name\FullyQualified('explode'),
-			    	$new_args
-				);
-			}
-
-			if ($name_string === '\HH\Lib\Vec\map') {
-				return new PhpParser\Node\Expr\FuncCall(
-			    	new PhpParser\Node\Name\FullyQualified('array_map'),
-			    	[$args[1], $args[0]]
-				);
-			}
-
-			if ($name_string === '\HH\Lib\Dict\filter') {
-				return new PhpParser\Node\Expr\FuncCall(
-			    	new PhpParser\Node\Name\FullyQualified('array_filter'),
-			    	$args
-				);
-			}
-
-			if ($name_string === '\HH\Lib\C\count') {
-				return new PhpParser\Node\Expr\FuncCall(
-			    	new PhpParser\Node\Name\FullyQualified('count'),
-			    	$args
-				);
-			}
-
-			if ($name_string === '\is_dict') {
-				return new PhpParser\Node\Expr\FuncCall(
-			    	new PhpParser\Node\Name\FullyQualified('is_array'),
-			    	$args
-				);
-			}
-
-			if ($name_string === '\json_decode'
-				&& isset($args[3])
-				&& $args[3]->value instanceof PhpParser\Node\Expr\ConstFetch
-				&& (string) $args[3]->value->name === 'JSON_FB_HACK_ARRAYS'
-			) {
-				return new PhpParser\Node\Expr\FuncCall(
-			    	new PhpParser\Node\Name\FullyQualified('json_decode'),
-			    	array_slice($args, 0, 3)
-				);
-			}
-
+			
 			return new PhpParser\Node\Expr\FuncCall(
 		    	$name,
 		    	$args

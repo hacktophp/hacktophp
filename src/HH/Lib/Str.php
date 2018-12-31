@@ -15,3 +15,16 @@ function slice(
 
 	return $r;
 }
+
+function trim(
+  string $string
+): string {
+	return trim($string);
+}
+
+function contains(
+  string $haystack,
+  string $needle
+): bool {
+	return strpos($haystack, $needle) !== false;
+}
