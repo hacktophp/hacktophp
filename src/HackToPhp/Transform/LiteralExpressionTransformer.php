@@ -32,6 +32,24 @@ class LiteralExpressionTransformer
 			case HHAST\BooleanLiteralToken::class:
 				return new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name($literal->getText()));
 
+			case HHAST\OctalLiteralToken::class:
+				return new PhpParser\Node\Scalar\LNumber(
+					(int) $literal->getText(),
+					['kind' => PhpParser\Node\Scalar\LNumber::KIND_OCT]
+				);
+
+			case HHAST\BinaryLiteralToken::class:
+				return new PhpParser\Node\Scalar\LNumber(
+					(int) $literal->getText(),
+					['kind' => PhpParser\Node\Scalar\LNumber::KIND_BIN]
+				);
+
+			case HHAST\HexadecimalLiteralToken::class:
+				return new PhpParser\Node\Scalar\LNumber(
+					(int) $literal->getText(),
+					['kind' => PhpParser\Node\Scalar\LNumber::KIND_HEX]
+				);
+
 			case HHAST\DecimalLiteralToken::class:
 				$value = $literal->getText();
 				
@@ -40,6 +58,12 @@ class LiteralExpressionTransformer
 				}
 
 				return new PhpParser\Node\Scalar\DNumber((float) $value);
+
+			case HHAST\HeredocStringLiteralToken::class:
+				return new PhpParser\Node\Scalar\String_(
+					(int) $literal->getText(),
+					['kind' => PhpParser\Node\Scalar\String_::KIND_HEREDOC]
+				);
 
 			case HHAST\FloatingLiteralToken::class:
 				$value = $literal->getText();

@@ -14,7 +14,7 @@ class NamespaceUseDeclarationTransformer
 		$aliases = [];
 
 		$uses = array_map(
-			function(HHAST\NamespaceUseClause $clause) use ($kind) {
+			function(HHAST\NamespaceUseClause $clause) use (&$aliases) {
 				$name = $clause->getName();
 			    if ($name instanceof HHAST\NameToken) {
 			      	$full_name = $name->getText();
@@ -39,7 +39,7 @@ class NamespaceUseDeclarationTransformer
 			},
 			$node->getClauses()->getDescendantsOfType(HHAST\NamespaceUseClause::class)
 		);
-		
+
 		if ($kind instanceof HHAST\NamespaceToken || !$kind) {
 			foreach ($aliases as $key => $value) {
 				$file->aliased_namespaces[$key] = $value;

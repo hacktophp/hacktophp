@@ -225,6 +225,10 @@ class TypeTransformer
 			$field_types[] = $name_text . ':' . $type;
 		}
 
+		if (!$field_types) {
+			return 'array<string, mixed>';
+		}
+
 		return 'array{' . implode(',', $field_types) . '}';
 	}
 

@@ -26,7 +26,7 @@ class NodeTransformer
 		}
 
 		if ($node instanceof HHAST\MarkupSection) {
-			if ($node->getSuffix()->getName()->getText() !== 'hh') {
+			if ($node->hasSuffix() && $node->getSuffix()->getName()->getText() !== 'hh') {
 				$file->is_hack = false;
 			}
 
@@ -174,6 +174,12 @@ class NodeTransformer
 
 		if ($node instanceof HHAST\ThrowStatement) {
 			return new PhpParser\Node\Stmt\Throw_(ExpressionTransformer::transform($node->getExpression(), $project, $file, $scope));
+		}
+
+		if ($node instanceof HHAST\UsingStatementFunctionScoped) {
+			return new PhpParser\Node\Stmt\Expression(
+				ExpressionTransformer::transform($node->getExpression(), $project, $file, $scope)
+			);
 		}
 
 		if ($node instanceof HHAST\ReturnStatement) {

@@ -50,6 +50,8 @@ class QualifiedNameTransformer
 			if ($file->namespace) {
 				return '\\' . $file->namespace . '\\' . $name;
 			}
+
+			return '\\' . $name;
 		}
 
 		return $name;
