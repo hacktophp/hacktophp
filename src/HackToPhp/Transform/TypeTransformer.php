@@ -284,6 +284,9 @@ class TypeTransformer
 			case 'keyset':
 				return 'array';
 
+			case 'KeyedTraversable':
+				return 'iterable';
+
 			// means something different in Hack
 			case 'Traversable':
 				return $file->is_hack ? 'iterable' : 'Traversable';

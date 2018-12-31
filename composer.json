@@ -6,7 +6,8 @@
         "php": "^7.1",
         "nikic/php-parser": "^4.0",
         "sabre/event": "^5.0",
-        "vimeo/psalm": "dev-master"
+        "vimeo/psalm": "dev-master",
+        "hacktophp/hsl-php": "dev-master"
     },
     "license": "MIT",
     "authors": [
@@ -27,9 +28,6 @@
             "src/Facebook/TypeAssert/functions.php",
             "src/Facebook/HHAST/__Private/execute_async.php",
             "src/Facebook/HHAST/entrypoints.php",
-            "src/HH/Asio.php",
-            "src/HH/Lib/Str.php",
-            "src/HH/Lib/Dict.php",
             "generated-php/codegen/editable_node_from_json.php",
             "generated-php/codegen/editable_token_from_data.php",
             "generated-php/codegen/editable_trivia_from_json.php",
