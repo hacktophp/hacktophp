@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class FunctionDeclaration extends EditableNode implements IFunctionishDeclaration
 {
     /**
@@ -48,7 +48,7 @@ final class FunctionDeclaration extends EditableNode implements IFunctionishDecl
      */
     public function getChildren()
     {
-        return array('attribute_spec' => $this->_attribute_spec, 'declaration_header' => $this->_declaration_header, 'body' => $this->_body);
+        return ['attribute_spec' => $this->_attribute_spec, 'declaration_header' => $this->_declaration_header, 'body' => $this->_body];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class FunctionDeclaration extends EditableNode implements IFunctionishDecl
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $attribute_spec = $this->_attribute_spec->rewrite($rewriter, $parents);
         $declaration_header = $this->_declaration_header->rewrite($rewriter, $parents);

@@ -9,15 +9,15 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST\Linters\{BaseLinter as BaseLinter, File as File, LinterException as LinterException};
-use Facebook\CLILib\ExitException as ExitException;
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
+use Facebook\HHAST\Linters\{BaseLinter, File, LinterException};
+use Facebook\CLILib\ExitException;
+use HH\Lib\{C, Str, Vec};
 final class LintRun
 {
     /**
      * @var array<string, File>
      */
-    private $files = array();
+    private $files = [];
     /**
      * @var null|LintRunConfig
      */
@@ -33,7 +33,9 @@ final class LintRun
     /**
      * @var array<int, string>
      */
-    public function __construct(?LintRunConfig $config, LintRunEventHandler $handler, array $paths);
+    public function __construct(?LintRunConfig $config, LintRunEventHandler $handler, array $paths)
+    {
+    }
     /**
      * @return static
      */
@@ -63,7 +65,7 @@ final class LintRun
         if (C\contains($results, LintRunResult::HAD_AUTOFIXED_ERRORS)) {
             return LintRunResult::HAD_AUTOFIXED_ERRORS;
         }
-        invariant($results === array(LintRunResult::NO_ERRORS => LintRunResult::NO_ERRORS), 'Got unexpected results');
+        invariant($results === [LintRunResult::NO_ERRORS => LintRunResult::NO_ERRORS], 'Got unexpected results');
         return LintRunResult::NO_ERRORS;
     }
     /**
@@ -96,6 +98,7 @@ final class LintRun
                 $result = LintRunResult::NO_ERRORS;
                 foreach ($config['linters'] as $class) {
                     try {
+                        /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
                         $this_result = (yield $this->runLinterOnFileImplAsync($config, $class, $file));
                         $result = self::worstResult($result, $this_result);
                     } catch (LinterException $e) {
@@ -151,7 +154,7 @@ final class LintRun
             /** @return \Generator<int, mixed, void, LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS> */
             function () use($config, $path) : \Generator {
                 $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
-                $files = array();
+                $files = [];
                 foreach ($it as $info) {
                     if (!$info->isFile()) {
                         continue;
@@ -183,7 +186,7 @@ final class LintRun
                     if (\is_dir($path)) {
                         return (yield $this->lintDirectoryAsync($config, $path));
                     } else {
-                        throw new ExitException(1, Str\format('\'%s\' doesn\'t appear to be a file or directory, bailing', $path));
+                        throw new ExitException(1, Str\format("'%s' doesn't appear to be a file or directory, bailing", $path));
                     }
                 }
             }

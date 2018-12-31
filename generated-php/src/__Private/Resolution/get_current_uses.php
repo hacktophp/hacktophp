@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\__Private\Resolution;
 
-use Facebook\HHAST\{EditableNode as EditableNode, NamespaceBody as NamespaceBody, Script as Script};
-use Facebook\TypeAssert as TypeAssert;
-use HH\Lib\{C as C, Dict as Dict, Vec as Vec};
+use Facebook\HHAST\{EditableNode, NamespaceBody, Script};
+use Facebook\TypeAssert;
+use HH\Lib\{C, Dict, Vec};
 /**
  * @param array<int, EditableNode> $parents
  *
@@ -22,7 +22,7 @@ function get_current_uses(EditableNode $_node, array $parents)
     $root = $parents[0];
     invariant($root instanceof Script, 'Expected first parent to be a Script, got %s', \get_class($root));
     $uses = get_uses_directly_in_scope($root->getDeclarations());
-    $namespace = C\first(Vec\filter($parents, function ($parent) {
+    $namespace = C\first(\array_filter($parents, function ($parent) {
         return $parent instanceof NamespaceBody;
     }));
     if ($namespace) {

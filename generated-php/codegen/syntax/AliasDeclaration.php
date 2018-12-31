@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class AliasDeclaration extends EditableNode
 {
     /**
@@ -83,7 +83,7 @@ final class AliasDeclaration extends EditableNode
      */
     public function getChildren()
     {
-        return array('attribute_spec' => $this->_attribute_spec, 'keyword' => $this->_keyword, 'name' => $this->_name, 'generic_parameter' => $this->_generic_parameter, 'constraint' => $this->_constraint, 'equal' => $this->_equal, 'type' => $this->_type, 'semicolon' => $this->_semicolon);
+        return ['attribute_spec' => $this->_attribute_spec, 'keyword' => $this->_keyword, 'name' => $this->_name, 'generic_parameter' => $this->_generic_parameter, 'constraint' => $this->_constraint, 'equal' => $this->_equal, 'type' => $this->_type, 'semicolon' => $this->_semicolon];
     }
     /**
      * @param mixed $rewriter
@@ -93,7 +93,7 @@ final class AliasDeclaration extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $attribute_spec = $this->_attribute_spec->rewrite($rewriter, $parents);
         $keyword = $this->_keyword->rewrite($rewriter, $parents);

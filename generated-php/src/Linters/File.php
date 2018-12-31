@@ -22,7 +22,9 @@ final class File
     /**
      * @var string
      */
-    public function __construct(string $path, string $contents);
+    public function __construct(string $path, string $contents)
+    {
+    }
     /**
      * @return string
      */

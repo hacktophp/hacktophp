@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use HH\Lib\Str as Str;
+use HH\Lib\Str;
 final class SubprocessException extends \Exception
 {
     /**

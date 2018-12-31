@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{CompoundStatement as CompoundStatement, EditableList as EditableList, EditableNode as EditableNode, EditableToken as EditableToken, ElseClause as ElseClause, ElseifClause as ElseifClause, EndOfLine as EndOfLine, ForeachStatement as ForeachStatement, IfStatement as IfStatement, LeftBraceToken as LeftBraceToken, IControlFlowStatement as IControlFlowStatement, RightBraceToken as RightBraceToken, WhileStatement as WhileStatement, WhiteSpace as WhiteSpace};
-use Facebook\HHAST as HHAST;
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
+use Facebook\HHAST\{CompoundStatement, EditableList, EditableNode, EditableToken, ElseClause, ElseifClause, EndOfLine, ForeachStatement, IfStatement, LeftBraceToken, IControlFlowStatement, RightBraceToken, WhileStatement, WhiteSpace};
+use Facebook\HHAST;
+use HH\Lib\{C, Str, Vec};
 class MustUseBracesForControlFlowLinter extends AutoFixingASTLinter
 {
     /**
@@ -35,6 +35,7 @@ class MustUseBracesForControlFlowLinter extends AutoFixingASTLinter
         if ($body instanceof CompoundStatement) {
             return null;
         }
+        // Consider '} else if {' to be the same as '} elseif {'
         if ($node instanceof ElseClause && $body instanceof IfStatement) {
             return null;
         }
@@ -94,14 +95,14 @@ class MustUseBracesForControlFlowLinter extends AutoFixingASTLinter
     public function getFixedNode(IControlFlowStatement $node)
     {
         $body = $this->getBody($node);
-        invariant($body !== null, 'Can\'t fix a node with no body');
+        invariant($body !== null, "Can't fix a node with no body");
         $last_token = $this->getLastHeadToken($node);
         if (C\is_empty((array) $last_token->getTrailingWhitespace()->getDescendantsOfType(EndOfLine::class))) {
             $right_brace_leading = new WhiteSpace(' ');
             $body_trailing = HHAST\Missing();
         } else {
             $whitespace_nodes = $node->getFirstTokenx()->getLeadingWhitespace()->toVec();
-            $no_newlines = array();
+            $no_newlines = [];
             foreach (Vec\reverse($whitespace_nodes) as $whitespace) {
                 if ($whitespace instanceof EndOfLine) {
                     break;

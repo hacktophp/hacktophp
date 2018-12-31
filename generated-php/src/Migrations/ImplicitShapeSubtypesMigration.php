@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use Facebook\HHAST as HHAST;
-use HH\Lib\{C as C, Str as Str};
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\HHAST;
+use HH\Lib\{C, Str};
+use Facebook\TypeAssert;
 final class ImplicitShapeSubtypesMigration extends StepBasedMigration
 {
     // Required for adding ellipsis
@@ -53,8 +53,7 @@ final class ImplicitShapeSubtypesMigration extends StepBasedMigration
         if ($first_field === null) {
             return $shape->withEllipsis(new HHAST\DotDotDotToken(HHAST\Missing(), HHAST\Missing()));
         }
-        return $shape->withEllipsis(new HHAST\DotDotDotToken(Str\contains($shape->getCode(), '
-') ? $first_field->getFirstTokenx()->getLeading() : new HHAST\WhiteSpace(' '), C\lastx($shape->getFieldsx()->getChildren())->getLastTokenx()->getTrailing()));
+        return $shape->withEllipsis(new HHAST\DotDotDotToken(Str\contains($shape->getCode(), "\n") ? $first_field->getFirstTokenx()->getLeading() : new HHAST\WhiteSpace(' '), C\lastx($shape->getFieldsx()->getChildren())->getLastTokenx()->getTrailing()));
         return $shape;
     }
     /**
@@ -65,11 +64,11 @@ final class ImplicitShapeSubtypesMigration extends StepBasedMigration
         $make_step = function ($name, $impl) {
             return new TypedMigrationStep($name, HHAST\ShapeTypeSpecifier::class, HHAST\ShapeTypeSpecifier::class, $impl);
         };
-        return array($make_step('add trailing commas to fields', function ($node) {
+        return [$make_step('add trailing commas to fields', function ($node) {
             return self::addTrailingCommaToFields($node);
         }), $make_step('allow implicit subtypes', function ($node) {
             return self::allowImplicitSubtypes($node);
-        }));
+        })];
     }
 }
 

@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class NamespaceUseClause extends EditableNode
 {
     /**
@@ -55,7 +55,7 @@ final class NamespaceUseClause extends EditableNode
      */
     public function getChildren()
     {
-        return array('clause_kind' => $this->_clause_kind, 'name' => $this->_name, 'as' => $this->_as, 'alias' => $this->_alias);
+        return ['clause_kind' => $this->_clause_kind, 'name' => $this->_name, 'as' => $this->_as, 'alias' => $this->_alias];
     }
     /**
      * @param mixed $rewriter
@@ -65,7 +65,7 @@ final class NamespaceUseClause extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $clause_kind = $this->_clause_kind->rewrite($rewriter, $parents);
         $name = $this->_name->rewrite($rewriter, $parents);

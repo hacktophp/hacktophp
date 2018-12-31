@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use Facebook\HHAST\EditableNode as EditableNode;
+use Facebook\HHAST\EditableNode;
 abstract class BaseMigration
 {
     /**
@@ -19,7 +19,9 @@ abstract class BaseMigration
     /**
      * @var string
      */
-    public function __construct(string $root);
+    public function __construct(string $root)
+    {
+    }
     /**
      * @return string
      */

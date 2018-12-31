@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class MethodishTraitResolution extends EditableNode
 {
     /**
@@ -62,7 +62,7 @@ final class MethodishTraitResolution extends EditableNode
      */
     public function getChildren()
     {
-        return array('attribute' => $this->_attribute, 'function_decl_header' => $this->_function_decl_header, 'equal' => $this->_equal, 'name' => $this->_name, 'semicolon' => $this->_semicolon);
+        return ['attribute' => $this->_attribute, 'function_decl_header' => $this->_function_decl_header, 'equal' => $this->_equal, 'name' => $this->_name, 'semicolon' => $this->_semicolon];
     }
     /**
      * @param mixed $rewriter
@@ -72,7 +72,7 @@ final class MethodishTraitResolution extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $attribute = $this->_attribute->rewrite($rewriter, $parents);
         $function_decl_header = $this->_function_decl_header->rewrite($rewriter, $parents);

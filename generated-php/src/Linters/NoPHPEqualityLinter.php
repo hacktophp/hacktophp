@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{BinaryExpression as BinaryExpression, EditableNode as EditableNode, EqualEqualToken as EqualEqualToken, EqualEqualEqualToken as EqualEqualEqualToken, ExclamationEqualToken as ExclamationEqualToken, ExclamationEqualEqualToken as ExclamationEqualEqualToken, LessThanGreaterThanToken as LessThanGreaterThanToken};
-use HH\Lib\Str as Str;
+use Facebook\HHAST\{BinaryExpression, EditableNode, EqualEqualToken, EqualEqualEqualToken, ExclamationEqualToken, ExclamationEqualEqualToken, LessThanGreaterThanToken};
+use HH\Lib\Str;
 final class NoPHPEqualityLinter extends AutoFixingASTLinter
 {
     /**
@@ -64,7 +64,7 @@ final class NoPHPEqualityLinter extends AutoFixingASTLinter
             if ($op instanceof ExclamationEqualToken || $op instanceof LessThanGreaterThanToken) {
                 $op = new ExclamationEqualEqualToken($op->getLeading(), $op->getTrailing());
             } else {
-                invariant_violation('Shouldn\'t be asked to fix non-equality operators');
+                invariant_violation("Shouldn't be asked to fix non-equality operators");
             }
         }
         return $expr->withOperator($op);

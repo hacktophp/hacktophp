@@ -27,7 +27,7 @@ class BuiltLintError extends LintError
      */
     public final function withPosition(int $line, int $character)
     {
-        $this->position = array($line, $character);
+        $this->position = [$line, $character];
         return $this;
     }
     /**

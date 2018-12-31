@@ -27,7 +27,7 @@ final class Missing extends EditableNode
      */
     public function getChildren()
     {
-        return array();
+        return [];
     }
     /**
      * @return Missing

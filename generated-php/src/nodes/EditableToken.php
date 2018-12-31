@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
-use HH\Lib\Str as Str;
+use Facebook\TypeAssert;
+use HH\Lib\Str;
 abstract class EditableToken extends EditableNode
 {
     /**
@@ -97,7 +97,7 @@ abstract class EditableToken extends EditableNode
         if (!$trailing instanceof EditableList) {
             return Missing();
         }
-        $result = array();
+        $result = [];
         foreach ($trailing->getChildren() as $child) {
             if ($child instanceof WhiteSpace) {
                 $result[] = $child;
@@ -122,7 +122,7 @@ abstract class EditableToken extends EditableNode
      */
     public function getChildren()
     {
-        return array('leading' => $this->getLeading(), 'trailing' => $this->getTrailing());
+        return ['leading' => $this->getLeading(), 'trailing' => $this->getTrailing()];
     }
     /**
      * @return bool

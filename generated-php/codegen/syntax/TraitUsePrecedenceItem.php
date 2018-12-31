@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class TraitUsePrecedenceItem extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ final class TraitUsePrecedenceItem extends EditableNode
      */
     public function getChildren()
     {
-        return array('name' => $this->_name, 'keyword' => $this->_keyword, 'removed_names' => $this->_removed_names);
+        return ['name' => $this->_name, 'keyword' => $this->_keyword, 'removed_names' => $this->_removed_names];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class TraitUsePrecedenceItem extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $name = $this->_name->rewrite($rewriter, $parents);
         $keyword = $this->_keyword->rewrite($rewriter, $parents);

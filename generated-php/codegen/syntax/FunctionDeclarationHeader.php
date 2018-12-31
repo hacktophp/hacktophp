@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class FunctionDeclarationHeader extends EditableNode
 {
     /**
@@ -104,7 +104,7 @@ final class FunctionDeclarationHeader extends EditableNode
      */
     public function getChildren()
     {
-        return array('modifiers' => $this->_modifiers, 'keyword' => $this->_keyword, 'ampersand' => $this->_ampersand, 'name' => $this->_name, 'type_parameter_list' => $this->_type_parameter_list, 'left_paren' => $this->_left_paren, 'parameter_list' => $this->_parameter_list, 'right_paren' => $this->_right_paren, 'colon' => $this->_colon, 'type' => $this->_type, 'where_clause' => $this->_where_clause);
+        return ['modifiers' => $this->_modifiers, 'keyword' => $this->_keyword, 'ampersand' => $this->_ampersand, 'name' => $this->_name, 'type_parameter_list' => $this->_type_parameter_list, 'left_paren' => $this->_left_paren, 'parameter_list' => $this->_parameter_list, 'right_paren' => $this->_right_paren, 'colon' => $this->_colon, 'type' => $this->_type, 'where_clause' => $this->_where_clause];
     }
     /**
      * @param mixed $rewriter
@@ -114,7 +114,7 @@ final class FunctionDeclarationHeader extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $modifiers = $this->_modifiers->rewrite($rewriter, $parents);
         $keyword = $this->_keyword->rewrite($rewriter, $parents);

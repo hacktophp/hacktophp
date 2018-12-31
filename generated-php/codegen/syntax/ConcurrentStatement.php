@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ConcurrentStatement extends EditableNode
 {
     /**
@@ -41,7 +41,7 @@ final class ConcurrentStatement extends EditableNode
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'statement' => $this->_statement);
+        return ['keyword' => $this->_keyword, 'statement' => $this->_statement];
     }
     /**
      * @param mixed $rewriter
@@ -51,7 +51,7 @@ final class ConcurrentStatement extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $statement = $this->_statement->rewrite($rewriter, $parents);

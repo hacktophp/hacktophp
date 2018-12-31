@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class AlternateSwitchStatement extends EditableNode implements IControlFlowStatement
 {
     /**
@@ -83,7 +83,7 @@ final class AlternateSwitchStatement extends EditableNode implements IControlFlo
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'expression' => $this->_expression, 'right_paren' => $this->_right_paren, 'opening_colon' => $this->_opening_colon, 'sections' => $this->_sections, 'closing_endswitch' => $this->_closing_endswitch, 'closing_semicolon' => $this->_closing_semicolon);
+        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'expression' => $this->_expression, 'right_paren' => $this->_right_paren, 'opening_colon' => $this->_opening_colon, 'sections' => $this->_sections, 'closing_endswitch' => $this->_closing_endswitch, 'closing_semicolon' => $this->_closing_semicolon];
     }
     /**
      * @param mixed $rewriter
@@ -93,7 +93,7 @@ final class AlternateSwitchStatement extends EditableNode implements IControlFlo
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $left_paren = $this->_left_paren->rewrite($rewriter, $parents);

@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use Facebook\HHAST as HHAST;
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
+use Facebook\HHAST;
+use HH\Lib\{C, Str, Vec};
 final class IsRefinementMigration extends BaseMigration
 {
     /**
@@ -19,7 +19,7 @@ final class IsRefinementMigration extends BaseMigration
     public function migrateFile(string $_path, HHAST\EditableNode $ast)
     {
         $m = HHAST\Missing();
-        $map = array('is_string' => function () use($m) {
+        $map = ['is_string' => function () use($m) {
             return new HHAST\StringToken($m, $m);
         }, 'is_int' => function () use($m) {
             return new HHAST\IntToken($m, $m);
@@ -30,12 +30,26 @@ final class IsRefinementMigration extends BaseMigration
         }, 'is_resource' => function () use($m) {
             return new HHAST\ResourceToken($m, $m);
         }, 'is_vec' => function () use($m) {
-            return new HHAST\VectorTypeSpecifier(new HHAST\VecToken($m, $m), new HHAST\LessThanToken($m, $m), new HHAST\NameToken($m, $m, '_'), $m, new HHAST\GreaterThanToken($m, $m));
+            return new HHAST\VectorTypeSpecifier(
+                new HHAST\VecToken($m, $m),
+                new HHAST\LessThanToken($m, $m),
+                new HHAST\NameToken($m, $m, '_'),
+                /* trailing comma */
+                $m,
+                new HHAST\GreaterThanToken($m, $m)
+            );
         }, 'is_keyset' => function () use($m) {
-            return new HHAST\KeysetTypeSpecifier(new HHAST\KeysetToken($m, $m), new HHAST\LessThanToken($m, $m), new HHAST\NameToken($m, $m, '_'), $m, new HHAST\GreaterThanToken($m, $m));
+            return new HHAST\KeysetTypeSpecifier(
+                new HHAST\KeysetToken($m, $m),
+                new HHAST\LessThanToken($m, $m),
+                new HHAST\NameToken($m, $m, '_'),
+                /* trailing comma */
+                $m,
+                new HHAST\GreaterThanToken($m, $m)
+            );
         }, 'is_dict' => function () use($m) {
-            return new HHAST\DictionaryTypeSpecifier(new HHAST\DictToken($m, $m), new HHAST\LessThanToken($m, $m), HHAST\EditableList::createMaybeEmptyList(array(new HHAST\ListItem(new HHAST\NameToken($m, $m, '_'), new HHAST\CommaToken($m, new HHAST\WhiteSpace(' '))), new HHAST\ListItem(new HHAST\NameToken($m, $m, '_'), $m))), new HHAST\GreaterThanToken($m, $m));
-        });
+            return new HHAST\DictionaryTypeSpecifier(new HHAST\DictToken($m, $m), new HHAST\LessThanToken($m, $m), HHAST\EditableList::createMaybeEmptyList([new HHAST\ListItem(new HHAST\NameToken($m, $m, '_'), new HHAST\CommaToken($m, new HHAST\WhiteSpace(' '))), new HHAST\ListItem(new HHAST\NameToken($m, $m, '_'), $m)]), new HHAST\GreaterThanToken($m, $m));
+        }];
         return $ast->rewrite(function ($node, $parents) use($name, $key, $make_replacement, $map, $replacement, $parent, $first, $last, $m) {
             if (!$node instanceof HHAST\FunctionCallExpression) {
                 return $node;
@@ -62,6 +76,7 @@ final class IsRefinementMigration extends BaseMigration
             $parent = C\lastx($parents instanceof \Facebook\HHAST\Migrations\nonnull ? $parents : (function () {
                 throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\nonnull');
             })());
+            // Whitelist of cases where parenthese are not needed
             if ($parent instanceof HHAST\ListItem || $parent instanceof HHAST\IfStatement || $parent instanceof HHAST\ParenthesizedExpression) {
                 $first = $replacement->getFirstTokenx();
                 $last = $replacement->getLastTokenx();

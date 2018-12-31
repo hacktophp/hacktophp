@@ -9,8 +9,11 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ClassishDeclaration as ClassishDeclaration, EditableNode as EditableNode, FinalToken as FinalToken, AbstractToken as AbstractToken, ClassToken as ClassToken};
-use Facebook\HHAST\Linters\{ASTLinter as ASTLinter, ASTLintError as ASTLintError};
+use Facebook\HHAST\{ClassishDeclaration, EditableNode, FinalToken, AbstractToken, ClassToken};
+use Facebook\HHAST\Linters\{ASTLinter, ASTLintError};
+/*
+ * This linter ensures we always qualify classes as final or abstract
+ */
 final class FinalOrAbstractClassLinter extends ASTLinter
 {
     /**
@@ -27,9 +30,11 @@ final class FinalOrAbstractClassLinter extends ASTLinter
      */
     public function getLintErrorForNode(ClassishDeclaration $node, array $_parents)
     {
+        // ensure we are looking at a class declaration
         if (!$node->getKeyword() instanceof ClassToken) {
             return null;
         }
+        // check if the ClassishDeclaration has modifiers
         $modifiers = $node->getModifiers();
         $found = false;
         if ($modifiers !== null) {

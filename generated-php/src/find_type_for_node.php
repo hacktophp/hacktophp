@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\TypeAssert as TypeAssert;
-use Facebook\HHAST as HHAST;
-use Facebook\HHAST\EditableNode as EditableNode;
+use Facebook\TypeAssert;
+use Facebook\HHAST;
+use Facebook\HHAST\EditableNode;
 
 /**
  * @return \Sabre\Event\Promise<null|string>
@@ -26,7 +26,13 @@ function find_type_for_node_async(EditableNode $root, EditableNode $node, string
             $lines = (yield execute_async('hh_client', '--json', '--from', 'hhast', '--type-at-pos', $path . ':' . $line . ':' . ($offset + 1), \dirname($path)));
             $untyped_data = null;
             foreach ($lines as $maybe_json) {
-                $untyped_data = \json_decode($maybe_json, true, 512);
+                $untyped_data = \json_decode(
+                    $maybe_json,
+                    /* assoc = */
+                    true,
+                    /* depth = */
+                    512
+                );
                 if ($untyped_data !== null) {
                     break;
                 }

@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{BackslashToken as BackslashToken, EditableNode as EditableNode, INamespaceUseDeclaration as INamespaceUseDeclaration, NamespaceGroupUseDeclaration as NamespaceGroupUseDeclaration, NamespaceUseDeclaration as NamespaceUseDeclaration, NamespaceUseClause as NamespaceUseClause};
+use Facebook\HHAST\{BackslashToken, EditableNode, INamespaceUseDeclaration, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, NamespaceUseClause};
 final class UseStatementWithLeadingBackslashLinter extends AutoFixingASTLinter
 {
     /**
@@ -45,7 +45,7 @@ final class UseStatementWithLeadingBackslashLinter extends AutoFixingASTLinter
         if (!$matched) {
             return null;
         }
-        return new ASTLintError($this, 'Leading backslashes on `use` statements do nothing', $node);
+        return new ASTLintError($this, "Leading backslashes on `use` statements do nothing", $node);
     }
     /**
      * @return string
@@ -71,7 +71,7 @@ final class UseStatementWithLeadingBackslashLinter extends AutoFixingASTLinter
                 return $n->without($first);
             });
         }
-        invariant($node instanceof NamespaceGroupUseDeclaration, 'Got an unexpected INamespaceUseDeclaration subclass');
+        invariant($node instanceof NamespaceGroupUseDeclaration, "Got an unexpected INamespaceUseDeclaration subclass");
         $first = $node->getPrefix()->getFirstToken();
         if ($first === null || !$first instanceof BackslashToken) {
             return $node;

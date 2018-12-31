@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class AlternateElseifClause extends EditableNode implements IControlFlowStatement
 {
     /**
@@ -69,7 +69,7 @@ final class AlternateElseifClause extends EditableNode implements IControlFlowSt
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'condition' => $this->_condition, 'right_paren' => $this->_right_paren, 'colon' => $this->_colon, 'statement' => $this->_statement);
+        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'condition' => $this->_condition, 'right_paren' => $this->_right_paren, 'colon' => $this->_colon, 'statement' => $this->_statement];
     }
     /**
      * @param mixed $rewriter
@@ -79,7 +79,7 @@ final class AlternateElseifClause extends EditableNode implements IControlFlowSt
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $left_paren = $this->_left_paren->rewrite($rewriter, $parents);

@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\__Private\StrP;
 
-use HH\Lib\Str as Str;
+use HH\Lib\Str;
 /**
  * @return string
  */

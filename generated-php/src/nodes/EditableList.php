@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-use HH\Lib\{C as C, Dict as Dict, Vec as Vec};
+use HH\Lib\{C, Dict, Vec};
 final class EditableList extends EditableNode
 {
     /**
@@ -54,6 +54,10 @@ final class EditableList extends EditableNode
      */
     public final function getItems()
     {
+        // The `filter_nulls()` is needed for for expressions like
+        // `list($a,,$c) = $foo` and types like `\Foo\Bar`, now that the first
+        // is parsed as name token items with  backslash separators - i.e. the first
+        // item is empty.
         return \array_map(function ($child) {
             return $child instanceof ListItem ? $child->getItem() : $child;
         }, $this->_children);
@@ -67,7 +71,7 @@ final class EditableList extends EditableNode
      */
     public final function getItemsOfType(string $what)
     {
-        $out = array();
+        $out = [];
         foreach ($this->getItems() as $item) {
             if ($item instanceof $what) {
                 $out[] = $item;
@@ -119,7 +123,7 @@ final class EditableList extends EditableNode
         if ($right->isMissing()) {
             return $left;
         }
-        return new EditableList(Vec\concat($left->toVec(), $right->toVec()));
+        return new EditableList(\array_merge($right->toVec(), $left->toVec()));
     }
     /**
      * @param array<string, mixed> $json
@@ -128,7 +132,7 @@ final class EditableList extends EditableNode
      */
     public static function fromJSON(array $json, string $file, int $offset, string $source)
     {
-        $children = array();
+        $children = [];
         $current_position = $offset;
         foreach ($json['elements'] as $element) {
             $child = EditableNode::fromJSON($element, $file, $current_position, $source);
@@ -145,9 +149,9 @@ final class EditableList extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $dirty = false;
-        $new_children = array();
+        $new_children = [];
         $new_parents = $parents;
         $new_parents[] = $this;
         foreach ($this->getChildren() as $child) {
@@ -178,7 +182,7 @@ final class EditableList extends EditableNode
      */
     public function rewrite($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $with_rewritten_children = $this->rewriteDescendants($rewriter, $parents);
         if (C\is_empty($with_rewritten_children->_children)) {
             $node = Missing();

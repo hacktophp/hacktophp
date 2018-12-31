@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\Linters\{BaseLinter as BaseLinter};
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
+use Facebook\HHAST\Linters\{BaseLinter};
+use HH\Lib\{C, Str, Vec};
 abstract class LineLinter extends BaseLinter
 {
     /**
@@ -19,8 +19,7 @@ abstract class LineLinter extends BaseLinter
     public function getLinesFromFile()
     {
         $code = $this->getFile()->getContents();
-        $lines = \explode('
-', $code);
+        $lines = \explode("\n", $code);
         return (array) $lines;
     }
     /**
@@ -39,16 +38,17 @@ abstract class LineLinter extends BaseLinter
             /** @return \Generator<int, mixed, void, array<int, Terror>> */
             function () : \Generator {
                 $lines = $this->getLinesFromFile();
-                $errs = array();
+                $errs = [];
                 foreach ($lines as $ln => $line) {
                     $line_errors = (array) $this->getLintErrorsForLine($line, $ln);
                     if (C\is_empty($line_errors)) {
                         continue;
                     }
+                    // We got an error. Let's check the previous line to see if it is marked as ignorable
                     if ($ln - 1 >= 0 && $this->isLinterSuppressed($lines[$ln - 1])) {
                         continue;
                     }
-                    $errs = Vec\concat($errs, $line_errors);
+                    $errs = \array_merge($line_errors, $errs);
                 }
                 return $errs;
             }

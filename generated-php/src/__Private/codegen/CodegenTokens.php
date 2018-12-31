@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
-use Facebook\HackCodegen\{CodegenClass as CodegenClass, CodegenConstructor as CodegenConstructor, CodegenMethod as CodegenMethod, HackBuilderValues as HackBuilderValues};
+use HH\Lib\{C, Str, Vec};
+use Facebook\HackCodegen\{CodegenClass, CodegenConstructor, CodegenMethod, HackBuilderValues};
 final class CodegenTokens extends CodegenBase
 {
     /**
@@ -19,17 +19,17 @@ final class CodegenTokens extends CodegenBase
     private function getTokenSpecs()
     {
         $tokens = $this->getSchemaTokens();
-        $leading_trailing = array(array('name' => 'leading', 'type' => 'EditableNode', 'override' => true), array('name' => 'trailing', 'type' => 'EditableNode', 'override' => true));
+        $leading_trailing = [['name' => 'leading', 'type' => 'EditableNode', 'override' => true], ['name' => 'trailing', 'type' => 'EditableNode', 'override' => true]];
         $no_text = \array_map(function ($token) use($leading_trailing) {
-            return array('kind' => $token['token_kind'], 'description' => $token['token_kind'], 'text' => '', 'fields' => $leading_trailing);
+            return ['kind' => $token['token_kind'], 'description' => $token['token_kind'], 'text' => '', 'fields' => $leading_trailing];
         }, $tokens['noText']);
         $fixed_text = \array_map(function ($token) use($leading_trailing) {
-            return array('kind' => $token['token_kind'], 'description' => (string) $token['token_text'], 'text' => $token['token_text'], 'fields' => $leading_trailing);
+            return ['kind' => $token['token_kind'], 'description' => (string) $token['token_text'], 'text' => $token['token_text'], 'fields' => $leading_trailing];
         }, $tokens['fixedText']);
         $variable_text = \array_map(function ($token) use($leading_trailing) {
-            return array('kind' => $token['token_kind'], 'description' => StrP\underscored($token['token_kind']), 'text' => null, 'fields' => Vec\concat($leading_trailing, array(array('name' => 'text', 'type' => 'string', 'override' => false))));
+            return ['kind' => $token['token_kind'], 'description' => StrP\underscored($token['token_kind']), 'text' => null, 'fields' => \array_merge([['name' => 'text', 'type' => 'string', 'override' => false]], $leading_trailing)];
         }, $tokens['variableText']);
-        return Vec\concat($no_text, $fixed_text, $variable_text);
+        return \array_merge($fixed_text, $no_text);
     }
     /**
      * @return void

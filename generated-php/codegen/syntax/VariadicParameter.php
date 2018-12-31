@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class VariadicParameter extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ final class VariadicParameter extends EditableNode
      */
     public function getChildren()
     {
-        return array('call_convention' => $this->_call_convention, 'type' => $this->_type, 'ellipsis' => $this->_ellipsis);
+        return ['call_convention' => $this->_call_convention, 'type' => $this->_type, 'ellipsis' => $this->_ellipsis];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class VariadicParameter extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $call_convention = $this->_call_convention->rewrite($rewriter, $parents);
         $type = $this->_type->rewrite($rewriter, $parents);

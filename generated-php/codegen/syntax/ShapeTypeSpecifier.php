@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ShapeTypeSpecifier extends EditableNode
 {
     /**
@@ -62,7 +62,7 @@ final class ShapeTypeSpecifier extends EditableNode
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'fields' => $this->_fields, 'ellipsis' => $this->_ellipsis, 'right_paren' => $this->_right_paren);
+        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'fields' => $this->_fields, 'ellipsis' => $this->_ellipsis, 'right_paren' => $this->_right_paren];
     }
     /**
      * @param mixed $rewriter
@@ -72,7 +72,7 @@ final class ShapeTypeSpecifier extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $left_paren = $this->_left_paren->rewrite($rewriter, $parents);

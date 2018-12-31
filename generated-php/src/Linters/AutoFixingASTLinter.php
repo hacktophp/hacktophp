@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\EditableNode as EditableNode;
+use Facebook\HHAST\EditableNode;
 abstract class AutoFixingASTLinter extends ASTLinter
 {
     /**
@@ -26,8 +26,8 @@ abstract class AutoFixingASTLinter extends ASTLinter
     {
         $ast = $this->getAST();
         foreach ($errors as $error) {
-            invariant($error->getFile() === $this->getFile(), 'Can\'t fix errors in another file');
-            invariant($error->getLinter() === $this, 'Can\'t fix errors from another linter');
+            invariant($error->getFile() === $this->getFile(), "Can't fix errors in another file");
+            invariant($error->getLinter() === $this, "Can't fix errors from another linter");
             $old = $error->getBlameNode();
             $new = $this->getFixedNode($old);
             if ($new === null) {

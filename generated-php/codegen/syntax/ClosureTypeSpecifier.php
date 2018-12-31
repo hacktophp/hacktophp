@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ClosureTypeSpecifier extends EditableNode
 {
     /**
@@ -90,7 +90,7 @@ final class ClosureTypeSpecifier extends EditableNode
      */
     public function getChildren()
     {
-        return array('outer_left_paren' => $this->_outer_left_paren, 'coroutine' => $this->_coroutine, 'function_keyword' => $this->_function_keyword, 'inner_left_paren' => $this->_inner_left_paren, 'parameter_list' => $this->_parameter_list, 'inner_right_paren' => $this->_inner_right_paren, 'colon' => $this->_colon, 'return_type' => $this->_return_type, 'outer_right_paren' => $this->_outer_right_paren);
+        return ['outer_left_paren' => $this->_outer_left_paren, 'coroutine' => $this->_coroutine, 'function_keyword' => $this->_function_keyword, 'inner_left_paren' => $this->_inner_left_paren, 'parameter_list' => $this->_parameter_list, 'inner_right_paren' => $this->_inner_right_paren, 'colon' => $this->_colon, 'return_type' => $this->_return_type, 'outer_right_paren' => $this->_outer_right_paren];
     }
     /**
      * @param mixed $rewriter
@@ -100,7 +100,7 @@ final class ClosureTypeSpecifier extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $outer_left_paren = $this->_outer_left_paren->rewrite($rewriter, $parents);
         $coroutine = $this->_coroutine->rewrite($rewriter, $parents);

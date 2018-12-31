@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class CatchClause extends EditableNode
 {
     /**
@@ -69,7 +69,7 @@ final class CatchClause extends EditableNode
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'type' => $this->_type, 'variable' => $this->_variable, 'right_paren' => $this->_right_paren, 'body' => $this->_body);
+        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'type' => $this->_type, 'variable' => $this->_variable, 'right_paren' => $this->_right_paren, 'body' => $this->_body];
     }
     /**
      * @param mixed $rewriter
@@ -79,7 +79,7 @@ final class CatchClause extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $left_paren = $this->_left_paren->rewrite($rewriter, $parents);

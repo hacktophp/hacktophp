@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\EditableNode as EditableNode;
-use Facebook\HHAST as HHAST;
-use Facebook\HHAST\Linters\SuppressASTLinter as SuppressASTLinter;
+use Facebook\HHAST\EditableNode;
+use Facebook\HHAST;
+use Facebook\HHAST\Linters\SuppressASTLinter;
 abstract class ASTLinter extends BaseLinter
 {
     /**
@@ -32,7 +32,7 @@ abstract class ASTLinter extends BaseLinter
                     return $cache['ast'];
                 }
                 $ast = (yield HHAST\from_code_async($file->getContents()));
-                $cache = array('hash' => $hash, 'ast' => $ast);
+                $cache = ['hash' => $hash, 'ast' => $ast];
                 return $ast;
             }
         );
@@ -81,7 +81,7 @@ abstract class ASTLinter extends BaseLinter
             function () : \Generator {
                 $this->ast = (yield self::getASTFromFileAsync($this->getFile()));
                 $target = static::getTargetType();
-                $errors = array();
+                $errors = [];
                 foreach ($this->getASTWithParents() as list($node, $parents)) {
                     if ($node instanceof $target) {
                         try {
@@ -119,7 +119,7 @@ abstract class ASTLinter extends BaseLinter
     public final function getAST()
     {
         $ast = $this->ast;
-        invariant($ast !== null, 'Calling getAST before it was initialized');
+        invariant($ast !== null, "Calling getAST before it was initialized");
         return $ast;
     }
 }

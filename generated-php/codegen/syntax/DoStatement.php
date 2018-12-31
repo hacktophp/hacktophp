@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class DoStatement extends EditableNode implements IControlFlowStatement, ILoopStatement
 {
     /**
@@ -76,7 +76,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'body' => $this->_body, 'while_keyword' => $this->_while_keyword, 'left_paren' => $this->_left_paren, 'condition' => $this->_condition, 'right_paren' => $this->_right_paren, 'semicolon' => $this->_semicolon);
+        return ['keyword' => $this->_keyword, 'body' => $this->_body, 'while_keyword' => $this->_while_keyword, 'left_paren' => $this->_left_paren, 'condition' => $this->_condition, 'right_paren' => $this->_right_paren, 'semicolon' => $this->_semicolon];
     }
     /**
      * @param mixed $rewriter
@@ -86,7 +86,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $body = $this->_body->rewrite($rewriter, $parents);

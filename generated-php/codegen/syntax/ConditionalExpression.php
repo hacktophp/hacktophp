@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ConditionalExpression extends EditableNode
 {
     /**
@@ -62,7 +62,7 @@ final class ConditionalExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('test' => $this->_test, 'question' => $this->_question, 'consequence' => $this->_consequence, 'colon' => $this->_colon, 'alternative' => $this->_alternative);
+        return ['test' => $this->_test, 'question' => $this->_question, 'consequence' => $this->_consequence, 'colon' => $this->_colon, 'alternative' => $this->_alternative];
     }
     /**
      * @param mixed $rewriter
@@ -72,7 +72,7 @@ final class ConditionalExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $test = $this->_test->rewrite($rewriter, $parents);
         $question = $this->_question->rewrite($rewriter, $parents);

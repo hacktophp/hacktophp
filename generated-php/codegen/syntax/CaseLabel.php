@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class CaseLabel extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ final class CaseLabel extends EditableNode
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'expression' => $this->_expression, 'colon' => $this->_colon);
+        return ['keyword' => $this->_keyword, 'expression' => $this->_expression, 'colon' => $this->_colon];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class CaseLabel extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $expression = $this->_expression->rewrite($rewriter, $parents);

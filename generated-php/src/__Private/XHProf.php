@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use HH\Lib\{Dict as Dict, Math as Math, Str as Str};
+use HH\Lib\{Dict, Math, Str};
 abstract final class XHProf
 {
     /**
@@ -21,7 +21,7 @@ abstract final class XHProf
      */
     public static function enable()
     {
-        invariant(self::$enabled === false, 'Can\'t enable twice');
+        invariant(self::$enabled === false, "Can't enable twice");
         self::$enabled = true;
         \xhprof_enable();
     }
@@ -30,14 +30,14 @@ abstract final class XHProf
      */
     public static function disable()
     {
-        invariant(self::$enabled === true, 'Can\'t disable twice');
+        invariant(self::$enabled === true, "Can't disable twice");
         self::$enabled = false;
         $raw = Dict\map(\xhprof_disable(), function ($v) {
             return (int) $v['wt'];
         });
-        $inclusive = array();
-        $callers = array();
-        $callees = array();
+        $inclusive = [];
+        $callers = [];
+        $callees = [];
         foreach ($raw as $name => $wall) {
             $parts = \explode('==>', $name);
             $caller = $parts[0];
@@ -47,16 +47,16 @@ abstract final class XHProf
                 continue;
             }
             $inclusive[$callee] = ($inclusive[$callee] ?? 0) + $wall;
-            $callers[$callee] = $callers[$callee] ?? array();
+            $callers[$callee] = $callers[$callee] ?? [];
             $callers[$callee][$caller] = $wall;
-            $callees[$caller] = $callees[$caller] ?? array();
+            $callees[$caller] = $callees[$caller] ?? [];
             $callees[$caller][$callee] = $wall;
         }
         return Dict\map_with_key($inclusive, function ($func, $inc_wall) use($func_callers, $callers, $func_callees, $callees, $ex_wall) {
-            $func_callers = $callers[$func] ?? array();
-            $func_callees = $callees[$func] ?? array();
+            $func_callers = $callers[$func] ?? [];
+            $func_callees = $callees[$func] ?? [];
             $ex_wall = $inc_wall - Math\sum($func_callees);
-            return array('inclusive' => $inc_wall, 'exclusive' => $ex_wall, 'callers' => $func_callers, 'callees' => $func_callees);
+            return ['inclusive' => $inc_wall, 'exclusive' => $ex_wall, 'callers' => $func_callers, 'callees' => $func_callees];
         });
     }
     /**
@@ -80,34 +80,25 @@ abstract final class XHProf
             return -$row['inclusive'];
         });
         $scale = 1000000.0;
-        \fwrite($handle, '----- XHPROF -----
-');
+        \fwrite($handle, "----- XHPROF -----\n");
         foreach ($counters as $name => $data) {
-            \fprintf($handle, '%s
-	Inclusive: %.5fs
-	Exclusive: %.5fs
-', $name, $data['inclusive'] / $scale, $data['exclusive'] / $scale);
-            \fwrite($handle, '	Callees:
-');
+            \fprintf($handle, "%s\n\tInclusive: %.5fs\n\tExclusive: %.5fs\n", $name, $data['inclusive'] / $scale, $data['exclusive'] / $scale);
+            \fwrite($handle, "\tCallees:\n");
             $callees = Dict\sort_by($data['callees'], function ($v) {
                 return -$v;
             });
             foreach ($callees as $callee => $wall) {
-                \fprintf($handle, '	 - %8.2fs %s
-', $wall / $scale, $callee);
+                \fprintf($handle, "\t - %8.2fs %s\n", $wall / $scale, $callee);
             }
-            \fwrite($handle, '	Callers:
-');
+            \fwrite($handle, "\tCallers:\n");
             $callers = Dict\sort_by($data['callers'], function ($v) {
                 return -$v;
             });
             foreach ($callers as $caller => $wall) {
-                \fprintf($handle, '	 - %8.2fs %s
-', $wall / $scale, $caller);
+                \fprintf($handle, "\t - %8.2fs %s\n", $wall / $scale, $caller);
             }
         }
-        \fwrite($handle, '----- XHPROF -----
-');
+        \fwrite($handle, "----- XHPROF -----\n");
     }
 }
 

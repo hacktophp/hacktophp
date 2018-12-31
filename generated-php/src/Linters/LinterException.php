@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use HH\Lib\Str as Str;
+use HH\Lib\Str;
 final class LinterException extends \Exception
 {
     /**
@@ -37,7 +37,12 @@ final class LinterException extends \Exception
         $this->fileBeingLinted = $fileBeingLinted;
         $this->rawMessage = $rawMessage;
         $this->position = $position;
-        parent::__construct(Str\format('While running \'%s\' on \'%s\': %s', $linter, $fileBeingLinted, $rawMessage), 0, $previous);
+        parent::__construct(
+            Str\format("While running '%s' on '%s': %s", $linter, $fileBeingLinted, $rawMessage),
+            /* code = */
+            0,
+            $previous
+        );
     }
     /**
      * @return BaseLinter::class

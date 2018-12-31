@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ReifiedTypeArgument extends EditableNode
 {
     /**
@@ -41,7 +41,7 @@ final class ReifiedTypeArgument extends EditableNode
      */
     public function getChildren()
     {
-        return array('reified' => $this->_reified, 'type' => $this->_type);
+        return ['reified' => $this->_reified, 'type' => $this->_type];
     }
     /**
      * @param mixed $rewriter
@@ -51,7 +51,7 @@ final class ReifiedTypeArgument extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $reified = $this->_reified->rewrite($rewriter, $parents);
         $type = $this->_type->rewrite($rewriter, $parents);

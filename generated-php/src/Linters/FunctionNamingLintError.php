@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\IFunctionishDeclaration as IFunctionishDeclaration;
+use Facebook\HHAST\IFunctionishDeclaration;
 final class FunctionNamingLintError extends ASTLintError
 {
     /**

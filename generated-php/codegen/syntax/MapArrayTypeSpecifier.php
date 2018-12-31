@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class MapArrayTypeSpecifier extends EditableNode
 {
     /**
@@ -69,7 +69,7 @@ final class MapArrayTypeSpecifier extends EditableNode
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'left_angle' => $this->_left_angle, 'key' => $this->_key, 'comma' => $this->_comma, 'value' => $this->_value, 'right_angle' => $this->_right_angle);
+        return ['keyword' => $this->_keyword, 'left_angle' => $this->_left_angle, 'key' => $this->_key, 'comma' => $this->_comma, 'value' => $this->_value, 'right_angle' => $this->_right_angle];
     }
     /**
      * @param mixed $rewriter
@@ -79,7 +79,7 @@ final class MapArrayTypeSpecifier extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $left_angle = $this->_left_angle->rewrite($rewriter, $parents);

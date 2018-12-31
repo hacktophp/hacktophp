@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 abstract class NamespaceDeclarationGeneratedBase extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'name' => $this->_name, 'body' => $this->_body);
+        return ['keyword' => $this->_keyword, 'name' => $this->_name, 'body' => $this->_body];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $name = $this->_name->rewrite($rewriter, $parents);

@@ -9,19 +9,19 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use function Facebook\HHAST\{find_node_at_position as find_node_at_position, Missing as Missing};
-use Facebook\HHAST\__Private\TTypecheckerError as TTypecheckerError;
-use Facebook\HHAST\{BackslashToken as BackslashToken, EditableList as EditableList, EditableNode as EditableNode};
-use function Facebook\HHAST\__Private\execute_async as execute_async;
-use Facebook\TypeAssert as TypeAssert;
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
+use function Facebook\HHAST\{find_node_at_position, Missing};
+use Facebook\HHAST\__Private\TTypecheckerError;
+use Facebook\HHAST\{BackslashToken, EditableList, EditableNode};
+use function Facebook\HHAST\__Private\execute_async;
+use Facebook\TypeAssert;
+use HH\Lib\{C, Str, Vec};
 final class NamespaceFallbackMigration extends BaseMigration
 {
     use TypeErrorMigrationTrait;
     /**
      * @var array<int, int>
      */
-    const ERROR_CODES = array(2049 => 2049, 4107 => 4107);
+    const ERROR_CODES = [2049 => 2049, 4107 => 4107];
     /**
      * @return bool
      */
@@ -47,7 +47,7 @@ final class NamespaceFallbackMigration extends BaseMigration
             if (!(\function_exists($name) || \defined($name) || self::isTypecheckerAware($name, $path))) {
                 continue;
             }
-            $root = $root->replace($node, EditableList::createNonEmptyListOrMissing(array(new BackslashToken($node->getLeading(), Missing()), $node->withLeading(Missing()))));
+            $root = $root->replace($node, EditableList::createNonEmptyListOrMissing([new BackslashToken($node->getLeading(), Missing()), $node->withLeading(Missing())]));
         }
         return $root;
     }
@@ -56,10 +56,15 @@ final class NamespaceFallbackMigration extends BaseMigration
      */
     private static function isTypecheckerAware(string $name, string $path)
     {
-        $lines = execute_async('hh_client', '--search', '\\' . $name, '--json', $path)->wait();
-        $json = \implode('
-', $lines);
-        $results = TypeAssert\matches_type_structure(type_structure(self::class, 'TSearchResult'), \json_decode($json, true, 512));
+        $lines = execute_async('hh_client', '--search', "\\" . $name, '--json', $path)->wait();
+        $json = \implode("\n", $lines);
+        $results = TypeAssert\matches_type_structure(type_structure(self::class, 'TSearchResult'), \json_decode(
+            $json,
+            /* assoc = */
+            true,
+            /* depth = */
+            512
+        ));
         return C\any($results, function ($result) use($name) {
             return $result['name'] === $name && ($result['desc'] === 'function' || $result['desc'] === 'constant');
         });

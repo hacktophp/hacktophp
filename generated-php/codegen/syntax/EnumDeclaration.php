@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class EnumDeclaration extends EditableNode
 {
     /**
@@ -90,7 +90,7 @@ final class EnumDeclaration extends EditableNode
      */
     public function getChildren()
     {
-        return array('attribute_spec' => $this->_attribute_spec, 'keyword' => $this->_keyword, 'name' => $this->_name, 'colon' => $this->_colon, 'base' => $this->_base, 'type' => $this->_type, 'left_brace' => $this->_left_brace, 'enumerators' => $this->_enumerators, 'right_brace' => $this->_right_brace);
+        return ['attribute_spec' => $this->_attribute_spec, 'keyword' => $this->_keyword, 'name' => $this->_name, 'colon' => $this->_colon, 'base' => $this->_base, 'type' => $this->_type, 'left_brace' => $this->_left_brace, 'enumerators' => $this->_enumerators, 'right_brace' => $this->_right_brace];
     }
     /**
      * @param mixed $rewriter
@@ -100,7 +100,7 @@ final class EnumDeclaration extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $attribute_spec = $this->_attribute_spec->rewrite($rewriter, $parents);
         $keyword = $this->_keyword->rewrite($rewriter, $parents);

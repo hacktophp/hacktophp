@@ -58,7 +58,7 @@ final class AttributeToken extends EditableTokenWithVariableText
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $leading = $this->getLeading()->rewrite($rewriter, $parents);
         $trailing = $this->getTrailing()->rewrite($rewriter, $parents);

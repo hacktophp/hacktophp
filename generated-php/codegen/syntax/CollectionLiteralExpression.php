@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class CollectionLiteralExpression extends EditableNode
 {
     /**
@@ -55,7 +55,7 @@ final class CollectionLiteralExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('name' => $this->_name, 'left_brace' => $this->_left_brace, 'initializers' => $this->_initializers, 'right_brace' => $this->_right_brace);
+        return ['name' => $this->_name, 'left_brace' => $this->_left_brace, 'initializers' => $this->_initializers, 'right_brace' => $this->_right_brace];
     }
     /**
      * @param mixed $rewriter
@@ -65,7 +65,7 @@ final class CollectionLiteralExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $name = $this->_name->rewrite($rewriter, $parents);
         $left_brace = $this->_left_brace->rewrite($rewriter, $parents);

@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class XHPEnumType extends EditableNode
 {
     /**
@@ -62,7 +62,7 @@ final class XHPEnumType extends EditableNode
      */
     public function getChildren()
     {
-        return array('optional' => $this->_optional, 'keyword' => $this->_keyword, 'left_brace' => $this->_left_brace, 'values' => $this->_values, 'right_brace' => $this->_right_brace);
+        return ['optional' => $this->_optional, 'keyword' => $this->_keyword, 'left_brace' => $this->_left_brace, 'values' => $this->_values, 'right_brace' => $this->_right_brace];
     }
     /**
      * @param mixed $rewriter
@@ -72,7 +72,7 @@ final class XHPEnumType extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $optional = $this->_optional->rewrite($rewriter, $parents);
         $keyword = $this->_keyword->rewrite($rewriter, $parents);

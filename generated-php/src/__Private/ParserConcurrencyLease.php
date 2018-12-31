@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use HH\Lib\Tuple as Tuple;
+use HH\Lib\Tuple;
 final class ParserConcurrencyLease implements \IDisposable
 {
     /**
@@ -33,6 +33,7 @@ final class ParserConcurrencyLease implements \IDisposable
             /** @return \Generator<int, mixed, void, ParserConcurrencyLease> */
             function () : \Generator {
                 while (self::$active >= self::LIMIT) {
+                    /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
                     (yield Tuple\from_async(\HH\Asio\usleep(100000), \HH\Asio\later()));
                 }
                 return new self();

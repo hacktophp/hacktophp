@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-use HH\Lib\C as C;
+use HH\Lib\C;
 /** Given a tree, provide a list of names that are referenced by the code.
  *
  * These are not resolved to fully-qualified names; for example, `use`
@@ -20,7 +20,7 @@ use HH\Lib\C as C;
  */
 function get_unresolved_referenced_names(EditableNode $root)
 {
-    $ret = array('namespaces' => array(), 'types' => array(), 'functions' => array());
+    $ret = ['namespaces' => [], 'types' => [], 'functions' => []];
     foreach ($root->traverse() as $node) {
         if ($node instanceof QualifiedName) {
             $name = C\firstx($node->getParts()->getItems());
@@ -63,6 +63,8 @@ function get_unresolved_referenced_names(EditableNode $root)
             }
             continue;
         }
+        // `new Foo()` gets us a SimpleTypeSpecifier, but
+        // <<Foo>> gets us a NameToken directly
         if ($node instanceof ConstructorCall) {
             $name = $node->getType() instanceof \Facebook\HHAST\NameToken ? $node->getType() : null;
             if ($name !== null) {

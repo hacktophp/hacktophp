@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class FieldInitializer extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ final class FieldInitializer extends EditableNode
      */
     public function getChildren()
     {
-        return array('name' => $this->_name, 'arrow' => $this->_arrow, 'value' => $this->_value);
+        return ['name' => $this->_name, 'arrow' => $this->_arrow, 'value' => $this->_value];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class FieldInitializer extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $name = $this->_name->rewrite($rewriter, $parents);
         $arrow = $this->_arrow->rewrite($rewriter, $parents);

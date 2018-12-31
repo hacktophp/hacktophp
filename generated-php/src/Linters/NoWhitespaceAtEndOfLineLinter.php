@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use HH\Lib\Str as Str;
+use HH\Lib\Str;
 final class NoWhitespaceAtEndOfLineLinter extends AutoFixingLineLinter
 {
     /**
@@ -24,13 +24,13 @@ final class NoWhitespaceAtEndOfLineLinter extends AutoFixingLineLinter
      */
     public function getLintErrorsForLine(string $line, int $line_number)
     {
-        $errs = array();
+        $errs = [];
         for ($i = \strlen($line) - 1; $i >= 0; $i--) {
             $char = $line[$i];
             if ($char !== ' ') {
                 break;
             }
-            $errs[] = new LineLintError($this, 'trailing whitespace at end of line', array($line_number + 1, $i + 1));
+            $errs[] = new LineLintError($this, 'trailing whitespace at end of line', [$line_number + 1, $i + 1]);
             break;
         }
         return $errs;

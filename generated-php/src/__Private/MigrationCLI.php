@@ -9,11 +9,11 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST as HHAST;
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
-use Facebook\HHAST\Migrations\{AddFixMesMigration as AddFixMesMigration, AssertToExpectMigration as AssertToExpectMigration, BaseMigration as BaseMigration, CallTimePassByReferenceMigration as CallTimePassByReferenceMigration, HSLMigration as HSLMigration, IMigrationWithFileList as IMigrationWithFileList, ImplicitShapeSubtypesMigration as ImplicitShapeSubtypesMigration, IsRefinementMigration as IsRefinementMigration, OptionalShapeFieldsMigration as OptionalShapeFieldsMigration, NamespaceFallbackMigration as NamespaceFallbackMigration, PHPLessThanGreaterThanOperatorMigration as PHPLessThanGreaterThanOperatorMigration, PHPUnitToHackTestMigration as PHPUnitToHackTestMigration};
-use Facebook\CLILib\CLIWithRequiredArguments as CLIWithRequiredArguments;
-use Facebook\CLILib\CLIOptions as CLIOptions;
+use Facebook\HHAST;
+use HH\Lib\{C, Str, Vec};
+use Facebook\HHAST\Migrations\{AddFixMesMigration, AssertToExpectMigration, BaseMigration, CallTimePassByReferenceMigration, HSLMigration, IMigrationWithFileList, ImplicitShapeSubtypesMigration, IsRefinementMigration, OptionalShapeFieldsMigration, NamespaceFallbackMigration, PHPLessThanGreaterThanOperatorMigration, PHPUnitToHackTestMigration};
+use Facebook\CLILib\CLIWithRequiredArguments;
+use Facebook\CLILib\CLIOptions;
 class MigrationCLI extends CLIWithRequiredArguments
 {
     use CLIWithVerbosityTrait;
@@ -25,7 +25,7 @@ class MigrationCLI extends CLIWithRequiredArguments
     /**
      * @var array<BaseMigration::class, BaseMigration::class>
      */
-    protected $migrations = array();
+    protected $migrations = [];
     /**
      * @var bool
      */
@@ -39,14 +39,14 @@ class MigrationCLI extends CLIWithRequiredArguments
      */
     public static final function getHelpTextForRequiredArguments()
     {
-        return array('PATH');
+        return ['PATH'];
     }
     /**
      * @return array<int, CLIOptions\CLIOption>
      */
     protected function getSupportedOptions()
     {
-        return array(CLIOptions\flag(function () {
+        return [CLIOptions\flag(function () {
             return $this->migrations[] = HSLMigration::class;
         }, 'Convert PHP standard library calls to HSL', '--hsl'), CLIOptions\flag(function () {
             return $this->migrations[] = AssertToExpectMigration::class;
@@ -79,7 +79,7 @@ class MigrationCLI extends CLIWithRequiredArguments
             return $this->includeVendor = true;
         }, 'Also migrate files in vendor/ subdirectories', '--include-vendor'), CLIOptions\flag(function () {
             return $this->xhprof = true;
-        }, 'Enable XHProf profiling', '--xhprof'), $this->getVerbosityOption());
+        }, 'Enable XHProf profiling', '--xhprof'), $this->getVerbosityOption()];
     }
     /**
      * @param array<int, BaseMigration> $migrations
@@ -88,11 +88,9 @@ class MigrationCLI extends CLIWithRequiredArguments
      */
     private final function migrateFile(array $migrations, string $file)
     {
-        $this->verbosePrintf(self::VERBOSE_MIGRATE, 'Migrating file %s...
-', $file);
+        $this->verbosePrintf(self::VERBOSE_MIGRATE, "Migrating file %s...\n", $file);
         if (!self::isHackFile($file)) {
-            $this->verbosePrintf(self::VERBOSE_MIGRATE_NOT_HACK, 'Migrating file %s despite it not looking like a Hack file
-', $file);
+            $this->verbosePrintf(self::VERBOSE_MIGRATE_NOT_HACK, "Migrating file %s despite it not looking like a Hack file\n", $file);
         }
         $ast = HHAST\from_file($file);
         foreach ($migrations as $migration) {
@@ -111,7 +109,7 @@ class MigrationCLI extends CLIWithRequiredArguments
     private final function migrateDirectory(array $migrations, string $directory)
     {
         $need_recursion = false;
-        $has_file_list = array();
+        $has_file_list = [];
         foreach ($migrations as $migration) {
             if ($migration instanceof IMigrationWithFileList) {
                 $has_file_list[] = $migration;
@@ -127,7 +125,7 @@ class MigrationCLI extends CLIWithRequiredArguments
         foreach ($has_file_list as $migration) {
             $files = $migration->getFilePathsToMigrate();
             foreach ($files as $file) {
-                $this->migrateFile(array($migration), $file);
+                $this->migrateFile([$migration], $file);
             }
         }
     }
@@ -146,18 +144,15 @@ class MigrationCLI extends CLIWithRequiredArguments
             $file = $info->getPathname();
             if (!$this->includeVendor) {
                 if (Str\contains($file, '/.git/')) {
-                    $this->verbosePrintf(self::VERBOSE_SKIP_BECAUSE_GIT, 'Skipping file \'%s\' because it is in .git/
-', $file);
+                    $this->verbosePrintf(self::VERBOSE_SKIP_BECAUSE_GIT, "Skipping file '%s' because it is in .git/\n", $file);
                     continue;
                 }
                 if (Str\contains($file, '/vendor/')) {
-                    $this->verbosePrintf(self::VERBOSE_SKIP_BECAUSE_VENDOR, 'Skipping file \'%s\' because it is in vendor/
-', $file);
+                    $this->verbosePrintf(self::VERBOSE_SKIP_BECAUSE_VENDOR, "Skipping file '%s' because it is in vendor/\n", $file);
                     continue;
                 }
                 if (!self::isHackFile($file)) {
-                    $this->verbosePrintf(self::VERBOSE_SKIP_BECAUSE_NOT_HACK, 'Skipping file \'%s\' because it is not a Hack file
-', $file);
+                    $this->verbosePrintf(self::VERBOSE_SKIP_BECAUSE_NOT_HACK, "Skipping file '%s' because it is not a Hack file\n", $file);
                     continue;
                 }
             }
@@ -193,17 +188,13 @@ class MigrationCLI extends CLIWithRequiredArguments
             function () : \Generator {
                 $err = $this->getStderr();
                 if (C\is_empty($this->migrations)) {
-                    (yield $err->writeAsync('You must specify at least one migration!
-
-'));
+                    (yield $err->writeAsync("You must specify at least one migration!\n\n"));
                     $this->displayHelp($err);
                     return 1;
                 }
                 $args = $this->getArguments();
                 if (C\is_empty($args)) {
-                    (yield $err->writeAsync('You must specify at least one path!
-
-'));
+                    (yield $err->writeAsync("You must specify at least one path!\n\n"));
                     $this->displayHelp($err);
                     return 1;
                 }
@@ -219,8 +210,8 @@ class MigrationCLI extends CLIWithRequiredArguments
                         $this->migrateDirectory($migrations, $path);
                         continue;
                     }
-                    (yield $err->writeAsync(Str\format('Don\'t know how to process path: %s
-', $path)));
+                    /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
+                    (yield $err->writeAsync(Str\format("Don't know how to process path: %s\n", $path)));
                     return 1;
                 }
                 return 0;
@@ -242,18 +233,18 @@ class MigrationCLI extends CLIWithRequiredArguments
         $f = \fopen($file, 'r');
         $prefix = \fread($f, 4);
         if ($prefix === '<?hh') {
-            $cache = array($file, true);
+            $cache = [$file, true];
             return true;
         }
         if (!Str\starts_with($prefix, '#!')) {
-            $cache = array($file, false);
+            $cache = [$file, false];
             return false;
         }
         \rewind($f);
         $_shebang = \fgets($f);
         $prefix = \fread($f, 4);
         $is_hh = $prefix === '<?hh';
-        $cache = array($file, $is_hh);
+        $cache = [$file, $is_hh];
         return $is_hh;
     }
 }

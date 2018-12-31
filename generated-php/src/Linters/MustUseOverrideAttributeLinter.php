@@ -9,11 +9,11 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{AttributeSpecification as AttributeSpecification, ClassishDeclaration as ClassishDeclaration, ClassToken as ClassToken, EditableNode as EditableNode, GenericTypeSpecifier as GenericTypeSpecifier, ListItem as ListItem, MethodishDeclaration as MethodishDeclaration, NameToken as NameToken, PrivateToken as PrivateToken};
-use Facebook\TypeAssert as TypeAssert;
-use function Facebook\HHAST\resolve_type as resolve_type;
-use Facebook\HHAST as HHAST;
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
+use Facebook\HHAST\{AttributeSpecification, ClassishDeclaration, ClassToken, EditableNode, GenericTypeSpecifier, ListItem, MethodishDeclaration, NameToken, PrivateToken};
+use Facebook\TypeAssert;
+use function Facebook\HHAST\resolve_type;
+use Facebook\HHAST;
+use HH\Lib\{C, Str, Vec};
 final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
 {
     /**
@@ -37,7 +37,7 @@ final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
      */
     public function getLintErrorForNode(MethodishDeclaration $node, array $parents)
     {
-        $class = TypeAssert\instance_of(ClassishDeclaration::class, C\lastx(Vec\filter($parents, function ($x) {
+        $class = TypeAssert\instance_of(ClassishDeclaration::class, C\lastx(\array_filter($parents, function ($x) {
             return $x instanceof ClassishDeclaration;
         })));
         if ($this->canIgnoreMethod($class, $node)) {
@@ -119,9 +119,7 @@ final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
         $attrs = $node->getAttribute();
         if ($attrs === null) {
             $first_token = $node->getFirstTokenx();
-            return $node->withAttribute(new AttributeSpecification(new HHAST\LessThanLessThanToken($first_token->getLeading(), HHAST\Missing()), new HHAST\ConstructorCall(new HHAST\NameToken(HHAST\Missing(), HHAST\Missing(), '__Override'), HHAST\Missing(), HHAST\Missing(), HHAST\Missing()), new HHAST\GreaterThanGreaterThanToken(HHAST\Missing(), Str\contains(C\lastx($first_token->getLeading()->getChildren())->getCode(), '
-') ? HHAST\Missing() : new HHAST\WhiteSpace('
-'))))->rewriteDescendants(function ($n, $_) use($first_token) {
+            return $node->withAttribute(new AttributeSpecification(new HHAST\LessThanLessThanToken($first_token->getLeading(), HHAST\Missing()), new HHAST\ConstructorCall(new HHAST\NameToken(HHAST\Missing(), HHAST\Missing(), '__Override'), HHAST\Missing(), HHAST\Missing(), HHAST\Missing()), new HHAST\GreaterThanGreaterThanToken(HHAST\Missing(), Str\contains(C\lastx($first_token->getLeading()->getChildren())->getCode(), "\n") ? HHAST\Missing() : new HHAST\WhiteSpace("\n"))))->rewriteDescendants(function ($n, $_) use($first_token) {
                 return $n === $first_token ? $first_token->withLeading(C\lastx($first_token->getLeading()->getChildren())) : $n;
             });
         }

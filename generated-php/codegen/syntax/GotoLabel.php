@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class GotoLabel extends EditableNode
 {
     /**
@@ -41,7 +41,7 @@ final class GotoLabel extends EditableNode
      */
     public function getChildren()
     {
-        return array('name' => $this->_name, 'colon' => $this->_colon);
+        return ['name' => $this->_name, 'colon' => $this->_colon];
     }
     /**
      * @param mixed $rewriter
@@ -51,7 +51,7 @@ final class GotoLabel extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $name = $this->_name->rewrite($rewriter, $parents);
         $colon = $this->_colon->rewrite($rewriter, $parents);

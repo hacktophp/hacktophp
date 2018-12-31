@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{CompoundStatement as CompoundStatement, EditableNode as EditableNode, FunctionDeclaration as FunctionDeclaration, IFunctionishDeclaration as IFunctionishDeclaration, MethodishDeclaration as MethodishDeclaration, ParameterDeclaration as ParameterDeclaration, SemicolonToken as SemicolonToken, VariableToken as VariableToken};
-use HH\Lib\{C as C, Str as Str};
+use Facebook\HHAST\{CompoundStatement, EditableNode, FunctionDeclaration, IFunctionishDeclaration, MethodishDeclaration, ParameterDeclaration, SemicolonToken, VariableToken};
+use HH\Lib\{C, Str};
 final class UnusedParameterLinter extends AutoFixingASTLinter
 {
     /**
@@ -28,6 +28,7 @@ final class UnusedParameterLinter extends AutoFixingASTLinter
     public function getLintErrorForNode(ParameterDeclaration $node, array $parents)
     {
         if ($node->getVisibility() !== null) {
+            // Constructor parameter promotion
             return null;
         }
         $name = $node->getName();
@@ -46,10 +47,11 @@ final class UnusedParameterLinter extends AutoFixingASTLinter
             if ($functionish instanceof MethodishDeclaration) {
                 $body = $functionish->getFunctionBody();
             } else {
-                invariant_violation('Couldn\'t find functionish for parameter declaration');
+                invariant_violation("Couldn't find functionish for parameter declaration");
             }
         }
         if ($body === null || $body instanceof SemicolonToken) {
+            // Don't require `$_` for abstract or interface methods
             return null;
         }
         $statements = ($body instanceof \Facebook\HHAST\Linters\CompoundStatement ? $body : (function () {
@@ -63,7 +65,7 @@ final class UnusedParameterLinter extends AutoFixingASTLinter
                 return null;
             }
         }
-        return new ASTLintError($this, 'Parameter is unused', $node);
+        return new ASTLintError($this, "Parameter is unused", $node);
     }
     /**
      * @return ParameterDeclaration

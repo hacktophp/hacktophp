@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST\Linters as Linters;
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
+use Facebook\HHAST\Linters;
+use HH\Lib\{C, Str, Vec};
 final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHandler
 {
     /**
@@ -24,7 +24,9 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
     /**
      * @var LSPImpl\ServerState
      */
-    public function __construct(LSPLib\Client $client, LSPImpl\ServerState $state);
+    public function __construct(LSPLib\Client $client, LSPImpl\ServerState $state)
+    {
+    }
     /**
      * @var null|string
      */
@@ -32,7 +34,7 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
     /**
      * @var array<int, Linters\LintError>
      */
-    private $errors = array();
+    private $errors = [];
     /**
      * @param mixed $_config
      * @param iterable<mixed, Linters\LintError> $errors
@@ -45,9 +47,9 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */
             function () use($linter, $_config, $errors) : \Generator {
                 $file = \realpath($linter->getFile()->getPath());
-                invariant($this->file === null || $this->file === $file, 'Unexpected file change in lint process');
+                invariant($this->file === null || $this->file === $file, "Unexpected file change in lint process");
                 $this->file = $file;
-                $this->errors = Vec\concat($this->errors ?? array(), $errors);
+                $this->errors = \array_merge($errors, $this->errors ?? []);
                 return LintAutoFixResult::SOME_UNFIXED;
             }
         );
@@ -58,12 +60,12 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
     private function asDiagnostic(Linters\LintError $error)
     {
         $range = $error->getRange();
-        $start = $range[0] ?? array(0, 0);
+        $start = $range[0] ?? [0, 0];
         $end = $range[1] ?? $start;
         $start = LSPImpl\position_to_lsp($start);
         $end = LSPImpl\position_to_lsp($end);
-        $source = Str\strip_suffix(C\lastx(\explode('\\', \get_class($error->getLinter()))), 'Linter');
-        return array('range' => array('start' => $start, 'end' => $end), 'severity' => LSP\DiagnosticSeverity::WARNING, 'message' => $error->getDescription(), 'code' => $source, 'source' => 'HHAST');
+        $source = Str\strip_suffix(C\lastx(\explode("\\", \get_class($error->getLinter()))), 'Linter');
+        return ['range' => ['start' => $start, 'end' => $end], 'severity' => LSP\DiagnosticSeverity::WARNING, 'message' => $error->getDescription(), 'code' => $source, 'source' => 'HHAST'];
     }
     /**
      * @param array<int, Linters\LintError> $errors
@@ -77,9 +79,9 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
             function () use($file, $errors) : \Generator {
                 $uri = 'file://' . $file;
                 $this->state->lintErrors[$uri] = $errors;
-                $message = (new LSPLib\PublishDiagnosticsNotification(array('uri' => $uri, 'diagnostics' => \array_map(function ($e) {
+                $message = (new LSPLib\PublishDiagnosticsNotification(['uri' => $uri, 'diagnostics' => \array_map(function ($e) {
                     return $this->asDiagnostic($e);
-                }, $errors))))->asMessage();
+                }, $errors)]))->asMessage();
                 (yield $this->client->sendNotificationMessageAsync($message));
             }
         );
@@ -95,16 +97,16 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
             /** @return \Generator<int, mixed, void, void> */
             function () use($path, $result) : \Generator {
                 $path = \realpath($path);
-                invariant($this->file === null || $this->file === $path, 'Unexpected file change');
+                invariant($this->file === null || $this->file === $path, "Unexpected file change");
                 $errors = $this->errors;
                 if ($result === LintRunResult::NO_ERRORS) {
-                    invariant(C\is_empty($errors), 'Linter reports no errors, but we have errors');
+                    invariant(C\is_empty($errors), "Linter reports no errors, but we have errors");
                 } else {
-                    invariant(!C\is_empty($errors), 'Linter reports errors, but we have none');
+                    invariant(!C\is_empty($errors), "Linter reports errors, but we have none");
                 }
                 (yield $this->publishDiagnosticsAsync($path, $errors));
                 $this->file = null;
-                $this->errors = array();
+                $this->errors = [];
             }
         );
     }
@@ -113,6 +115,8 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
      *
      * @return \Sabre\Event\Promise<void>
      */
-    public function finishedRunAsync($_);
+    public function finishedRunAsync($_)
+    {
+    }
 }
 

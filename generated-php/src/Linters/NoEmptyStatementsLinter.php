@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ExpressionStatement as ExpressionStatement, EditableToken as EditableToken, EditableNode as EditableNode, EditableList as EditableList};
-use Facebook\HHAST as HHAST;
+use Facebook\HHAST\{ExpressionStatement, EditableToken, EditableNode, EditableList};
+use Facebook\HHAST;
 final class NoEmptyStatementsLinter extends AutoFixingASTLinter
 {
     /**
@@ -48,6 +48,7 @@ final class NoEmptyStatementsLinter extends AutoFixingASTLinter
      */
     public function getFixedNode(ExpressionStatement $stmt)
     {
+        // Only offer a fix if the node is literally empty
         if ($stmt->getExpression() !== null) {
             return $stmt;
         }
@@ -75,6 +76,8 @@ final class NoEmptyStatementsLinter extends AutoFixingASTLinter
      */
     private function isOperatorWithoutSideEffects(EditableToken $op)
     {
+        // The pipe operator does not necessarily have any side effects but it
+        // typically implies function invocation which can have side effects.
         return !$this->isAssignmentOperator($op) && !$op instanceof HHAST\BarGreaterThanToken;
     }
     /**

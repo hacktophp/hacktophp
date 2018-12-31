@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class TraitUseConflictResolution extends EditableNode
 {
     /**
@@ -62,7 +62,7 @@ final class TraitUseConflictResolution extends EditableNode
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'names' => $this->_names, 'left_brace' => $this->_left_brace, 'clauses' => $this->_clauses, 'right_brace' => $this->_right_brace);
+        return ['keyword' => $this->_keyword, 'names' => $this->_names, 'left_brace' => $this->_left_brace, 'clauses' => $this->_clauses, 'right_brace' => $this->_right_brace];
     }
     /**
      * @param mixed $rewriter
@@ -72,7 +72,7 @@ final class TraitUseConflictResolution extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $names = $this->_names->rewrite($rewriter, $parents);

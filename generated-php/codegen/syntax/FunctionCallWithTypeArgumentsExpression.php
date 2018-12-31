@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class FunctionCallWithTypeArgumentsExpression extends EditableNode
 {
     /**
@@ -62,7 +62,7 @@ final class FunctionCallWithTypeArgumentsExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('receiver' => $this->_receiver, 'type_args' => $this->_type_args, 'left_paren' => $this->_left_paren, 'argument_list' => $this->_argument_list, 'right_paren' => $this->_right_paren);
+        return ['receiver' => $this->_receiver, 'type_args' => $this->_type_args, 'left_paren' => $this->_left_paren, 'argument_list' => $this->_argument_list, 'right_paren' => $this->_right_paren];
     }
     /**
      * @param mixed $rewriter
@@ -72,7 +72,7 @@ final class FunctionCallWithTypeArgumentsExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $receiver = $this->_receiver->rewrite($rewriter, $parents);
         $type_args = $this->_type_args->rewrite($rewriter, $parents);

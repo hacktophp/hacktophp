@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class GenericTypeSpecifier extends EditableNode
 {
     /**
@@ -41,7 +41,7 @@ final class GenericTypeSpecifier extends EditableNode
      */
     public function getChildren()
     {
-        return array('class_type' => $this->_class_type, 'argument_list' => $this->_argument_list);
+        return ['class_type' => $this->_class_type, 'argument_list' => $this->_argument_list];
     }
     /**
      * @param mixed $rewriter
@@ -51,7 +51,7 @@ final class GenericTypeSpecifier extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $class_type = $this->_class_type->rewrite($rewriter, $parents);
         $argument_list = $this->_argument_list->rewrite($rewriter, $parents);

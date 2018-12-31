@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class PropertyDeclaration extends EditableNode
 {
     /**
@@ -62,7 +62,7 @@ final class PropertyDeclaration extends EditableNode
      */
     public function getChildren()
     {
-        return array('attribute_spec' => $this->_attribute_spec, 'modifiers' => $this->_modifiers, 'type' => $this->_type, 'declarators' => $this->_declarators, 'semicolon' => $this->_semicolon);
+        return ['attribute_spec' => $this->_attribute_spec, 'modifiers' => $this->_modifiers, 'type' => $this->_type, 'declarators' => $this->_declarators, 'semicolon' => $this->_semicolon];
     }
     /**
      * @param mixed $rewriter
@@ -72,7 +72,7 @@ final class PropertyDeclaration extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $attribute_spec = $this->_attribute_spec->rewrite($rewriter, $parents);
         $modifiers = $this->_modifiers->rewrite($rewriter, $parents);

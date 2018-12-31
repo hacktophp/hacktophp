@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-use HH\Lib\Str as Str;
+use HH\Lib\Str;
 abstract class ParseError extends \Exception
 {
     /**

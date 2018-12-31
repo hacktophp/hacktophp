@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class YieldFromExpression extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ final class YieldFromExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('yield_keyword' => $this->_yield_keyword, 'from_keyword' => $this->_from_keyword, 'operand' => $this->_operand);
+        return ['yield_keyword' => $this->_yield_keyword, 'from_keyword' => $this->_from_keyword, 'operand' => $this->_operand];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class YieldFromExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $yield_keyword = $this->_yield_keyword->rewrite($rewriter, $parents);
         $from_keyword = $this->_from_keyword->rewrite($rewriter, $parents);

@@ -9,10 +9,10 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST as HHAST;
-use HH\Lib\{C as C, Dict as Dict, Str as Str};
-use Facebook\CLILib\CLIWithRequiredArguments as CLIWithRequiredArguments;
-use Facebook\CLILib\CLIOptions as CLIOptions;
+use Facebook\HHAST;
+use HH\Lib\{C, Dict, Str};
+use Facebook\CLILib\CLIWithRequiredArguments;
+use Facebook\CLILib\CLIOptions;
 final class InspectorCLI extends CLIWithRequiredArguments
 {
     /**
@@ -28,18 +28,18 @@ final class InspectorCLI extends CLIWithRequiredArguments
      */
     public static function getHelpTextForRequiredArguments()
     {
-        return array('FILE');
+        return ['FILE'];
     }
     /**
      * @return array<int, CLIOptions\CLIOption>
      */
     protected function getSupportedOptions()
     {
-        return array(CLIOptions\with_required_string(function ($path) {
+        return [CLIOptions\with_required_string(function ($path) {
             return $this->outputPath = $path;
         }, 'File path to use for output', '--output', '-o'), CLIOptions\flag(function () {
             return $this->open = true;
-        }, 'Automatically open the generated file', '--open'));
+        }, 'Automatically open the generated file', '--open')];
     }
     /**
      * @return \Sabre\Event\Promise<int>
@@ -51,23 +51,21 @@ final class InspectorCLI extends CLIWithRequiredArguments
             function () : \Generator {
                 $err = $this->getStderr();
                 if (\count($this->getArguments()) !== 1) {
-                    (yield $err->writeAsync('Provide exactly one file name
-'));
+                    (yield $err->writeAsync("Provide exactly one file name\n"));
                     return 1;
                 }
                 $input = C\onlyx($this->getArguments());
                 if (!\is_file($input)) {
-                    (yield $err->writeAsync('Provided path is not a file.
-'));
+                    (yield $err->writeAsync("Provided path is not a file.\n"));
                     return 1;
                 }
                 $ast = HHAST\from_file($input);
+                // No XHP as XHP currently doesn't support namespaces
                 $output = $this->outputPath ?? Str\format('%s/hhast-inspect-%s.html', Str\strip_suffix(\sys_get_temp_dir(), '/'), \bin2hex(\random_bytes(16)));
                 \file_put_contents($output, $this->getHTMLHeader() . $this->getHTMLForNode($ast) . $this->getHTMLFooter());
-                print $output . '
-';
+                print $output . "\n";
                 if ($this->open) {
-                    \pcntl_exec('/usr/bin/open', array($output));
+                    \pcntl_exec('/usr/bin/open', [$output]);
                 }
                 return 0;
             }
@@ -78,15 +76,14 @@ final class InspectorCLI extends CLIWithRequiredArguments
      */
     private function getHTMLHeader()
     {
-        return '<html><head><style>' . \file_get_contents(__DIR__ . '/syntax.css') . \file_get_contents(__DIR__ . '/inspector.css') . '</style></head><body>' . '<div class="info">Click on some code to get started.</div>' . '<pre><code class="language-hack">';
+        return "<html><head><style>" . \file_get_contents(__DIR__ . '/syntax.css') . \file_get_contents(__DIR__ . '/inspector.css') . '</style></head><body>' . '<div class="info">Click on some code to get started.</div>' . '<pre><code class="language-hack">';
     }
     /**
      * @return string
      */
     private function getHTMLFooter()
     {
-        return '</code></pre>' . '<script>' . \file_get_contents(__DIR__ . '/inspector.js') . '</script>' . '</body></html>
-';
+        return '</code></pre>' . '<script>' . \file_get_contents(__DIR__ . '/inspector.js') . '</script>' . "</body></html>\n";
     }
     /**
      * @return string
@@ -116,7 +113,7 @@ final class InspectorCLI extends CLIWithRequiredArguments
                 }));
             }
         }
-        $class = C\lastx(\explode('\\', \get_class($node)));
+        $class = C\lastx(\explode("\\", \get_class($node)));
         return Str\format('<span class="hs-%s" data-node="%s">%s</span>', Str\strip_prefix($class, 'Editable'), $class, $inner);
     }
 }

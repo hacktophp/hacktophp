@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use function Facebook\HHAST\__Private\get_typechecker_errors as get_typechecker_errors;
-use Facebook\HHAST\__Private\TTypecheckerError as TTypecheckerError;
-use HH\Lib\{C as C, Keyset as Keyset, Vec as Vec};
+use function Facebook\HHAST\__Private\get_typechecker_errors;
+use Facebook\HHAST\__Private\TTypecheckerError;
+use HH\Lib\{C, Keyset, Vec};
 trait TypeErrorMigrationTrait
 {
     /**
@@ -31,7 +31,7 @@ trait TypeErrorMigrationTrait
      */
     private final function getTypecheckerErrors()
     {
-        return Vec\filter(get_typechecker_errors($this->root), function ($error) {
+        return \array_filter(get_typechecker_errors($this->root), function ($error) {
             return static::filterTypecheckerError($error);
         });
     }
@@ -40,7 +40,7 @@ trait TypeErrorMigrationTrait
      */
     protected final function getTypecheckerErrorsForFile(string $file)
     {
-        return Vec\filter($this->getTypecheckerErrors(), function ($error) use($file) {
+        return \array_filter($this->getTypecheckerErrors(), function ($error) use($file) {
             return C\firstx($error['message'])['path'] === $file;
         });
     }

@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{DelimitedComment as DelimitedComment, EditableList as EditableList, EditableNode as EditableNode, EndOfFile as EndOfFile, EndOfLine as EndOfLine, Script as Script};
-use Facebook\TypeAssert as TypeAssert;
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
+use Facebook\HHAST\{DelimitedComment, EditableList, EditableNode, EndOfFile, EndOfLine, Script};
+use Facebook\TypeAssert;
+use HH\Lib\{C, Str, Vec};
 final class LicenseHeaderLinter extends AutoFixingASTLinter
 {
     /**
@@ -76,9 +76,9 @@ final class LicenseHeaderLinter extends AutoFixingASTLinter
             $leading = $leading->getItems();
         } else {
             if ($leading === null) {
-                $leading = array();
+                $leading = [];
             } else {
-                $leading = array($leading);
+                $leading = [$leading];
             }
         }
         $key = C\find_key($leading, function ($item) {
@@ -88,16 +88,13 @@ final class LicenseHeaderLinter extends AutoFixingASTLinter
             $existing = $leading[$key];
             $next = $leading[$key + 1] ?? null;
             $next_next = $leading[$key + 2] ?? null;
-            $new = array(new DelimitedComment(TypeAssert\not_null(self::getLicenseHeaderForPath(\dirname($this->getFile()->getPath())))));
+            $new = [new DelimitedComment(TypeAssert\not_null(self::getLicenseHeaderForPath(\dirname($this->getFile()->getPath()))))];
             if (!($next instanceof EndOfLine && $next_next instanceof EndOfLine)) {
-                $new[] = new EndOfLine('
-');
+                $new[] = new EndOfLine("\n");
             }
             return $node->replace($existing, EditableList::createNonEmptyListOrMissing($new));
         }
-        $leading = Vec\concat(array(new DelimitedComment(TypeAssert\not_null(self::getLicenseHeaderForPath(\dirname($this->getFile()->getPath())))), new EndOfLine('
-'), new EndOfLine('
-')), $leading);
+        $leading = \array_merge($leading, [new DelimitedComment(TypeAssert\not_null(self::getLicenseHeaderForPath(\dirname($this->getFile()->getPath())))), new EndOfLine("\n"), new EndOfLine("\n")]);
         return $node->replace($first, $first->withLeading(EditableList::createNonEmptyListOrMissing($leading)));
     }
     /**
@@ -114,8 +111,7 @@ final class LicenseHeaderLinter extends AutoFixingASTLinter
     {
         if (\file_exists($path . '/.LICENSE_HEADER.hh.txt')) {
             $header = \file_get_contents($path . '/.LICENSE_HEADER.hh.txt');
-            return $header === '' || $header === '
-' ? null : Str\trim($header);
+            return $header === '' || $header === "\n" ? null : Str\trim($header);
         }
         $path = \dirname(\realpath($path));
         if (Str\starts_with($path, \realpath(\Facebook\AutoloadMap\Generated\root()))) {

@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ForStatement extends EditableNode implements IControlFlowStatement, ILoopStatement
 {
     /**
@@ -90,7 +90,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'initializer' => $this->_initializer, 'first_semicolon' => $this->_first_semicolon, 'control' => $this->_control, 'second_semicolon' => $this->_second_semicolon, 'end_of_loop' => $this->_end_of_loop, 'right_paren' => $this->_right_paren, 'body' => $this->_body);
+        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'initializer' => $this->_initializer, 'first_semicolon' => $this->_first_semicolon, 'control' => $this->_control, 'second_semicolon' => $this->_second_semicolon, 'end_of_loop' => $this->_end_of_loop, 'right_paren' => $this->_right_paren, 'body' => $this->_body];
     }
     /**
      * @param mixed $rewriter
@@ -100,7 +100,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $left_paren = $this->_left_paren->rewrite($rewriter, $parents);

@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ObjectCreationExpression extends EditableNode
 {
     /**
@@ -41,7 +41,7 @@ final class ObjectCreationExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('new_keyword' => $this->_new_keyword, 'object' => $this->_object);
+        return ['new_keyword' => $this->_new_keyword, 'object' => $this->_object];
     }
     /**
      * @param mixed $rewriter
@@ -51,7 +51,7 @@ final class ObjectCreationExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $new_keyword = $this->_new_keyword->rewrite($rewriter, $parents);
         $object = $this->_object->rewrite($rewriter, $parents);

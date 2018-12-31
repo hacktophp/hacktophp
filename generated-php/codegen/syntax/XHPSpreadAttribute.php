@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class XHPSpreadAttribute extends EditableNode
 {
     /**
@@ -55,7 +55,7 @@ final class XHPSpreadAttribute extends EditableNode
      */
     public function getChildren()
     {
-        return array('left_brace' => $this->_left_brace, 'spread_operator' => $this->_spread_operator, 'expression' => $this->_expression, 'right_brace' => $this->_right_brace);
+        return ['left_brace' => $this->_left_brace, 'spread_operator' => $this->_spread_operator, 'expression' => $this->_expression, 'right_brace' => $this->_right_brace];
     }
     /**
      * @param mixed $rewriter
@@ -65,7 +65,7 @@ final class XHPSpreadAttribute extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $left_brace = $this->_left_brace->rewrite($rewriter, $parents);
         $spread_operator = $this->_spread_operator->rewrite($rewriter, $parents);

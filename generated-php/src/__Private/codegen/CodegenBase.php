@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HackCodegen\{HackCodegenConfig as HackCodegenConfig, HackCodegenFactory as HackCodegenFactory, HackfmtFormatter as HackfmtFormatter};
-use HH\Lib\{C as C, Dict as Dict, Vec as Vec};
+use Facebook\HackCodegen\{HackCodegenConfig, HackCodegenFactory, HackfmtFormatter};
+use HH\Lib\{C, Dict, Vec};
 abstract class CodegenBase
 {
     /**
@@ -27,13 +27,13 @@ abstract class CodegenBase
     public function __construct($schema, array $relationships)
     {
         $this->relationships = $relationships;
-        $this->schema = array('trivia' => Vec\sort_by($schema['trivia'], function ($t) {
+        $this->schema = ['trivia' => Vec\sort_by($schema['trivia'], function ($t) {
             return $t['trivia_kind_name'];
         }), 'tokens' => Vec\sort_by($schema['tokens'], function ($t) {
             return $t['token_kind'];
         }), 'AST' => Vec\sort_by($schema['AST'], function ($t) {
             return $t['kind_name'];
-        }), 'version' => $schema['version']);
+        }), 'version' => $schema['version']];
     }
     /**
      * @return void
@@ -73,7 +73,7 @@ abstract class CodegenBase
      */
     protected function getSchemaTokens()
     {
-        $ret = array('noText' => array(), 'fixedText' => array(), 'variableText' => array());
+        $ret = ['noText' => [], 'fixedText' => [], 'variableText' => []];
         $asts = $this->getSchemaASTByKindName();
         foreach ($this->schema['tokens'] as $token) {
             if ($token['token_text'] !== null) {
@@ -104,7 +104,7 @@ abstract class CodegenBase
      */
     protected static function getHandWrittenSyntaxKinds()
     {
-        return array('Missing' => 'Missing', 'SyntaxList' => 'SyntaxList', 'Token' => 'Token');
+        return ['Missing' => 'Missing', 'SyntaxList' => 'SyntaxList', 'Token' => 'Token'];
     }
 }
 

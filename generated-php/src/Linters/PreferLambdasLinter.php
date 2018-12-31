@@ -9,10 +9,10 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\Linters\{ASTLintError as ASTLintError, AutoFixingASTLinter as AutoFixingASTLinter};
-use Facebook\HHAST\{AmpersandToken as AmpersandToken, AnonymousFunction as AnonymousFunction, EditableNode as EditableNode, EqualEqualGreaterThanToken as EqualEqualGreaterThanToken, LambdaExpression as LambdaExpression, LambdaSignature as LambdaSignature, LeftParenToken as LeftParenToken, PrefixUnaryExpression as PrefixUnaryExpression, WhiteSpace as WhiteSpace};
-use function Facebook\HHAST\Missing as Missing;
-use HH\Lib\C as C;
+use Facebook\HHAST\Linters\{ASTLintError, AutoFixingASTLinter};
+use Facebook\HHAST\{AmpersandToken, AnonymousFunction, EditableNode, EqualEqualGreaterThanToken, LambdaExpression, LambdaSignature, LeftParenToken, PrefixUnaryExpression, WhiteSpace};
+use function Facebook\HHAST\Missing;
+use HH\Lib\C;
 final class PreferLambdasLinter extends AutoFixingASTLinter
 {
     /**

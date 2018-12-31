@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-use HH\Lib\Str as Str;
+use HH\Lib\Str;
 final class SchemaVersionError extends ParseError
 {
     /**
@@ -22,7 +22,7 @@ final class SchemaVersionError extends ParseError
     public function __construct(string $targetFile, string $version)
     {
         $this->version = $version;
-        parent::__construct($targetFile, null, Str\format('AST version mismatch: expected \'%s\' (%d.%d.%d), but got \'%s\'', SCHEMA_VERSION, \intdiv(HHVM_VERSION_ID, 10000), \intdiv(HHVM_VERSION_ID, 100) % 100, HHVM_VERSION_ID % 100, $version));
+        parent::__construct($targetFile, null, Str\format("AST version mismatch: expected '%s' (%d.%d.%d), but got '%s'", SCHEMA_VERSION, \intdiv(HHVM_VERSION_ID, 10000), \intdiv(HHVM_VERSION_ID, 100) % 100, HHVM_VERSION_ID % 100, $version));
     }
 }
 

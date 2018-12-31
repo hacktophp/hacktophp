@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class LambdaExpression extends EditableNode
 {
     /**
@@ -69,7 +69,7 @@ final class LambdaExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('attribute_spec' => $this->_attribute_spec, 'async' => $this->_async, 'coroutine' => $this->_coroutine, 'signature' => $this->_signature, 'arrow' => $this->_arrow, 'body' => $this->_body);
+        return ['attribute_spec' => $this->_attribute_spec, 'async' => $this->_async, 'coroutine' => $this->_coroutine, 'signature' => $this->_signature, 'arrow' => $this->_arrow, 'body' => $this->_body];
     }
     /**
      * @param mixed $rewriter
@@ -79,7 +79,7 @@ final class LambdaExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $attribute_spec = $this->_attribute_spec->rewrite($rewriter, $parents);
         $async = $this->_async->rewrite($rewriter, $parents);

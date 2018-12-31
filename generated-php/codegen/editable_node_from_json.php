@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST as HHAST;
+use Facebook\HHAST;
 /**
  * @param array<string, mixed> $json
  *

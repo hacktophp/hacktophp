@@ -9,6 +9,9 @@
  */
 namespace Facebook\HHAST\__Private\Asio;
 
+/**
+ * A linked list node storing AsyncCondition and pointer to the next node.
+ */
 final class AsyncConditionNode extends AsyncCondition
 {
     /**

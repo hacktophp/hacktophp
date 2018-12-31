@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ParenthesizedExpression extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ final class ParenthesizedExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('left_paren' => $this->_left_paren, 'expression' => $this->_expression, 'right_paren' => $this->_right_paren);
+        return ['left_paren' => $this->_left_paren, 'expression' => $this->_expression, 'right_paren' => $this->_right_paren];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class ParenthesizedExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
         $expression = $this->_expression->rewrite($rewriter, $parents);

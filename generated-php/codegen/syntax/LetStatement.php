@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class LetStatement extends EditableNode
 {
     /**
@@ -69,7 +69,7 @@ final class LetStatement extends EditableNode
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'name' => $this->_name, 'colon' => $this->_colon, 'type' => $this->_type, 'initializer' => $this->_initializer, 'semicolon' => $this->_semicolon);
+        return ['keyword' => $this->_keyword, 'name' => $this->_name, 'colon' => $this->_colon, 'type' => $this->_type, 'initializer' => $this->_initializer, 'semicolon' => $this->_semicolon];
     }
     /**
      * @param mixed $rewriter
@@ -79,7 +79,7 @@ final class LetStatement extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $name = $this->_name->rewrite($rewriter, $parents);

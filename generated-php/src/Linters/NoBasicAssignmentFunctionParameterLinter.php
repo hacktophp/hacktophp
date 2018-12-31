@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{EditableNode as EditableNode, EditableList as EditableList, FunctionCallExpression as FunctionCallExpression, BinaryExpression as BinaryExpression, EqualToken as EqualToken, DelimitedComment as DelimitedComment, ListItem as ListItem, CommaToken as CommaToken, WhiteSpace as WhiteSpace};
-use HH\Lib\C as C;
+use Facebook\HHAST\{EditableNode, EditableList, FunctionCallExpression, BinaryExpression, EqualToken, DelimitedComment, ListItem, CommaToken, WhiteSpace};
+use HH\Lib\C;
 class NoBasicAssignmentFunctionParameterLinter extends AutoFixingASTLinter
 {
     /**
@@ -36,9 +36,7 @@ class NoBasicAssignmentFunctionParameterLinter extends AutoFixingASTLinter
         })) {
             return null;
         }
-        return new ASTLintError($this, 'Basic assignment is not allowed in function parameters because it is often' . '
-	1) unexpected that it sets a local variable in the containing scope' . '
-	2) wrongly assumed that the variables are named parameters', $node);
+        return new ASTLintError($this, "Basic assignment is not allowed in function parameters because it is often" . "\n\t1) unexpected that it sets a local variable in the containing scope" . "\n\t2) wrongly assumed that the variables are named parameters", $node);
     }
     /**
      * @return string
@@ -54,7 +52,7 @@ class NoBasicAssignmentFunctionParameterLinter extends AutoFixingASTLinter
     {
         $args = $node->getArgumentListx()->toVec();
         $exps = $node->getArgumentListx();
-        $fixed_exps = array();
+        $fixed_exps = [];
         foreach ($args as $exp) {
             if ($exp instanceof ListItem) {
                 $item = $exp->getItemx();

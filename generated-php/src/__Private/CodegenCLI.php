@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\TypeAssert as TypeAssert;
-use Facebook\CLILib\CLIBase as CLIBase;
-use Facebook\CLILib\CLIOptions as CLIOptions;
+use Facebook\TypeAssert;
+use Facebook\CLILib\CLIBase;
+use Facebook\CLILib\CLIOptions;
 final class CodegenCLI extends CLIBase
 {
     /**
@@ -27,11 +27,11 @@ final class CodegenCLI extends CLIBase
      */
     protected function getSupportedOptions()
     {
-        return array(CLIOptions\with_required_string(function ($path) {
+        return [CLIOptions\with_required_string(function ($path) {
             return $this->hhvmPath = $path;
         }, 'Path to HHVM source tree', '--hhvm-path'), CLIOptions\flag(function () {
             return $this->rebuildRelationships = true;
-        }, 'Update inferred relationships based on the HHVM and Hack tests; requires --hhvm-path', '--rebuild-relationships'));
+        }, 'Update inferred relationships based on the HHVM and Hack tests; requires --hhvm-path', '--rebuild-relationships')];
     }
     /**
      * @return \Sabre\Event\Promise<int>
@@ -41,17 +41,16 @@ final class CodegenCLI extends CLIBase
         return \Sabre\Event\coroutine(
             /** @return \Generator<int, mixed, void, int> */
             function () : \Generator {
-                $generators = array(CodegenEditableNodeFromJSON::class => CodegenEditableNodeFromJSON::class, CodegenEditableTokenFromData::class => CodegenEditableTokenFromData::class, CodegenEditableTriviaFromJSON::class => CodegenEditableTriviaFromJSON::class, CodegenTokens::class => CodegenTokens::class, CodegenTrivia::class => CodegenTrivia::class, CodegenSyntax::class => CodegenSyntax::class, CodegenVersion::class => CodegenVersion::class);
+                $generators = [CodegenEditableNodeFromJSON::class => CodegenEditableNodeFromJSON::class, CodegenEditableTokenFromData::class => CodegenEditableTokenFromData::class, CodegenEditableTriviaFromJSON::class => CodegenEditableTriviaFromJSON::class, CodegenTokens::class => CodegenTokens::class, CodegenTrivia::class => CodegenTrivia::class, CodegenSyntax::class => CodegenSyntax::class, CodegenVersion::class => CodegenVersion::class];
                 $schema = $this->getSchema();
                 $rebuild_relationships = $this->rebuildRelationships;
                 if ($rebuild_relationships) {
                     $hhvm = $this->hhvmPath;
                     if ($hhvm === null) {
-                        (yield $this->getStderr()->writeAsync('--hhvm-path is required when rebuilding relationships.
-'));
+                        (yield $this->getStderr()->writeAsync("--hhvm-path is required when rebuilding relationships.\n"));
                         return 1;
                     }
-                    $relationships = array();
+                    $relationships = [];
                     foreach ($generators as $generator) {
                         (new $generator($schema, $relationships))->generate();
                     }

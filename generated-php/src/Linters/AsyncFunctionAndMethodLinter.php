@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{FunctionDeclaration as FunctionDeclaration, GenericTypeSpecifier as GenericTypeSpecifier, MethodishDeclaration as MethodishDeclaration};
-use HH\Lib\Str as Str;
+use Facebook\HHAST\{FunctionDeclaration, GenericTypeSpecifier, MethodishDeclaration};
+use HH\Lib\Str;
 class AsyncFunctionAndMethodLinter extends FunctionNamingLinter
 {
     /**
@@ -57,13 +57,13 @@ class AsyncFunctionAndMethodLinter extends FunctionNamingLinter
      */
     protected static function splitName(string $name)
     {
-        $suffixes = array('UNTYPED', 'UNSAFE', 'DEPRECATED');
+        $suffixes = ['UNTYPED', 'UNSAFE', 'DEPRECATED'];
         foreach ($suffixes as $suffix) {
             if (Str\ends_with_ci($name, $suffix)) {
-                return array(Str\strip_suffix(Str\slice($name, 0, \strlen($name) - \strlen($suffix)), '_'), $suffix);
+                return [Str\strip_suffix(Str\slice($name, 0, \strlen($name) - \strlen($suffix)), '_'), $suffix];
             }
         }
-        return array($name, null);
+        return [$name, null];
     }
 }
 

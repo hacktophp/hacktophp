@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class EmbeddedSubscriptExpression extends EditableNode
 {
     /**
@@ -55,7 +55,7 @@ final class EmbeddedSubscriptExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('receiver' => $this->_receiver, 'left_bracket' => $this->_left_bracket, 'index' => $this->_index, 'right_bracket' => $this->_right_bracket);
+        return ['receiver' => $this->_receiver, 'left_bracket' => $this->_left_bracket, 'index' => $this->_index, 'right_bracket' => $this->_right_bracket];
     }
     /**
      * @param mixed $rewriter
@@ -65,7 +65,7 @@ final class EmbeddedSubscriptExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $receiver = $this->_receiver->rewrite($rewriter, $parents);
         $left_bracket = $this->_left_bracket->rewrite($rewriter, $parents);

@@ -9,10 +9,10 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\CLILib\ITerminal as ITerminal;
-use Facebook\DiffLib\{CLIColoredUnifiedDiff as CLIColoredUnifiedDiff, StringDiff as StringDiff};
-use Facebook\HHAST\Linters as Linters;
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
+use Facebook\CLILib\ITerminal;
+use Facebook\DiffLib\{CLIColoredUnifiedDiff, StringDiff};
+use Facebook\HHAST\Linters;
+use HH\Lib\{C, Str, Vec};
 final class LintRunCLIEventHandler implements LintRunEventHandler
 {
     /**
@@ -63,17 +63,16 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */
             function () use($linter, $config, $errors) : \Generator {
                 $class = \get_class($linter);
-                $to_fix = array();
+                $to_fix = [];
                 $result = LintAutoFixResult::ALL_FIXED;
                 $colors = $this->terminal->supportsColors();
                 $fixing_linter = $linter instanceof Linters\AutoFixingLinter && !C\contains_key($config['autoFixBlacklist'], $class) ? $linter : null;
                 foreach ($errors as $error) {
                     $position = $error->getPosition();
-                    (yield $this->terminal->getStdout()->writeAsync(Str\format('%s%s%s
-' . '  %sLinter: %s%s
-' . '  Location: %s
-', $colors ? 'e[1;31m' : '', $error->getDescription(), $colors ? 'e[0m' : '', $colors ? 'e[90m' : '', \get_class($error->getLinter()), $colors ? 'e[0m' : '', $position === null ? $error->getFile()->getPath() : Str\format('%s:%d:%d', $error->getFile()->getPath(), $position[0], $position[1]))));
+                    /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
+                    (yield $this->terminal->getStdout()->writeAsync(Str\format("%s%s%s\n" . "  %sLinter: %s%s\n" . "  Location: %s\n", $colors ? "e[1;31m" : '', $error->getDescription(), $colors ? "e[0m" : '', $colors ? "e[90m" : '', \get_class($error->getLinter()), $colors ? "e[0m" : '', $position === null ? $error->getFile()->getPath() : Str\format('%s:%d:%d', $error->getFile()->getPath(), $position[0], $position[1]))));
                     if ($fixing_linter) {
+                        /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
                         $should_fix = (yield $this->shouldFixLintAsync($fixing_linter, $error));
                         if ($should_fix) {
                             $to_fix[] = $error;
@@ -82,11 +81,12 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
                         }
                         continue;
                     }
+                    /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
                     (yield $this->renderLintBlameAsync($error));
                     $result = LintAutoFixResult::SOME_UNFIXED;
                 }
                 if (!C\is_empty($to_fix)) {
-                    invariant($fixing_linter, 'Can\'t fix without a fixing linter');
+                    invariant($fixing_linter, "Can't fix without a fixing linter");
                     self::fixErrors($fixing_linter, $to_fix);
                 }
                 return $result;
@@ -98,7 +98,9 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
      *
      * @return \Sabre\Event\Promise<void>
      */
-    public function finishedFileAsync(string $_, $_);
+    public function finishedFileAsync(string $_, $_)
+    {
+    }
     /**
      * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $result
      *
@@ -110,8 +112,7 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
             /** @return \Generator<int, mixed, void, void> */
             function () use($result) : \Generator {
                 if ($result === LintRunResult::NO_ERRORS) {
-                    (yield $this->terminal->getStdout()->writeAsync('No errors.
-'));
+                    (yield $this->terminal->getStdout()->writeAsync("No errors.\n"));
                 }
             }
         );
@@ -144,7 +145,7 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
             /** @return \Generator<int, mixed, void, bool> */
             function () use($linter, $error) : \Generator {
                 $old = $linter->getFile()->getContents();
-                $new = $linter->getFixedFile(array($error))->getContents();
+                $new = $linter->getFixedFile([$error])->getContents();
                 if ($old === $new) {
                     (yield $this->renderLintBlameAsync($error));
                     return false;
@@ -157,19 +158,17 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
                 if (!$this->terminal->isInteractive()) {
                     return false;
                 }
-                static $cache = array();
+                static $cache = [];
                 $cache_key = \get_class($error->getLinter());
                 if (C\contains_key($cache, $cache_key)) {
                     $should_fix = $cache[$cache_key];
-                    (yield $this->terminal->getStdout()->writeAsync(Str\format('Would you like to apply this fix?
-  <%s to all>
-', $should_fix ? 'yes' : 'no')));
+                    (yield $this->terminal->getStdout()->writeAsync(Str\format("Would you like to apply this fix?\n  <%s to all>\n", $should_fix ? 'yes' : 'no')));
                     return $should_fix;
                 }
                 $response = null;
                 do {
-                    (yield $this->terminal->getStdout()->writeAsync('e[94mWould you like to apply this fix?e[0m
-' . '  e[37m[y]es/[N]o/yes to [a]ll/n[o] to all:e[0m '));
+                    /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
+                    (yield $this->terminal->getStdout()->writeAsync("e[94mWould you like to apply this fix?e[0m\n" . "  e[37m[y]es/[N]o/yes to [a]ll/n[o] to all:e[0m "));
                     $response = (yield $this->terminal->getStdin()->readLineAsync());
                     $response = Str\trim($response);
                     switch ($response) {
@@ -183,8 +182,8 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
                         case '':
                             return false;
                         default:
-                            (yield $this->terminal->getStderr()->writeAsync(Str\format('\'%s\' is not a valid response.
-', $response)));
+                            /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
+                            (yield $this->terminal->getStderr()->writeAsync(Str\format("'%s' is not a valid response.\n", $response)));
                             $response = null;
                     }
                 } while ($response === null);
@@ -205,13 +204,9 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
                     return;
                 }
                 $colors = $this->terminal->supportsColors();
-                (yield $this->terminal->getStdout()->writeAsync(Str\format('  Code:
-%s%s%s
-', $colors ? 'e[33m' : '', \implode('
-', \array_map(function ($line) {
+                (yield $this->terminal->getStdout()->writeAsync(Str\format("  Code:\n%s%s%s\n", $colors ? "e[33m" : '', \implode("\n", \array_map(function ($line) {
                     return '  >' . $line;
-                }, \explode('
-', $blame))), $colors ? 'e[0m' : '')));
+                }, \explode("\n", $blame))), $colors ? "e[0m" : '')));
             }
         );
     }

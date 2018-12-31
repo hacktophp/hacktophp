@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use Facebook\HHAST\EditableNode as EditableNode;
+use Facebook\HHAST\EditableNode;
 abstract class StepBasedMigration extends BaseMigration
 {
     /**

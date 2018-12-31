@@ -9,10 +9,10 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST\Linters as Linters;
-use HH\Lib\{C as C, Math as Math, Str as Str, Vec as Vec};
-use Facebook\CLILib\{CLIWithArguments as CLIWithArguments, ExitException as ExitException};
-use Facebook\CLILib\CLIOptions as CLIOptions;
+use Facebook\HHAST\Linters;
+use HH\Lib\{C, Math, Str, Vec};
+use Facebook\CLILib\{CLIWithArguments, ExitException};
+use Facebook\CLILib\CLIOptions;
 final class LinterCLI extends CLIWithArguments
 {
     /**
@@ -36,14 +36,14 @@ final class LinterCLI extends CLIWithArguments
      */
     protected function getSupportedOptions()
     {
-        return array(CLIOptions\flag(function () {
-            return new ExitException(1, '--perf is no longer supported; consider --xhprof');
+        return [CLIOptions\flag(function () {
+            return new ExitException(1, "--perf is no longer supported; consider --xhprof");
         }, '[unsupported]', '--perf'), CLIOptions\flag(function () {
             return $this->xhprof = true;
         }, 'Enable XHProf profiling', '--xhprof'), CLIOptions\with_required_enum(LinterCLIMode::class, function ($m) {
             return $this->mode = $m;
         }, 'Set the output mode; supported values are ' . \implode(' | ', LinterCLIMode::getValues()), '--mode', '-m'), CLIOptions\with_required_string(function ($_) {
-        }, 'Name of the caller; intended for use with `--mode json` or `--mode lsp`', '--from'), $this->getVerbosityOption());
+        }, 'Name of the caller; intended for use with `--mode json` or `--mode lsp`', '--from'), $this->getVerbosityOption()];
     }
     /**
      * @return \Sabre\Event\Promise<int>
@@ -82,8 +82,7 @@ final class LinterCLI extends CLIWithArguments
                     $config = LintRunConfig::getForPath(\getcwd());
                     $roots = $config->getRoots();
                     if (C\is_empty($roots)) {
-                        (yield $err->writeAsync('You must either specify PATH arguments, or provide a configuration' . 'file.
-'));
+                        (yield $err->writeAsync("You must either specify PATH arguments, or provide a configuration" . "file.\n"));
                         return 1;
                     }
                 } else {
@@ -92,9 +91,8 @@ final class LinterCLI extends CLIWithArguments
                         if (\is_dir($path)) {
                             $config_file = $path . '/hhast-lint.json';
                             if (\file_exists($config_file)) {
-                                (yield $err->writeAsync('Warning: PATH arguments contain a hhast-lint.json, ' . 'which modifies the linters used and customizes behavior. ' . 'Consider \'cd ' . $root . '; vendor/bin/hhast-lint\'
-
-'));
+                                /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
+                                (yield $err->writeAsync("Warning: PATH arguments contain a hhast-lint.json, " . "which modifies the linters used and customizes behavior. " . "Consider 'cd " . $root . "; vendor/bin/hhast-lint'\n\n"));
                             }
                         }
                     }
@@ -116,32 +114,18 @@ final class LinterCLI extends CLIWithArguments
                     $orig = $e->getPrevious() ?? $e;
                     $err = $terminal->getStderr();
                     $pos = $e->getPosition();
-                    (yield $err->writeAsync(Str\format('A linter threw an exception:
-  Linter: %s
-  File: %s%s
-', $e->getLinterClass(), \realpath($e->getFileBeingLinted()), $pos === null ? '' : Str\format(':%d:%d', $pos[0], $pos[1] + 1))));
+                    (yield $err->writeAsync(Str\format("A linter threw an exception:\n  Linter: %s\n  File: %s%s\n", $e->getLinterClass(), \realpath($e->getFileBeingLinted()), $pos === null ? '' : Str\format(':%d:%d', $pos[0], $pos[1] + 1))));
                     if ($pos !== null && \is_readable($e->getFileBeingLinted())) {
                         list($line, $column) = $pos;
                         $content = \file_get_contents($e->getFileBeingLinted());
-                        (yield $err->writeAsync(Str\format('%s
-      %s^ HERE
-', \implode('
-', \array_map(function ($line) {
+                        (yield $err->writeAsync(Str\format("%s\n      %s^ HERE\n", \implode("\n", \array_map(function ($line) {
                             return '    > ' . $line;
-                        }, Vec\slice(Vec\take(\explode('
-', \file_get_contents($e->getFileBeingLinted())), $line), Math\maxva($line - 3, 0)))), Str\repeat(' ', $column))));
+                        }, \array_slice(Math\maxva($line - 3, 0), Vec\take(\explode("\n", \file_get_contents($e->getFileBeingLinted())), $line)))), Str\repeat(' ', $column))));
                     }
-                    (yield $err->writeAsync(Str\format('  Exception: %s
-' . '  Message: %s
-', \get_class($orig), $orig->getMessage())));
-                    (yield $err->writeAsync('  Trace:
-' . \implode('
-', \array_map(function ($line) {
+                    (yield $err->writeAsync(Str\format("  Exception: %s\n" . "  Message: %s\n", \get_class($orig), $orig->getMessage())));
+                    (yield $err->writeAsync("  Trace:\n" . \implode("\n", \array_map(function ($line) {
                         return '    ' . $line;
-                    }, \explode('
-', $orig->getTraceAsString()))) . '
-
-'));
+                    }, \explode("\n", $orig->getTraceAsString()))) . "\n\n"));
                     return 2;
                 }
                 switch ($result) {

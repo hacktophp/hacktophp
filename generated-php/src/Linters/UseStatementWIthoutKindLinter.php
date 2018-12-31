@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{EditableNode as EditableNode, INamespaceUseDeclaration as INamespaceUseDeclaration, NamespaceToken as NamespaceToken, NameToken as NameToken, TypeToken as TypeToken, QualifiedName as QualifiedName};
-use Facebook\HHAST as HHAST;
-use HH\Lib\{C as C, Keyset as Keyset};
+use Facebook\HHAST\{EditableNode, INamespaceUseDeclaration, NamespaceToken, NameToken, TypeToken, QualifiedName};
+use Facebook\HHAST;
+use HH\Lib\{C, Keyset};
 final class UseStatementWithoutKindLinter extends AutoFixingASTLinter
 {
     /**
@@ -31,7 +31,7 @@ final class UseStatementWithoutKindLinter extends AutoFixingASTLinter
         if ($node->hasKind()) {
             return null;
         }
-        return new ASTLintError($this, 'Use `use type` or `use namespace`', $node);
+        return new ASTLintError($this, "Use `use type` or `use namespace`", $node);
     }
     /**
      * @param ASTLintError<INamespaceUseDeclaration> $e
@@ -41,7 +41,7 @@ final class UseStatementWithoutKindLinter extends AutoFixingASTLinter
     protected function getTitleForFix(ASTLintError $e)
     {
         $fixed = $this->getFixedNode($e->getBlameNode());
-        invariant($fixed !== null, 'Shouldn\'t be asked to provide a fix title when there is no fix');
+        invariant($fixed !== null, "Shouldn't be asked to provide a fix title when there is no fix");
         return 'Switch to `use ' . $fixed->getKindx()->getText() . '`';
     }
     /**
@@ -49,6 +49,7 @@ final class UseStatementWithoutKindLinter extends AutoFixingASTLinter
      */
     public function getFixedNode(INamespaceUseDeclaration $node)
     {
+        // Figure out what names are imported
         $names = Keyset\map($node->getClauses()->getItems(), function ($clause) use($name) {
             if ($clause->hasAs()) {
                 return $clause->getAsx()->getText();
@@ -57,9 +58,11 @@ final class UseStatementWithoutKindLinter extends AutoFixingASTLinter
             if ($name instanceof QualifiedName) {
                 return C\lastx($name->getParts()->getItemsOfType(NameToken::class))->getText();
             }
-            invariant($name instanceof NameToken, 'Expected a Qualified or NameToken, got %s', \get_class($name));
+            invariant($name instanceof NameToken, "Expected a Qualified or NameToken, got %s", \get_class($name));
             return $name->getText();
         });
+        // We need to look at the full file to figure out if this should be a
+        // `use type`, or `use namespace`
         $used = $this->getUnresolvedReferencedNames();
         $used_as_ns = C\any($names, function ($name) use($used) {
             return C\contains($used['namespaces'], $name);
@@ -75,6 +78,7 @@ final class UseStatementWithoutKindLinter extends AutoFixingASTLinter
         if ($used_as_ns && !$used_as_type) {
             return $node->withKind(new NamespaceToken($leading, $trailing));
         }
+        // Unused, or ambiguous
         return null;
     }
     /**

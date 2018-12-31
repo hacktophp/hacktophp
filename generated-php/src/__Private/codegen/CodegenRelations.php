@@ -9,10 +9,10 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST as HHAST;
-use HH\Lib\{C as C, Dict as Dict, Keyset as Keyset, Str as Str, Tuple as Tuple, Vec as Vec};
-use Facebook\HackCodegen\{HackBuilderKeys as HackBuilderKeys, HackBuilderValues as HackBuilderValues};
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\HHAST;
+use HH\Lib\{C, Dict, Keyset, Str, Tuple, Vec};
+use Facebook\HackCodegen\{HackBuilderKeys, HackBuilderValues};
+use Facebook\TypeAssert;
 final class CodegenRelations extends CodegenBase
 {
     /**
@@ -27,7 +27,7 @@ final class CodegenRelations extends CodegenBase
     public function __construct(string $hhvmRoot, $schema)
     {
         $this->hhvmRoot = $hhvmRoot;
-        $relationships = array();
+        $relationships = [];
         parent::__construct($schema, $relationships);
     }
     /**
@@ -35,8 +35,7 @@ final class CodegenRelations extends CodegenBase
      */
     public function generate()
     {
-        print 'Infering relationships, this can take a long time...
-';
+        print "Infering relationships, this can take a long time...\n";
         $files = $this->getFileList();
         $done = new \Facebook\HHAST\__Private\Set();
         $start = \microtime(true);
@@ -57,28 +56,26 @@ final class CodegenRelations extends CodegenBase
                 $elapsed = $now - $start;
                 $rate = $done->count() / $elapsed;
                 $end = $start + $total / $rate;
-                \fprintf(\STDERR, '%d%%	(%d / %d)	Expected finish in %ds at %s
-', (int) ($ratio * 100), $done->count(), $total, (int) ($end - $now), \strftime('%H:%M:%S', (int) $end));
+                \fprintf(\STDERR, "%d%%\t(%d / %d)\tExpected finish in %ds at %s\n", (int) ($ratio * 100), $done->count(), $total, (int) ($end - $now), \strftime('%H:%M:%S', (int) $end));
             }
         })())->wait();
-        $result = array();
+        $result = [];
         foreach ($all_inferences as $inferences) {
             foreach ($inferences as $key => $child_keys) {
-                $result[$key] = Keyset\sort(Keyset\flatten(array($result[$key] ?? array(), $child_keys)));
+                $result[$key] = Keyset\sort(Keyset\flatten([$result[$key] ?? [], $child_keys]));
             }
         }
         $result = Dict\sort_by_key($result);
         $cg = $this->getCodegenFactory();
         $cg->codegenFile($this->getOutputDirectory() . '/inferred_relationships.php')->setNamespace('Facebook\\HHAST\\__Private')->addConstant($cg->codegenConstant('INFERRED_RELATIONSHIPS')->setType('dict<string, keyset<string>>')->setValue($result, HackBuilderValues::dict(HackBuilderKeys::export(), HackBuilderValues::keyset(HackBuilderValues::export()))))->save();
-        print '... done!
-';
+        print "... done!\n";
     }
     /**
      * @return array<string, string>
      */
     private function getFileList()
     {
-        $hhvm_dirs = array('quick' => 'quick', 'slow' => 'slow', 'zend/good/' => 'zend/good/');
+        $hhvm_dirs = ['quick' => 'quick', 'slow' => 'slow', 'zend/good/' => 'zend/good/'];
         $hhvm_tests = Keyset\flatten(\array_map(function ($dir) {
             return $this->getFileListFromHHVMTestDirectory($dir);
         }, \array_map(function ($dir) {
@@ -86,7 +83,7 @@ final class CodegenRelations extends CodegenBase
         }, $hhvm_dirs)));
         $hack_tests = $this->getFileListFromHackTestDirectory($this->hhvmRoot . '/hphp/hack/test/typecheck');
         $systemlib = $this->getTestFilesInDirectory($this->hhvmRoot . '/hphp/system/php');
-        return Keyset\flatten(array($hhvm_tests, $hack_tests, $systemlib));
+        return Keyset\flatten([$hhvm_tests, $hack_tests, $systemlib]);
     }
     /**
      * @return array<string, string>
@@ -123,8 +120,7 @@ final class CodegenRelations extends CodegenBase
                 return false;
             }
             $out = \file_get_contents($path . '.exp');
-            return $out === 'No errors
-';
+            return $out === "No errors\n";
         });
     }
     /**
@@ -157,12 +153,11 @@ final class CodegenRelations extends CodegenBase
                     $ast = $this->flatten($json['parse_tree']);
                 } catch (\Exception $_) {
                     if (!Str\contains(\file_get_contents($file), '<?php')) {
-                        \fprintf(\STDERR, 'Failed to parse %s
-', $file);
+                        \fprintf(\STDERR, "Failed to parse %s\n", $file);
                     }
-                    return array();
+                    return [];
                 }
-                $out = array();
+                $out = [];
                 $schemas = Dict\pull($this->getSchema()['AST'], function ($schema) {
                     return $schema;
                 }, function ($schema) {
@@ -179,7 +174,7 @@ final class CodegenRelations extends CodegenBase
                         if (C\contains_key($node, $field)) {
                             $key = $kind . '.' . $field;
                             if (!C\contains_key($out, $key)) {
-                                $out[$key] = array();
+                                $out[$key] = [];
                             }
                             $child = TypeAssert\matches_type_structure(type_structure(self::class, 'TNode'), $node[$field]);
                             $out[$key][] = self::getTypeString($child);
@@ -209,7 +204,7 @@ final class CodegenRelations extends CodegenBase
             return self::getTypeString($i);
         }, \array_map(function ($e) use($ts) {
             return TypeAssert\matches_type_structure($ts, $e['list_item'] ?? null);
-        }, Vec\filter($node['elements'] ?? array(), function ($e) {
+        }, \array_filter($node['elements'] ?? [], function ($e) {
             return Shapes::keyExists($e, 'list_item');
         }))));
         return 'list<' . \implode('|', $types) . '>';

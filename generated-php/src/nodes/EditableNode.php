@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST;
 
-use HH\Lib\{Dict as Dict, Vec as Vec, C as C};
-use Facebook\TypeAssert as TypeAssert;
+use HH\Lib\{Dict, Vec, C};
+use Facebook\TypeAssert;
 abstract class EditableNode
 {
     /**
@@ -56,7 +56,7 @@ abstract class EditableNode
      */
     public final function getChildrenOfType(string $what)
     {
-        $out = array();
+        $out = [];
         foreach ($this->getChildren() as $k => $node) {
             if ($node instanceof $what) {
                 $out[$k] = $node;
@@ -69,7 +69,7 @@ abstract class EditableNode
      */
     public function traverse()
     {
-        $out = array($this);
+        $out = [$this];
         foreach ($this->getChildren() as $child) {
             foreach ($child->traverse() as $descendant) {
                 $out[] = $descendant;
@@ -86,10 +86,10 @@ abstract class EditableNode
     {
         $new_parents = (array) $parents;
         $new_parents[] = $this;
-        $out = array(array($this, $parents));
+        $out = [[$this, $parents]];
         foreach ($this->getChildren() as $child) {
             foreach ($child->traverseImpl($new_parents) as list($child, $child_parents)) {
-                $out[] = array($child, $child_parents);
+                $out[] = [$child, $child_parents];
             }
         }
         return $out;
@@ -99,7 +99,7 @@ abstract class EditableNode
      */
     public function traverseWithParents()
     {
-        return $this->traverseImpl(array());
+        return $this->traverseImpl([]);
     }
     /**
      * @return bool
@@ -136,6 +136,7 @@ abstract class EditableNode
     {
         if ($this->_width === null) {
             $width = 0;
+            /* TODO: Make an accumulation sequence operator */
             foreach ($this->getChildren() as $node) {
                 $width += $node->getWidth();
             }
@@ -150,6 +151,7 @@ abstract class EditableNode
      */
     public function getCode()
     {
+        /* TODO: Make an accumulation sequence operator */
         $s = '';
         foreach ($this->getChildren() as $node) {
             $s .= $node->getCode();
@@ -170,7 +172,7 @@ abstract class EditableNode
      */
     public function toVec()
     {
-        return array($this);
+        return [$this];
     }
     // Returns all the parents (and the node itself) of the first node
     // that matches a predicate, or [] if there is no such node.
@@ -182,7 +184,7 @@ abstract class EditableNode
      */
     public function findWithParents(\Closure $predicate, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $new_parents = $parents;
         $new_parents[] = $this;
         if ($predicate($this)) {
@@ -194,7 +196,7 @@ abstract class EditableNode
                 return $result;
             }
         }
-        return array();
+        return [];
     }
     /**
      * @param \Closure(EditableNode, array<int, EditableNode>):bool $filter
@@ -203,7 +205,7 @@ abstract class EditableNode
      */
     public function getDescendantsWhere(\Closure $filter)
     {
-        $out = array();
+        $out = [];
         foreach ($this->traverseWithParents() as list($node, $parents)) {
             if ($filter($node, $parents)) {
                 $out[] = $node;
@@ -220,7 +222,7 @@ abstract class EditableNode
      */
     public function getDescendantsOfType(string $what)
     {
-        $out = array();
+        $out = [];
         foreach ($this->traverse() as $child) {
             if ($child instanceof $what) {
                 $out[] = $child;
@@ -300,9 +302,11 @@ abstract class EditableNode
      */
     public function insertBefore(EditableNode $target, EditableNode $new_node)
     {
+        // Inserting before missing is an error.
         if ($target->isMissing()) {
             throw new \Exception('Target must not be missing in insert_before.');
         }
+        // Inserting missing is a no-op
         if ($new_node->isMissing()) {
             return $this;
         }
@@ -312,6 +316,8 @@ abstract class EditableNode
                 throw new \Exception('Unable to find token to insert trivia.');
             }
             $token = TypeAssert\instance_of(EditableToken::class, $token);
+            // Inserting trivia before token is inserting to the right end of
+            // the leading trivia.
             $new_leading = EditableList::concat($token->getLeading(), $new_node);
             $new_token = $token->withLeading($new_leading);
             return $this->replace($token, $new_token);
@@ -323,9 +329,11 @@ abstract class EditableNode
      */
     public function insertAfter(EditableNode $target, EditableNode $new_node)
     {
+        // Inserting after missing is an error.
         if ($target->isMissing()) {
             throw new \Exception('Target must not be missing in insert_after.');
         }
+        // Inserting missing is a no-op
         if ($new_node->isMissing()) {
             return $this;
         }
@@ -335,6 +343,8 @@ abstract class EditableNode
                 throw new \Exception('Unable to find token to insert trivia.');
             }
             $token = TypeAssert\instance_of(EditableToken::class, $token);
+            // Inserting trivia after token is inserting to the left end of
+            // the trailing trivia.
             $new_trailing = EditableList::concat($new_node, $token->getTrailing());
             $new_token = $token->withTrailing($new_trailing);
             return $this->replace($token, $new_token);
@@ -356,7 +366,7 @@ abstract class EditableNode
      */
     public function rewrite($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $with_rewritten_children = $this->rewriteDescendants($rewriter, $parents);
         return $rewriter($with_rewritten_children, $parents);
     }

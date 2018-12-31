@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class AttributeSpecification extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ final class AttributeSpecification extends EditableNode
      */
     public function getChildren()
     {
-        return array('left_double_angle' => $this->_left_double_angle, 'attributes' => $this->_attributes, 'right_double_angle' => $this->_right_double_angle);
+        return ['left_double_angle' => $this->_left_double_angle, 'attributes' => $this->_attributes, 'right_double_angle' => $this->_right_double_angle];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class AttributeSpecification extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $left_double_angle = $this->_left_double_angle->rewrite($rewriter, $parents);
         $attributes = $this->_attributes->rewrite($rewriter, $parents);

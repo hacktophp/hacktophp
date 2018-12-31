@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class EmbeddedMemberSelectionExpression extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ final class EmbeddedMemberSelectionExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('object' => $this->_object, 'operator' => $this->_operator, 'name' => $this->_name);
+        return ['object' => $this->_object, 'operator' => $this->_operator, 'name' => $this->_name];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class EmbeddedMemberSelectionExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $object = $this->_object->rewrite($rewriter, $parents);
         $operator = $this->_operator->rewrite($rewriter, $parents);

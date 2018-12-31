@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{EditableList as EditableList, EditableNode as EditableNode, EndOfLine as EndOfLine, MarkupSuffix as MarkupSuffix, SingleLineComment as SingleLineComment, WhiteSpace as WhiteSpace};
+use Facebook\HHAST\{EditableList, EditableNode, EndOfLine, MarkupSuffix, SingleLineComment, WhiteSpace};
 class StrictModeOnlyLinter extends AutoFixingASTLinter
 {
     /**
@@ -28,13 +28,13 @@ class StrictModeOnlyLinter extends AutoFixingASTLinter
     {
         $name = $node->getName();
         if ($name === null) {
+            // '<?'
             return null;
         }
         if ($name->getText() !== 'hh') {
             return null;
         }
-        if ($name->getTrailing()->getCode() === ' // strict
-') {
+        if ($name->getTrailing()->getCode() === " // strict\n") {
             return null;
         }
         return new ASTLintError($this, 'Use `<?hh // strict`', $node);
@@ -52,9 +52,8 @@ class StrictModeOnlyLinter extends AutoFixingASTLinter
     public function getFixedNode(MarkupSuffix $node)
     {
         $name = $node->getName();
-        invariant($name !== null, 'Shouldn\'t be asked to fix a `<?hh`\'');
-        return $node->withName($name->withTrailing(EditableList::createNonEmptyListOrMissing(array(new WhiteSpace(' '), new SingleLineComment('// strict'), new EndOfLine('
-')))));
+        invariant($name !== null, "Shouldn't be asked to fix a `<?hh`'");
+        return $node->withName($name->withTrailing(EditableList::createNonEmptyListOrMissing([new WhiteSpace(' '), new SingleLineComment('// strict'), new EndOfLine("\n")])));
     }
 }
 

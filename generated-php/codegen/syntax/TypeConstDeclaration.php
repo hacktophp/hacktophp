@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class TypeConstDeclaration extends EditableNode
 {
     /**
@@ -90,7 +90,7 @@ final class TypeConstDeclaration extends EditableNode
      */
     public function getChildren()
     {
-        return array('abstract' => $this->_abstract, 'keyword' => $this->_keyword, 'type_keyword' => $this->_type_keyword, 'name' => $this->_name, 'type_parameters' => $this->_type_parameters, 'type_constraint' => $this->_type_constraint, 'equal' => $this->_equal, 'type_specifier' => $this->_type_specifier, 'semicolon' => $this->_semicolon);
+        return ['abstract' => $this->_abstract, 'keyword' => $this->_keyword, 'type_keyword' => $this->_type_keyword, 'name' => $this->_name, 'type_parameters' => $this->_type_parameters, 'type_constraint' => $this->_type_constraint, 'equal' => $this->_equal, 'type_specifier' => $this->_type_specifier, 'semicolon' => $this->_semicolon];
     }
     /**
      * @param mixed $rewriter
@@ -100,7 +100,7 @@ final class TypeConstDeclaration extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $abstract = $this->_abstract->rewrite($rewriter, $parents);
         $keyword = $this->_keyword->rewrite($rewriter, $parents);

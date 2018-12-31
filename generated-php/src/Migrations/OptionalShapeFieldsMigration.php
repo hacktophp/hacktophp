@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use Facebook\HHAST as HHAST;
+use Facebook\HHAST;
 final class OptionalShapeFieldsMigration extends StepBasedMigration
 {
     /**
@@ -37,9 +37,9 @@ final class OptionalShapeFieldsMigration extends StepBasedMigration
      */
     public final function getSteps()
     {
-        return array(new TypedMigrationStep('make nullable fields optional', HHAST\ListItem::class, HHAST\ListItem::class, function ($node) {
+        return [new TypedMigrationStep('make nullable fields optional', HHAST\ListItem::class, HHAST\ListItem::class, function ($node) {
             return self::makeNullableFieldsOptional($node);
-        }));
+        })];
     }
 }
 

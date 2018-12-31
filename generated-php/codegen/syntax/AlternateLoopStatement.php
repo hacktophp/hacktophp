@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 abstract class AlternateLoopStatementGeneratedBase extends EditableNode implements IControlFlowStatement, ILoopStatement
 {
     /**
@@ -55,7 +55,7 @@ abstract class AlternateLoopStatementGeneratedBase extends EditableNode implemen
      */
     public function getChildren()
     {
-        return array('opening_colon' => $this->_opening_colon, 'statements' => $this->_statements, 'closing_keyword' => $this->_closing_keyword, 'closing_semicolon' => $this->_closing_semicolon);
+        return ['opening_colon' => $this->_opening_colon, 'statements' => $this->_statements, 'closing_keyword' => $this->_closing_keyword, 'closing_semicolon' => $this->_closing_semicolon];
     }
     /**
      * @param mixed $rewriter
@@ -65,7 +65,7 @@ abstract class AlternateLoopStatementGeneratedBase extends EditableNode implemen
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $opening_colon = $this->_opening_colon->rewrite($rewriter, $parents);
         $statements = $this->_statements->rewrite($rewriter, $parents);

@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class VarrayIntrinsicExpression extends EditableNode
 {
     /**
@@ -62,7 +62,7 @@ final class VarrayIntrinsicExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'explicit_type' => $this->_explicit_type, 'left_bracket' => $this->_left_bracket, 'members' => $this->_members, 'right_bracket' => $this->_right_bracket);
+        return ['keyword' => $this->_keyword, 'explicit_type' => $this->_explicit_type, 'left_bracket' => $this->_left_bracket, 'members' => $this->_members, 'right_bracket' => $this->_right_bracket];
     }
     /**
      * @param mixed $rewriter
@@ -72,7 +72,7 @@ final class VarrayIntrinsicExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $explicit_type = $this->_explicit_type->rewrite($rewriter, $parents);

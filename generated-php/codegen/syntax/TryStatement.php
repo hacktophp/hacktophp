@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class TryStatement extends EditableNode
 {
     /**
@@ -55,7 +55,7 @@ final class TryStatement extends EditableNode
      */
     public function getChildren()
     {
-        return array('keyword' => $this->_keyword, 'compound_statement' => $this->_compound_statement, 'catch_clauses' => $this->_catch_clauses, 'finally_clause' => $this->_finally_clause);
+        return ['keyword' => $this->_keyword, 'compound_statement' => $this->_compound_statement, 'catch_clauses' => $this->_catch_clauses, 'finally_clause' => $this->_finally_clause];
     }
     /**
      * @param mixed $rewriter
@@ -65,7 +65,7 @@ final class TryStatement extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $keyword = $this->_keyword->rewrite($rewriter, $parents);
         $compound_statement = $this->_compound_statement->rewrite($rewriter, $parents);

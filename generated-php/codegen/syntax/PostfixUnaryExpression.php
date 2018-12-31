@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class PostfixUnaryExpression extends EditableNode
 {
     /**
@@ -41,7 +41,7 @@ final class PostfixUnaryExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('operand' => $this->_operand, 'operator' => $this->_operator);
+        return ['operand' => $this->_operand, 'operator' => $this->_operator];
     }
     /**
      * @param mixed $rewriter
@@ -51,7 +51,7 @@ final class PostfixUnaryExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $operand = $this->_operand->rewrite($rewriter, $parents);
         $operator = $this->_operator->rewrite($rewriter, $parents);

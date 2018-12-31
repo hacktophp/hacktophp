@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class CastExpression extends EditableNode
 {
     /**
@@ -55,7 +55,7 @@ final class CastExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('left_paren' => $this->_left_paren, 'type' => $this->_type, 'right_paren' => $this->_right_paren, 'operand' => $this->_operand);
+        return ['left_paren' => $this->_left_paren, 'type' => $this->_type, 'right_paren' => $this->_right_paren, 'operand' => $this->_operand];
     }
     /**
      * @param mixed $rewriter
@@ -65,7 +65,7 @@ final class CastExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
         $type = $this->_type->rewrite($rewriter, $parents);

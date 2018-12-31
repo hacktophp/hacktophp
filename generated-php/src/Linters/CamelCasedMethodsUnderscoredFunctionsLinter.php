@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{FunctionDeclaration as FunctionDeclaration, MethodishDeclaration as MethodishDeclaration};
-use HH\Lib\{C as C, Str as Str};
+use Facebook\HHAST\{FunctionDeclaration, MethodishDeclaration};
+use HH\Lib\{C, Str};
 class CamelCasedMethodsUnderscoredFunctionsLinter extends FunctionNamingLinter
 {
     /**
@@ -22,6 +22,8 @@ class CamelCasedMethodsUnderscoredFunctionsLinter extends FunctionNamingLinter
         if (\preg_match('/^[a-z0-9_]+$/', $head) === 1) {
             return $name;
         }
+        // Allow camel-case if it's a factory function, e.g.
+        //   function Missing(): Missing;
         $type = $func->getDeclarationHeader()->getType() ? $func->getDeclarationHeader()->getType()->getCode() : null;
         if ($type !== null) {
             $type = C\lastx(\explode('\\', C\firstx(\explode('<', Str\trim($type)))));
@@ -64,13 +66,13 @@ class CamelCasedMethodsUnderscoredFunctionsLinter extends FunctionNamingLinter
      */
     protected static function splitName(string $name)
     {
-        $suffixes = array('UNTYPED', 'UNSAFE', 'DEPRECATED');
+        $suffixes = ['UNTYPED', 'UNSAFE', 'DEPRECATED'];
         foreach ($suffixes as $suffix) {
             if (Str\ends_with_ci($name, $suffix)) {
-                return array(Str\strip_suffix(Str\slice($name, 0, \strlen($name) - \strlen($suffix)), '_'), $suffix);
+                return [Str\strip_suffix(Str\slice($name, 0, \strlen($name) - \strlen($suffix)), '_'), $suffix];
             }
         }
-        return array($name, null);
+        return [$name, null];
     }
 }
 

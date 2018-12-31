@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use Facebook\HHAST\EditableNode as EditableNode;
+use Facebook\HHAST\EditableNode;
 final class TypedMigrationStep implements IMigrationStep
 {
     /**
@@ -27,7 +27,9 @@ final class TypedMigrationStep implements IMigrationStep
     /**
      * @var \Closure(Tin):Tout
      */
-    public function __construct(string $name, string $tin, string $_tout, \Closure $rewriter);
+    public function __construct(string $name, string $tin, string $_tout, \Closure $rewriter)
+    {
+    }
     /**
      * @return string
      */

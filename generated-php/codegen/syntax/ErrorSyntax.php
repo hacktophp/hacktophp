@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ErrorSyntax extends EditableNode
 {
     /**
@@ -34,7 +34,7 @@ final class ErrorSyntax extends EditableNode
      */
     public function getChildren()
     {
-        return array('error' => $this->_error);
+        return ['error' => $this->_error];
     }
     /**
      * @param mixed $rewriter
@@ -44,7 +44,7 @@ final class ErrorSyntax extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $error = $this->_error->rewrite($rewriter, $parents);
         if ($error === $this->_error) {

@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HackCodegen\HackBuilderValues as HackBuilderValues;
+use Facebook\HackCodegen\HackBuilderValues;
 final class CodegenVersion extends CodegenBase
 {
     /**

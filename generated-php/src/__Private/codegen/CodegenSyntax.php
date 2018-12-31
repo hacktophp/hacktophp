@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HackCodegen\{CodegenClass as CodegenClass, CodegenConstructor as CodegenConstructor, CodegenMethod as CodegenMethod, HackBuilderKeys as HackBuilderKeys, HackBuilderValues as HackBuilderValues};
-use HH\Lib\{C as C, Dict as Dict, Keyset as Keyset, Str as Str, Vec as Vec};
+use Facebook\HackCodegen\{CodegenClass, CodegenConstructor, CodegenMethod, HackBuilderKeys, HackBuilderValues};
+use HH\Lib\{C, Dict, Keyset, Str, Vec};
 final class CodegenSyntax extends CodegenBase
 {
     /**
@@ -51,7 +51,7 @@ final class CodegenSyntax extends CodegenBase
         }
         return $cg->codegenClass($class_name)->addEmptyUserAttribute('__ConsistentConstruct')->setIsFinal(!$is_abstract)->setIsAbstract($is_abstract)->setExtends('EditableNode')->setInterfaces(\array_map(function ($if) use($cg) {
             return $cg->codegenImplementsInterface($if);
-        }, self::getMarkerInterfaces()[$syntax['kind_name']] ?? array()))->setConstructor($this->generateConstructor($syntax))->addMethod($this->generateFromJSONMethod($syntax))->addMethod($this->generateChildrenMethod($syntax))->addMethod($this->generateRewriteChildrenMethod($syntax))->addMethods(Vec\flatten(\array_map(function ($field) use($syntax) {
+        }, self::getMarkerInterfaces()[$syntax['kind_name']] ?? []))->setConstructor($this->generateConstructor($syntax))->addMethod($this->generateFromJSONMethod($syntax))->addMethod($this->generateChildrenMethod($syntax))->addMethod($this->generateRewriteChildrenMethod($syntax))->addMethods(Vec\flatten(\array_map(function ($field) use($syntax) {
             return $this->generateFieldMethods($syntax, $field['field_name']);
         }, $syntax['fields'])))->addProperties(\array_map(function ($field) use($cg) {
             return $cg->codegenProperty('_' . $field['field_name'])->setType('EditableNode');
@@ -119,13 +119,15 @@ final class CodegenSyntax extends CodegenBase
         $type = $spec['nullable'] ? '?' . $spec['class'] : $spec['class'];
         if (!$spec['nullable']) {
             (yield $cg->codegenMethodf('get%s', $upper_camel)->setDocBlock('@return ' . \implode(' | ', $types))->setReturnType($type)->setBodyf('return TypeAssert\\instance_of(%s::class, $this->_%s);', C\firstx(\explode('<', $type)), $underscored));
+            // For backwards compatibility: always offer getFoox, in case it was
+            // nullable in a previous version
             (yield $cg->codegenMethodf('get%sx', $upper_camel)->setDocBlock('@return ' . \implode(' | ', $types))->setReturnType($type)->setBodyf('return $this->get%s();', $upper_camel));
             return;
         }
         (yield $cg->codegenMethodf('get%s', $upper_camel)->setDocBlock('@return ' . \implode(' | ', \array_map(function ($type) {
             return $type === 'Missing' ? 'null' : $type;
         }, $types)))->setReturnType($type)->setBody($cg->codegenHackBuilder()->startIfBlockf('$this->_%s->isMissing()', $underscored)->addReturnf('null')->endIfBlock()->addReturnf('TypeAssert\\instance_of(%s::class, $this->_%s)', C\firstx(\explode('<', $spec['class'])), $underscored)->getCode()));
-        (yield $cg->codegenMethodf('get%sx', $upper_camel)->setDocBlock('@return ' . \implode(' | ', Vec\filter($types, function ($type) {
+        (yield $cg->codegenMethodf('get%sx', $upper_camel)->setDocBlock('@return ' . \implode(' | ', \array_filter($types, function ($type) {
             return $type !== 'Missing';
         })))->setReturnType($spec['class'])->setBodyf('return TypeAssert\\instance_of(%s::class, $this->_%s);', C\firstx(\explode('<', $spec['class'])), $underscored));
     }
@@ -153,7 +155,7 @@ final class CodegenSyntax extends CodegenBase
         $cg = $this->getCodegenFactory();
         $body = $cg->codegenHackBuilder();
         foreach ($syntax['fields'] as $field) {
-            $body->addf('$%s = ', $field['field_name'])->addMultilineCall('EditableNode::fromJSON', array(Str\format('/* UNSAFE_EXPR */ $json[\'%s_%s\']', $syntax['prefix'], $field['field_name']), '$file', '$offset', '$source'))->addLinef('$offset += $%s->getWidth();', $field['field_name']);
+            $body->addf('$%s = ', $field['field_name'])->addMultilineCall('EditableNode::fromJSON', [Str\format('/* UNSAFE_EXPR */ $json[\'%s_%s\']', $syntax['prefix'], $field['field_name']), '$file', '$offset', '$source'])->addLinef('$offset += $%s->getWidth();', $field['field_name']);
         }
         return $cg->codegenMethod('fromJSON')->setIsOverride()->setIsStatic()->addParameter('dict<string, mixed> $json')->addParameter('string $file')->addParameter('int $offset')->addParameter('string $source')->setReturnType('this')->setBody($body->addMultilineCall('return new static', \array_map(function ($field) {
             return '$' . $field['field_name'];
@@ -208,7 +210,7 @@ final class CodegenSyntax extends CodegenBase
         $key = Str\format('%s.%s_%s', $syntax['description'], $syntax['prefix'], $field);
         $specs = $this->getRelationships();
         if (!C\contains_key($specs, $key)) {
-            return array('class' => 'EditableNode', 'nullable' => false, 'possibleTypes' => array('unknown' => 'unknown'));
+            return ['class' => 'EditableNode', 'nullable' => false, 'possibleTypes' => ['unknown' => 'unknown']];
         }
         $children = Keyset\filter($specs[$key], function ($c) {
             return $c !== 'error';
@@ -222,7 +224,7 @@ final class CodegenSyntax extends CodegenBase
                 return $child !== 'missing';
             });
         }
-        return array('class' => $this->getUnifiedSyntaxClass($children), 'nullable' => $nullable, 'possibleTypes' => $possible_types);
+        return ['class' => $this->getUnifiedSyntaxClass($children), 'nullable' => $nullable, 'possibleTypes' => $possible_types];
     }
     /**
      * @return string
@@ -271,14 +273,14 @@ final class CodegenSyntax extends CodegenBase
      */
     private static function getMarkerInterfaces()
     {
-        return array('AlternateElseClause' => array('IControlFlowStatement' => 'IControlFlowStatement'), 'AlternateElseifClause' => array('IControlFlowStatement' => 'IControlFlowStatement'), 'AlternateElseifStatement' => array('IControlFlowStatement' => 'IControlFlowStatement'), 'AlternateLoopStatement' => array('IControlFlowStatement' => 'IControlFlowStatement', 'ILoopStatement' => 'ILoopStatement'), 'AlternateSwitchStatement' => array('IControlFlowStatement' => 'IControlFlowStatement'), 'DoStatement' => array('IControlFlowStatement' => 'IControlFlowStatement', 'ILoopStatement' => 'ILoopStatement'), 'ElseClause' => array('IControlFlowStatement' => 'IControlFlowStatement'), 'ElseifClause' => array('IControlFlowStatement' => 'IControlFlowStatement'), 'ForStatement' => array('IControlFlowStatement' => 'IControlFlowStatement', 'ILoopStatement' => 'ILoopStatement'), 'ForeachStatement' => array('IControlFlowStatement' => 'IControlFlowStatement', 'ILoopStatement' => 'ILoopStatement'), 'FunctionDeclaration' => array('IFunctionishDeclaration' => 'IFunctionishDeclaration'), 'IfStatement' => array('IControlFlowStatement' => 'IControlFlowStatement'), 'MethodishDeclaration' => array('IFunctionishDeclaration' => 'IFunctionishDeclaration'), 'NamespaceUseDeclaration' => array('INamespaceUseDeclaration' => 'INamespaceUseDeclaration'), 'NamespaceGroupUseDeclaration' => array('INamespaceUseDeclaration' => 'INamespaceUseDeclaration'), 'SwitchStatement' => array('IControlFlowStatement' => 'IControlFlowStatement'), 'WhileStatement' => array('IControlFlowStatement' => 'IControlFlowStatement', 'ILoopStatement' => 'ILoopStatement'));
+        return ['AlternateElseClause' => ['IControlFlowStatement' => 'IControlFlowStatement'], 'AlternateElseifClause' => ['IControlFlowStatement' => 'IControlFlowStatement'], 'AlternateElseifStatement' => ['IControlFlowStatement' => 'IControlFlowStatement'], 'AlternateLoopStatement' => ['IControlFlowStatement' => 'IControlFlowStatement', 'ILoopStatement' => 'ILoopStatement'], 'AlternateSwitchStatement' => ['IControlFlowStatement' => 'IControlFlowStatement'], 'DoStatement' => ['IControlFlowStatement' => 'IControlFlowStatement', 'ILoopStatement' => 'ILoopStatement'], 'ElseClause' => ['IControlFlowStatement' => 'IControlFlowStatement'], 'ElseifClause' => ['IControlFlowStatement' => 'IControlFlowStatement'], 'ForStatement' => ['IControlFlowStatement' => 'IControlFlowStatement', 'ILoopStatement' => 'ILoopStatement'], 'ForeachStatement' => ['IControlFlowStatement' => 'IControlFlowStatement', 'ILoopStatement' => 'ILoopStatement'], 'FunctionDeclaration' => ['IFunctionishDeclaration' => 'IFunctionishDeclaration'], 'IfStatement' => ['IControlFlowStatement' => 'IControlFlowStatement'], 'MethodishDeclaration' => ['IFunctionishDeclaration' => 'IFunctionishDeclaration'], 'NamespaceUseDeclaration' => ['INamespaceUseDeclaration' => 'INamespaceUseDeclaration'], 'NamespaceGroupUseDeclaration' => ['INamespaceUseDeclaration' => 'INamespaceUseDeclaration'], 'SwitchStatement' => ['IControlFlowStatement' => 'IControlFlowStatement'], 'WhileStatement' => ['IControlFlowStatement' => 'IControlFlowStatement', 'ILoopStatement' => 'ILoopStatement']];
     }
     /**
      * @return array<string, string>
      */
     private static function getKindsWithManualSubclasses()
     {
-        return array('AlternateLoopStatement' => 'AlternateLoopStatement', 'NamespaceDeclaration' => 'NamespaceDeclaration');
+        return ['AlternateLoopStatement' => 'AlternateLoopStatement', 'NamespaceDeclaration' => 'NamespaceDeclaration'];
     }
 }
 

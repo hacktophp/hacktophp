@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ClassishBody extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ final class ClassishBody extends EditableNode
      */
     public function getChildren()
     {
-        return array('left_brace' => $this->_left_brace, 'elements' => $this->_elements, 'right_brace' => $this->_right_brace);
+        return ['left_brace' => $this->_left_brace, 'elements' => $this->_elements, 'right_brace' => $this->_right_brace];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class ClassishBody extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $left_brace = $this->_left_brace->rewrite($rewriter, $parents);
         $elements = $this->_elements->rewrite($rewriter, $parents);

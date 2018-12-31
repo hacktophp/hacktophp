@@ -9,10 +9,10 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use function Facebook\HHAST\find_node_at_position as find_node_at_position;
-use Facebook\HHAST\__Private\TTypecheckerError as TTypecheckerError;
-use Facebook\HHAST\{EditableList as EditableList, EditableNode as EditableNode, FixMe as FixMe, Missing as Missing, WhiteSpace as WhiteSpace};
-use HH\Lib\{C as C, Dict as Dict, Keyset as Keyset, Str as Str, Vec as Vec};
+use function Facebook\HHAST\find_node_at_position;
+use Facebook\HHAST\__Private\TTypecheckerError;
+use Facebook\HHAST\{EditableList, EditableNode, FixMe, Missing, WhiteSpace};
+use HH\Lib\{C, Dict, Keyset, Str, Vec};
 final class AddFixMesMigration extends BaseMigration
 {
     use TypeErrorMigrationTrait;
@@ -37,7 +37,7 @@ final class AddFixMesMigration extends BaseMigration
         $column_offset = 0;
         foreach ($errors_by_position as $position => $errors) {
             $fixmes = Vec\flatten(\array_map(function ($code) {
-                return array(new FixMe(Str\format('/* HH_FIXME[%d] */', $code)), new WhiteSpace(' '));
+                return [new FixMe(Str\format('/* HH_FIXME[%d] */', $code)), new WhiteSpace(' ')];
             }, Keyset\map($errors, function ($error) {
                 return $error['code'];
             })));
@@ -55,9 +55,9 @@ final class AddFixMesMigration extends BaseMigration
                 $new_leading = EditableList::createNonEmptyListOrMissing($fixmes);
             } else {
                 if ($leading instanceof EditableList) {
-                    $new_leading = EditableList::createNonEmptyListOrMissing(Vec\concat($leading->getChildren(), $fixmes));
+                    $new_leading = EditableList::createNonEmptyListOrMissing(\array_merge($fixmes, $leading->getChildren()));
                 } else {
-                    $new_leading = EditableList::createNonEmptyListOrMissing(Vec\concat(array($leading), $fixmes));
+                    $new_leading = EditableList::createNonEmptyListOrMissing(\array_merge($fixmes, [$leading]));
                 }
             }
             $column_offset += \strlen($new_leading->getCode()) - \strlen($leading->getCode());

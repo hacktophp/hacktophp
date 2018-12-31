@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-use HH\Lib\Str as Str;
+use HH\Lib\Str;
 /**
  * @param array<string, mixed> $json
  *
@@ -41,6 +41,20 @@ function json_from_file_async(string $file)
                 throw new HHParseError($file, 'hh_parse failed - exit code: ' . $e->getExitCode());
             }
             $json = $results[0];
+            // The AST gives us byte offsets, so:
+            // - we should run `hh_parse` on the unconverted source
+            // - we should return the unconverted source
+            //
+            // https://github.com/facebook/hhvm/issues/8245
+            //
+            // However, `hh_parse` gives us JSON that includes non-UTF-8 sequences - so,
+            // we need to convert the JSON first. While some can be converted to UTF-8,
+            // this isn't guaranteed - JSON literally can't represent all the legal values
+            // so the source it returns is useless.
+            //
+            // Given that, we don't even need to attempt to do the right conversion - we
+            // can just do something cheap and throw away the result - so, we can just go
+            // over the bytes, and throw them away if they're not 7-bit clean.
             $ascii = '';
             $len = \strlen($json);
             for ($i = 0; $i < $len; ++$i) {
@@ -50,11 +64,19 @@ function json_from_file_async(string $file)
                 }
             }
             $json = $ascii;
-            $json = \json_decode($json, true, 512);
+            $json = \json_decode(
+                $json,
+                /* as array = */
+                true,
+                /* depth = */
+                512
+            );
             $no_type_refinement_please = $json;
             if (!\is_array($no_type_refinement_please)) {
                 throw new HHParseError($file, 'hh_parse did not output valid JSON');
             }
+            // Use the raw source rather than the re-encoded, as byte offsets may have
+            // changed while re-encoding
             $json['program_text'] = \file_get_contents($file);
             return $json;
         }
@@ -95,8 +117,8 @@ function json_from_text_async(string $text)
     return \Sabre\Event\coroutine(
         /** @return \Generator<int, mixed, void, array<string, mixed>> */
         function () use($text) : \Generator {
-            $file = \tempnam('/tmp', '');
-            $handle = \fopen($file, 'w');
+            $file = \tempnam("/tmp", "");
+            $handle = \fopen($file, "w");
             \fwrite($handle, $text);
             \fclose($handle);
             $json = (yield json_from_file_async($file));

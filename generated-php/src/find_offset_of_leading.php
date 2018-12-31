@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-use HH\Lib\{C as C, Vec as Vec};
+use HH\Lib\{C, Vec};
 /**
  * @param array<int, EditableNode>|null $stack
  *

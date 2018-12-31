@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class EndOfFile extends EditableNode
 {
     /**
@@ -34,7 +34,7 @@ final class EndOfFile extends EditableNode
      */
     public function getChildren()
     {
-        return array('token' => $this->_token);
+        return ['token' => $this->_token];
     }
     /**
      * @param mixed $rewriter
@@ -44,7 +44,7 @@ final class EndOfFile extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $token = $this->_token->rewrite($rewriter, $parents);
         if ($token === $this->_token) {

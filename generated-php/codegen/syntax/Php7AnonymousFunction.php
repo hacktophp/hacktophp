@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class Php7AnonymousFunction extends EditableNode
 {
     /**
@@ -118,7 +118,7 @@ final class Php7AnonymousFunction extends EditableNode
      */
     public function getChildren()
     {
-        return array('attribute_spec' => $this->_attribute_spec, 'static_keyword' => $this->_static_keyword, 'async_keyword' => $this->_async_keyword, 'coroutine_keyword' => $this->_coroutine_keyword, 'function_keyword' => $this->_function_keyword, 'ampersand' => $this->_ampersand, 'left_paren' => $this->_left_paren, 'parameters' => $this->_parameters, 'right_paren' => $this->_right_paren, 'use' => $this->_use, 'colon' => $this->_colon, 'type' => $this->_type, 'body' => $this->_body);
+        return ['attribute_spec' => $this->_attribute_spec, 'static_keyword' => $this->_static_keyword, 'async_keyword' => $this->_async_keyword, 'coroutine_keyword' => $this->_coroutine_keyword, 'function_keyword' => $this->_function_keyword, 'ampersand' => $this->_ampersand, 'left_paren' => $this->_left_paren, 'parameters' => $this->_parameters, 'right_paren' => $this->_right_paren, 'use' => $this->_use, 'colon' => $this->_colon, 'type' => $this->_type, 'body' => $this->_body];
     }
     /**
      * @param mixed $rewriter
@@ -128,7 +128,7 @@ final class Php7AnonymousFunction extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $attribute_spec = $this->_attribute_spec->rewrite($rewriter, $parents);
         $static_keyword = $this->_static_keyword->rewrite($rewriter, $parents);

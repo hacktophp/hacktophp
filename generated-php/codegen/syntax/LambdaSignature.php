@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class LambdaSignature extends EditableNode
 {
     /**
@@ -62,7 +62,7 @@ final class LambdaSignature extends EditableNode
      */
     public function getChildren()
     {
-        return array('left_paren' => $this->_left_paren, 'parameters' => $this->_parameters, 'right_paren' => $this->_right_paren, 'colon' => $this->_colon, 'type' => $this->_type);
+        return ['left_paren' => $this->_left_paren, 'parameters' => $this->_parameters, 'right_paren' => $this->_right_paren, 'colon' => $this->_colon, 'type' => $this->_type];
     }
     /**
      * @param mixed $rewriter
@@ -72,7 +72,7 @@ final class LambdaSignature extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
         $parameters = $this->_parameters->rewrite($rewriter, $parents);

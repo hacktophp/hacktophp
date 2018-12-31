@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use HH\Lib\{C as C, Vec as Vec, Str as Str};
-use Facebook\HHAST\{AnonymousFunction as AnonymousFunction, AwaitableCreationExpression as AwaitableCreationExpression, AwaitToken as AwaitToken, EditableNode as EditableNode, ILoopStatement as ILoopStatement, LambdaExpression as LambdaExpression, PrefixUnaryExpression as PrefixUnaryExpression};
-use function Facebook\HHAST\find_position as find_position;
+use HH\Lib\{C, Vec, Str};
+use Facebook\HHAST\{AnonymousFunction, AwaitableCreationExpression, AwaitToken, EditableNode, ILoopStatement, LambdaExpression, PrefixUnaryExpression};
+use function Facebook\HHAST\find_position;
 final class DontAwaitInALoopLinter extends ASTLinter
 {
     /**
@@ -32,7 +32,7 @@ final class DontAwaitInALoopLinter extends ASTLinter
             return null;
         }
         $parents = Vec\reverse($parents);
-        $loops = array();
+        $loops = [];
         foreach ($parents as $parent) {
             if (self::isAsyncBoundary($parent)) {
                 return null;
@@ -44,7 +44,7 @@ final class DontAwaitInALoopLinter extends ASTLinter
         if (C\is_empty($loops)) {
             return null;
         }
-        return new ASTLintError($this, 'Don\'t use await in a loop', $node);
+        return new ASTLintError($this, "Don't use await in a loop", $node);
     }
     /**
      * @return bool
@@ -63,8 +63,7 @@ final class DontAwaitInALoopLinter extends ASTLinter
         }, $this->getAST()->findWithParents(function ($node) use($blame) {
             return $node === $blame;
         })));
-        $lines = \explode('
-', $this->getFile()->getContents());
+        $lines = \explode("\n", $this->getFile()->getContents());
         list($blame_line, $_col) = find_position($this->getAST(), $blame);
         if (\count($loops) === 1) {
             list($line, $_col) = find_position($this->getAST(), C\onlyx($loops));
@@ -72,14 +71,13 @@ final class DontAwaitInALoopLinter extends ASTLinter
                 return $lines[$line - 1];
             }
         }
-        $output = array();
+        $output = [];
         foreach ($loops as $loop) {
             list($line, $_col) = find_position($this->getAST(), $loop);
             $output[] = 'Line ' . $line . ': ' . $lines[$line - 1];
         }
         $output[] = 'Line ' . $blame_line . ': ' . $lines[$blame_line - 1];
-        return \implode('
-', $output);
+        return \implode("\n", $output);
     }
 }
 

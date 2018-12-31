@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class InclusionExpression extends EditableNode
 {
     /**
@@ -41,7 +41,7 @@ final class InclusionExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('require' => $this->_require, 'filename' => $this->_filename);
+        return ['require' => $this->_require, 'filename' => $this->_filename];
     }
     /**
      * @param mixed $rewriter
@@ -51,7 +51,7 @@ final class InclusionExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $require = $this->_require->rewrite($rewriter, $parents);
         $filename = $this->_filename->rewrite($rewriter, $parents);

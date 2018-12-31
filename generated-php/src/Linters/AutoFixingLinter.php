@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\__Private\LSP as LSP;
+use Facebook\HHAST\__Private\LSP;
 interface AutoFixingLinter
 {
     /**

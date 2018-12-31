@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class PrefixedStringExpression extends EditableNode
 {
     /**
@@ -41,7 +41,7 @@ final class PrefixedStringExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('name' => $this->_name, 'str' => $this->_str);
+        return ['name' => $this->_name, 'str' => $this->_str];
     }
     /**
      * @param mixed $rewriter
@@ -51,7 +51,7 @@ final class PrefixedStringExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $name = $this->_name->rewrite($rewriter, $parents);
         $str = $this->_str->rewrite($rewriter, $parents);

@@ -9,20 +9,20 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST\Linters as Linters;
-use Facebook\TypeAssert as TypeAssert;
-use HH\Lib\{C as C, Keyset as Keyset, Str as Str, Vec as Vec};
-use Facebook\HHAST\Linters\BaseLinter as BaseLinter;
+use Facebook\HHAST\Linters;
+use Facebook\TypeAssert;
+use HH\Lib\{C, Keyset, Str, Vec};
+use Facebook\HHAST\Linters\BaseLinter;
 final class LintRunConfig
 {
     /**
      * @var array<int, BaseLinter::class>
      */
-    const DEFAULT_LINTERS = array(Linters\AsyncFunctionAndMethodLinter::class, Linters\CamelCasedMethodsUnderscoredFunctionsLinter::class, Linters\DontAwaitInALoopLinter::class, Linters\LicenseHeaderLinter::class, Linters\NewlineAtEndOfFileLinter::class, Linters\NoBasicAssignmentFunctionParameterLinter::class, Linters\MethodCallOnConstructorLinter::class, Linters\MustUseBracesForControlFlowLinter::class, Linters\MustUseOverrideAttributeLinter::class, Linters\NoPHPEqualityLinter::class, Linters\UnusedParameterLinter::class, Linters\UnusedUseClauseLinter::class, Linters\UseStatementWithLeadingBackslashLinter::class, Linters\UseStatementWithoutKindLinter::class, Linters\NoWhitespaceAtEndOfLineLinter::class);
+    const DEFAULT_LINTERS = [Linters\AsyncFunctionAndMethodLinter::class, Linters\CamelCasedMethodsUnderscoredFunctionsLinter::class, Linters\DontAwaitInALoopLinter::class, Linters\LicenseHeaderLinter::class, Linters\NewlineAtEndOfFileLinter::class, Linters\NoBasicAssignmentFunctionParameterLinter::class, Linters\MethodCallOnConstructorLinter::class, Linters\MustUseBracesForControlFlowLinter::class, Linters\MustUseOverrideAttributeLinter::class, Linters\NoPHPEqualityLinter::class, Linters\UnusedParameterLinter::class, Linters\UnusedUseClauseLinter::class, Linters\UseStatementWithLeadingBackslashLinter::class, Linters\UseStatementWithoutKindLinter::class, Linters\NoWhitespaceAtEndOfLineLinter::class];
     /**
      * @var array<int, BaseLinter::class>
      */
-    const NON_DEFAULT_LINTERS = array(Linters\NoStringInterpolationLinter::class, Linters\StrictModeOnlyLinter::class, Linters\UseStatementWithAsLinter::class);
+    const NON_DEFAULT_LINTERS = [Linters\NoStringInterpolationLinter::class, Linters\StrictModeOnlyLinter::class, Linters\UseStatementWithAsLinter::class];
     /**
      * @param NamedLinterGroup::ALL_BUILTINS|NamedLinterGroup::DEFAULT_BUILTINS|NamedLinterGroup::NO_BUILTINS $group
      *
@@ -32,11 +32,11 @@ final class LintRunConfig
     {
         switch ($group) {
             case NamedLinterGroup::NO_BUILTINS:
-                return array();
+                return [];
             case NamedLinterGroup::DEFAULT_BUILTINS:
                 return self::DEFAULT_LINTERS;
             case NamedLinterGroup::ALL_BUILTINS:
-                return Vec\concat(self::DEFAULT_LINTERS, self::NON_DEFAULT_LINTERS);
+                return \array_merge(self::NON_DEFAULT_LINTERS, self::DEFAULT_LINTERS);
         }
     }
     /**
@@ -50,7 +50,9 @@ final class LintRunConfig
     /**
      * @var mixed
      */
-    private function __construct(string $projectRoot, $configFile);
+    private function __construct(string $projectRoot, $configFile)
+    {
+    }
     /**
      * @return static
      */
@@ -63,7 +65,7 @@ final class LintRunConfig
      */
     private static function getDefault()
     {
-        return new self(\getcwd(), array('roots' => array()));
+        return new self(\getcwd(), ['roots' => []]);
     }
     /**
      * @return static
@@ -108,16 +110,16 @@ final class LintRunConfig
             return Str\strip_suffix($s, '/') . '/';
         }, $this->configFile['roots']);
         $file_path = Str\strip_prefix($file_path, $this->projectRoot . '/');
-        if ($roots !== array() && !C\any($roots, function ($root) use($file_path) {
+        if ($roots !== [] && !C\any($roots, function ($root) use($file_path) {
             return Str\starts_with($file_path, $root);
         })) {
-            return array('linters' => array(), 'autoFixBlacklist' => array());
+            return ['linters' => [], 'autoFixBlacklist' => []];
         }
-        $linters = $this->configFile['extraLinters'] ?? array();
-        $blacklist = $this->configFile['disabledLinters'] ?? array();
-        $autofix_blacklist = $this->configFile['disabledAutoFixes'] ?? array();
+        $linters = $this->configFile['extraLinters'] ?? [];
+        $blacklist = $this->configFile['disabledLinters'] ?? [];
+        $autofix_blacklist = $this->configFile['disabledAutoFixes'] ?? [];
         $no_autofixes = $this->configFile['disableAllAutoFixes'] ?? false;
-        foreach ($this->configFile['overrides'] ?? array() as $override) {
+        foreach ($this->configFile['overrides'] ?? [] as $override) {
             $matches = false;
             foreach ($override['patterns'] as $pattern) {
                 if (\fnmatch($pattern, $file_path)) {
@@ -129,11 +131,11 @@ final class LintRunConfig
                 continue;
             }
             if ($override['disableAllLinters'] ?? false) {
-                return array('linters' => array(), 'autoFixBlacklist' => array());
+                return ['linters' => [], 'autoFixBlacklist' => []];
             }
-            $linters = Vec\concat($linters, $override['extraLinters'] ?? array());
-            $blacklist = Vec\concat($blacklist, $override['disabledLinters'] ?? array());
-            $autofix_blacklist = Vec\concat($autofix_blacklist, $override['disabledAutoFixes'] ?? array());
+            $linters = \array_merge($override['extraLinters'] ?? [], $linters);
+            $blacklist = \array_merge($override['disabledLinters'] ?? [], $blacklist);
+            $autofix_blacklist = \array_merge($override['disabledAutoFixes'] ?? [], $autofix_blacklist);
             $no_autofixes = $no_autofixes || ($override['disableAllAutoFixes'] ?? false);
         }
         $normalize = function ($list) {
@@ -156,14 +158,14 @@ final class LintRunConfig
         };
         $linters = $assert_types($linters);
         $autofix_blacklist = $assert_types($autofix_blacklist);
-        return array('linters' => $linters, 'autoFixBlacklist' => $autofix_blacklist);
+        return ['linters' => $linters, 'autoFixBlacklist' => $autofix_blacklist];
     }
     /**
      * @return string
      */
     private function getFullyQualifiedLinterName(string $name)
     {
-        $aliases = $this->configFile['namespaceAliases'] ?? array();
+        $aliases = $this->configFile['namespaceAliases'] ?? [];
         if (C\is_empty($aliases)) {
             return $name;
         }
@@ -181,15 +183,21 @@ final class LintRunConfig
     private static function getConfigFromFile(string $file)
     {
         $json = \file_get_contents($file);
-        $data = \json_decode($json, true, 512, \JSON_FB_LOOSE | \JSON_FB_HACK_ARRAYS);
+        $data = \json_decode(
+            $json,
+            /* as array = */
+            true,
+            /* depth = [default] */
+            512,
+            \JSON_FB_LOOSE | \JSON_FB_HACK_ARRAYS
+        );
         if ($data === null) {
             throw new \Exception('Failed to parse JSON in configuration file ' . $file);
         }
         try {
             return TypeAssert\matches_type_structure(type_structure(self::class, 'TConfigFile'), $data);
         } catch (TypeAssert\IncorrectTypeException $e) {
-            throw new \Exception(Str\format('Invalid configuration file: %s
-  %s', $file, $e->getMessage()));
+            throw new \Exception(Str\format("Invalid configuration file: %s\n  %s", $file, $e->getMessage()));
         }
     }
 }

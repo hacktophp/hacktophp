@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{DollarToken as DollarToken, DotToken as DotToken, DoubleQuotedStringLiteralToken as DoubleQuotedStringLiteralToken, DoubleQuotedStringLiteralHeadToken as DoubleQuotedStringLiteralHeadToken, DoubleQuotedStringLiteralTailToken as DoubleQuotedStringLiteralTailToken, EditableList as EditableList, EditableNode as EditableNode, EmbeddedBracedExpression as EmbeddedBracedExpression, HeredocStringLiteralHeadToken as HeredocStringLiteralHeadToken, LiteralExpression as LiteralExpression, NameToken as NameToken, StringLiteralBodyToken as StringLiteralBodyToken, VariableToken as VariableToken};
-use function Facebook\HHAST\Missing as Missing;
-use HH\Lib\{C as C, Vec as Vec};
+use Facebook\HHAST\{DollarToken, DotToken, DoubleQuotedStringLiteralToken, DoubleQuotedStringLiteralHeadToken, DoubleQuotedStringLiteralTailToken, EditableList, EditableNode, EmbeddedBracedExpression, HeredocStringLiteralHeadToken, LiteralExpression, NameToken, StringLiteralBodyToken, VariableToken};
+use function Facebook\HHAST\Missing;
+use HH\Lib\{C, Vec};
 final class NoStringInterpolationLinter extends AutoFixingASTLinter
 {
     /**
@@ -48,12 +48,12 @@ final class NoStringInterpolationLinter extends AutoFixingASTLinter
     public function getFixedNode(LiteralExpression $root_expr)
     {
         $expr = $root_expr->getExpression();
-        invariant($expr instanceof EditableList, 'Expected list, got %s', \get_class($expr));
+        invariant($expr instanceof EditableList, "Expected list, got %s", \get_class($expr));
         $leading = null;
         $trailing = null;
         $children = (array) $expr->getChildren();
         $child_count = \count($children);
-        $new_children = array();
+        $new_children = [];
         for ($i = 0; $i < $child_count; ++$i) {
             $child = $children[$i];
             if ($child instanceof HeredocStringLiteralHeadToken) {
@@ -80,7 +80,16 @@ final class NoStringInterpolationLinter extends AutoFixingASTLinter
                 continue;
             }
             if ($child instanceof DollarToken) {
-                invariant($i + 1 < $child_count, 'Shouldn\'t have a dollar token unless there\'s more tokens after it');
+                /* "${foo}"
+                 *
+                 * (dollar)
+                 * (embedded_braced_expression
+                 *   left_brace: Token
+                 *   expression: NameToken
+                 *   right_brace: Token
+                 * )
+                 */
+                invariant($i + 1 < $child_count, "Shouldn't have a dollar token unless there's more tokens after it");
                 $next = $children[$i + 1];
                 ++$i;
                 invariant($next instanceof EmbeddedBracedExpression, 'Dollar token in string should be followed by embedded brace ' . 'expression.');
@@ -97,7 +106,7 @@ final class NoStringInterpolationLinter extends AutoFixingASTLinter
         }
         $children = $new_children;
         for ($i = 0; $i < \count($children) - 1; ++$i) {
-            $children = Vec\concat(Vec\slice($children, 0, $i + 1), array(new DotToken(Missing(), Missing())), Vec\slice($children, $i + 1));
+            $children = \array_merge([new DotToken(Missing(), Missing())], \array_slice(0, $children));
             ++$i;
         }
         return EditableList::createNonEmptyListOrMissing($children);

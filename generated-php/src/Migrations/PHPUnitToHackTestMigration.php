@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use Facebook\HHAST as HHAST;
-use HH\Lib\{C as C, Dict as Dict, Str as Str, Vec as Vec};
+use Facebook\HHAST;
+use HH\Lib\{C, Dict, Str, Vec};
 final class PHPUnitToHackTestMigration extends StepBasedMigration
 {
     /**
@@ -21,11 +21,11 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         $name = \implode('', \array_map(function ($t) {
             return $t->getText();
         }, $in->getDescendantsOfType(HHAST\EditableToken::class)));
-        if ($name !== '\\PHPUnit_Framework_TestCase' && $name !== '\\PHPUnit\\Framework\\TestCase' && $name !== 'PHPUnit_Framework_TestCase' && $name !== 'PHPUnit\\Framework\\TestCase' && $name !== 'Facebook\\HackTest\\HackTestCase' && $name !== '\\Facebook\\HackTest\\HackTestCase') {
+        if ($name !== "\\PHPUnit_Framework_TestCase" && $name !== "\\PHPUnit\\Framework\\TestCase" && $name !== "PHPUnit_Framework_TestCase" && $name !== "PHPUnit\\Framework\\TestCase" && $name !== "Facebook\\HackTest\\HackTestCase" && $name !== "\\Facebook\\HackTest\\HackTestCase") {
             return $in;
         }
         $m = HHAST\Missing();
-        $parts = Vec\concat($name[0] === '\\' ? array(new HHAST\BackslashToken($m, $m)) : array(), array(new HHAST\NameToken($m, $m, 'Facebook'), new HHAST\BackslashToken($m, $m), new HHAST\NameToken($m, $m, 'HackTest'), new HHAST\BackslashToken($m, $m), new HHAST\NameToken($m, $m, 'HackTest')));
+        $parts = \array_merge([new HHAST\NameToken($m, $m, "Facebook"), new HHAST\BackslashToken($m, $m), new HHAST\NameToken($m, $m, "HackTest"), new HHAST\BackslashToken($m, $m), new HHAST\NameToken($m, $m, "HackTest")], $name[0] === "\\" ? [new HHAST\BackslashToken($m, $m)] : []);
         $parts[0] = $parts[0]->withLeading($in->getFirstTokenx()->getLeading());
         $last_idx = \count($parts) - 1;
         $parts[$last_idx] = $parts[$last_idx]->withTrailing($in->getLastTokenx()->getTrailing());
@@ -75,12 +75,12 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             $leading = $leading->getItemsOfType(HHAST\DelimitedComment::class);
         } else {
             if ($leading instanceof HHAST\DelimitedComment) {
-                $leading = array($leading);
+                $leading = [$leading];
             } else {
                 return null;
             }
         }
-        $doc_comments = Vec\filter($leading, function ($c) {
+        $doc_comments = \array_filter($leading, function ($c) {
             return Str\starts_with($c->getText(), '/**');
         });
         if (\count($doc_comments) !== 1) {
@@ -88,21 +88,19 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         }
         $comment = C\onlyx($doc_comments);
         $comment_text = $comment->getText();
-        $matches = array();
+        $matches = [];
         \preg_match('/^[\\/\\s*]*' . \preg_quote($doc_tag, '/') . ' (?<value>[^\\s]+)[ *\\/]*$/mi', $comment_text, $matches);
         $result = $matches['value'] ?? null;
         if ($result === null) {
             return null;
         }
-        $comment_text = \implode('
-', Vec\filter(\explode('
-', $comment_text), function ($line) use($doc_tag) {
+        $comment_text = \implode("\n", \array_filter(\explode("\n", $comment_text), function ($line) use($doc_tag) {
             return !Str\contains_ci($line, $doc_tag);
         }));
         if (\preg_match('/^[\\/*\\s]*$/', $comment_text) === 1) {
-            return array($comment, null, $result);
+            return [$comment, null, $result];
         }
-        return array($comment, $comment_text, $result);
+        return [$comment, $comment_text, $result];
     }
     /**
      * @return HHAST\MethodishDeclaration
@@ -114,7 +112,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             return $decl;
         }
         list($comment, $comment_text, $provider) = $new;
-        $attr = new HHAST\ConstructorCall(new HHAST\NameToken(HHAST\Missing(), HHAST\Missing(), 'DataProvider'), new HHAST\LeftParenToken(HHAST\Missing(), HHAST\Missing()), HHAST\EditableList::createNonEmptyListOrMissing(array(new HHAST\SingleQuotedStringLiteralToken(HHAST\Missing(), HHAST\Missing(), '\'' . $provider . '\''))), new HHAST\RightParenToken(HHAST\Missing(), HHAST\Missing()));
+        $attr = new HHAST\ConstructorCall(new HHAST\NameToken(HHAST\Missing(), HHAST\Missing(), "DataProvider"), new HHAST\LeftParenToken(HHAST\Missing(), HHAST\Missing()), HHAST\EditableList::createNonEmptyListOrMissing([new HHAST\SingleQuotedStringLiteralToken(HHAST\Missing(), HHAST\Missing(), "'" . $provider . "'")]), new HHAST\RightParenToken(HHAST\Missing(), HHAST\Missing()));
         $attrs = $decl->getAttribute();
         if ($attrs === null) {
             if ($comment_text !== null) {
@@ -122,7 +120,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
                     throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\EditableList<Facebook\\HHAST\\Migrations\\_>');
                 })())->replace($comment, $comment->withText($comment_text));
             } else {
-                $leading = array();
+                $leading = [];
                 foreach (($decl->getFirstTokenx()->getLeading() instanceof \Facebook\HHAST\Migrations\HHAST\EditableList<Facebook\HHAST\Migrations\_> ? $decl->getFirstTokenx()->getLeading() : (function () {
                     throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\EditableList<Facebook\\HHAST\\Migrations\\_>');
                 })())->getItems() as $item) {
@@ -136,10 +134,10 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
                 $leading = HHAST\EditableList::createNonEmptyListOrMissing($this->trimWhitespace($leading));
             }
             $decl = $decl->replace($comment, HHAST\Missing());
-            $attrs = new HHAST\AttributeSpecification(new HHAST\LessThanLessThanToken($leading, HHAST\Missing()), HHAST\EditableList::createNonEmptyListOrMissing(array($attr)), new HHAST\GreaterThanGreaterThanToken(HHAST\Missing(), HHAST\Missing()));
+            $attrs = new HHAST\AttributeSpecification(new HHAST\LessThanLessThanToken($leading, HHAST\Missing()), HHAST\EditableList::createNonEmptyListOrMissing([$attr]), new HHAST\GreaterThanGreaterThanToken(HHAST\Missing(), HHAST\Missing()));
         } else {
             $decl->replace($comment, $comment_text === null ? HHAST\Missing() : $comment->withText($comment_text));
-            $attrs = $attrs->withAttributes(HHAST\EditableList::createNonEmptyListOrMissing(Vec\concat($attrs->getAttributesx()->getChildren(), array(new HHAST\ListItem($attr, new HHAST\CommaToken(HHAST\Missing(), new HHAST\WhiteSpace(' ')))))));
+            $attrs = $attrs->withAttributes(HHAST\EditableList::createNonEmptyListOrMissing(\array_merge([new HHAST\ListItem($attr, new HHAST\CommaToken(HHAST\Missing(), new HHAST\WhiteSpace(' ')))], $attrs->getAttributesx()->getChildren())));
         }
         $decl = $decl->withAttribute($attrs);
         $first = $decl->getFunctionDeclHeader()->getFirstTokenx();
@@ -159,15 +157,15 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
      */
     private function trimWhitespace(array $leading)
     {
-        $saved = array();
-        $whitespace = array();
+        $saved = [];
+        $whitespace = [];
         foreach ($leading as $item) {
             if ($item instanceof HHAST\EndOfLine) {
-                $whitespace = array();
+                $whitespace = [];
                 if (C\every($saved, function ($s) {
                     return $s instanceof HHAST\WhiteSpace || $s instanceof HHAST\EndOfLine;
                 })) {
-                    $saved = array($item);
+                    $saved = [$item];
                 } else {
                     $saved[] = $item;
                 }
@@ -178,11 +176,11 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
                     continue;
                 }
             }
-            $saved = Vec\concat($saved, $whitespace);
-            $whitespace = array();
+            $saved = \array_merge($whitespace, $saved);
+            $whitespace = [];
             $saved[] = $item;
         }
-        return Vec\concat($saved, $whitespace);
+        return \array_merge($whitespace, $saved);
     }
     /**
      * @return HHAST\Script
@@ -204,6 +202,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
                 return $node;
             }
             if (\count($extends) !== 1) {
+                // interface
                 return $node;
             }
             $extends = C\onlyx($extends);
@@ -226,7 +225,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
     private function getQualifiedNameForHackTest()
     {
         $m = HHAST\Missing();
-        return new HHAST\QualifiedName(HHAST\EditableList::createNonEmptyListOrMissing(array(new HHAST\NameToken($m, $m, 'Facebook'), new HHAST\BackslashToken($m, $m), new HHAST\NameToken($m, $m, 'HackTest'), new HHAST\BackslashToken($m, $m), new HHAST\NameToken($m, $m, 'HackTest'))));
+        return new HHAST\QualifiedName(HHAST\EditableList::createNonEmptyListOrMissing([new HHAST\NameToken($m, $m, "Facebook"), new HHAST\BackslashToken($m, $m), new HHAST\NameToken($m, $m, "HackTest"), new HHAST\BackslashToken($m, $m), new HHAST\NameToken($m, $m, "HackTest")]));
     }
     /**
      * @return HHAST\NamespaceUseClause
@@ -235,7 +234,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
     {
         $what = $node->getName();
         if ($what instanceof HHAST\NameToken) {
-            if ($what->getText() !== 'PHPUnit_Framework_TestCase') {
+            if ($what->getText() !== "PHPUnit_Framework_TestCase") {
                 return $node;
             }
             return $node->withName($this->getQualifiedNameForHackTest());
@@ -260,7 +259,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         if ($name === null) {
             return $node;
         }
-        $names = array('setup' => 'beforeEachTestAsync', 'teardown' => 'afterEachTestAsync', 'setupbeforeclass' => 'beforeFirstTestAsync', 'teardownafterclass' => 'afterLastTestAsync');
+        $names = ['setup' => 'beforeEachTestAsync', 'teardown' => 'afterEachTestAsync', 'setupbeforeclass' => 'beforeFirstTestAsync', 'teardownafterclass' => 'afterLastTestAsync'];
         $new_name = $names[Str\lowercase($name)] ?? null;
         if ($new_name === null) {
             return $node;
@@ -273,14 +272,14 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             return ($m instanceof \Facebook\HHAST\Migrations\HHAST\EditableToken ? $m : (function () {
                 throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\EditableToken');
             })())->withLeading(HHAST\Missing())->withTrailing(new HHAST\WhiteSpace(' '));
-        }, ($node->getModifiers() ? $node->getModifiers()->getItems() : null) ?? array());
+        }, ($node->getModifiers() ? $node->getModifiers()->getItems() : null) ?? []);
         $new_modifiers[] = new HHAST\AsyncToken(HHAST\Missing(), new HHAST\WhiteSpace(' '));
         $new_modifiers[0] = $new_modifiers[0]->withLeading($leading);
         $type = $node->getType();
         if ($type === null) {
-            $node = $node->withRightParen($node->getRightParenx()->withTrailing(HHAST\Missing()))->withColon(new HHAST\ColonToken(HHAST\Missing(), new HHAST\WhiteSpace(' ')))->withType(new HHAST\GenericTypeSpecifier(new HHAST\NameToken(HHAST\Missing(), HHAST\Missing(), 'Awaitable'), new HHAST\TypeArguments(new HHAST\LessThanToken(HHAST\Missing(), HHAST\Missing()), HHAST\EditableList::createNonEmptyListOrMissing(array(new HHAST\VoidToken(HHAST\Missing(), HHAST\Missing()))), new HHAST\GreaterThanToken(HHAST\Missing(), $node->getRightParenx()->getTrailing()))));
+            $node = $node->withRightParen($node->getRightParenx()->withTrailing(HHAST\Missing()))->withColon(new HHAST\ColonToken(HHAST\Missing(), new HHAST\WhiteSpace(' ')))->withType(new HHAST\GenericTypeSpecifier(new HHAST\NameToken(HHAST\Missing(), HHAST\Missing(), 'Awaitable'), new HHAST\TypeArguments(new HHAST\LessThanToken(HHAST\Missing(), HHAST\Missing()), HHAST\EditableList::createNonEmptyListOrMissing([new HHAST\VoidToken(HHAST\Missing(), HHAST\Missing())]), new HHAST\GreaterThanToken(HHAST\Missing(), $node->getRightParenx()->getTrailing()))));
         } else {
-            $node = $node->withType(new HHAST\GenericTypeSpecifier(new HHAST\NameToken($type->getFirstTokenx()->getLeading(), HHAST\Missing(), 'Awaitable'), new HHAST\TypeArguments(new HHAST\LessThanToken(HHAST\Missing(), HHAST\Missing()), HHAST\EditableList::createNonEmptyListOrMissing(array($type->replace($type->getFirstTokenx(), $type->getFirstTokenx()->withLeading(HHAST\Missing()))->replace($type->getLastTokenx(), $type->getLastTokenx()->withTrailing(HHAST\Missing())))), new HHAST\GreaterThanToken(HHAST\Missing(), $type->getLastTokenx()->getTrailing()))));
+            $node = $node->withType(new HHAST\GenericTypeSpecifier(new HHAST\NameToken($type->getFirstTokenx()->getLeading(), HHAST\Missing(), 'Awaitable'), new HHAST\TypeArguments(new HHAST\LessThanToken(HHAST\Missing(), HHAST\Missing()), HHAST\EditableList::createNonEmptyListOrMissing([$type->replace($type->getFirstTokenx(), $type->getFirstTokenx()->withLeading(HHAST\Missing()))->replace($type->getLastTokenx(), $type->getLastTokenx()->withTrailing(HHAST\Missing()))]), new HHAST\GreaterThanToken(HHAST\Missing(), $type->getLastTokenx()->getTrailing()))));
         }
         return $node->withName(new HHAST\NameToken($node->getNamex()->getLeading(), $node->getNamex()->getTrailing(), $new_name))->withModifiers(HHAST\EditableList::createNonEmptyListOrMissing($new_modifiers));
     }
@@ -302,8 +301,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             return $node;
         }
         $m = HHAST\Missing();
-        $body = Vec\concat(array(new HHAST\ExpressionStatement(new HHAST\FunctionCallExpression(new HHAST\MemberSelectionExpression(new HHAST\VariableExpression(new HHAST\VariableToken(C\firstx($body)->getFirstTokenx()->getLeadingWhitespace(), $m, '$this')), new HHAST\MinusGreaterThanToken($m, $m), new HHAST\NameToken($m, $m, 'expectException')), new HHAST\LeftParenToken($m, $m), HHAST\EditableList::createNonEmptyListOrMissing(array(new HHAST\NameToken($m, $m, Str\ends_with($exception, '::class') ? $exception : $exception . '::class'))), new HHAST\RightParenToken($m, $m)), new HHAST\SemicolonToken($m, new HHAST\EndOfLine('
-')))), $body);
+        $body = \array_merge($body, [new HHAST\ExpressionStatement(new HHAST\FunctionCallExpression(new HHAST\MemberSelectionExpression(new HHAST\VariableExpression(new HHAST\VariableToken(C\firstx($body)->getFirstTokenx()->getLeadingWhitespace(), $m, '$this')), new HHAST\MinusGreaterThanToken($m, $m), new HHAST\NameToken($m, $m, 'expectException')), new HHAST\LeftParenToken($m, $m), HHAST\EditableList::createNonEmptyListOrMissing([new HHAST\NameToken($m, $m, Str\ends_with($exception, '::class') ? $exception : $exception . '::class')]), new HHAST\RightParenToken($m, $m)), new HHAST\SemicolonToken($m, new HHAST\EndOfLine("\n")))]);
         $node = $node->withFunctionBody($node->getFunctionBodyx()->withStatements(HHAST\EditableList::createNonEmptyListOrMissing($body)));
         if ($comment_text !== null) {
             return $node->replace($comment, $comment->withText($comment_text));
@@ -314,7 +312,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             return $it instanceof \Facebook\HHAST\Migrations\HHAST\EditableNode ? $it : (function () {
                 throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\HHAST\\EditableNode');
             })();
-        }, $leading->getItems()) : array($leading);
+        }, $leading->getItems()) : [$leading];
         $idx = C\find_key($items, function ($it) use($comment) {
             return $it === $comment;
         }) instanceof \Facebook\HHAST\Migrations\nonnull ? C\find_key($items, function ($it) use($comment) {
@@ -390,8 +388,10 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         }
         $expectation = $this->wrapStatementsInExpectException($post, $expect_exception->getArgumentList() ?? HHAST\Missing(), $indent);
         $new = $pre;
-        $new[] = new HHAST\ExpressionStatement($expectation, new HHAST\SemicolonToken(HHAST\Missing(), new HHAST\EndOfLine('
-')));
+        $new[] = new HHAST\ExpressionStatement($expectation, new HHAST\SemicolonToken(HHAST\Missing(), new HHAST\EndOfLine("\n")));
+        // In theory, there should be a 'return' at the end of the statement - but
+        // given we've wrapped up the entire remainder of the body into the lambda,
+        // it does no difference
         return $new;
     }
     /**
@@ -405,13 +405,31 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             $t = $statement->getFirstTokenx();
             return $statement->replace($t, $t->withLeading(new HHAST\WhiteSpace($t->getLeadingWhitespace()->getCode() . $indent)));
         }, $statements), $indent);
-        $new_line_leading = HHAST\EditableList::createNonEmptyListOrMissing(array((C\first($statements) ? C\first($statements)->getFirstToken() : null ? (C\first($statements) ? C\first($statements)->getFirstToken() : null)->getLeadingWhitespace() : null) ?? new HHAST\WhiteSpace($indent . $indent)));
+        $new_line_leading = HHAST\EditableList::createNonEmptyListOrMissing([(C\first($statements) ? C\first($statements)->getFirstToken() : null ? (C\first($statements) ? C\first($statements)->getFirstToken() : null)->getLeadingWhitespace() : null) ?? new HHAST\WhiteSpace($indent . $indent)]);
         $a = HHAST\EditableList::createNonEmptyListOrMissing($statements);
         $b = HHAST\EditableList::createNonEmptyListOrMissing($inner);
         invariant($a->getCode() !== $b->getCode(), 'idempotency problem');
         $m = HHAST\Missing();
-        $expect_call = new HHAST\FunctionCallExpression(new HHAST\NameToken($new_line_leading, $m, 'expect'), new HHAST\LeftParenToken($m, $m), new HHAST\LambdaExpression($m, $m, $m, new HHAST\LambdaSignature(new HHAST\LeftParenToken($m, $m), $m, new HHAST\RightParenToken($m, new HHAST\WhiteSpace(' ')), $m, $m), new HHAST\EqualEqualGreaterThanToken($m, new HHAST\WhiteSpace(' ')), new HHAST\CompoundStatement(new HHAST\LeftBraceToken($m, new HHAST\EndOfLine('
-')), HHAST\EditableList::createNonEmptyListOrMissing($inner), new HHAST\RightBraceToken($new_line_leading, $m))), new HHAST\RightParenToken($m, $m));
+        $expect_call = new HHAST\FunctionCallExpression(new HHAST\NameToken($new_line_leading, $m, 'expect'), new HHAST\LeftParenToken($m, $m), new HHAST\LambdaExpression(
+            /* attrs = */
+            $m,
+            /* async = */
+            $m,
+            /* coroutine = */
+            $m,
+            new HHAST\LambdaSignature(
+                new HHAST\LeftParenToken($m, $m),
+                /* parameters = */
+                $m,
+                new HHAST\RightParenToken($m, new HHAST\WhiteSpace(' ')),
+                /* colon = */
+                $m,
+                /* type = */
+                $m
+            ),
+            new HHAST\EqualEqualGreaterThanToken($m, new HHAST\WhiteSpace(' ')),
+            new HHAST\CompoundStatement(new HHAST\LeftBraceToken($m, new HHAST\EndOfLine("\n")), HHAST\EditableList::createNonEmptyListOrMissing($inner), new HHAST\RightBraceToken($new_line_leading, $m))
+        ), new HHAST\RightParenToken($m, $m));
         return new HHAST\FunctionCallExpression(new HHAST\MemberSelectionExpression($expect_call, new HHAST\MinusGreaterThanToken($m, $m), new HHAST\NameToken($m, $m, 'toThrow')), new HHAST\LeftParenToken($m, $m), $exception, new HHAST\RightParenToken($m, $m));
     }
     /**
@@ -419,14 +437,14 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
      */
     public final function getSteps()
     {
-        return Vec\concat((new HHAST\Migrations\AssertToExpectMigration($this->getRoot()))->getSteps(), $this->getUniqueSteps());
+        return \array_merge($this->getUniqueSteps(), (new HHAST\Migrations\AssertToExpectMigration($this->getRoot()))->getSteps());
     }
     /**
      * @return array<int, IMigrationStep>
      */
     private function getUniqueSteps()
     {
-        return array(new TypedMigrationStep('replace base class references via use statements', HHAST\Script::class, HHAST\Script::class, function ($node) {
+        return [new TypedMigrationStep('replace base class references via use statements', HHAST\Script::class, HHAST\Script::class, function ($node) {
             return $this->replaceUsedTypes($node);
         }), new TypedMigrationStep('replace use clauses', HHAST\NamespaceUseClause::class, HHAST\NamespaceUseClause::class, function ($node) {
             return $this->replaceUseClause($node);
@@ -442,7 +460,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             return $this->migrateExpectedExceptionAttribute($node);
         }), new TypedMigrationStep('$this->expectException() to expect()->toThrow()', HHAST\MethodishDeclaration::class, HHAST\MethodishDeclaration::class, function ($node) {
             return $this->migrateExpectException($node);
-        }));
+        })];
     }
 }
 

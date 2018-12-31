@@ -22,7 +22,9 @@ class LintError
     /**
      * @var string
      */
-    public function __construct(BaseLinter $linter, string $description);
+    public function __construct(BaseLinter $linter, string $description)
+    {
+    }
     /**
      * @return File
      */
@@ -46,7 +48,7 @@ class LintError
         if ($pos === null) {
             return null;
         }
-        return array($pos, null);
+        return [$pos, null];
     }
     /**
      * @return string

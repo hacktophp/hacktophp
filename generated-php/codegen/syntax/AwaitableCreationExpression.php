@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class AwaitableCreationExpression extends EditableNode
 {
     /**
@@ -55,7 +55,7 @@ final class AwaitableCreationExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('attribute_spec' => $this->_attribute_spec, 'async' => $this->_async, 'coroutine' => $this->_coroutine, 'compound_statement' => $this->_compound_statement);
+        return ['attribute_spec' => $this->_attribute_spec, 'async' => $this->_async, 'coroutine' => $this->_coroutine, 'compound_statement' => $this->_compound_statement];
     }
     /**
      * @param mixed $rewriter
@@ -65,7 +65,7 @@ final class AwaitableCreationExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $attribute_spec = $this->_attribute_spec->rewrite($rewriter, $parents);
         $async = $this->_async->rewrite($rewriter, $parents);

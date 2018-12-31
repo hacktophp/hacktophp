@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use Facebook\HHAST as HHAST;
+use Facebook\HHAST;
 final class PHPLessThanGreaterThanOperatorMigration extends StepBasedMigration
 {
     /**
@@ -28,9 +28,9 @@ final class PHPLessThanGreaterThanOperatorMigration extends StepBasedMigration
      */
     public final function getSteps()
     {
-        return array(new TypedMigrationStep('replace the `<>` operator with `!=`', HHAST\BinaryExpression::class, HHAST\BinaryExpression::class, function ($node) {
+        return [new TypedMigrationStep('replace the `<>` operator with `!=`', HHAST\BinaryExpression::class, HHAST\BinaryExpression::class, function ($node) {
             return $this->replaceOperator($node);
-        }));
+        })];
     }
 }
 

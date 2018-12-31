@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class NamespaceEmptyBody extends EditableNode
 {
     /**
@@ -34,7 +34,7 @@ final class NamespaceEmptyBody extends EditableNode
      */
     public function getChildren()
     {
-        return array('semicolon' => $this->_semicolon);
+        return ['semicolon' => $this->_semicolon];
     }
     /**
      * @param mixed $rewriter
@@ -44,7 +44,7 @@ final class NamespaceEmptyBody extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
         if ($semicolon === $this->_semicolon) {

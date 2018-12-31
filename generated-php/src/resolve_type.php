@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\HHAST\EditableNode as EditableNode;
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
-use Facebook\HHAST\__Private\Resolution as Resolution;
+use Facebook\HHAST\EditableNode;
+use HH\Lib\{C, Str, Vec};
+use Facebook\HHAST\__Private\Resolution;
 /**
  * @param array<int, EditableNode> $parents
  *
@@ -26,7 +26,7 @@ function resolve_type(string $type, EditableNode $node, array $parents)
     $ns = Resolution\get_current_namespace($node, $parents);
     $uses = Resolution\get_current_uses($node, $parents);
     if (Str\contains($type, '\\')) {
-        $maybe_aliased = C\firstx(\explode('\\', $type));
+        $maybe_aliased = C\firstx(\explode("\\", $type));
         if (C\contains_key($uses['namespaces'], $maybe_aliased)) {
             return $uses['namespaces'][$maybe_aliased] . '\\' . \implode('\\', Vec\drop(\explode('\\', $type), 1));
         }

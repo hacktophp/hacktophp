@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use HH\Lib\Str as Str;
+use HH\Lib\Str;
 abstract class AutoFixingLineLinter extends LineLinter implements AutoFixingLinter
 {
     use AutoFixingLinterTrait;
@@ -31,8 +31,7 @@ abstract class AutoFixingLineLinter extends LineLinter implements AutoFixingLint
             $original = $lines[$i];
             $lines[$i] = $this->getFixedLine($original);
         }
-        return $this->getFile()->withContents(\implode('
-', $lines));
+        return $this->getFile()->withContents(\implode("\n", $lines));
     }
 }
 

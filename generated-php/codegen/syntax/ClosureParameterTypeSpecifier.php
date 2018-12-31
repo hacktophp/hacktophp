@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ClosureParameterTypeSpecifier extends EditableNode
 {
     /**
@@ -41,7 +41,7 @@ final class ClosureParameterTypeSpecifier extends EditableNode
      */
     public function getChildren()
     {
-        return array('call_convention' => $this->_call_convention, 'type' => $this->_type);
+        return ['call_convention' => $this->_call_convention, 'type' => $this->_type];
     }
     /**
      * @param mixed $rewriter
@@ -51,7 +51,7 @@ final class ClosureParameterTypeSpecifier extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $call_convention = $this->_call_convention->rewrite($rewriter, $parents);
         $type = $this->_type->rewrite($rewriter, $parents);

@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class ScopeResolutionExpression extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ final class ScopeResolutionExpression extends EditableNode
      */
     public function getChildren()
     {
-        return array('qualifier' => $this->_qualifier, 'operator' => $this->_operator, 'name' => $this->_name);
+        return ['qualifier' => $this->_qualifier, 'operator' => $this->_operator, 'name' => $this->_name];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class ScopeResolutionExpression extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $qualifier = $this->_qualifier->rewrite($rewriter, $parents);
         $operator = $this->_operator->rewrite($rewriter, $parents);

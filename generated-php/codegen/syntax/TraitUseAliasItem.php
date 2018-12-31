@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class TraitUseAliasItem extends EditableNode
 {
     /**
@@ -55,7 +55,7 @@ final class TraitUseAliasItem extends EditableNode
      */
     public function getChildren()
     {
-        return array('aliasing_name' => $this->_aliasing_name, 'keyword' => $this->_keyword, 'modifiers' => $this->_modifiers, 'aliased_name' => $this->_aliased_name);
+        return ['aliasing_name' => $this->_aliasing_name, 'keyword' => $this->_keyword, 'modifiers' => $this->_modifiers, 'aliased_name' => $this->_aliased_name];
     }
     /**
      * @param mixed $rewriter
@@ -65,7 +65,7 @@ final class TraitUseAliasItem extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $aliasing_name = $this->_aliasing_name->rewrite($rewriter, $parents);
         $keyword = $this->_keyword->rewrite($rewriter, $parents);

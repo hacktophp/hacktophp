@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-use HH\Lib\Str as Str;
+use HH\Lib\Str;
 abstract class EditableTrivia extends EditableNode
 {
     /**
@@ -54,7 +54,7 @@ abstract class EditableTrivia extends EditableNode
      */
     public function getChildren()
     {
-        return array();
+        return [];
     }
     /**
      * @param array<string, mixed> $json
@@ -73,6 +73,7 @@ abstract class EditableTrivia extends EditableNode
      */
     public final function rewriteDescendants($_rewriter, ?array $_parents = null)
     {
+        // Trivia have no children
         return $this;
     }
 }

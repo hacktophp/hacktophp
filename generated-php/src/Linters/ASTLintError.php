@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\EditableNode as EditableNode;
-use function Facebook\HHAST\find_position as find_position;
-use HH\Lib\Str as Str;
+use Facebook\HHAST\EditableNode;
+use function Facebook\HHAST\find_position;
+use HH\Lib\Str;
 class ASTLintError extends LintError
 {
     /**
@@ -52,7 +52,7 @@ class ASTLintError extends LintError
     {
         $token = $this->getBlameNode()->getLastTokenx();
         list($line, $col) = find_position($this->linter->getAST(), $token);
-        return array($this->getPosition(), array($line, $col + \strlen($token->getText())));
+        return [$this->getPosition(), [$line, $col + \strlen($token->getText())]];
     }
     /**
      * @return string

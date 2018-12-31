@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ClassishDeclaration as ClassishDeclaration, ConstructToken as ConstructToken, DestructToken as DestructToken, EditableList as EditableList, EditableNode as EditableNode, EditableToken as EditableToken, EndOfLine as EndOfLine, FunctionDeclaration as FunctionDeclaration, IFunctionishDeclaration as IFunctionishDeclaration, MethodishDeclaration as MethodishDeclaration, StaticToken as StaticToken};
-use Facebook\HHAST as HHAST;
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
+use Facebook\HHAST\{ClassishDeclaration, ConstructToken, DestructToken, EditableList, EditableNode, EditableToken, EndOfLine, FunctionDeclaration, IFunctionishDeclaration, MethodishDeclaration, StaticToken};
+use Facebook\HHAST;
+use HH\Lib\{C, Str, Vec};
 abstract class FunctionNamingLinter extends ASTLinter
 {
     /**
@@ -79,7 +79,7 @@ abstract class FunctionNamingLinter extends ASTLinter
             $new = $this->getSuggestedNameForFunction($old, $node);
         } else {
             if ($node instanceof MethodishDeclaration) {
-                if (C\is_empty((array) (($node->getFunctionDeclHeader()->getModifiers() ? $node->getFunctionDeclHeader()->getModifiers()->getDescendantsOfType(StaticToken::class) : null) ?? array()))) {
+                if (C\is_empty((array) (($node->getFunctionDeclHeader()->getModifiers() ? $node->getFunctionDeclHeader()->getModifiers()->getDescendantsOfType(StaticToken::class) : null) ?? []))) {
                     $what = 'Method';
                     $new = $this->getSuggestedNameForInstanceMethod($old, $node);
                 } else {
@@ -87,7 +87,7 @@ abstract class FunctionNamingLinter extends ASTLinter
                     $new = $this->getSuggestedNameForStaticMethod($old, $node);
                 }
             } else {
-                invariant_violation('Can\'t handle type %s', \get_class($node));
+                invariant_violation("Can't handle type %s", \get_class($node));
             }
         }
         if ($old === $new) {
@@ -121,7 +121,7 @@ abstract class FunctionNamingLinter extends ASTLinter
         }
         $leading = $node->getFirstTokenx()->getLeading();
         if ($leading instanceof EditableList) {
-            $new = array();
+            $new = [];
             foreach (Vec\reverse($leading->toVec()) as $child) {
                 $new[] = $child;
                 if ($child instanceof EndOfLine) {

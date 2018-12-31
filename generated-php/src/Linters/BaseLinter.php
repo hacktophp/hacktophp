@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use HH\Lib\{C as C, Str as Str};
+use HH\Lib\{C, Str};
 abstract class BaseLinter
 {
     /**
@@ -30,7 +30,9 @@ abstract class BaseLinter
     /**
      * @var File
      */
-    public function __construct(File $file);
+    public function __construct(File $file)
+    {
+    }
     /**
      * @return static
      */

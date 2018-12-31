@@ -9,15 +9,15 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\CLILib\ITerminal as ITerminal;
-use Facebook\HHAST\Linters as Linters;
-use HH\Lib\Vec as Vec;
+use Facebook\CLILib\ITerminal;
+use Facebook\HHAST\Linters;
+use HH\Lib\Vec;
 final class LintRunJSONEventHandler implements LintRunEventHandler
 {
     /**
      * @var array<int, mixed>
      */
-    private $errors = array();
+    private $errors = [];
     /**
      * @var ITerminal
      */
@@ -25,7 +25,9 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
     /**
      * @var ITerminal
      */
-    public function __construct(ITerminal $terminal);
+    public function __construct(ITerminal $terminal)
+    {
+    }
     /**
      * @param mixed $_config
      * @param iterable<mixed, Linters\LintError> $errors
@@ -38,7 +40,7 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */
             function () use($_linter, $_config, $errors) : \Generator {
                 $transformed_errors = self::transformErrors($errors);
-                $this->errors = Vec\concat($this->errors, $transformed_errors);
+                $this->errors = \array_merge($transformed_errors, $this->errors);
                 return LintAutoFixResult::SOME_UNFIXED;
             }
         );
@@ -48,7 +50,9 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
      *
      * @return \Sabre\Event\Promise<void>
      */
-    public function finishedFileAsync(string $_, $_);
+    public function finishedFileAsync(string $_, $_)
+    {
+    }
     /**
      * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_
      *
@@ -68,7 +72,7 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
      */
     private function getOutput()
     {
-        return array('passed' => !$this->errors, 'errors' => $this->errors);
+        return ['passed' => !$this->errors, 'errors' => $this->errors];
     }
     /**
      * @param iterable<mixed, Linters\LintError> $errors
@@ -80,10 +84,10 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
         return \array_map(function ($error) use($range, $start, $end) {
             $range = $error->getRange();
             $start = $range[0] ?? null;
-            $start = $start !== null ? array('line' => $start[0], 'character' => $start[1]) : null;
+            $start = $start !== null ? ['line' => $start[0], 'character' => $start[1]] : null;
             $end = $range[1] ?? null;
-            $end = $end !== null ? array('line' => $end[0], 'character' => $end[1]) : null;
-            return array('path' => $error->getFile()->getPath(), 'range' => array('start' => $start, 'end' => $end), 'message' => $error->getDescription(), 'linter' => $error->getLinter()->getLinterName());
+            $end = $end !== null ? ['line' => $end[0], 'character' => $end[1]] : null;
+            return ['path' => $error->getFile()->getPath(), 'range' => ['start' => $start, 'end' => $end], 'message' => $error->getDescription(), 'linter' => $error->getLinter()->getLinterName()];
         }, $errors);
     }
 }

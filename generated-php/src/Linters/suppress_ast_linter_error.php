@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\Linters\SuppressASTLinter;
 
-use Facebook\HHAST\{BreakStatement as BreakStatement, ContinueStatement as ContinueStatement, EchoStatement as EchoStatement, EditableNode as EditableNode, EditableToken as EditableToken, GotoStatement as GotoStatement, IControlFlowStatement as IControlFlowStatement, ReturnStatement as ReturnStatement, ThrowStatement as ThrowStatement, TryStatement as TryStatement, UnsetStatement as UnsetStatement};
-use Facebook\HHAST\Linters\{BaseLinter as BaseLinter, LintError as LintError};
-use HH\Lib\{C as C, Str as Str, Vec as Vec};
+use Facebook\HHAST\{BreakStatement, ContinueStatement, EchoStatement, EditableNode, EditableToken, GotoStatement, IControlFlowStatement, ReturnStatement, ThrowStatement, TryStatement, UnsetStatement};
+use Facebook\HHAST\Linters\{BaseLinter, LintError};
+use HH\Lib\{C, Str, Vec};
 /**
  * Allow users to suppress specific cases where a linter is used.
  **/

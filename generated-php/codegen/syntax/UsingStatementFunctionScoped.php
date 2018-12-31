@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class UsingStatementFunctionScoped extends EditableNode
 {
     /**
@@ -55,7 +55,7 @@ final class UsingStatementFunctionScoped extends EditableNode
      */
     public function getChildren()
     {
-        return array('await_keyword' => $this->_await_keyword, 'using_keyword' => $this->_using_keyword, 'expression' => $this->_expression, 'semicolon' => $this->_semicolon);
+        return ['await_keyword' => $this->_await_keyword, 'using_keyword' => $this->_using_keyword, 'expression' => $this->_expression, 'semicolon' => $this->_semicolon];
     }
     /**
      * @param mixed $rewriter
@@ -65,7 +65,7 @@ final class UsingStatementFunctionScoped extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $await_keyword = $this->_await_keyword->rewrite($rewriter, $parents);
         $using_keyword = $this->_using_keyword->rewrite($rewriter, $parents);

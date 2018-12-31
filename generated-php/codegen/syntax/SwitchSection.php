@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\TypeAssert as TypeAssert;
+use Facebook\TypeAssert;
 final class SwitchSection extends EditableNode
 {
     /**
@@ -48,7 +48,7 @@ final class SwitchSection extends EditableNode
      */
     public function getChildren()
     {
-        return array('labels' => $this->_labels, 'statements' => $this->_statements, 'fallthrough' => $this->_fallthrough);
+        return ['labels' => $this->_labels, 'statements' => $this->_statements, 'fallthrough' => $this->_fallthrough];
     }
     /**
      * @param mixed $rewriter
@@ -58,7 +58,7 @@ final class SwitchSection extends EditableNode
      */
     public function rewriteDescendants($rewriter, ?array $parents = null)
     {
-        $parents = $parents === null ? array() : (array) $parents;
+        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
         $labels = $this->_labels->rewrite($rewriter, $parents);
         $statements = $this->_statements->rewrite($rewriter, $parents);

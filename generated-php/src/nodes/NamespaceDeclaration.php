@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-use HH\Lib\{Str as Str, Vec as Vec};
+use HH\Lib\{Str, Vec};
 final class NamespaceDeclaration extends NamespaceDeclarationGeneratedBase
 {
     /**
@@ -21,14 +21,9 @@ final class NamespaceDeclaration extends NamespaceDeclarationGeneratedBase
         if ($name instanceof NameToken) {
             return $name->getText();
         }
-
-        if (!$name) {
-            return '';
-        }
-        
-        return \implode('\\', \array_map(function ($t) {
+        return \implode("\\", \array_map(function ($t) {
             return $t->getText();
-        }, $name->getDescendantsOfType(NameToken::class)));
+        }, $this->getDescendantsOfType(NameToken::class)));
     }
 }
 

@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\CLILib\CLIBase as CLIBase;
-use Facebook\CLILib\CLIOptions as CLIOptions;
+use Facebook\CLILib\CLIBase;
+use Facebook\CLILib\CLIOptions;
 trait CLIWithVerbosityTrait
 {
     /**

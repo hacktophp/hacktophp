@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use HH\Lib\{C as C, Math as Math, Str as Str, Vec as Vec};
+use HH\Lib\{C, Math, Str, Vec};
 final class NewlineAtEndOfFileLinter extends BaseLinter implements AutoFixingLinter
 {
     use AutoFixingLinterTrait;
@@ -22,19 +22,15 @@ final class NewlineAtEndOfFileLinter extends BaseLinter implements AutoFixingLin
             /** @return \Generator<int, mixed, void, array<int, LintError>> */
             function () : \Generator {
                 $contents = $this->getFile()->getContents();
-                $fixed = $this->getFixedFile(array())->getContents();
+                $fixed = $this->getFixedFile([])->getContents();
                 if ($contents === $fixed) {
-                    return array();
+                    return [];
                 }
                 $trimmed = Str\trim_right($contents);
                 $trailing = Str\slice($contents, \strlen($trimmed));
-                $blame = \implode('
-', Vec\slice(\explode('
-', $trimmed), Math\maxva(0, \count(\explode('
-', $trimmed)) - 3))) . $trailing;
-                $lines = \count(\explode('
-', $contents));
-                return array((new BuiltLintError($this, 'Files should end with a single trailing newline'))->withPosition($lines, 0)->withBlameCode($blame));
+                $blame = \implode("\n", \array_slice(Math\maxva(0, \count(\explode("\n", $trimmed)) - 3), \explode("\n", $trimmed))) . $trailing;
+                $lines = \count(\explode("\n", $contents));
+                return [(new BuiltLintError($this, "Files should end with a single trailing newline"))->withPosition($lines, 0)->withBlameCode($blame)];
             }
         );
     }
@@ -44,14 +40,13 @@ final class NewlineAtEndOfFileLinter extends BaseLinter implements AutoFixingLin
     protected function getTitleForFix(LintError $_)
     {
         $contents = $this->getFile()->getContents();
-        if (Str\ends_with($contents, '
-')) {
-            return 'Remove extra trailing whitespace';
+        if (Str\ends_with($contents, "\n")) {
+            return "Remove extra trailing whitespace";
         }
         if (Str\trim_right($contents) === $contents) {
-            return 'Add trailing newline';
+            return "Add trailing newline";
         }
-        return 'Replace trailng whitespace with newline';
+        return "Replace trailng whitespace with newline";
     }
     /**
      * @param iterable<mixed, LintError> $_
@@ -60,8 +55,7 @@ final class NewlineAtEndOfFileLinter extends BaseLinter implements AutoFixingLin
      */
     public function getFixedFile(iterable $_)
     {
-        return $this->getFile()->withContents(Str\trim_right($this->getFile()->getContents()) . '
-');
+        return $this->getFile()->withContents(Str\trim_right($this->getFile()->getContents()) . "\n");
     }
 }
 
