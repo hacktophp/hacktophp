@@ -30,15 +30,15 @@ abstract class ExitNotification extends ClientNotification
      */
     protected abstract function exitImplAsync(int $code, string $message);
     /**
-     * @param mixed $_
+     * @param mixed $_0
      *
      * @return \Sabre\Event\Promise<void>
      */
-    public final function executeAsync($_)
+    public final function executeAsync($_0)
     {
         return \Sabre\Event\coroutine(
             /** @return \Generator<int, mixed, void, void> */
-            function () use($_) : \Generator {
+            function () use($_0) : \Generator {
                 $old_status = $this->state->getStatus();
                 $this->state->setStatus(ServerStatus::EXITING);
                 if ($old_status === ServerStatus::SHUTTING_DOWN) {

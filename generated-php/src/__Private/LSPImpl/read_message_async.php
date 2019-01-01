@@ -14,7 +14,7 @@ use HH\Lib\Experimental\IO;
 /**
  * @return \Sabre\Event\Promise<string>
  */
-function read_message_async(IO\ReadHandle $in)
+function read_message_async(IO\ReadHandle $in) : \Sabre\Event\Promise
 {
     return \Sabre\Event\coroutine(
         /** @return \Generator<int, mixed, void, string> */

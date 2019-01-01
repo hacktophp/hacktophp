@@ -31,15 +31,15 @@ class ShutdownCommand extends ServerCommand
     {
     }
     /**
-     * @param mixed $_
+     * @param mixed $_0
      *
      * @return \Sabre\Event\Promise<mixed>
      */
-    public function executeAsync($_)
+    public function executeAsync($_0)
     {
         return \Sabre\Event\coroutine(
             /** @return \Generator<int, mixed, void, mixed> */
-            function () use($_) : \Generator {
+            function () use($_0) : \Generator {
                 $this->state->setStatus(ServerStatus::SHUTTING_DOWN);
                 return static::success(null);
             }

@@ -36,9 +36,9 @@ final class InspectorCLI extends CLIWithRequiredArguments
     protected function getSupportedOptions()
     {
         return [CLIOptions\with_required_string(function ($path) {
-            return $this->outputPath = $path;
+            $this->outputPath = $path;
         }, 'File path to use for output', '--output', '-o'), CLIOptions\flag(function () {
-            return $this->open = true;
+            $this->open = true;
         }, 'Automatically open the generated file', '--open')];
     }
     /**

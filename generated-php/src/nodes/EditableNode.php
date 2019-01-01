@@ -48,7 +48,7 @@ abstract class EditableNode
         });
     }
     /**
-     * @psalm-template T as \Facebook\HHAST\EditableNode
+     * @psalm-template T as EditableNode
      *
      * @param T::class $what
      *
@@ -214,7 +214,7 @@ abstract class EditableNode
         return $out;
     }
     /**
-     * @psalm-template T as \Facebook\HHAST\EditableNode
+     * @psalm-template T as EditableNode
      *
      * @param T::class $what
      *

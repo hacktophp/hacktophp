@@ -15,7 +15,7 @@ final class NoWhitespaceAtEndOfLineLinter extends AutoFixingLineLinter
     /**
      * @return string
      */
-    public function getTitleForFix(LineLintError $_)
+    public function getTitleForFix(LineLintError $_0)
     {
         return 'Remove trailing whitespace';
     }

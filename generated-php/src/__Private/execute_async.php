@@ -16,7 +16,7 @@ use HH\Lib\{Str, Vec};
 /**
  * @return \Sabre\Event\Promise<array<int, string>>
  */
-function execute_async(string ...$args)
+function execute_async(string ...$args) : \Sabre\Event\Promise
 {
     return \Sabre\Event\coroutine(
         /** @return \Generator<int, mixed, void, array<int, string>> */

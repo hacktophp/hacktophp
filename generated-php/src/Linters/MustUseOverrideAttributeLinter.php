@@ -26,7 +26,7 @@ final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
     /**
      * @return string
      */
-    public function getTitleForFix(LintError $_)
+    public function getTitleForFix(LintError $_0)
     {
         return 'Add __Override attribute';
     }
@@ -119,7 +119,7 @@ final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
         $attrs = $node->getAttribute();
         if ($attrs === null) {
             $first_token = $node->getFirstTokenx();
-            return $node->withAttribute(new AttributeSpecification(new HHAST\LessThanLessThanToken($first_token->getLeading(), HHAST\Missing()), new HHAST\ConstructorCall(new HHAST\NameToken(HHAST\Missing(), HHAST\Missing(), '__Override'), HHAST\Missing(), HHAST\Missing(), HHAST\Missing()), new HHAST\GreaterThanGreaterThanToken(HHAST\Missing(), Str\contains(C\lastx($first_token->getLeading()->getChildren())->getCode(), "\n") ? HHAST\Missing() : new HHAST\WhiteSpace("\n"))))->rewriteDescendants(function ($n, $_) use($first_token) {
+            return $node->withAttribute(new AttributeSpecification(new HHAST\LessThanLessThanToken($first_token->getLeading(), HHAST\Missing()), new HHAST\ConstructorCall(new HHAST\NameToken(HHAST\Missing(), HHAST\Missing(), '__Override'), HHAST\Missing(), HHAST\Missing(), HHAST\Missing()), new HHAST\GreaterThanGreaterThanToken(HHAST\Missing(), Str\contains(C\lastx($first_token->getLeading()->getChildren())->getCode(), "\n") ? HHAST\Missing() : new HHAST\WhiteSpace("\n"))))->rewriteDescendants(function ($n, $_1) use($first_token) {
                 return $n === $first_token ? $first_token->withLeading(C\lastx($first_token->getLeading()->getChildren())) : $n;
             });
         }

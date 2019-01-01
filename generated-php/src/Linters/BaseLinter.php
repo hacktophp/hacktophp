@@ -19,7 +19,7 @@ abstract class BaseLinter
     /**
      * @return bool
      */
-    public static function shouldLintFile(File $_)
+    public static function shouldLintFile(File $_0)
     {
         return true;
     }

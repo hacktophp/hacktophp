@@ -15,7 +15,7 @@ use HH\Lib\Str;
 /**
  * @return \Sabre\Event\Promise<void>
  */
-function relint_uri_async(LintRunEventHandler $handler, ?LintRunConfig $config, string $uri, ?string $content = null)
+function relint_uri_async(LintRunEventHandler $handler, ?LintRunConfig $config, string $uri, ?string $content = null) : \Sabre\Event\Promise
 {
     return \Sabre\Event\coroutine(
         /** @return \Generator<int, mixed, void, void> */

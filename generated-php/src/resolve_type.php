@@ -17,7 +17,7 @@ use Facebook\HHAST\__Private\Resolution;
  *
  * @return null|string
  */
-function resolve_type(string $type, EditableNode $node, array $parents)
+function resolve_type(string $type, EditableNode $node, array $parents) : ?string
 {
     if (Str\starts_with($type, '\\')) {
         return Str\strip_prefix($type, '\\');

@@ -47,38 +47,38 @@ class MigrationCLI extends CLIWithRequiredArguments
     protected function getSupportedOptions()
     {
         return [CLIOptions\flag(function () {
-            return $this->migrations[] = HSLMigration::class;
+            $this->migrations[] = HSLMigration::class;
         }, 'Convert PHP standard library calls to HSL', '--hsl'), CLIOptions\flag(function () {
-            return $this->migrations[] = AssertToExpectMigration::class;
+            $this->migrations[] = AssertToExpectMigration::class;
         }, 'Change assert calls to expect ', '--assert-to-expect'), CLIOptions\flag(function () {
-            return $this->migrations[] = ImplicitShapeSubtypesMigration::class;
+            $this->migrations[] = ImplicitShapeSubtypesMigration::class;
         }, 'Allow implicit structural subtyping of all shapes', '--implicit-shape-subtypes'), CLIOptions\flag(function () {
-            return $this->migrations[] = OptionalShapeFieldsMigration::class;
+            $this->migrations[] = OptionalShapeFieldsMigration::class;
         }, 'Migrate nullable shape fields to be both nullable and optional', '--optional-shape-fields'), CLIOptions\flag(function () {
             $this->migrations[] = OptionalShapeFieldsMigration::class;
             $this->migrations[] = ImplicitShapeSubtypesMigration::class;
         }, 'Apply all migrations for moving from 3.22 to 3.23', '--hhvm-3.22-to-3.23'), CLIOptions\flag(function () {
-            return $this->migrations[] = CallTimePassByReferenceMigration::class;
+            $this->migrations[] = CallTimePassByReferenceMigration::class;
         }, 'Add required ampersands at call sites for byref arguments', '--ctpbr'), CLIOptions\flag(function () {
-            return $this->migrations[] = CallTimePassByReferenceMigration::class;
+            $this->migrations[] = CallTimePassByReferenceMigration::class;
         }, 'Apply all migrations for moving from 3.23 to 3.24', '--hhvm-3.23-to-3.24'), CLIOptions\flag(function () {
-            return $this->migrations[] = PHPLessThanGreaterThanOperatorMigration::class;
+            $this->migrations[] = PHPLessThanGreaterThanOperatorMigration::class;
         }, 'Replace <> with != (no semantic change', '--ltgt-to-ne'), CLIOptions\flag(function () {
-            return $this->migrations[] = PHPLessThanGreaterThanOperatorMigration::class;
+            $this->migrations[] = PHPLessThanGreaterThanOperatorMigration::class;
         }, 'Apply all migrations for moving from 3.28 to 3.29', '--hhvm-3.28-to-3.29'), CLIOptions\flag(function () {
-            return $this->migrations[] = IsRefinementMigration::class;
+            $this->migrations[] = IsRefinementMigration::class;
         }, 'Replace is_foo() with is expressions', '--is-refinement'), CLIOptions\flag(function () {
-            return $this->migrations[] = IsRefinementMigration::class;
+            $this->migrations[] = IsRefinementMigration::class;
         }, 'Apply all migrations for moving from 3.29 to 3.30', '--hhvm-3.29-to-3.30'), CLIOptions\flag(function () {
-            return $this->migrations[] = NamespaceFallbackMigration::class;
+            $this->migrations[] = NamespaceFallbackMigration::class;
         }, 'Add leading \\ to calls to unqualified references to global ' . 'functions or constants', '--no-namespace-fallback'), CLIOptions\flag(function () {
-            return $this->migrations[] = PHPUnitToHackTestMigration::class;
+            $this->migrations[] = PHPUnitToHackTestMigration::class;
         }, 'Migrate from PHPUnit to HackTest', '--phpunit-to-hacktest'), CLIOptions\flag(function () {
-            return $this->migrations[] = AddFixMesMigration::class;
+            $this->migrations[] = AddFixMesMigration::class;
         }, 'Add /* HH_FIXME[] */ comments where needed', '--add-fixmes'), CLIOptions\flag(function () {
-            return $this->includeVendor = true;
+            $this->includeVendor = true;
         }, 'Also migrate files in vendor/ subdirectories', '--include-vendor'), CLIOptions\flag(function () {
-            return $this->xhprof = true;
+            $this->xhprof = true;
         }, 'Enable XHProf profiling', '--xhprof'), $this->getVerbosityOption()];
     }
     /**

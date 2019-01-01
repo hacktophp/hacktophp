@@ -43,9 +43,9 @@ final class EditableList extends EditableNode
      */
     public function getChildren()
     {
-        return Dict\pull_with_key($this->_children, function ($_, $v) {
+        return Dict\pull_with_key($this->_children, function ($_0, $v) {
             return $v;
-        }, function ($k, $_) {
+        }, function ($k, $_1) {
             return (string) $k;
         });
     }
@@ -63,7 +63,7 @@ final class EditableList extends EditableNode
         }, $this->_children);
     }
     /**
-     * @psalm-template T as \Facebook\HHAST\EditableNode
+     * @psalm-template T as EditableNode
      *
      * @param T::class $what
      *
@@ -102,7 +102,7 @@ final class EditableList extends EditableNode
         }
     }
     /**
-     * @psalm-template T as \Facebook\HHAST\EditableNode
+     * @psalm-template T as EditableNode
      *
      * @param array<int, T> $items
      *

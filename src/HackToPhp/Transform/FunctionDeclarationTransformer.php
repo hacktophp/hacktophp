@@ -53,9 +53,11 @@ class FunctionDeclarationTransformer
 
 					foreach ($constraint_nodes as $constraint_node) {
 						$constraint_node_type = TypeTransformer::transform($constraint_node->getType(), $project, $file, $scope);
+
 						$template_map[$type_parameter_name] = $constraint_node_type;
 						if ($constraint_node->getKeyword() instanceof HHAST\AsToken) {
-							$constraints[] = ' as \\' . $constraint_node_type;
+							$psalm_return_type = Psalm\Type::parseString($constraint_node_type);
+							$constraints[] = ' as ' . $psalm_return_type->toNamespacedString($file->namespace, [], null, false);
 						}
 					}
 				} else {
@@ -113,9 +115,10 @@ class FunctionDeclarationTransformer
 			: [];
 
 		if ($params_list_params) {
-			foreach ($params_list_params as $params_list_param) {
+			foreach ($params_list_params as $offset => $params_list_param) {
 				$params[] = self::getParam(
 					$params_list_param,
+					$offset,
 					$project,
 					$file,
 					$scope,
@@ -135,7 +138,7 @@ class FunctionDeclarationTransformer
 		if ($hhast_return_type) {
 			$return_type_string = TypeTransformer::transform($hhast_return_type, $project, $file, $scope, $template_map);
 
-			$psalm_return_type = Psalm\Type::parseString($return_type_string);
+			$psalm_return_type = Psalm\Type::parseString($return_type_string, false, $template_map);
 
 			if ($file->is_hack) {
 				if (!$psalm_return_type->canBeFullyExpressedInPhp() || !$project->use_php_return_types) {
@@ -143,7 +146,7 @@ class FunctionDeclarationTransformer
 				}
 			}
 			
-			if ($project->use_php_return_types || !$file->is_hack) {
+			if ($project->use_php_return_types || !$node instanceof HHAST\MethodishDeclaration || !$file->is_hack) {
 				$php_return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $project, $file, $scope);
 			}
 		}
@@ -207,6 +210,7 @@ class FunctionDeclarationTransformer
 
 	public static function getParam(
 		HHAST\ParameterDeclaration $params_list_param,
+		int $offset,
 		Project $project,
 		HackFile $file,
 		Scope $scope,
@@ -239,6 +243,10 @@ class FunctionDeclarationTransformer
 		}
 
 		$param_name = $param_name_node->getText();
+
+		if ($param_name === '$_') {
+			$param_name .= $offset;
+		}
 
 		$namespaced_type_string = null;
 

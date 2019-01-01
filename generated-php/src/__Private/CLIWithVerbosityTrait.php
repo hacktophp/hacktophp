@@ -36,7 +36,7 @@ trait CLIWithVerbosityTrait
     protected function getVerbosityOption()
     {
         return CLIOptions\flag(function () {
-            return $this->verbosity++;
+            $this->verbosity++;
         }, 'Increase output verbosity', '--verbose', '-v');
     }
 }

@@ -46,23 +46,23 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
         );
     }
     /**
-     * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_
+     * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_1
      *
      * @return \Sabre\Event\Promise<void>
      */
-    public function finishedFileAsync(string $_, $_)
+    public function finishedFileAsync(string $_0, $_1)
     {
     }
     /**
-     * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_
+     * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_0
      *
      * @return \Sabre\Event\Promise<void>
      */
-    public function finishedRunAsync($_)
+    public function finishedRunAsync($_0)
     {
         return \Sabre\Event\coroutine(
             /** @return \Generator<int, mixed, void, void> */
-            function () use($_) : \Generator {
+            function () use($_0) : \Generator {
                 (yield $this->terminal->getStdout()->writeAsync(\json_encode($this->getOutput())));
             }
         );

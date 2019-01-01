@@ -59,7 +59,7 @@ final class Missing extends EditableNode
 /**
  * @return Missing
  */
-function Missing()
+function Missing() : Missing
 {
     return Missing::getInstance();
 }

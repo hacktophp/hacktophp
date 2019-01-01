@@ -16,7 +16,7 @@ use HH\Lib\Vec;
  *
  * @return \Sabre\Event\Promise<void>
  */
-function relint_uris_async(LintRunEventHandler $handler, ?LintRunConfig $config, array $uris)
+function relint_uris_async(LintRunEventHandler $handler, ?LintRunConfig $config, array $uris) : \Sabre\Event\Promise
 {
     return \Sabre\Event\coroutine(
         /** @return \Generator<int, mixed, void, void> */

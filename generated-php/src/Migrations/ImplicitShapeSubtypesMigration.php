@@ -28,11 +28,11 @@ final class ImplicitShapeSubtypesMigration extends StepBasedMigration
         if ($last_field->hasSeparator()) {
             return $shape;
         }
-        return $shape->rewriteDescendants(function ($node, $_) use($last_field) {
+        return $shape->rewriteDescendants(function ($node, $_1) use($last_field) {
             if ($node !== $last_field) {
                 return $node;
             }
-            return $last_field->withSeparator(new HHAST\CommaToken(HHAST\Missing(), $last_field->getLastTokenx()->getTrailing()))->withItem($last_field->getItemx()->rewriteDescendants(function ($inner, $_) use($last_field) {
+            return $last_field->withSeparator(new HHAST\CommaToken(HHAST\Missing(), $last_field->getLastTokenx()->getTrailing()))->withItem($last_field->getItemx()->rewriteDescendants(function ($inner, $_1) use($last_field) {
                 if ($inner !== $last_field->getLastTokenx()) {
                     return $inner;
                 }

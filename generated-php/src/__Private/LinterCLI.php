@@ -37,11 +37,11 @@ final class LinterCLI extends CLIWithArguments
     protected function getSupportedOptions()
     {
         return [CLIOptions\flag(function () {
-            return new ExitException(1, "--perf is no longer supported; consider --xhprof");
+            throw new ExitException(1, "--perf is no longer supported; consider --xhprof");
         }, '[unsupported]', '--perf'), CLIOptions\flag(function () {
-            return $this->xhprof = true;
+            $this->xhprof = true;
         }, 'Enable XHProf profiling', '--xhprof'), CLIOptions\with_required_enum(LinterCLIMode::class, function ($m) {
-            return $this->mode = $m;
+            $this->mode = $m;
         }, 'Set the output mode; supported values are ' . \implode(' | ', LinterCLIMode::getValues()), '--mode', '-m'), CLIOptions\with_required_string(function ($_) {
         }, 'Name of the caller; intended for use with `--mode json` or `--mode lsp`', '--from'), $this->getVerbosityOption()];
     }

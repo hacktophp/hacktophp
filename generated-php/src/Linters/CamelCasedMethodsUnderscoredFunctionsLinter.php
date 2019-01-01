@@ -40,7 +40,7 @@ class CamelCasedMethodsUnderscoredFunctionsLinter extends FunctionNamingLinter
     /**
      * @return string
      */
-    public final function getSuggestedNameForInstanceMethod(string $name, MethodishDeclaration $_)
+    public final function getSuggestedNameForInstanceMethod(string $name, MethodishDeclaration $_1)
     {
         list($head, $suffix) = self::splitName($name);
         if (\preg_match('/^[a-z][a-zA-Z0-9]+$/', $head) === 1) {

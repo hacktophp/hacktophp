@@ -27,7 +27,7 @@ abstract class SuccessOrError
      */
     public abstract function getResult();
     /**
-     * @return Error<TSuccessFacebook\HHAST\__Private\LSPLib\TErrorCodeFacebook\HHAST\__Private\LSPLib\TErrorData>
+     * @return Error<TSuccess, TErrorCode, TErrorData>
      */
     public abstract function getError();
 }

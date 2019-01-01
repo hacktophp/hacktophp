@@ -117,7 +117,7 @@ class MustUseBracesForControlFlowLinter extends AutoFixingASTLinter
     /**
      * @return string
      */
-    protected function getTitleForFix(LintError $_)
+    protected function getTitleForFix(LintError $_0)
     {
         return 'Add braces';
     }

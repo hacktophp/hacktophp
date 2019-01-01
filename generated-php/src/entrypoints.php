@@ -15,7 +15,7 @@ use HH\Lib\Str;
  *
  * @return EditableNode
  */
-function from_json(array $json, ?string $file = null)
+function from_json(array $json, ?string $file = null) : EditableNode
 {
     $version = $json['version'] ?? null;
     if (\is_string($version) && $version !== SCHEMA_VERSION) {
@@ -26,7 +26,7 @@ function from_json(array $json, ?string $file = null)
 /**
  * @return \Sabre\Event\Promise<array<string, mixed>>
  */
-function json_from_file_async(string $file)
+function json_from_file_async(string $file) : \Sabre\Event\Promise
 {
     return \Sabre\Event\coroutine(
         /** @return \Generator<int, mixed, void, array<string, mixed>> */
@@ -85,14 +85,14 @@ function json_from_file_async(string $file)
 /**
  * @return array<string, mixed>
  */
-function json_from_file(string $file)
+function json_from_file(string $file) : array
 {
     return json_from_file_async($file)->wait();
 }
 /**
  * @return \Sabre\Event\Promise<EditableNode>
  */
-function from_file_async(string $file)
+function from_file_async(string $file) : \Sabre\Event\Promise
 {
     return \Sabre\Event\coroutine(
         /** @return \Generator<int, mixed, void, EditableNode> */
@@ -105,14 +105,14 @@ function from_file_async(string $file)
 /**
  * @return EditableNode
  */
-function from_file(string $file)
+function from_file(string $file) : EditableNode
 {
     return from_file_async($file)->wait();
 }
 /**
  * @return \Sabre\Event\Promise<array<string, mixed>>
  */
-function json_from_text_async(string $text)
+function json_from_text_async(string $text) : \Sabre\Event\Promise
 {
     return \Sabre\Event\coroutine(
         /** @return \Generator<int, mixed, void, array<string, mixed>> */
@@ -130,14 +130,14 @@ function json_from_text_async(string $text)
 /**
  * @return array<string, mixed>
  */
-function json_from_text(string $text)
+function json_from_text(string $text) : array
 {
     return json_from_text_async($text)->wait();
 }
 /**
  * @return \Sabre\Event\Promise<EditableNode>
  */
-function from_code_async(string $text)
+function from_code_async(string $text) : \Sabre\Event\Promise
 {
     return \Sabre\Event\coroutine(
         /** @return \Generator<int, mixed, void, EditableNode> */
@@ -150,7 +150,7 @@ function from_code_async(string $text)
 /**
  * @return EditableNode
  */
-function from_code(string $text)
+function from_code(string $text) : EditableNode
 {
     return from_code_async($text)->wait();
 }

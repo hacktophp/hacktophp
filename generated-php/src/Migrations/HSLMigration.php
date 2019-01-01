@@ -430,11 +430,11 @@ final class HSLMigration extends BaseMigration
         return $node->replace($receiver, $new_receiver);
     }
     /**
-     * @psalm-template T as \Facebook\HHAST\Migrations\EditableNode
+     * @psalm-template T as EditableNode
      *
      * @param T::class $expected
      *
-     * @return \T
+     * @return T
      */
     protected function nodeFromCode(string $code, string $expected)
     {

@@ -25,7 +25,7 @@ final class PreferLambdasLinter extends AutoFixingASTLinter
     /**
      * @return string
      */
-    protected function getTitleForFix(LintError $_)
+    protected function getTitleForFix(LintError $_0)
     {
         return 'Convert to lambda';
     }
@@ -37,7 +37,7 @@ final class PreferLambdasLinter extends AutoFixingASTLinter
     public function getLintErrorForNode(AnonymousFunction $node, array $_parents)
     {
         $use_expr = $node->getUse();
-        $uses_references = $use_expr !== null && !C\is_empty($use_expr->getDescendantsWhere(function ($node, $_) {
+        $uses_references = $use_expr !== null && !C\is_empty($use_expr->getDescendantsWhere(function ($node, $_1) {
             return $node instanceof PrefixUnaryExpression && $node->getOperator() instanceof AmpersandToken;
         }));
         if ($uses_references) {

@@ -20,11 +20,11 @@ class StrictModeOnlyLinter extends AutoFixingASTLinter
         return MarkupSuffix::class;
     }
     /**
-     * @param array<int, EditableNode> $_
+     * @param array<int, EditableNode> $_1
      *
      * @return ASTLintError<MarkupSuffix>|null
      */
-    public function getLintErrorForNode(MarkupSuffix $node, array $_)
+    public function getLintErrorForNode(MarkupSuffix $node, array $_1)
     {
         $name = $node->getName();
         if ($name === null) {
@@ -42,7 +42,7 @@ class StrictModeOnlyLinter extends AutoFixingASTLinter
     /**
      * @return string
      */
-    protected function getTitleForFix(LintError $_)
+    protected function getTitleForFix(LintError $_0)
     {
         return 'Use `<?hh // strict`';
     }

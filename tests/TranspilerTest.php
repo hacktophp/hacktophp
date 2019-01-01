@@ -32,7 +32,30 @@ $a = Str\length("hello");',
 namespace Foo;
 use HH\Lib\Str;
 $a = \strlen("hello");',
-            ]
+            ],
+            'underscoreFunctionParams' => [
+                '<?hh
+function foo($_, $_) {}',
+                '<?php
+function foo($_0, $_1) {}',
+            ],
+            'templateAsNum' => [
+                '<?hh
+namespace Foo;
+function maxva<T as num>(
+  T $first
+): T {}',
+                '<?php
+namespace Foo;
+/**
+ * @psalm-template T as numeric
+ *
+ * @param T $first
+ *
+ * @return T
+ */
+function maxva($first) {}',
+            ],
         ];
     }
 

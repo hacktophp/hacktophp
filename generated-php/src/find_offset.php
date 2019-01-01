@@ -12,7 +12,7 @@ namespace Facebook\HHAST;
 /**
  * @return int
  */
-function find_offset_after_leading(EditableNode $root, EditableNode $node)
+function find_offset_after_leading(EditableNode $root, EditableNode $node) : int
 {
     if ($root === $node) {
         return 0;

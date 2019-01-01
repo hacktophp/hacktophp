@@ -284,6 +284,9 @@ class TypeTransformer
 			case 'keyset':
 				return 'array';
 
+			case 'num':
+				return 'numeric';
+
 			case 'KeyedTraversable':
 				return 'iterable';
 

@@ -15,7 +15,7 @@ use HH\Lib\{C, Str, Vec};
 /**
  * @return array<int, LSP\TextEdit>
  */
-function create_textedits(string $from, string $to)
+function create_textedits(string $from, string $to) : array
 {
     $diff = DiffLib\cluster(DiffLib\StringDiff::lines($from, $to)->getDiff());
     $edits = [];

@@ -59,7 +59,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         return $in->withReceiver($receiver->withObject(new HHAST\StaticToken($obj->getFirstTokenx()->getLeading(), $m))->withOperator(new HHAST\ColonColonToken($m, $m)));
     }
     /**
-     * @psalm-template T as \Facebook\HHAST\Migrations\HHAST\EditableNode
+     * @psalm-template T as HHAST\EditableNode
      *
      * @param T $in
      *

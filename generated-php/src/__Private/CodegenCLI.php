@@ -28,9 +28,9 @@ final class CodegenCLI extends CLIBase
     protected function getSupportedOptions()
     {
         return [CLIOptions\with_required_string(function ($path) {
-            return $this->hhvmPath = $path;
+            $this->hhvmPath = $path;
         }, 'Path to HHVM source tree', '--hhvm-path'), CLIOptions\flag(function () {
-            return $this->rebuildRelationships = true;
+            $this->rebuildRelationships = true;
         }, 'Update inferred relationships based on the HHVM and Hack tests; requires --hhvm-path', '--rebuild-relationships')];
     }
     /**

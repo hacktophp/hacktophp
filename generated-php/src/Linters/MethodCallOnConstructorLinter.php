@@ -21,11 +21,11 @@ final class MethodCallOnConstructorLinter extends AutoFixingASTLinter
         return MemberSelectionExpression::class;
     }
     /**
-     * @param array<int, EditableNode> $_
+     * @param array<int, EditableNode> $_1
      *
      * @return ASTLintError<MemberSelectionExpression>|null
      */
-    public function getLintErrorForNode(MemberSelectionExpression $node, array $_)
+    public function getLintErrorForNode(MemberSelectionExpression $node, array $_1)
     {
         $obj = $node->getObject();
         if (!$obj instanceof ObjectCreationExpression) {
@@ -36,7 +36,7 @@ final class MethodCallOnConstructorLinter extends AutoFixingASTLinter
     /**
      * @return string
      */
-    public function getTitleForFix(LintError $_)
+    public function getTitleForFix(LintError $_0)
     {
         return 'Add parentheses';
     }

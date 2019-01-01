@@ -16,7 +16,7 @@ use HH\Lib\Math;
  *
  * @return LSP\Position
  */
-function position_to_lsp($hhast_pos)
+function position_to_lsp($hhast_pos) : LSP\Position
 {
     return ['line' => Math\maxva($hhast_pos[0] - 1, 0), 'character' => $hhast_pos[1]];
 }

@@ -20,7 +20,7 @@ use HH\Lib\{C, Str, Vec};
  *
  * @return bool
  */
-function is_linter_error_suppressed(BaseLinter $linter, EditableNode $node, array $parents, LintError $_error)
+function is_linter_error_suppressed(BaseLinter $linter, EditableNode $node, array $parents, LintError $_error) : bool
 {
     $token = $node->getFirstToken();
     $fixme = $linter->getFixmeMarker();
@@ -31,7 +31,7 @@ function is_linter_error_suppressed(BaseLinter $linter, EditableNode $node, arra
 /**
  * @return bool
  */
-function is_linter_suppressed_in_current_node(?EditableToken $token, string $fixme, string $ignore)
+function is_linter_suppressed_in_current_node(?EditableToken $token, string $fixme, string $ignore) : bool
 {
     if ($token === null) {
         return false;
@@ -45,7 +45,7 @@ function is_linter_suppressed_in_current_node(?EditableToken $token, string $fix
  *
  * @return bool
  */
-function is_linter_suppressed_in_sibling_node(array $parents, string $fixme, string $ignore)
+function is_linter_suppressed_in_sibling_node(array $parents, string $fixme, string $ignore) : bool
 {
     $parent = C\last($parents);
     if ($parent === null) {
@@ -74,7 +74,7 @@ function is_linter_suppressed_in_sibling_node(array $parents, string $fixme, str
  *
  * @return bool
  */
-function is_linter_suppressed_up_to_statement(array $parents, string $fixme, string $ignore)
+function is_linter_suppressed_up_to_statement(array $parents, string $fixme, string $ignore) : bool
 {
     $parents = Vec\reverse($parents);
     foreach ($parents as $parent) {

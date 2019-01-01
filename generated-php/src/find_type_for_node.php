@@ -16,7 +16,7 @@ use Facebook\HHAST\EditableNode;
 /**
  * @return \Sabre\Event\Promise<null|string>
  */
-function find_type_for_node_async(EditableNode $root, EditableNode $node, string $path)
+function find_type_for_node_async(EditableNode $root, EditableNode $node, string $path) : \Sabre\Event\Promise
 {
     return \Sabre\Event\coroutine(
         /** @return \Generator<int, mixed, void, null|string> */

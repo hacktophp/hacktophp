@@ -38,7 +38,7 @@ final class NoStringInterpolationLinter extends AutoFixingASTLinter
     /**
      * @return string
      */
-    protected function getTitleForFix(LintError $_)
+    protected function getTitleForFix(LintError $_0)
     {
         return 'Replace interpolation with concatenation';
     }

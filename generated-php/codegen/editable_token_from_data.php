@@ -10,7 +10,7 @@ use Facebook\HHAST;
 /**
  * @return HHAST\EditableToken
  */
-function editable_token_from_data(string $file, int $offset, string $token_kind, HHAST\EditableNode $leading, HHAST\EditableNode $trailing, string $token_text)
+function editable_token_from_data(string $file, int $offset, string $token_kind, HHAST\EditableNode $leading, HHAST\EditableNode $trailing, string $token_text) : HHAST\EditableToken
 {
     $cls = TokenClassMap::WITHOUT_TEXT[$token_kind] ?? null;
     if ($cls !== null) {

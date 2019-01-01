@@ -12,7 +12,7 @@ use Facebook\HHAST;
  *
  * @return HHAST\EditableNode
  */
-function editable_node_from_json(array $json, string $file, int $offset, string $source)
+function editable_node_from_json(array $json, string $file, int $offset, string $source) : HHAST\EditableNode
 {
     switch ((string) $json['kind']) {
         case 'token':

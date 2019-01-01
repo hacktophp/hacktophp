@@ -137,7 +137,7 @@ final class UnusedUseClauseLinter extends AutoFixingASTLinter
             $clause = $clause->withName($name)->without($clause->getFirstTokenx()->getLeading());
             $fixed = new NamespaceUseDeclaration($node->getKeyword(), $node->getKind() ?? HHAST\Missing(), EditableList::createNonEmptyListOrMissing([new HHAST\ListItem($clause, HHAST\Missing())]), $node->getSemicolon() ?? HHAST\Missing());
         } else {
-            $fixed = $node->rewriteDescendants(function ($c, $_) use($unused) {
+            $fixed = $node->rewriteDescendants(function ($c, $_1) use($unused) {
                 if ($c instanceof HHAST\ListItem && C\contains($unused, $c->getItem())) {
                     return HHAST\Missing();
                 }

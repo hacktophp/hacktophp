@@ -165,7 +165,7 @@ abstract class Server
      *
      * @param TypeStructure<T> $ts
      *
-     * @return \T
+     * @return T
      */
     private static function jsonDecode(TypeStructure $ts, string $json)
     {

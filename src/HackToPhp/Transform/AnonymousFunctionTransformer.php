@@ -51,9 +51,10 @@ class AnonymousFunctionTransformer
 			$attributes['comments'][] = new \PhpParser\Comment\Doc(rtrim($docblock_string));
 		}
 
-		foreach ($params_list_params as $params_list_param) {
+		foreach ($params_list_params as $offset => $params_list_param) {
 			$params[] = FunctionDeclarationTransformer::getParam(
 				$params_list_param,
+				$offset,
 				$project,
 				$file,
 				$scope,

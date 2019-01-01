@@ -22,7 +22,7 @@ abstract class StepBasedMigration extends BaseMigration
     public final function migrateFile(string $_path, EditableNode $ast)
     {
         foreach ($this->getSteps() as $step) {
-            $ast = $ast->rewrite(function ($node, $_) use($step) {
+            $ast = $ast->rewrite(function ($node, $_1) use($step) {
                 return $step->rewrite($node);
             });
         }

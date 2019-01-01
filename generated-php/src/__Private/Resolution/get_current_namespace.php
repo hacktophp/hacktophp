@@ -17,7 +17,7 @@ use HH\Lib\{C, Str, Vec};
  *
  * @return null|string
  */
-function get_current_namespace(EditableNode $_node, array $parents)
+function get_current_namespace(EditableNode $_node, array $parents) : ?string
 {
     $parents = (array) $parents;
     $namespaces = \array_filter($parents, function ($parent) {

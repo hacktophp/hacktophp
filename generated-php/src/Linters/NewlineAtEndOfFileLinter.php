@@ -37,7 +37,7 @@ final class NewlineAtEndOfFileLinter extends BaseLinter implements AutoFixingLin
     /**
      * @return string
      */
-    protected function getTitleForFix(LintError $_)
+    protected function getTitleForFix(LintError $_0)
     {
         $contents = $this->getFile()->getContents();
         if (Str\ends_with($contents, "\n")) {
@@ -49,11 +49,11 @@ final class NewlineAtEndOfFileLinter extends BaseLinter implements AutoFixingLin
         return "Replace trailng whitespace with newline";
     }
     /**
-     * @param iterable<mixed, LintError> $_
+     * @param iterable<mixed, LintError> $_0
      *
      * @return File
      */
-    public function getFixedFile(iterable $_)
+    public function getFixedFile(iterable $_0)
     {
         return $this->getFile()->withContents(Str\trim_right($this->getFile()->getContents()) . "\n");
     }

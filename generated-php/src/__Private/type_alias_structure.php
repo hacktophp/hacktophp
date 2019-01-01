@@ -16,7 +16,7 @@ namespace Facebook\HHAST\__Private;
  *
  * @return TypeStructure<T>
  */
-function type_alias_structure(typename $type)
+function type_alias_structure(typename $type) : TypeStructure
 {
     return type_structure($type);
 }

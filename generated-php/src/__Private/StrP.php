@@ -13,7 +13,7 @@ use HH\Lib\Str;
 /**
  * @return string
  */
-function upper_camel(string $in)
+function upper_camel(string $in) : string
 {
     return \preg_replace_callback('/(^|_)([a-z])/', function ($matches) {
         return Str\uppercase($matches[2]);
@@ -22,7 +22,7 @@ function upper_camel(string $in)
 /**
  * @return string
  */
-function underscored(string $in)
+function underscored(string $in) : string
 {
     return Str\strip_prefix(\preg_replace_callback('/[A-Z][a-z]+/', function ($matches) {
         return '_' . Str\lowercase($matches[0]);

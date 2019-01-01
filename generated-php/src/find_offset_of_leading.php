@@ -15,7 +15,7 @@ use HH\Lib\{C, Vec};
  *
  * @return int
  */
-function find_offset_of_leading(EditableNode $root, EditableNode $node, ?array $stack = null)
+function find_offset_of_leading(EditableNode $root, EditableNode $node, ?array $stack = null) : int
 {
     if ($root === $node) {
         return 0;

@@ -12,7 +12,7 @@ use Facebook\HHAST;
  *
  * @return HHAST\EditableTrivia
  */
-function editable_trivia_from_json(array $json, string $file, int $offset, string $source)
+function editable_trivia_from_json(array $json, string $file, int $offset, string $source) : HHAST\EditableTrivia
 {
     $trivia_text = \substr($source, $offset, $json['width']);
     switch ((string) $json['kind']) {

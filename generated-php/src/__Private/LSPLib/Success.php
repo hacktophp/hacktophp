@@ -36,7 +36,7 @@ final class Success extends SuccessOrError
         return $this->result;
     }
     /**
-     * @return Error<TResultFacebook\HHAST\__Private\LSPLib\TErrorCodeFacebook\HHAST\__Private\LSPLib\TErrorData>
+     * @return Error<TResult, TErrorCode, TErrorData>
      */
     public function getError()
     {

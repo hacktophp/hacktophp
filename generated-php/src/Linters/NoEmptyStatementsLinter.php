@@ -23,7 +23,7 @@ final class NoEmptyStatementsLinter extends AutoFixingASTLinter
     /**
      * @return string
      */
-    public function getTitleForFix(LintError $_)
+    public function getTitleForFix(LintError $_0)
     {
         return 'Remove statement';
     }

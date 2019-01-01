@@ -21,7 +21,7 @@ namespace Facebook\HHAST\__Private;
  *
  * @return array<int, TOutput>
  */
-function fold_map(iterable $items, \Closure $mapper, \Closure $accumulator, $initial)
+function fold_map(iterable $items, \Closure $mapper, \Closure $accumulator, $initial) : array
 {
     $acc = $initial;
     $result = [];

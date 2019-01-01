@@ -94,11 +94,11 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
         );
     }
     /**
-     * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_
+     * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_1
      *
      * @return \Sabre\Event\Promise<void>
      */
-    public function finishedFileAsync(string $_, $_)
+    public function finishedFileAsync(string $_0, $_1)
     {
     }
     /**
@@ -118,7 +118,7 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
         );
     }
     /**
-     * @psalm-template Terror as \Facebook\HHAST\__Private\Linters\LintError
+     * @psalm-template Terror as Linters\LintError
      *
      * @param Linters\AutoFixingLinter<Terror> $linter
      * @param array<int, Terror> $errors
@@ -132,7 +132,7 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
         \file_put_contents($file->getPath(), $file->getContents());
     }
     /**
-     * @psalm-template Terror as \Facebook\HHAST\__Private\Linters\LintError
+     * @psalm-template Terror as Linters\LintError
      *
      * @param Linters\AutoFixingLinter<Terror> $linter
      * @param Terror $error

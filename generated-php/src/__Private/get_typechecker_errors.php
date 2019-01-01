@@ -17,7 +17,7 @@ use Facebook\TypeAssert;
 /**
  * @return array<int, array{message:array<int, array{path:string, descr:string, line:int, start:int, end:int, code:int}>}>
  */
-function get_typechecker_errors(string $path)
+function get_typechecker_errors(string $path) : array
 {
     $path = \realpath($path);
     $command = ['hh_client', '--json', '--from', 'hhast', \escapeshellarg($path)];
@@ -36,7 +36,6 @@ function get_typechecker_errors(string $path)
             512
         );
     }
-    
     $data = TypeAssert\matches_type_structure(type_alias_structure(TTypecheckerOutput::class), $untyped_data);
     return $data['errors'] ?? [];
 }

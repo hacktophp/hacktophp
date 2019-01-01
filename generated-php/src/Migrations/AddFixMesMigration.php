@@ -19,7 +19,7 @@ final class AddFixMesMigration extends BaseMigration
     /**
      * @return bool
      */
-    protected static function filterTypecheckerError(TTypecheckerError $_)
+    protected static function filterTypecheckerError(TTypecheckerError $_0)
     {
         return true;
     }

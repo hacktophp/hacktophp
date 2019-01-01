@@ -111,11 +111,11 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
         );
     }
     /**
-     * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_
+     * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_0
      *
      * @return \Sabre\Event\Promise<void>
      */
-    public function finishedRunAsync($_)
+    public function finishedRunAsync($_0)
     {
     }
 }

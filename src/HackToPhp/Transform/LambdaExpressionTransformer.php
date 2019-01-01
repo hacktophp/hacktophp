@@ -29,7 +29,7 @@ class LambdaExpressionTransformer
 		} elseif ($signature && $signature->hasParameters()) {
 			$params_list_params = $signature->getParameters()->getDescendantsOfType(HHAST\ParameterDeclaration::class);
 
-			foreach ($params_list_params as $params_list_param) {
+			foreach ($params_list_params as $offset => $params_list_param) {
 				$param_name_node = $params_list_param->getName();
 
 				if ($param_name_node instanceof HHAST\DecoratedExpression) {
@@ -41,6 +41,7 @@ class LambdaExpressionTransformer
 				
 				$params[] = FunctionDeclarationTransformer::getParam(
 					$params_list_param,
+					$offset,
 					$project,
 					$file,
 					$scope,
