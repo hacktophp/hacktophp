@@ -10,7 +10,7 @@ It aims to preserve all of Hack’s types so that the resultant PHP code can be 
 
 While a lot of code has easy-to-compute PHP equivalents, some builtin Hack constructs are essentially impossible to replicate:
 
-### async/awai
+### async/await
 
 All `async`/`await` calls have been made synchronous, converted to promises that use [`sabre/event`](https://github.com/sabre/event)
 
@@ -33,8 +33,6 @@ The only valid option here would be to convert `keyset`s to ArrayObjects, but I'
 
 ## Currently unsupported features
 
-If people actually start to use h
-
 - Pretty much all builtins, but I'm adding things slowly, and `HH\Lib\...` functions are supported via [`hacktophp/hsl-php`](https://github.com/hacktophp/hsl-php)
 - XHP
 - Class constant types e.g.
@@ -44,7 +42,7 @@ If people actually start to use h
   }
   ```
 - Docblock annotations for Parameterised `extends`, `implements` and `trait` - dependent on Psalm support
-- Docblock annotations for `require extends` - dependent on future Psalm suppor
+- Docblock annotations for `require extends` - dependent on future Psalm support
 - User attributes, especially `<<Memoize>>`
 - types of `const` (Psalm does a reasonably good job inferring them, but it should be added for completeness)
 - probably many more things I haven't considered
