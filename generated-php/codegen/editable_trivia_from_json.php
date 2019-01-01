@@ -9,8 +9,6 @@ namespace Facebook\HHAST\__Private;
 use Facebook\HHAST;
 /**
  * @param array<string, mixed> $json
- *
- * @return HHAST\EditableTrivia
  */
 function editable_trivia_from_json(array $json, string $file, int $offset, string $source) : HHAST\EditableTrivia
 {

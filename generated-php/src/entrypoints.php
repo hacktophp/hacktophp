@@ -12,8 +12,6 @@ namespace Facebook\HHAST;
 use HH\Lib\Str;
 /**
  * @param array<string, mixed> $json
- *
- * @return EditableNode
  */
 function from_json(array $json, ?string $file = null) : EditableNode
 {
@@ -102,9 +100,6 @@ function from_file_async(string $file) : \Sabre\Event\Promise
         }
     );
 }
-/**
- * @return EditableNode
- */
 function from_file(string $file) : EditableNode
 {
     return from_file_async($file)->wait();
@@ -147,9 +142,6 @@ function from_code_async(string $text) : \Sabre\Event\Promise
         }
     );
 }
-/**
- * @return EditableNode
- */
 function from_code(string $text) : EditableNode
 {
     return from_code_async($text)->wait();

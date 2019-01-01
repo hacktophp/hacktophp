@@ -17,8 +17,6 @@ use HH\Lib\{C, Str, Vec};
  **/
 /**
  * @param array<int, EditableNode> $parents
- *
- * @return bool
  */
 function is_linter_error_suppressed(BaseLinter $linter, EditableNode $node, array $parents, LintError $_error) : bool
 {
@@ -28,9 +26,6 @@ function is_linter_error_suppressed(BaseLinter $linter, EditableNode $node, arra
     return is_linter_suppressed_in_current_node($token, $fixme, $ignore) || is_linter_suppressed_in_sibling_node($parents, $fixme, $ignore) || is_linter_suppressed_up_to_statement($parents, $fixme, $ignore);
 }
 // Check the current token's leading trivia. For example a comment on the line before
-/**
- * @return bool
- */
 function is_linter_suppressed_in_current_node(?EditableToken $token, string $fixme, string $ignore) : bool
 {
     if ($token === null) {
@@ -42,8 +37,6 @@ function is_linter_suppressed_in_current_node(?EditableToken $token, string $fix
 // Check sibling node as the comment might be attached there instead of on the current node
 /**
  * @param array<int, EditableNode> $parents
- *
- * @return bool
  */
 function is_linter_suppressed_in_sibling_node(array $parents, string $fixme, string $ignore) : bool
 {
@@ -71,8 +64,6 @@ function is_linter_suppressed_in_sibling_node(array $parents, string $fixme, str
 // Walk up the parents and check the leading trivia until we hit a Statement type node.
 /**
  * @param array<int, EditableNode> $parents
- *
- * @return bool
  */
 function is_linter_suppressed_up_to_statement(array $parents, string $fixme, string $ignore) : bool
 {

@@ -14,8 +14,6 @@ use Facebook\TypeAssert;
 use HH\Lib\{C, Str, Vec};
 /**
  * @param array<int, EditableNode> $parents
- *
- * @return null|string
  */
 function get_current_namespace(EditableNode $_node, array $parents) : ?string
 {

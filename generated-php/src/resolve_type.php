@@ -14,8 +14,6 @@ use HH\Lib\{C, Str, Vec};
 use Facebook\HHAST\__Private\Resolution;
 /**
  * @param array<int, EditableNode> $parents
- *
- * @return null|string
  */
 function resolve_type(string $type, EditableNode $node, array $parents) : ?string
 {

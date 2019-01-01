@@ -9,8 +9,6 @@ namespace Facebook\HHAST\__Private;
 use Facebook\HHAST;
 /**
  * @param array<string, mixed> $json
- *
- * @return HHAST\EditableNode
  */
 function editable_node_from_json(array $json, string $file, int $offset, string $source) : HHAST\EditableNode
 {

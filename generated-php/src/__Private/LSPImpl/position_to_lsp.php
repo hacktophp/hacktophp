@@ -13,8 +13,6 @@ use Facebook\HHAST\__Private\LSP;
 use HH\Lib\Math;
 /**
  * @param array{0:int, 1:int} $hhast_pos
- *
- * @return LSP\Position
  */
 function position_to_lsp($hhast_pos) : LSP\Position
 {

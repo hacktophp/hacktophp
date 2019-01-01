@@ -56,9 +56,6 @@ final class Missing extends EditableNode
         return $this;
     }
 }
-/**
- * @return Missing
- */
 function Missing() : Missing
 {
     return Missing::getInstance();

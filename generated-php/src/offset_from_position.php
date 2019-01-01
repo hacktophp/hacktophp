@@ -10,9 +10,6 @@
 namespace Facebook\HHAST;
 
 use HH\Lib\{Str, Vec};
-/**
- * @return int
- */
 function offset_from_position(EditableNode $root, int $line, int $column) : int
 {
     if ($line === 1) {
