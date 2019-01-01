@@ -1,4 +1,4 @@
-<img src="https://psalm.github.io/hack-to-php/logo.svg?1" alt="Hack to PHP logo" width="300px" height="100px" />
+<img src="https://hacktophp.github.io/hacktophp/logo.svg?1" alt="Hack to PHP logo" width="300px" height="100px" />
 
 # EXPERIMENTAL
 
