@@ -44,7 +44,7 @@ function foo($_0, $_1) {}',
 namespace Foo;
 function maxva<T as num>(
   T $first
-): T {}',
+): ?T {}',
                 '<?php
 namespace Foo;
 /**
@@ -52,7 +52,7 @@ namespace Foo;
  *
  * @param T $first
  *
- * @return T
+ * @return null|T
  */
 function maxva($first) {}',
             ],

@@ -18,23 +18,23 @@ class TypeTransformer
 	public static function transform(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope, array $template_map = []) : string
 	{
 		if ($node instanceof HHAST\ShapeTypeSpecifier) {
-			return self::transformShape($node, $project, $file, $scope);
+			return self::transformShape($node, $project, $file, $scope, $template_map);
 		}
 
 		if ($node instanceof HHAST\KeysetTypeSpecifier) {
-			$keyset_type = self::transform($node->getTypeUNTYPED(), $project, $file, $scope);
+			$keyset_type = self::transform($node->getTypeUNTYPED(), $project, $file, $scope, $template_map);
 
 			return 'array<' . $keyset_type . ',' . $keyset_type . '>';
 		}
 
 		if ($node instanceof HHAST\VectorTypeSpecifier) {
-			$vec_type = self::transform($node->getType(), $project, $file, $scope);
+			$vec_type = self::transform($node->getType(), $project, $file, $scope, $template_map);
 
 			return 'array<int,' . $vec_type . '>';
 		}
 
 		if ($node instanceof HHAST\TupleTypeSpecifier) {
-			return self::transformTuple($node, $project, $file, $scope);
+			return self::transformTuple($node, $project, $file, $scope, $template_map);
 		}
 
 		if ($node instanceof HHAST\DictionaryTypeSpecifier) {
@@ -43,7 +43,7 @@ class TypeTransformer
 			$dictionary_types = [];
 
 			foreach ($members as $member) {
-				$dictionary_types[] = self::transform($member->getItem(), $project, $file, $scope);
+				$dictionary_types[] = self::transform($member->getItem(), $project, $file, $scope, $template_map);
 			}
 
 			return 'array<' . implode(',', $dictionary_types) . '>';
@@ -79,6 +79,10 @@ class TypeTransformer
 
 		if ($node instanceof HHAST\EditableToken) {
 			return self::transformToken($node, $project, $file, $scope, $template_map);
+		}
+
+		if ($node instanceof HHAST\NullableTypeSpecifier) {
+			//var_dump($node);
 		}
 
 		if ($node instanceof HHAST\ClosureTypeSpecifier) {
@@ -128,7 +132,7 @@ class TypeTransformer
 					continue;
 				}
 
-				$string_types[] = self::transform($child, $project, $file, $scope);
+				$string_types[] = self::transform($child, $project, $file, $scope, $template_map);
 			}
 
 			return implode(',', $string_types);
@@ -150,7 +154,7 @@ class TypeTransformer
 				continue;
 			}
 
-			$string_type .= self::transform($child, $project, $file, $scope);
+			$string_type .= self::transform($child, $project, $file, $scope, $template_map);
 		}
 
 		if (!$string_type) {

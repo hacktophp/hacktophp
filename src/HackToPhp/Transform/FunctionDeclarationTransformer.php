@@ -140,13 +140,17 @@ class FunctionDeclarationTransformer
 
 			$psalm_return_type = Psalm\Type::parseString($return_type_string, false, $template_map);
 
+			$can_show_return_type = $project->use_php_return_types
+				|| !$node instanceof HHAST\MethodishDeclaration
+				|| !$file->is_hack;
+
 			if ($file->is_hack) {
-				if (!$psalm_return_type->canBeFullyExpressedInPhp() || !$project->use_php_return_types) {
+				if (!$psalm_return_type->canBeFullyExpressedInPhp() || !$can_show_return_type) {
 					$docblock['specials']['return'] = [$psalm_return_type->toNamespacedString($file->namespace, [], null, false)];
 				}
 			}
 			
-			if ($project->use_php_return_types || !$node instanceof HHAST\MethodishDeclaration || !$file->is_hack) {
+			if ($can_show_return_type) {
 				$php_return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $project, $file, $scope);
 			}
 		}
