@@ -48,7 +48,7 @@ function maxva<T as num>(
                 '<?php
 namespace Foo;
 /**
- * @psalm-template T as numeric
+ * @template T as numeric
  *
  * @param T $first
  *

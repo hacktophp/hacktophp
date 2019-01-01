@@ -103,7 +103,7 @@ class FunctionDeclarationTransformer
 			'description' => null,
 			'specials' => [
 				'params' => [],
-				'psalm-template' => $templates
+				'template' => $templates
 			]
 		];
 
