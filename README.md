@@ -2,15 +2,40 @@
 
 # EXPERIMENTAL
 
-An attempt to port Hack code to PHP.
+This project uses HHVM's builtin parser (`hh_parse`) and [an existing library](https://github.com/hhvm/hhast) to turn Hack code into PHP code. It generates [PHP-Parser](https://github.com/nikic/php-parser)-equivalent nodes for the original Hack AST, then prints the result.
 
-This project uses HHVM's parser (`hh_parse`) together with a transpiled version of [hhvm/hhast](https://github.com/hhvm/hhast) to turn Hack code into a PHP-based abstract syntax tree. It then generates [PHP-Parser](https://github.com/nikic/php-parser)-equivalent nodes for the Hack code AST.
+It aims to preserve all of Hack’s types so that the resultant PHP code can be checked by a tool like [Psalm](https://github.com/vimeo/psalm), converting any asynchronous code to its synchronous equivalent.
 
-Async handling:
- - Uses [`sabre/event`](https://github.com/sabre/event) to mimic `async`/`await`
+## Indefinitely unsupported features
 
-Unsupported features:
-- Pretty much all of the standard library, but I'm adding things slowly
+While a lot of code has easy-to-compute PHP equivalents, some builtin Hack constructs are essentially impossible to replicate:
+
+### async/awai
+
+All `async`/`await` calls have been made synchronous, converted to promises that use [`sabre/event`](https://github.com/sabre/event)
+
+### keyset
+
+This valid Hack code
+```php
+$a = keyset[];
+$a[] = "hello";
+echo $a["hello"];
+```
+transpiles to the valid (but not-equivalent) PHP code
+```php
+$a = [];
+$a[] = "hello";
+var_dump($a["hello"]);
+```
+
+The only valid option here would be to convert `keyset`s to ArrayObjects, but I'm not sure if that's wise.
+
+## Currently unsupported features
+
+If people actually start to use h
+
+- Pretty much all builtins, but I'm adding things slowly, and `HH\Lib\...` functions are supported via [`hacktophp/hsl-php`](https://github.com/hacktophp/hsl-php)
 - XHP
 - Class constant types e.g.
   ```php
@@ -18,8 +43,8 @@ Unsupported features:
     const type Foo = int;
   }
   ```
-- Parameterised `extends`, `implements` and `trait`
-- `require extends`
-- User attributes
+- Docblock annotations for Parameterised `extends`, `implements` and `trait` - dependent on Psalm support
+- Docblock annotations for `require extends` - dependent on future Psalm suppor
+- User attributes, especially `<<Memoize>>`
 - types of `const` (Psalm does a reasonably good job inferring them, but it should be added for completeness)
 - probably many more things I haven't considered
