@@ -1,6 +1,6 @@
 <img src="https://hacktophp.github.io/hacktophp/logo.svg?1" alt="Hack to PHP logo" width="300px" height="100px" />
 
-***EXPERIMENTAL***
+# A proof-of-concept Hack to PHP transpiler, written in PHP
 
 This project uses HHVM's builtin parser (`hh_parse`) and [an existing library](https://github.com/hhvm/hhast) to turn Hack code into PHP code. It generates [PHP-Parser](https://github.com/nikic/php-parser)-equivalent nodes for the original Hack AST, then prints the result.
 
