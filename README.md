@@ -1,10 +1,16 @@
 <img src="https://hacktophp.github.io/hacktophp/logo.svg?1" alt="Hack to PHP logo" width="300px" height="100px" />
 
-# EXPERIMENTAL
+***EXPERIMENTAL***
 
 This project uses HHVM's builtin parser (`hh_parse`) and [an existing library](https://github.com/hhvm/hhast) to turn Hack code into PHP code. It generates [PHP-Parser](https://github.com/nikic/php-parser)-equivalent nodes for the original Hack AST, then prints the result.
 
 It aims to preserve all of Hack’s types so that the resultant PHP code can be checked by a tool like [Psalm](https://github.com/vimeo/psalm), converting any asynchronous code to its synchronous equivalent.
+
+You can install via composer (`composer require --dev hacktophp/hacktophp`) and run it like so:
+
+```
+vendor/bin/hacktophp --input=<input-file-or-folder> --output=<output-file-or-folder>
+```
 
 ## Indefinitely unsupported features
 
