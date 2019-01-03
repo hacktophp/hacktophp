@@ -54,8 +54,8 @@ final class UnusedParameterLinter extends AutoFixingASTLinter
             // Don't require `$_` for abstract or interface methods
             return null;
         }
-        $statements = ($body instanceof \Facebook\HHAST\Linters\CompoundStatement ? $body : (function () {
-            throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Linters\\CompoundStatement');
+        $statements = ($body instanceof CompoundStatement ? $body : (function () {
+            throw new \TypeError('Failed assertion');
         })())->getStatements();
         if ($statements !== null) {
             $match = C\find($statements->getDescendantsOfType(VariableToken::class), function ($x) use($name) {

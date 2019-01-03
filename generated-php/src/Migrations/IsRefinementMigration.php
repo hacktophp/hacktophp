@@ -70,11 +70,11 @@ final class IsRefinementMigration extends BaseMigration
             if ($make_replacement === null) {
                 return $node;
             }
-            $replacement = new HHAST\IsExpression($node->getArgumentListx()->getItems()[0] instanceof \Facebook\HHAST\Migrations\nonnull ? $node->getArgumentListx()->getItems()[0] : (function () {
-                throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\nonnull');
+            $replacement = new HHAST\IsExpression($node->getArgumentListx()->getItems()[0] !== null ? $node->getArgumentListx()->getItems()[0] : (function () {
+                throw new \TypeError('Failed assertion');
             })(), new HHAST\IsToken(new HHAST\WhiteSpace(' '), new HHAST\WhiteSpace(' ')), $make_replacement());
-            $parent = C\lastx($parents instanceof \Facebook\HHAST\Migrations\nonnull ? $parents : (function () {
-                throw new TypeError('Failed asserting instanceof Facebook\\HHAST\\Migrations\\nonnull');
+            $parent = C\lastx($parents !== null ? $parents : (function () {
+                throw new \TypeError('Failed assertion');
             })());
             // Whitelist of cases where parenthese are not needed
             if ($parent instanceof HHAST\ListItem || $parent instanceof HHAST\IfStatement || $parent instanceof HHAST\ParenthesizedExpression) {

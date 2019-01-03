@@ -66,7 +66,7 @@ function get_unresolved_referenced_names(EditableNode $root) : array
         // `new Foo()` gets us a SimpleTypeSpecifier, but
         // <<Foo>> gets us a NameToken directly
         if ($node instanceof ConstructorCall) {
-            $name = $node->getType() instanceof \Facebook\HHAST\NameToken ? $node->getType() : null;
+            $name = $node->getType() instanceof NameToken ? $node->getType() : null;
             if ($name !== null) {
                 $ret['types'][] = $name->getText();
             }

@@ -22,6 +22,8 @@ class AsExpressionTransformer
 			$specifier = $right_operand->getKeyword();
 		} elseif ($right_operand instanceof HHAST\KeysetTypeSpecifier) {
 			$specifier = $right_operand->getKeyword();
+		} elseif ($right_operand instanceof HHAST\TupleTypeSpecifier) {
+			$specifier = $right_operand;
 		} else {
 			$specifier = $right_operand->getSpecifier();
 		}
@@ -33,21 +35,21 @@ class AsExpressionTransformer
 			case HHAST\StringToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_string'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
 				);
 				break;
 
 			case HHAST\FloatToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_float'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
 				);
 				break;
 
 			case HHAST\IntToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_int'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
 				);
 				break;
 
@@ -55,9 +57,10 @@ class AsExpressionTransformer
 			case HHAST\DictToken::class:
 			case HHAST\VecToken::class:
 			case HHAST\KeysetToken::class:
+			case HHAST\TupleTypeSpecifier::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_array'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
 				);
 				break;
 
@@ -65,33 +68,33 @@ class AsExpressionTransformer
 			case HHAST\BooleanToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_bool'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
 				);
 				break;
 
 			case HHAST\ObjectToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_object'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
 				);
 				break;
 
 			case HHAST\ResourceToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_resource'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
 				);
 				break;
 
 			case HHAST\NameToken::class:
 				if ($specifier->getText() === 'nonnull') {
 					$conditional = new PhpParser\Node\Expr\BinaryOp\NotIdentical(
-						ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope),
+						ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope),
 						new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
 					);
 				} else {
 					$conditional = new PhpParser\Node\Expr\Instanceof_(
-						ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope),
+						ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope),
 						new PhpParser\Node\Name($specifier->getText())
 					);
 				}
@@ -99,7 +102,7 @@ class AsExpressionTransformer
 				
 			case HHAST\QualifiedName::class:
 				$conditional = new PhpParser\Node\Expr\Instanceof_(
-					ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope),
+					ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope),
 					QualifiedNameTransformer::transform($specifier)
 				);
 				break;

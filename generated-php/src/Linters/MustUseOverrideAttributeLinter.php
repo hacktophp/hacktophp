@@ -96,7 +96,7 @@ final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
             return false;
         }
         $attrs = \array_map(function ($attr) {
-            return $attr->getType() instanceof \Facebook\HHAST\Linters\NameToken ? $attr->getType() : null ? ($attr->getType() instanceof \Facebook\HHAST\Linters\NameToken ? $attr->getType() : null)->getText() : null;
+            return $attr->getType() instanceof NameToken ? $attr->getType() : null ? ($attr->getType() instanceof NameToken ? $attr->getType() : null)->getText() : null;
         }, $attrs->getAttributes()->getItems());
         return C\contains($attrs, '__Override');
     }
