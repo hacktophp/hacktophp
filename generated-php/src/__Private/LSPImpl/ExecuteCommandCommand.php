@@ -25,11 +25,9 @@ final class ExecuteCommandCommand extends LSPLib\ExecuteCommandCommand
      * @var LSPLib\Client
      */
     private $client;
-    /**
-     * @var LSPLib\Client
-     */
     public function __construct(LSPLib\Client $client)
     {
+        $this->client = $client;
     }
     /**
      * @param mixed $p

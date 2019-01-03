@@ -19,11 +19,10 @@ class LintError
      * @var string
      */
     private $description;
-    /**
-     * @var string
-     */
     public function __construct(BaseLinter $linter, string $description)
     {
+        $this->linter = $linter;
+        $this->description = $description;
     }
     /**
      * @return File

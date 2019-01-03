@@ -20,9 +20,6 @@ abstract class ParseError extends \Exception
      * @var string
      */
     private $rawMessage;
-    /**
-     * @var string
-     */
     public function __construct(string $targetFile, ?int $_offset, string $rawMessage)
     {
         $this->targetFile = $targetFile;

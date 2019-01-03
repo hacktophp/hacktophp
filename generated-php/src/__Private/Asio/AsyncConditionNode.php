@@ -12,10 +12,13 @@ namespace Facebook\HHAST\__Private\Asio;
 /**
  * A linked list node storing AsyncCondition and pointer to the next node.
  */
+/**
+ * @template T
+ */
 final class AsyncConditionNode extends AsyncCondition
 {
     /**
-     * @var AsyncConditionNode<T>|null
+     * @var AsyncConditionNode<\T>|null
      */
     private $next = null;
     /**

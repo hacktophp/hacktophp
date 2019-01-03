@@ -10,9 +10,9 @@
 namespace Facebook\HHAST\__Private;
 
 /**
- * @psalm-template TInput
- * @psalm-template TOutput
- * @psalm-template TAccumulation
+ * @template TInput
+ * @template TOutput
+ * @template TAccumulation
  *
  * @param iterable<mixed, TInput> $items
  * @param \Closure(TInput, TAccumulation):TOutput $mapper

@@ -10,6 +10,9 @@
 namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\__Private\LSP;
+/**
+ * @template Terror as LintError
+ */
 interface AutoFixingLinter
 {
     /**
@@ -23,12 +26,16 @@ interface AutoFixingLinter
      */
     public function getFixedFile(iterable $errors);
     /**
+     * @param Terror $error
+     *
      * @return string
      */
-    protected function getTitleForFix(Terror $error);
+    protected function getTitleForFix($error);
     /**
+     * @param Terror $error
+     *
      * @return null|LSP\CodeAction
      */
-    public function getCodeActionForError(Terror $error);
+    public function getCodeActionForError($error);
 }
 

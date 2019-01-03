@@ -11,6 +11,9 @@ namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\Linters\{BaseLinter};
 use HH\Lib\{C, Str, Vec};
+/**
+ * @template Terror as LineLintError
+ */
 abstract class LineLinter extends BaseLinter
 {
     /**

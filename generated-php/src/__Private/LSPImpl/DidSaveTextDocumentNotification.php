@@ -22,11 +22,10 @@ final class DidSaveTextDocumentNotification extends LSPLib\DidSaveTextDocumentNo
      * @var ServerState
      */
     private $state;
-    /**
-     * @var ServerState
-     */
     public function __construct(LSPLib\Client $client, ServerState $state)
     {
+        $this->client = $client;
+        $this->state = $state;
     }
     /**
      * @param mixed $p

@@ -22,11 +22,9 @@ final class Client extends LSPLib\Client
      * @var ITerminal
      */
     private $terminal;
-    /**
-     * @var ITerminal
-     */
     public function __construct(ITerminal $terminal)
     {
+        $this->terminal = $terminal;
     }
     /**
      * @return \Sabre\Event\Promise<void>

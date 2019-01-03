@@ -9,6 +9,9 @@
  */
 namespace Facebook\HHAST\__Private\LSPLib;
 
+/**
+ * @template TState as ServerState
+ */
 class InitializedNotification extends ClientNotification
 {
     /**
@@ -20,10 +23,11 @@ class InitializedNotification extends ClientNotification
      */
     protected $state;
     /**
-     * @var TState
+     * @param TState $state
      */
-    public function __construct(TState $state)
+    public function __construct($state)
     {
+        $this->state = $state;
     }
     /**
      * @param mixed $_in

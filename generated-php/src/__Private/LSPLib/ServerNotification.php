@@ -17,10 +17,11 @@ abstract class ServerNotification
      */
     private $params;
     /**
-     * @var mixed
+     * @param mixed $params
      */
     public function __construct($params)
     {
+        $this->params = $params;
     }
     /**
      * @return LSP\NotificationMessage

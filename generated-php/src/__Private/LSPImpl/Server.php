@@ -19,9 +19,6 @@ final class Server extends LSPLib\Server
      * @var ITerminal
      */
     private $terminal;
-    /**
-     * @var ITerminal
-     */
     public function __construct(ITerminal $terminal)
     {
         $this->terminal = $terminal;

@@ -32,7 +32,7 @@ final class CodegenSyntax extends CodegenBase
      *
      * @return bool
      */
-    private static function isAbstract($syntax)
+    private static function isAbstract(array $syntax)
     {
         return C\contains_key(self::getKindsWithManualSubclasses(), $syntax['kind_name']);
     }
@@ -41,7 +41,7 @@ final class CodegenSyntax extends CodegenBase
      *
      * @return CodegenClass
      */
-    private function generateClass($syntax)
+    private function generateClass(array $syntax)
     {
         $cg = $this->getCodegenFactory();
         $is_abstract = self::isAbstract($syntax);
@@ -105,7 +105,7 @@ final class CodegenSyntax extends CodegenBase
      *
      * @return iterable<mixed, CodegenMethod>
      */
-    private function generateFieldMethods($syntax, string $underscored)
+    private function generateFieldMethods(array $syntax, string $underscored)
     {
         $spec = $this->getTypeSpecForField($syntax, $underscored);
         $upper_camel = StrP\upper_camel($underscored);
@@ -136,7 +136,7 @@ final class CodegenSyntax extends CodegenBase
      *
      * @return CodegenConstructor
      */
-    private function generateConstructor($syntax)
+    private function generateConstructor(array $syntax)
     {
         $cg = $this->getCodegenFactory();
         return $cg->codegenConstructor()->addParameters(\array_map(function ($field) {
@@ -150,7 +150,7 @@ final class CodegenSyntax extends CodegenBase
      *
      * @return CodegenMethod
      */
-    private function generateFromJSONMethod($syntax)
+    private function generateFromJSONMethod(array $syntax)
     {
         $cg = $this->getCodegenFactory();
         $body = $cg->codegenHackBuilder();
@@ -166,7 +166,7 @@ final class CodegenSyntax extends CodegenBase
      *
      * @return CodegenMethod
      */
-    private function generateChildrenMethod($syntax)
+    private function generateChildrenMethod(array $syntax)
     {
         $cg = $this->getCodegenFactory();
         return $cg->codegenMethod('getChildren')->setIsOverride()->setReturnType('dict<string, EditableNode>')->setBody($cg->codegenHackBuilder()->add('return ')->addValue(Dict\pull(\array_map(function ($field) {
@@ -182,7 +182,7 @@ final class CodegenSyntax extends CodegenBase
      *
      * @return CodegenMethod
      */
-    private function generateRewriteChildrenMethod($syntax)
+    private function generateRewriteChildrenMethod(array $syntax)
     {
         $cg = $this->getCodegenFactory();
         $fields = \array_map(function ($field) {
@@ -205,7 +205,7 @@ final class CodegenSyntax extends CodegenBase
      *
      * @return mixed
      */
-    private function getTypeSpecForField($syntax, string $field)
+    private function getTypeSpecForField(array $syntax, string $field)
     {
         $key = Str\format('%s.%s_%s', $syntax['description'], $syntax['prefix'], $field);
         $specs = $this->getRelationships();

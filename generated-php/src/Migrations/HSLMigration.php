@@ -430,7 +430,7 @@ final class HSLMigration extends BaseMigration
         return $node->replace($receiver, $new_receiver);
     }
     /**
-     * @psalm-template T as EditableNode
+     * @template T as EditableNode
      *
      * @param T::class $expected
      *

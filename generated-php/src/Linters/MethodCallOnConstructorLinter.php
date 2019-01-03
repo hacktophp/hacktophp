@@ -14,7 +14,7 @@ use function Facebook\HHAST\Missing;
 final class MethodCallOnConstructorLinter extends AutoFixingASTLinter
 {
     /**
-     * @return MemberSelectionExpression::class
+     * @return class-string<MemberSelectionExpression>
      */
     protected static function getTargetType()
     {

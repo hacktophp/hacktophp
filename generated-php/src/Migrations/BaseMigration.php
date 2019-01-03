@@ -16,11 +16,9 @@ abstract class BaseMigration
      * @var string
      */
     private $root;
-    /**
-     * @var string
-     */
     public function __construct(string $root)
     {
+        $this->root = $root;
     }
     /**
      * @return string

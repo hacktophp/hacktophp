@@ -23,9 +23,6 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
      * @var ITerminal
      */
     private $terminal;
-    /**
-     * @var ITerminal
-     */
     public function __construct(ITerminal $terminal)
     {
         $this->terminal = $terminal;
@@ -118,7 +115,7 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
         );
     }
     /**
-     * @psalm-template Terror as Linters\LintError
+     * @template Terror as Linters\LintError
      *
      * @param Linters\AutoFixingLinter<Terror> $linter
      * @param array<int, Terror> $errors
@@ -132,7 +129,7 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
         \file_put_contents($file->getPath(), $file->getContents());
     }
     /**
-     * @psalm-template Terror as Linters\LintError
+     * @template Terror as Linters\LintError
      *
      * @param Linters\AutoFixingLinter<Terror> $linter
      * @param Terror $error

@@ -12,6 +12,9 @@ namespace Facebook\HHAST\Linters;
 use Facebook\HHAST\EditableNode;
 use function Facebook\HHAST\find_position;
 use HH\Lib\Str;
+/**
+ * @template Tnode as EditableNode
+ */
 class ASTLintError extends LintError
 {
     /**
@@ -23,9 +26,10 @@ class ASTLintError extends LintError
      */
     protected $node;
     /**
-     * @var Tnode
+     * @param ASTLinter<Tnode> $linter
+     * @param Tnode $node
      */
-    public function __construct(ASTLinter $linter, string $description, Tnode $node)
+    public function __construct(ASTLinter $linter, string $description, $node)
     {
         $this->linter = $linter;
         $this->node = $node;

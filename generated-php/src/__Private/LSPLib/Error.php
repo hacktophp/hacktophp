@@ -10,6 +10,11 @@
 namespace Facebook\HHAST\__Private\LSPLib;
 
 use Facebook\HHAST\__Private\LSP;
+/**
+ * @template TResult
+ * @template TErrorCode as int
+ * @template TErrorData
+ */
 final class Error extends SuccessOrError
 {
     /**
@@ -25,10 +30,14 @@ final class Error extends SuccessOrError
      */
     private $data;
     /**
-     * @var TErrorData
+     * @param TErrorCode $code
+     * @param TErrorData $data
      */
-    public function __construct(TErrorCode $code, string $message, TErrorData $data)
+    public function __construct($code, string $message, $data)
     {
+        $this->code = $code;
+        $this->message = $message;
+        $this->data = $data;
     }
     /**
      * @return bool

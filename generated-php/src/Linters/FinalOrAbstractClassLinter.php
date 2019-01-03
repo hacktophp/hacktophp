@@ -17,7 +17,7 @@ use Facebook\HHAST\Linters\{ASTLinter, ASTLintError};
 final class FinalOrAbstractClassLinter extends ASTLinter
 {
     /**
-     * @return ClassishDeclaration::class
+     * @return class-string<ClassishDeclaration>
      */
     protected static function getTargetType()
     {

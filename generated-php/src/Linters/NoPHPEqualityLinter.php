@@ -14,7 +14,7 @@ use HH\Lib\Str;
 final class NoPHPEqualityLinter extends AutoFixingASTLinter
 {
     /**
-     * @return BinaryExpression::class
+     * @return class-string<BinaryExpression>
      */
     protected static function getTargetType()
     {

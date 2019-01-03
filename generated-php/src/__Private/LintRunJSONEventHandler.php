@@ -22,11 +22,9 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
      * @var ITerminal
      */
     private $terminal;
-    /**
-     * @var ITerminal
-     */
     public function __construct(ITerminal $terminal)
     {
+        $this->terminal = $terminal;
     }
     /**
      * @param mixed $_config

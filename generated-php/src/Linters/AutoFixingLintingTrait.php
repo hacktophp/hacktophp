@@ -11,19 +11,26 @@ namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\__Private\{LSP, LSPLib};
 use HH\Lib\{C, Str};
+/**
+ * @template Terror as LintError
+ */
 trait AutoFixingLinterTrait
 {
     /**
+     * @param Terror $_error
+     *
      * @return string
      */
-    protected function getTitleForFix(Terror $_error)
+    protected function getTitleForFix($_error)
     {
         return 'Fix ' . Str\strip_suffix(C\lastx(\explode("\\", \get_class($this))), "Linter") . ' Error';
     }
     /**
+     * @param Terror $error
+     *
      * @return null|LSP\CodeAction
      */
-    public function getCodeActionForError(Terror $error)
+    public function getCodeActionForError($error)
     {
         $fixed = $this->getFixedFile([$error]);
         if ($fixed === null) {

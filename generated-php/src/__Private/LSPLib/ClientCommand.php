@@ -21,10 +21,12 @@ abstract class ClientCommand
      */
     private $params;
     /**
-     * @var mixed
+     * @param mixed $params
      */
     public function __construct(\arraykey $id, $params)
     {
+        $this->id = $id;
+        $this->params = $params;
     }
     /**
      * @return LSP\RequestMessage

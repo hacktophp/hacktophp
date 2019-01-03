@@ -22,11 +22,10 @@ final class DidChangeWatchedFilesNotification extends LSPLib\DidChangeWatchedFil
      * @var ServerState
      */
     private $state;
-    /**
-     * @var ServerState
-     */
     public function __construct(LSPLib\Client $client, ServerState $state)
     {
+        $this->client = $client;
+        $this->state = $state;
     }
     /**
      * @param mixed $p

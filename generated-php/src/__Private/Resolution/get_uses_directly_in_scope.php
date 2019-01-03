@@ -14,7 +14,7 @@ use HH\Lib\{C, Str};
 /**
  * @return array{namespaces:array<string, string>, types:array<string, string>}
  */
-function get_uses_directly_in_scope(EditableNode $scope)
+function get_uses_directly_in_scope(EditableNode $scope) : array
 {
     $uses = [];
     // use [kind] Foo, [kind] Bar;

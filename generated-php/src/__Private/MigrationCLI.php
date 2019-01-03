@@ -23,7 +23,7 @@ class MigrationCLI extends CLIWithRequiredArguments
     const VERBOSE_MIGRATE = 2;
     const VERBOSE_MIGRATE_NOT_HACK = 1;
     /**
-     * @var array<BaseMigration::class, BaseMigration::class>
+     * @var array<class-string<BaseMigration>, class-string<BaseMigration>>
      */
     protected $migrations = [];
     /**

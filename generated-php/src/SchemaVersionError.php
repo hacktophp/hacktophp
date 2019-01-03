@@ -16,9 +16,6 @@ final class SchemaVersionError extends ParseError
      * @var string
      */
     private $version;
-    /**
-     * @var string
-     */
     public function __construct(string $targetFile, string $version)
     {
         $this->version = $version;

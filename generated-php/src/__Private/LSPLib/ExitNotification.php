@@ -9,6 +9,9 @@
  */
 namespace Facebook\HHAST\__Private\LSPLib;
 
+/**
+ * @template TState as ServerState
+ */
 abstract class ExitNotification extends ClientNotification
 {
     /**
@@ -20,10 +23,11 @@ abstract class ExitNotification extends ClientNotification
      */
     protected $state;
     /**
-     * @var TState
+     * @param TState $state
      */
-    public function __construct(TState $state)
+    public function __construct($state)
     {
+        $this->state = $state;
     }
     /**
      * @return \Sabre\Event\Promise<void>

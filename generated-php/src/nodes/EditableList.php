@@ -10,6 +10,9 @@
 namespace Facebook\HHAST;
 
 use HH\Lib\{C, Dict, Vec};
+/**
+ * @template Titem as null|EditableNode
+ */
 final class EditableList extends EditableNode
 {
     /**
@@ -63,7 +66,7 @@ final class EditableList extends EditableNode
         }, $this->_children);
     }
     /**
-     * @psalm-template T as EditableNode
+     * @template T as EditableNode
      *
      * @param T::class $what
      *
@@ -102,7 +105,7 @@ final class EditableList extends EditableNode
         }
     }
     /**
-     * @psalm-template T as EditableNode
+     * @template T as EditableNode
      *
      * @param array<int, T> $items
      *

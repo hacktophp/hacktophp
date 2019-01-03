@@ -14,7 +14,7 @@ use Facebook\HHAST;
 final class NoEmptyStatementsLinter extends AutoFixingASTLinter
 {
     /**
-     * @return ExpressionStatement::class
+     * @return class-string<ExpressionStatement>
      */
     protected static function getTargetType()
     {

@@ -9,6 +9,11 @@
  */
 namespace Facebook\HHAST\__Private\LSPLib;
 
+/**
+ * @template TResult
+ * @template TErrorCode as int
+ * @template TErrorData
+ */
 final class Success extends SuccessOrError
 {
     /**
@@ -16,10 +21,11 @@ final class Success extends SuccessOrError
      */
     private $result;
     /**
-     * @var TResult
+     * @param TResult $result
      */
-    public function __construct(TResult $result)
+    public function __construct($result)
     {
+        $this->result = $result;
     }
     /**
      * @return bool

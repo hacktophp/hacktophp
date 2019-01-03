@@ -13,7 +13,7 @@ use Facebook\HHAST\{EditableNode, NamespaceUseClause};
 class UseStatementWithAsLinter extends ASTLinter
 {
     /**
-     * @return NamespaceUseClause::class
+     * @return class-string<NamespaceUseClause>
      */
     protected static function getTargetType()
     {

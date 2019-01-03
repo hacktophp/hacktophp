@@ -13,7 +13,7 @@ use Facebook\HHAST\{EditableList, EditableNode, EndOfLine, MarkupSuffix, SingleL
 class StrictModeOnlyLinter extends AutoFixingASTLinter
 {
     /**
-     * @return MarkupSuffix::class
+     * @return class-string<MarkupSuffix>
      */
     protected static function getTargetType()
     {

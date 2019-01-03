@@ -10,6 +10,9 @@
 namespace Facebook\HHAST\Linters;
 
 use HH\Lib\Str;
+/**
+ * @template Terr as LineLintError
+ */
 abstract class AutoFixingLineLinter extends LineLinter implements AutoFixingLinter
 {
     use AutoFixingLinterTrait;

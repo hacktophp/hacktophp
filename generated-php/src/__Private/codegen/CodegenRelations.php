@@ -20,11 +20,9 @@ final class CodegenRelations extends CodegenBase
      */
     private $hhvmRoot;
     /**
-     * @var string
-     *
      * @param array{trivia:iterable<mixed, array{trivia_kind_name:string, trivia_type_name:string}>, tokens:iterable<mixed, array{token_kind:string, token_text:null|string}>, AST:iterable<mixed, array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>}>, description:string, version:string} $schema
      */
-    public function __construct(string $hhvmRoot, $schema)
+    public function __construct(string $hhvmRoot, array $schema)
     {
         $this->hhvmRoot = $hhvmRoot;
         $relationships = [];

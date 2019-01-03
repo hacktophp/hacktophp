@@ -14,6 +14,9 @@ use function Facebook\HHAST\__Private\type_alias_structure;
 use Facebook\TypeCoerce;
 use Facebook\TypeAssert\TypeCoercionException;
 use HH\Lib\{Dict, Str};
+/**
+ * @template TState as ServerState
+ */
 abstract class Server
 {
     /**
@@ -45,9 +48,9 @@ abstract class Server
      */
     protected $state;
     /**
-     * @var TState
+     * @param TState $state
      */
-    public function __construct(Client $client, TState $state)
+    public function __construct(Client $client, $state)
     {
         $this->client = $client;
         $this->state = $state;
@@ -92,7 +95,7 @@ abstract class Server
         );
     }
     /**
-     * @psalm-template T
+     * @template T
      *
      * @param TypeStructure<T> $type_structure
      * @param \Closure(T):\Sabre\Event\Promise<void> $impl
@@ -161,7 +164,7 @@ abstract class Server
         );
     }
     /**
-     * @psalm-template T
+     * @template T
      *
      * @param TypeStructure<T> $ts
      *

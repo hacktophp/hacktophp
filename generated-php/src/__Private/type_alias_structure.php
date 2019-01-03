@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\__Private;
 
 /**
- * @psalm-template T
+ * @template T
  *
  * @param typename<T> $type
  *

@@ -10,6 +10,9 @@
 namespace Facebook\HHAST\__Private\LSPLib;
 
 use Facebook\HHAST\__Private\LSP;
+/**
+ * @template TState as ServerState
+ */
 class ShutdownCommand extends ServerCommand
 {
     /**
@@ -25,10 +28,11 @@ class ShutdownCommand extends ServerCommand
      */
     protected $state;
     /**
-     * @var TState
+     * @param TState $state
      */
-    public function __construct(TState $state)
+    public function __construct($state)
     {
+        $this->state = $state;
     }
     /**
      * @param mixed $_0

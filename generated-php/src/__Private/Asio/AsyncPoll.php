@@ -17,6 +17,9 @@ namespace Facebook\HHAST\__Private\Asio;
  * is not guaranteed in any way. New Awaitables can be added to the AsyncPoll
  * while it is being iterated.
  */
+/**
+ * @template Tv
+ */
 final class AsyncPoll implements AsyncIterator
 {
     /**

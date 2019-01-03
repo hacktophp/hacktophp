@@ -19,11 +19,10 @@ final class File
      * @var string
      */
     private $contents;
-    /**
-     * @var string
-     */
     public function __construct(string $path, string $contents)
     {
+        $this->path = $path;
+        $this->contents = $contents;
     }
     /**
      * @return string

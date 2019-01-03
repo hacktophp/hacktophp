@@ -14,7 +14,7 @@ use HH\Lib\{C, Str};
 final class UnusedParameterLinter extends AutoFixingASTLinter
 {
     /**
-     * @return ParameterDeclaration::class
+     * @return class-string<ParameterDeclaration>
      */
     protected static function getTargetType()
     {

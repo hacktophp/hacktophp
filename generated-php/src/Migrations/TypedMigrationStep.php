@@ -10,6 +10,10 @@
 namespace Facebook\HHAST\Migrations;
 
 use Facebook\HHAST\EditableNode;
+/**
+ * @template Tin as EditableNode
+ * @template Tout as EditableNode
+ */
 final class TypedMigrationStep implements IMigrationStep
 {
     /**
@@ -25,10 +29,15 @@ final class TypedMigrationStep implements IMigrationStep
      */
     private $rewriter;
     /**
-     * @var \Closure(Tin):Tout
+     * @param Tin::class $tin
+     * @param Tout::class $_tout
+     * @param \Closure(Tin):Tout $rewriter
      */
     public function __construct(string $name, string $tin, string $_tout, \Closure $rewriter)
     {
+        $this->name = $name;
+        $this->tin = $tin;
+        $this->rewriter = $rewriter;
     }
     /**
      * @return string

@@ -14,7 +14,7 @@ use HH\Lib\C;
 class NoBasicAssignmentFunctionParameterLinter extends AutoFixingASTLinter
 {
     /**
-     * @return FunctionCallExpression::class
+     * @return class-string<FunctionCallExpression>
      */
     protected static function getTargetType()
     {

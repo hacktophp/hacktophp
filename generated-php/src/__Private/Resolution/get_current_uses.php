@@ -17,7 +17,7 @@ use HH\Lib\{C, Dict, Vec};
  *
  * @return array{namespaces:array<string, string>, types:array<string, string>}
  */
-function get_current_uses(EditableNode $_node, array $parents)
+function get_current_uses(EditableNode $_node, array $parents) : array
 {
     $root = $parents[0];
     invariant($root instanceof Script, 'Expected first parent to be a Script, got %s', \get_class($root));

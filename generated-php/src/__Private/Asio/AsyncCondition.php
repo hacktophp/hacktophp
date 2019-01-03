@@ -13,19 +13,24 @@ namespace Facebook\HHAST\__Private\Asio;
  * A wrapper around ConditionWaitHandle that allows notification events
  * to occur before the condition is awaited.
  */
+/**
+ * @template T
+ */
 class AsyncCondition
 {
     /**
-     * @var \Sabre\Event\Promise<T>|null
+     * @var \Sabre\Event\Promise<\T>|null
      */
     private $condition = null;
     /**
      * Notify the condition variable of success and set the result.
      */
     /**
+     * @param T $result
+     *
      * @return void
      */
-    public final function succeed(T $result)
+    public final function succeed($result)
     {
         if ($this->condition === null) {
             $this->condition = (function () use($result) {

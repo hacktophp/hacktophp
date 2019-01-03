@@ -15,7 +15,7 @@ use HH\Lib\{C, Vec};
 final class NoStringInterpolationLinter extends AutoFixingASTLinter
 {
     /**
-     * @return LiteralExpression::class
+     * @return class-string<LiteralExpression>
      */
     protected static function getTargetType()
     {

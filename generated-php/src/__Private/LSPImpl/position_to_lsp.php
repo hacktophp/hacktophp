@@ -14,7 +14,7 @@ use HH\Lib\Math;
 /**
  * @param array{0:int, 1:int} $hhast_pos
  */
-function position_to_lsp($hhast_pos) : LSP\Position
+function position_to_lsp(array $hhast_pos) : LSP\Position
 {
     return ['line' => Math\maxva($hhast_pos[0] - 1, 0), 'character' => $hhast_pos[1]];
 }

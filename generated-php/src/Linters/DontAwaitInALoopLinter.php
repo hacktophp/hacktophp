@@ -15,7 +15,7 @@ use function Facebook\HHAST\find_position;
 final class DontAwaitInALoopLinter extends ASTLinter
 {
     /**
-     * @return PrefixUnaryExpression::class
+     * @return class-string<PrefixUnaryExpression>
      */
     protected static function getTargetType()
     {

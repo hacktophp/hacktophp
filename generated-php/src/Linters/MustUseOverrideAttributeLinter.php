@@ -17,7 +17,7 @@ use HH\Lib\{C, Str, Vec};
 final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
 {
     /**
-     * @return MethodishDeclaration::class
+     * @return class-string<MethodishDeclaration>
      */
     protected static function getTargetType()
     {

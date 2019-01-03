@@ -15,7 +15,7 @@ use HH\Lib\{C, Str, Vec};
 final class LicenseHeaderLinter extends AutoFixingASTLinter
 {
     /**
-     * @return Script::class
+     * @return class-string<Script>
      */
     protected static function getTargetType()
     {

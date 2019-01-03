@@ -21,11 +21,10 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
      * @var LSPImpl\ServerState
      */
     private $state;
-    /**
-     * @var LSPImpl\ServerState
-     */
     public function __construct(LSPLib\Client $client, LSPImpl\ServerState $state)
     {
+        $this->client = $client;
+        $this->state = $state;
     }
     /**
      * @var null|string

@@ -27,11 +27,9 @@ abstract class BaseLinter
      * @var File
      */
     private $file;
-    /**
-     * @var File
-     */
     public function __construct(File $file)
     {
+        $this->file = $file;
     }
     /**
      * @return static

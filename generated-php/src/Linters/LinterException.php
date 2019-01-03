@@ -13,7 +13,7 @@ use HH\Lib\Str;
 final class LinterException extends \Exception
 {
     /**
-     * @var BaseLinter::class
+     * @var class-string<BaseLinter>
      */
     private $linter;
     /**
@@ -29,9 +29,10 @@ final class LinterException extends \Exception
      */
     private $position = null;
     /**
-     * @var array{0:int, 1:int}|null
+     * @param class-string<BaseLinter> $linter
+     * @param array{0:int, 1:int}|null $position
      */
-    public function __construct(string $linter, string $fileBeingLinted, string $rawMessage, $position = null, ?\Throwable $previous = null)
+    public function __construct(string $linter, string $fileBeingLinted, string $rawMessage, ?array $position = null, ?\Throwable $previous = null)
     {
         $this->linter = $linter;
         $this->fileBeingLinted = $fileBeingLinted;
@@ -45,7 +46,7 @@ final class LinterException extends \Exception
         );
     }
     /**
-     * @return BaseLinter::class
+     * @return class-string<BaseLinter>
      */
     public function getLinterClass()
     {

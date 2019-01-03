@@ -15,7 +15,7 @@ use HH\Lib\{C, Str, Vec};
 final class UnusedUseClauseLinter extends AutoFixingASTLinter
 {
     /**
-     * @return INamespaceUseDeclaration::class
+     * @return class-string<INamespaceUseDeclaration>
      */
     protected static function getTargetType()
     {

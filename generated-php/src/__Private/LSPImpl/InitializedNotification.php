@@ -16,9 +16,6 @@ final class InitializedNotification extends LSPLib\InitializedNotification
      * @var LSPLib\Client
      */
     private $client;
-    /**
-     * @var LSPLib\Client
-     */
     public function __construct(LSPLib\Client $client, LSPLib\ServerState $state)
     {
         $this->client = $client;

@@ -24,9 +24,10 @@ class LineLintError extends LintError
      */
     private $position;
     /**
-     * @var array{0:int, 1:int}
+     * @param LineLinter<LineLintError> $linter
+     * @param array{0:int, 1:int} $position
      */
-    public function __construct(LineLinter $linter, string $description, $position)
+    public function __construct(LineLinter $linter, string $description, array $position)
     {
         $this->linter = $linter;
         $this->description = $description;

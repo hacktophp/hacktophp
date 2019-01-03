@@ -15,7 +15,7 @@ use HH\Lib\{C, Str, Vec};
 class MustUseBracesForControlFlowLinter extends AutoFixingASTLinter
 {
     /**
-     * @return IControlFlowStatement::class
+     * @return class-string<IControlFlowStatement>
      */
     protected static function getTargetType()
     {

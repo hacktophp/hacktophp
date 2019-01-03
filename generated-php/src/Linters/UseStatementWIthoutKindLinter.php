@@ -15,7 +15,7 @@ use HH\Lib\{C, Keyset};
 final class UseStatementWithoutKindLinter extends AutoFixingASTLinter
 {
     /**
-     * @return INamespaceUseDeclaration::class
+     * @return class-string<INamespaceUseDeclaration>
      */
     protected static function getTargetType()
     {

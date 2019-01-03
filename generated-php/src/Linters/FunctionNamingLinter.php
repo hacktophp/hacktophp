@@ -37,7 +37,7 @@ abstract class FunctionNamingLinter extends ASTLinter
         return Str\format('%s "%s()" in class "%s" does not match conventions; consider renaming ' . 'to "%s"', $what, $name, $class, $suggestion);
     }
     /**
-     * @return IFunctionishDeclaration::class
+     * @return class-string<IFunctionishDeclaration>
      */
     protected static final function getTargetType()
     {

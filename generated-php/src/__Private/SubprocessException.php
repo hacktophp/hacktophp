@@ -17,7 +17,7 @@ final class SubprocessException extends \Exception
      */
     private $exitCode;
     /**
-     * @var int
+     * @param array<int, string> $command
      */
     public function __construct(array $command, int $exitCode)
     {

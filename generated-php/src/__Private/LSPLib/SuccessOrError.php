@@ -9,6 +9,11 @@
  */
 namespace Facebook\HHAST\__Private\LSPLib;
 
+/**
+ * @template TSuccess
+ * @template TErrorCode as int
+ * @template TErrorData
+ */
 abstract class SuccessOrError
 {
     /**

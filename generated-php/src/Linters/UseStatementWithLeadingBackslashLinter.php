@@ -13,7 +13,7 @@ use Facebook\HHAST\{BackslashToken, EditableNode, INamespaceUseDeclaration, Name
 final class UseStatementWithLeadingBackslashLinter extends AutoFixingASTLinter
 {
     /**
-     * @return INamespaceUseDeclaration::class
+     * @return class-string<INamespaceUseDeclaration>
      */
     protected static function getTargetType()
     {

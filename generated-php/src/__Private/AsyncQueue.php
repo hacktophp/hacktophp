@@ -16,7 +16,7 @@ class AsyncQueue
      */
     private $queue;
     /**
-     * @psalm-template T
+     * @template T
      *
      * @param \Closure():\Sabre\Event\Promise<T> $item
      *

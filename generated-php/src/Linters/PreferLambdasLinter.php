@@ -16,7 +16,7 @@ use HH\Lib\C;
 final class PreferLambdasLinter extends AutoFixingASTLinter
 {
     /**
-     * @return AnonymousFunction::class
+     * @return class-string<AnonymousFunction>
      */
     protected static function getTargetType()
     {

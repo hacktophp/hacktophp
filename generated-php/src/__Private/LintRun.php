@@ -31,10 +31,13 @@ final class LintRun
      */
     private $paths;
     /**
-     * @var array<int, string>
+     * @param array<int, string> $paths
      */
     public function __construct(?LintRunConfig $config, LintRunEventHandler $handler, array $paths)
     {
+        $this->config = $config;
+        $this->handler = $handler;
+        $this->paths = $paths;
     }
     /**
      * @return static
@@ -114,7 +117,7 @@ final class LintRun
     }
     /**
      * @param mixed $config
-     * @param BaseLinter::class $linter
+     * @param class-string<BaseLinter> $linter
      *
      * @return \Sabre\Event\Promise<LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS>
      */

@@ -12,6 +12,9 @@ namespace Facebook\HHAST\Linters;
 use Facebook\HHAST\EditableNode;
 use Facebook\HHAST;
 use Facebook\HHAST\Linters\SuppressASTLinter;
+/**
+ * @template Tnode as HHAST\EditableNode
+ */
 abstract class ASTLinter extends BaseLinter
 {
     /**
@@ -55,19 +58,22 @@ abstract class ASTLinter extends BaseLinter
      */
     protected static abstract function getTargetType();
     /**
+     * @param Tnode $node
      * @param array<int, EditableNode> $parents
      *
      * @return ASTLintError<Tnode>|null
      */
-    protected abstract function getLintErrorForNode(Tnode $node, array $parents);
+    protected abstract function getLintErrorForNode($node, array $parents);
     /**
      * Some parts of the node may be irrelevant to the actual error; strip them
      * out here to display more concise messages to humans.
      */
     /**
+     * @param Tnode $node
+     *
      * @return string
      */
-    public function getPrettyTextForNode(Tnode $node)
+    public function getPrettyTextForNode($node)
     {
         return $node->getCode();
     }

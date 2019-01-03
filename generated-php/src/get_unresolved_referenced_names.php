@@ -18,7 +18,7 @@ use HH\Lib\C;
 /**
  * @return array{namespaces:array<string, string>, types:array<string, string>, functions:array<string, string>}
  */
-function get_unresolved_referenced_names(EditableNode $root)
+function get_unresolved_referenced_names(EditableNode $root) : array
 {
     $ret = ['namespaces' => [], 'types' => [], 'functions' => []];
     foreach ($root->traverse() as $node) {

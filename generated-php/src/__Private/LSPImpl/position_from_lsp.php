@@ -13,7 +13,7 @@ use Facebook\HHAST\__Private\LSP;
 /**
  * @return array{0:int, 1:int}
  */
-function position_from_lsp(LSP\Position $pos)
+function position_from_lsp(LSP\Position $pos) : array
 {
     return [$pos['line'] + 1, $pos['character']];
 }

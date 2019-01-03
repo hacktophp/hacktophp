@@ -16,17 +16,17 @@ use Facebook\HHAST\Linters\BaseLinter;
 final class LintRunConfig
 {
     /**
-     * @var array<int, BaseLinter::class>
+     * @var array<int, class-string<BaseLinter>>
      */
     const DEFAULT_LINTERS = [Linters\AsyncFunctionAndMethodLinter::class, Linters\CamelCasedMethodsUnderscoredFunctionsLinter::class, Linters\DontAwaitInALoopLinter::class, Linters\LicenseHeaderLinter::class, Linters\NewlineAtEndOfFileLinter::class, Linters\NoBasicAssignmentFunctionParameterLinter::class, Linters\MethodCallOnConstructorLinter::class, Linters\MustUseBracesForControlFlowLinter::class, Linters\MustUseOverrideAttributeLinter::class, Linters\NoPHPEqualityLinter::class, Linters\UnusedParameterLinter::class, Linters\UnusedUseClauseLinter::class, Linters\UseStatementWithLeadingBackslashLinter::class, Linters\UseStatementWithoutKindLinter::class, Linters\NoWhitespaceAtEndOfLineLinter::class];
     /**
-     * @var array<int, BaseLinter::class>
+     * @var array<int, class-string<BaseLinter>>
      */
     const NON_DEFAULT_LINTERS = [Linters\NoStringInterpolationLinter::class, Linters\StrictModeOnlyLinter::class, Linters\UseStatementWithAsLinter::class];
     /**
      * @param NamedLinterGroup::ALL_BUILTINS|NamedLinterGroup::DEFAULT_BUILTINS|NamedLinterGroup::NO_BUILTINS $group
      *
-     * @return array<int, BaseLinter::class>
+     * @return array<int, class-string<BaseLinter>>
      */
     private static function getNamedLinterGroup($group)
     {
@@ -48,10 +48,12 @@ final class LintRunConfig
      */
     private $configFile;
     /**
-     * @var mixed
+     * @param mixed $configFile
      */
     private function __construct(string $projectRoot, $configFile)
     {
+        $this->projectRoot = $projectRoot;
+        $this->configFile = $configFile;
     }
     /**
      * @return static
