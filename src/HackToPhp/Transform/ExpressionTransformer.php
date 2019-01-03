@@ -470,42 +470,11 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof HHAST\NullableAsExpression) {
-			$left = ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope);
-			$right = TypeTransformer::transform($node->getRightOperand(), $project, $file, $scope);
-			return new PhpParser\Node\Expr\Ternary(
-				new PhpParser\Node\Expr\Instanceof_($left, new PhpParser\Node\Name\FullyQualified($right)),
-				$left,
-				new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
-			);
+			return AsExpressionTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\AsExpression) {
-			$left = ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope);
-			$right = TypeTransformer::transform($node->getRightOperand(), $project, $file, $scope);
-			return new PhpParser\Node\Expr\Ternary(
-				new PhpParser\Node\Expr\Instanceof_($left, new PhpParser\Node\Name\FullyQualified($right)),
-				$left,
-				new PhpParser\Node\Expr\FuncCall(
-					new PhpParser\Node\Expr\Closure([
-						'stmts' => [
-							new PhpParser\Node\Stmt\Throw_(
-								new PhpParser\Node\Expr\New_(
-									new PhpParser\Node\Name('TypeError'),
-									[
-										new PhpParser\Node\Arg(
-											new PhpParser\Node\Scalar\String_(
-												'Failed asserting instanceof ' . $right
-											)
-										)
-									]
-								)
-							)
-						]
-					])
-				)
-			);
-
-			return ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope);
+			return AsExpressionTransformer::transform($node, $project, $file, $scope);
 		}
 
 		if ($node instanceof HHAST\DefineExpression) {

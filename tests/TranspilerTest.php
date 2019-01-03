@@ -131,7 +131,8 @@ class Foo
 }'
             ],
             'enums' => [
-                'enum RoadType : int
+                '<?hh
+enum RoadType : int
 {
     ROAD = 0;
     STREET = 1;
@@ -158,6 +159,22 @@ abstract class RoadType
 function getRoadType()
 {
     return RoadType::AVENUE;
+}',
+            ],
+            'asScalar' => [
+                '<?hh
+function foo(mixed $i, mixed $j) {
+    $a = $i as int;
+    $b = $j ?as string;
+}',
+                '<?php
+/**
+ * @param mixed $i
+ * @param mixed $j
+ */
+function foo($i, $j) {
+    $a = \is_int($i) ? $i : (function() { throw new \TypeError(\'Failed assertion\');})();
+    $b = \is_string($j) ? $j : null;
 }',
             ]
         ];
