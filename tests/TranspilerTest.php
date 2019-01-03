@@ -130,6 +130,36 @@ class Foo
     }
 }'
             ],
+            'enums' => [
+                'enum RoadType : int
+{
+    ROAD = 0;
+    STREET = 1;
+    AVENUE = 2;
+}
+
+function getRoadType() : RoadType
+{
+    return RoadType::AVENUE;
+}',
+                '<?php
+/**
+ * Generated enum class, do not extend
+ */
+abstract class RoadType
+{
+    const ROAD = 0;
+    const STREET = 1;
+    const AVENUE = 2;
+}
+/**
+ * @return RoadType::ROAD|RoadType::STREET|RoadType::AVENUE
+ */
+function getRoadType()
+{
+    return RoadType::AVENUE;
+}',
+            ]
         ];
     }
 
