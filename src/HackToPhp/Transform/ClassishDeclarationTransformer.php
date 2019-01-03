@@ -45,6 +45,53 @@ class ClassishDeclarationTransformer
 			}
 		}
 
+		$templates = [];
+
+		$template_map = [];
+
+		if ($node->hasTypeParameters()) {
+			$type_parameters = $node
+				->getTypeParameters()
+				->getParameters()
+				->getDescendantsOfType(HHAST\TypeParameter::class);
+
+			foreach ($type_parameters as $type_parameter) {
+				$type_parameter_name = $type_parameter->getName()->getText();
+
+				$constraints = [];
+				if ($type_parameter->hasConstraints()) {
+					$constraint_nodes = $type_parameter
+						->getConstraints()
+						->getDescendantsOfType(HHAST\TypeConstraint::class);
+
+					foreach ($constraint_nodes as $constraint_node) {
+						$constraint_node_type = TypeTransformer::transform($constraint_node->getType(), $project, $file, $scope);
+
+						$template_map[$type_parameter_name] = $constraint_node_type;
+						if ($constraint_node->getKeyword() instanceof HHAST\AsToken) {
+							$psalm_return_type = Psalm\Type::parseString($constraint_node_type);
+							$constraints[] = ' as ' . $psalm_return_type->toNamespacedString($file->namespace, [], null, false);
+						}
+					}
+				} else {
+					$template_map[$type_parameter_name] = 'mixed';
+				}
+
+				$templates[] = $type_parameter_name . implode(' ', $constraints);
+			}
+
+			$docblock = [
+				'description' => null,
+				'specials' => [
+					'template' => $templates
+				]
+			];
+
+			$docblock_string = Psalm\DocComment::render($docblock, '');
+
+			$comments[] = new \PhpParser\Comment\Doc(rtrim($docblock_string));
+		}		
+
 		$parent_class_nodes = $node->hasExtendsList() ? $node->getExtendsList()->getChildren() : [];
 
 		$parent_classes = [];
@@ -89,7 +136,7 @@ class ClassishDeclarationTransformer
 			return new PhpParser\Node\Stmt\Class_(
 				$class_name,
 				[
-					'stmts' => self::transformBody($node->getBody(), $project, $file, $scope),
+					'stmts' => self::transformBody($node->getBody(), $project, $file, $scope, $template_map),
 					'flags' => $flags,
 					'extends' => $parent_classes ? $parent_classes[0] : null,
 					'implements' => $implementing_interfaces
@@ -104,7 +151,7 @@ class ClassishDeclarationTransformer
 			return new PhpParser\Node\Stmt\Interface_(
 				$class_name,
 				[
-					'stmts' => self::transformBody($node->getBody(), $project, $file, $scope),
+					'stmts' => self::transformBody($node->getBody(), $project, $file, $scope, $template_map),
 					'extends' => $parent_classes
 				],
 				[
@@ -117,7 +164,7 @@ class ClassishDeclarationTransformer
 			return new PhpParser\Node\Stmt\Trait_(
 				$class_name,
 				[
-					'stmts' => self::transformBody($node->getBody(), $project, $file, $scope)
+					'stmts' => self::transformBody($node->getBody(), $project, $file, $scope, $template_map)
 				],
 				[
 					'comments' => $comments,
@@ -128,20 +175,40 @@ class ClassishDeclarationTransformer
 		throw new \UnexpectedValueException('Classish thing not recognised');
 	}
 
-	private static function transformBody(HHAST\ClassishBody $node, Project $project, HackFile $file, Scope $scope) : array
-	{
+	private static function transformBody(
+		HHAST\ClassishBody $node,
+		Project $project,
+		HackFile $file,
+		Scope $scope,
+		array $template_map
+	) : array {
 		$children = $node->hasElements() ? $node->getElements()->getChildren() : [];
 
 		$stmts = [];
 
 		foreach ($children as $child) {
 			if ($child instanceof HHAST\PropertyDeclaration) {
-				$stmts[] = self::transformProperty($child, $project, $file, $scope);
+				$stmts[] = self::transformProperty(
+					$child,
+					$project,
+					$file,
+					$scope,
+					$template_map
+				);
 				continue;
 			}
 
 			if ($child instanceof HHAST\MethodishDeclaration) {
-				$stmts[] = FunctionDeclarationTransformer::transform($child, $project, $file, $scope, $stmts);
+				$stmt = FunctionDeclarationTransformer::transform(
+					$child,
+					$project,
+					$file,
+					$scope,
+					$template_map,
+					$stmts
+				);
+
+				$stmts[] = $stmt;
 				continue;
 			}
 
@@ -275,8 +342,13 @@ class ClassishDeclarationTransformer
 		return $stmts;
 	}
 
-	private static function transformProperty(HHAST\PropertyDeclaration $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node\Stmt\Property
-	{
+	private static function transformProperty(
+		HHAST\PropertyDeclaration $node,
+		Project $project,
+		HackFile $file,
+		Scope $scope,
+		array $template_map
+	) : PhpParser\Node\Stmt\Property {
 		$abstract = false;
 
 		$flags = 0;
@@ -308,7 +380,7 @@ class ClassishDeclarationTransformer
 		$type = $node->hasType() ? $node->getType() : null;
 
 		if ($type) {
-			$type_string = TypeTransformer::transform($type, $project, $file, $scope);
+			$type_string = TypeTransformer::transform($type, $project, $file, $scope, $template_map);
 			
 			$psalm_type = Psalm\Type::parseString($type_string);
 

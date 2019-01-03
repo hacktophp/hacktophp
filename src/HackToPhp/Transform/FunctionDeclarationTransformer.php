@@ -16,6 +16,7 @@ class FunctionDeclarationTransformer
 		Project $project,
 		HackFile $file,
 		Scope $scope,
+		array $template_map = [],
 		array &$class_stmts = []
 	) : PhpParser\Node {
 		if ($node instanceof HHAST\MethodishDeclaration) {
@@ -33,8 +34,6 @@ class FunctionDeclarationTransformer
 		$flags = 0;
 
 		$templates = [];
-
-		$template_map = [];
 
 		if ($header->hasTypeParameterList()) {
 			$type_parameters = $header
@@ -182,7 +181,7 @@ class FunctionDeclarationTransformer
 					];
 				}
 			} else {
-				$stmts = [];
+				$stmts = $additional_function_stmts;
 			}
 		} else {
 			$stms = $additional_function_stmts;
@@ -289,16 +288,16 @@ class FunctionDeclarationTransformer
 			$attributes = [];
 
 			if ($namespaced_type_string) {
-				$docblock = [
+				$property_docblock = [
 					'description' => '',
 					'specials' => [],
 				];
-				$docblock['specials']['var'] = [$namespaced_type_string];
+				$property_docblock['specials']['var'] = [$namespaced_type_string];
 
-				$docblock_string = Psalm\DocComment::render($docblock, '');
+				$property_docblock_string = Psalm\DocComment::render($property_docblock, '');
 
 				$attributes['comments'] = [
-					new \PhpParser\Comment\Doc(rtrim($docblock_string))
+					new \PhpParser\Comment\Doc(rtrim($property_docblock_string))
 				];
 			}
 

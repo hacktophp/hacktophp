@@ -94,6 +94,42 @@ class A {}
 function t(string $a_class) : void {
 }'
             ],
+            'parameterisedClass' => [
+                '<?hh
+
+class Foo<T> {
+  public function __construct(private T $t) {}
+  public function get() : T {
+    return $this->t;
+  }
+}',
+                '<?php
+/**
+ * @template T
+ */
+class Foo
+{
+    /**
+     * @var T
+     */
+    private $t;
+
+    /**
+     * @param T $t
+     */
+    public function __construct($t)
+    {
+        $this->t = $t;
+    }
+    /**
+     * @return T
+     */
+    public function get()
+    {
+        return $this->t;
+    }
+}'
+            ],
         ];
     }
 
