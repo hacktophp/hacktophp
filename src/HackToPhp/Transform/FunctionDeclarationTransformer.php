@@ -149,7 +149,7 @@ class FunctionDeclarationTransformer
 					$docblock['specials']['return'] = [$psalm_return_type->toNamespacedString($file->namespace, [], null, false)];
 				}
 			}
-			
+
 			if ($can_show_return_type) {
 				$php_return_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_return_type, $project, $file, $scope);
 			}

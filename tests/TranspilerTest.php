@@ -56,6 +56,44 @@ namespace Foo;
  */
 function maxva($first) {}',
             ],
+            'newtypeAlias' => [
+                '<?hh
+
+newtype Point = (int, int);
+
+function addPoints(Point $p1, Point $p2) : Point
+{
+    return tuple($p1[0] + $p2[0], $p1[1] + $p2[1]);
+}',
+                '<?php
+/**
+ * @param array{0:int, 1:int} $p1
+ * @param array{0:int, 1:int} $p2
+ *
+ * @return array{0:int, 1:int}
+ */
+function addPoints(array $p1, array $p2) : array
+{
+    return [$p1[0] + $p2[0], $p1[1] + $p2[1]];
+}',
+            ],
+            'classString' => [
+                '<?hh
+namespace Foo;
+class A {}
+
+function t(classname<A> $a_class) : void {}',
+                '<?php
+
+namespace Foo;
+class A {}
+
+/**
+ * @param class-string<A> $a_class
+ */
+function t(string $a_class) : void {
+}'
+            ],
         ];
     }
 
@@ -83,6 +121,13 @@ function maxva($first) {}',
         $project = new HackToPhp\Transform\Project();
 
         $project->use_php_return_types = true;
+
+        HackToPhp\Transform\TypeCollector::collect(
+            $ast,
+            $project,
+            new HackToPhp\Transform\HackFile(),
+            new HackToPhp\Transform\Scope()
+        );
 
         $transformed_stmts = HackToPhp\Transform\NodeTransformer::transform(
             $ast,

@@ -60,7 +60,7 @@ class TypeTransformer
 				return 'class-string';
 			}
 
-			return $type . '::class';
+			return 'class-string<' . $type . '>';
 		}
 
 		if ($node instanceof HHAST\QualifiedName) {
@@ -191,7 +191,7 @@ class TypeTransformer
 
 	public static function getPhpParserTypeFromAtomicPsalm(Psalm\Type\Atomic $psalm_type, Project $project, HackFile $file, Scope $scope)
 	{
-		if ($psalm_type instanceof Psalm\Type\Atomic\TArray) {
+		if ($psalm_type instanceof Psalm\Type\Atomic\TArray || $psalm_type instanceof Psalm\Type\Atomic\ObjectLike) {
 			return 'array';
 		}
 
@@ -287,6 +287,9 @@ class TypeTransformer
 			case 'dict':
 			case 'keyset':
 				return 'array';
+
+			case 'noreturn':
+				return 'no-return';
 
 			case 'num':
 				return 'numeric';
