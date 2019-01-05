@@ -291,6 +291,9 @@ class TypeTransformer
 			case 'noreturn':
 				return 'no-return';
 
+			case 'arraykey':
+				return 'array-key';
+
 			case 'num':
 				return 'numeric';
 
