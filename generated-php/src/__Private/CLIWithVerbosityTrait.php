@@ -19,7 +19,7 @@ trait CLIWithVerbosityTrait
     protected $verbosity = 0;
     /**
      * @param \HH\FormatString<\PlainSprintf> $format
-     * @param mixed $args
+     * @param mixed ...$args
      *
      * @return void
      */

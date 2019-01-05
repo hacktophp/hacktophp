@@ -266,7 +266,7 @@ class FunctionDeclarationTransformer
 			);
 
 			if ($file->is_hack && !$psalm_type->canBeFullyExpressedInPhp()) {
-				$docblock['specials']['param'][] = $namespaced_type_string . ' ' . $param_name;
+				$docblock['specials']['param'][] = $namespaced_type_string . ' ' . ($variadic ? '...' : '') . $param_name;
 			}
 
 			$param_type = TypeTransformer::getPhpParserTypeFromPsalm($psalm_type, $project, $file, $scope);

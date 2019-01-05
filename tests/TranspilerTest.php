@@ -177,6 +177,20 @@ function foo($i, $j) {
     $b = \is_string($j) ? $j : null;
 }',
             ],
+            'spreadTemplatedArray' => [
+                '<?hh
+function partition<T>(T ...$foo): void {}',
+                '<?php
+/**
+ * @template T
+ *
+ * @param T ...$foo
+ */
+function partition(...$foo) : void
+{
+}',
+
+            ]
         ];
     }
 
