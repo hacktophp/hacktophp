@@ -177,23 +177,6 @@ function foo($i, $j) {
     $b = \is_string($j) ? $j : null;
 }',
             ],
-            'pipeUse' => [
-                '<?hh
-function piped_example(array<int> $arr, int $y): int {
-  return $arr |> $x ==> $$[] = $x;
-}',
-                '<?php
-/**
- * @param array<array-key, int> $arr
- */
-function piped_example(array $arr, int $y) : int
-{
-    return function ($x) use ($arr) {
-        return $arr[] = $x;
-    };
-}
-',
-            ]
         ];
     }
 

@@ -405,10 +405,6 @@ class ExpressionTransformer
 				throw new \UnexpectedValueException('No pipe expression to replace');
 			}
 
-			if ($scope->pipe_expr instanceof PhpParser\Node\Expr\Variable) {
-				$scope->referenced_vars['$' . $scope->pipe_expr->name] = '$' . $scope->pipe_expr->name;
-			}
-
 			return $scope->pipe_expr;
 		}
 
