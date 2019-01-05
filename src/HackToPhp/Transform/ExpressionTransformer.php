@@ -401,11 +401,15 @@ class ExpressionTransformer
 		}
 
 		if ($node instanceof HHAST\PipeVariableExpression) {
-			if (!$file->pipe_expr) {
+			if (!$scope->pipe_expr) {
 				throw new \UnexpectedValueException('No pipe expression to replace');
 			}
 
-			return $file->pipe_expr;
+			if ($scope->pipe_expr instanceof PhpParser\Node\Expr\Variable) {
+				$scope->referenced_vars['$' . $scope->pipe_expr->name] = '$' . $scope->pipe_expr->name;
+			}
+
+			return $scope->pipe_expr;
 		}
 
 		if ($node instanceof PrefixUnaryExpression) {
