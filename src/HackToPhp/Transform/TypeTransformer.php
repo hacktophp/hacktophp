@@ -302,6 +302,8 @@ class TypeTransformer
 				return 'numeric';
 
 			case 'KeyedTraversable':
+			case 'KeyedContainer':
+			case 'Container':
 				return 'iterable';
 
 			// means something different in Hack
