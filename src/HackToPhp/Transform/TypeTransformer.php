@@ -207,6 +207,10 @@ class TypeTransformer
 			return 'object';
 		}
 
+		if ($psalm_type instanceof Psalm\Type\Atomic\TIterable) {
+			return 'iterable';
+		}
+
 		if ($psalm_type instanceof Psalm\Type\Atomic\Scalar) {
 			return $psalm_type->toPhpString($file->namespace, [], null, 7, 2);
 		}

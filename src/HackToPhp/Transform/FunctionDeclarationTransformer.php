@@ -53,14 +53,14 @@ class FunctionDeclarationTransformer
 					foreach ($constraint_nodes as $constraint_node) {
 						$constraint_node_type = TypeTransformer::transform($constraint_node->getType(), $project, $file, $scope);
 
-						$template_map[$type_parameter_name] = $constraint_node_type;
+						$template_map[$type_parameter_name] = Psalm\Type::parseString($constraint_node_type);
 						if ($constraint_node->getKeyword() instanceof HHAST\AsToken) {
 							$psalm_return_type = Psalm\Type::parseString($constraint_node_type);
 							$constraints[] = ' as ' . $psalm_return_type->toNamespacedString($file->namespace, [], null, false);
 						}
 					}
 				} else {
-					$template_map[$type_parameter_name] = 'mixed';
+					$template_map[$type_parameter_name] = Psalm\Type::getMixed();
 				}
 
 				$templates[] = $type_parameter_name . implode(' ', $constraints);

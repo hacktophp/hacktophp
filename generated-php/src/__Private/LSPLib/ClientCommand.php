@@ -13,7 +13,7 @@ use Facebook\HHAST\__Private\LSP;
 abstract class ClientCommand
 {
     /**
-     * @var \arraykey
+     * @var array-key
      */
     private $id;
     /**
@@ -21,9 +21,10 @@ abstract class ClientCommand
      */
     private $params;
     /**
+     * @param array-key $id
      * @param mixed $params
      */
-    public function __construct(\arraykey $id, $params)
+    public function __construct($id, $params)
     {
         $this->id = $id;
         $this->params = $params;

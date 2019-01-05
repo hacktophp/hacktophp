@@ -54,7 +54,7 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
         );
     }
     /**
-     * @return array{range:LSP\Range, severity:LSP\DiagnosticSeverity, code:\arraykey, source:string, message:string, relatedInformation:array<int, LSP\DiagnosticRelatedInformation>}
+     * @return array{range:LSP\Range, severity:LSP\DiagnosticSeverity, code:array-key, source:string, message:string, relatedInformation:array<int, LSP\DiagnosticRelatedInformation>}
      */
     private function asDiagnostic(Linters\LintError $error)
     {
