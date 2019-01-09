@@ -50,8 +50,19 @@ class NamespaceGroupUseDeclarationTransformer
 		}
 
 		if ($kind instanceof HHAST\TypeToken) {
+			$all_known_types = true;
+
 			foreach ($aliases as $key => $value) {
-				$file->aliased_types[$key] = $value;
+				if (isset($project->types[$value])) {
+					$file->aliased_types[$key] = $value;
+				} else {
+					$file->aliased_namespaces[$key] = $value;
+					$all_known_types = false;
+				}
+			}
+
+			if ($all_known_types) {
+				return new PhpParser\Node\Stmt\Nop();
 			}
 			
 			return new PhpParser\Node\Stmt\GroupUse($prefix, $uses);

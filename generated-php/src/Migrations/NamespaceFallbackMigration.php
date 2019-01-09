@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\{find_node_at_position, Missing};
-use Facebook\HHAST\__Private\TTypecheckerError;
+
 use Facebook\HHAST\{BackslashToken, EditableList, EditableNode};
 use function Facebook\HHAST\__Private\execute_async;
 use Facebook\TypeAssert;
@@ -23,9 +23,11 @@ final class NamespaceFallbackMigration extends BaseMigration
      */
     const ERROR_CODES = [2049 => 2049, 4107 => 4107];
     /**
+     * @param array{message:array<int, array{path:string, descr:string, line:int, start:int, end:int, code:int}>} $error
+     *
      * @return bool
      */
-    protected static function filterTypecheckerError(TTypecheckerError $error)
+    protected static function filterTypecheckerError(array $error)
     {
         return C\contains(self::ERROR_CODES, C\firstx($error['message'])['code']);
     }

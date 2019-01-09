@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\__Private\get_typechecker_errors;
-use Facebook\HHAST\__Private\TTypecheckerError;
+
 use HH\Lib\{C, Keyset, Vec};
 trait TypeErrorMigrationTrait
 {
@@ -23,11 +23,13 @@ trait TypeErrorMigrationTrait
         $this->root = $root;
     }
     /**
+     * @param array{message:array<int, array{path:string, descr:string, line:int, start:int, end:int, code:int}>} $in
+     *
      * @return bool
      */
-    protected static abstract function filterTypecheckerError(TTypecheckerError $in);
+    protected static abstract function filterTypecheckerError(array $in);
     /**
-     * @return array<int, TTypecheckerError>
+     * @return array<int, array{message:array<int, array{path:string, descr:string, line:int, start:int, end:int, code:int}>}>
      */
     private final function getTypecheckerErrors()
     {
@@ -36,7 +38,7 @@ trait TypeErrorMigrationTrait
         });
     }
     /**
-     * @return array<int, TTypecheckerError>
+     * @return array<int, array{message:array<int, array{path:string, descr:string, line:int, start:int, end:int, code:int}>}>
      */
     protected final function getTypecheckerErrorsForFile(string $file)
     {

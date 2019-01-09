@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\{find_node_at_position, Missing};
-use Facebook\HHAST\__Private\TTypecheckerError;
+
 use Facebook\HHAST\{AmpersandToken, EditableList, EditableNode};
 use HH\Lib\{C, Vec};
 final class CallTimePassByReferenceMigration extends BaseMigration
@@ -21,9 +21,11 @@ final class CallTimePassByReferenceMigration extends BaseMigration
      */
     const ERROR_CODE = 4168;
     /**
+     * @param array{message:array<int, array{path:string, descr:string, line:int, start:int, end:int, code:int}>} $error
+     *
      * @return bool
      */
-    protected static function filterTypecheckerError(TTypecheckerError $error)
+    protected static function filterTypecheckerError(array $error)
     {
         return C\firstx($error['message'])['code'] === self::ERROR_CODE;
     }

@@ -52,9 +52,12 @@ class NamespaceUseDeclarationTransformer
 			$all_known_types = true;
 
 			foreach ($aliases as $key => $value) {
-				$file->aliased_types[$key] = $value;
-
-				$all_known_types = $all_known_types && isset($project->types[$value]);
+				if (isset($project->types[$value])) {
+					$file->aliased_types[$key] = $value;
+				} else {
+					$file->aliased_namespaces[$key] = $value;
+					$all_known_types = false;
+				}
 			}
 
 			if ($all_known_types) {

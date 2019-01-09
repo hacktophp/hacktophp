@@ -10,16 +10,18 @@
 namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\find_node_at_position;
-use Facebook\HHAST\__Private\TTypecheckerError;
+
 use Facebook\HHAST\{EditableList, EditableNode, FixMe, Missing, WhiteSpace};
 use HH\Lib\{C, Dict, Keyset, Str, Vec};
 final class AddFixMesMigration extends BaseMigration
 {
     use TypeErrorMigrationTrait;
     /**
+     * @param array{message:array<int, array{path:string, descr:string, line:int, start:int, end:int, code:int}>} $_0
+     *
      * @return bool
      */
-    protected static function filterTypecheckerError(TTypecheckerError $_0)
+    protected static function filterTypecheckerError(array $_0)
     {
         return true;
     }
