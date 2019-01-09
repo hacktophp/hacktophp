@@ -313,7 +313,9 @@ class TypeTransformer
 				return 'Sabre\\Event\\Promise';
 			}
 
-			if ($file->namespace) {
+			if (isset($file->aliased_types[$token_text])) {
+				$token_text = $file->aliased_types[$token_text];
+			} elseif ($file->namespace) {
 				$token_text = $file->namespace . '\\' . $token_text;
 
 				if (isset($project->types[$token_text])) {

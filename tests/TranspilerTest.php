@@ -189,7 +189,35 @@ function partition<T>(T ...$foo): void {}',
 function partition(...$foo) : void
 {
 }',
+            ],
+            'namspacedTypeDef' => [
+                '<?hh
+namespace Foo {
+  type Point2D = shape(\'x\' => int, \'y\' => int);
+}
 
+namespace Bar {
+  use type Foo\Point2D;
+  
+  function distance(Point2D $a, Point2D $b) : float
+  {
+      return sqrt(pow($b[\'x\'] - $a[\'x\'], 2) + pow($b[\'y\'] - $a[\'y\'], 2));
+  }
+}',
+                '<?php
+namespace Foo {
+}
+
+namespace Bar {
+    /**
+     * @param array{x:int, y:int} $a
+     * @param array{x:int, y:int} $b
+     */
+    function distance(array $a, array $b) : float
+    {
+        return sqrt(pow($b[\'x\'] - $a[\'x\'], 2) + pow($b[\'y\'] - $a[\'y\'], 2));
+    }
+}',
             ]
         ];
     }
@@ -209,7 +237,7 @@ function partition(...$foo) : void
 
         try {
             $ast = Facebook\HHAST\from_file($tmpfname);
-        } catch (Throwable $t) {
+        } catch (\Throwable $t) {
             throw $t;
         } finally {
             unlink($tmpfname);

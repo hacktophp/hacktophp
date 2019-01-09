@@ -11,7 +11,19 @@ class TypeCollector
 	public static function collect(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope)
 	{
 		if ($node instanceof HHAST\EditableList) {
-			return self::transformList($node, $project, $file, $scope);
+			foreach ($node->getChildren() as $child) {
+				if ($child instanceof HHAST\ListItem) {
+					$child = $child->getItem();
+				}
+
+				if (!$child) {
+					continue;
+				}
+
+				self::collect($child, $project, $file, $scope);
+			}
+
+			return;
 		}
 		
 		if ($node instanceof HHAST\Script) {
@@ -21,8 +33,22 @@ class TypeCollector
 				if ($declaration instanceof HHAST\NamespaceDeclaration) {
 					$file->namespace = $declaration->getQualifiedNameAsString();
 
-					foreach (array_slice($declarations, $i + 1) as $d) {
-						self::collect($d, $project, $file, $scope);
+					$namespace_name = $declaration->getQualifiedNameAsString();
+
+					$file->namespace = $namespace_name;
+
+					if ($declaration->hasBody() && !$declaration->getBody() instanceof HHAST\NamespaceEmptyBody) {
+						self::collect($declaration->getBody()->getDeclarations(), $project, $file, $scope);
+					} else {
+						foreach (array_slice($declarations, $i + 1) as $sub_node) {
+							self::collect($sub_node, $project, $file, $scope);
+						}
+					}
+
+					if ($declaration->hasBody() && !$declaration->getBody() instanceof HHAST\NamespaceEmptyBody) {
+						$file->namespace = '';
+
+						continue;
 					}
 
 					return;
