@@ -81,7 +81,7 @@ final class CodegenRelations extends CodegenBase
         }, $hhvm_dirs)));
         $hack_tests = $this->getFileListFromHackTestDirectory($this->hhvmRoot . '/hphp/hack/test/typecheck');
         $systemlib = $this->getTestFilesInDirectory($this->hhvmRoot . '/hphp/system/php');
-        return Keyset\flatten([$hhvm_tests, $hack_tests, $systemlib]);
+        return Keyset\flatten([$hhvm_tests, $hack_tests, $systemlib, [__FILE__ => __FILE__]]);
     }
     /**
      * @return array<string, string>
@@ -249,6 +249,27 @@ final class CodegenRelations extends CodegenBase
                     }
                 }
         }
+    }
+    // If some valid syntax isn't in the HHVM/Hack tests, use it here to make sure
+    // it's permitted by the types
+    /**
+     * @return void
+     */
+    private static function syntaxExamples()
+    {
+        // https://github.com/hhvm/hhast/issues/150
+        $_ = function () {
+            return [self::class => self::class];
+        };
+        // https://github.com/hhvm/hhast/issues/151
+        $_ = function ($x) {
+            return \is_a($x->flatten([]), \get_class($this)) ? $x->flatten([]) : null;
+        };
+        $_ = function ($x) {
+            return \is_a($x->flatten([]), \get_class($this)) ? $x->flatten([]) : (function () {
+                throw new \TypeError('Failed assertion');
+            })();
+        };
     }
 }
 
