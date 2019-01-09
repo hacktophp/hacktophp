@@ -8,13 +8,6 @@ use Psalm;
 
 class TypeTransformer
 {
-	/** @param HHAST\ClassnameTypeSpecifier | HHAST\ClosureTypeSpecifier |
-	 *     HHAST\DarrayTypeSpecifier | HHAST\DictionaryTypeSpecifier | HHAST\GenericTypeSpecifier |
-	 *     HHAST\KeysetTypeSpecifier | HHAST\MapArrayTypeSpecifier | HHAST\Missing |
-	 *     HHAST\NullableTypeSpecifier | HHAST\ShapeTypeSpecifier | HHAST\SimpleTypeSpecifier |
-	 *     HHAST\SoftTypeSpecifier | HHAST\NoreturnToken | HHAST\TupleTypeSpecifier | HHAST\TypeConstant |
-	 *     HHAST\VarrayTypeSpecifier | HHAST\VectorArrayTypeSpecifier | HHAST\VectorTypeSpecifier $node
-	 */
 	public static function transform(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope, array $template_map = []) : string
 	{
 		if ($node instanceof HHAST\ShapeTypeSpecifier) {

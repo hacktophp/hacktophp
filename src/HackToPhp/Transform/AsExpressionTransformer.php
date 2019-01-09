@@ -107,6 +107,19 @@ class AsExpressionTransformer
 				);
 				break;
 
+			case HHAST\ThisToken::class:
+				$conditional = new PhpParser\Node\Expr\FuncCall(
+					new PhpParser\Node\Name\FullyQualified('is_a'),
+					[
+						ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope),
+						new PhpParser\Node\Expr\FuncCall(
+							new PhpParser\Node\Name\FullyQualified('get_class'),
+							[new PhpParser\Node\Expr\Variable('this')]
+						)
+					]
+				);
+				break;
+
 			default:
 				throw new \UnexpectedValueException('Unknown as-expression type ' . get_class($specifier));
 		}
