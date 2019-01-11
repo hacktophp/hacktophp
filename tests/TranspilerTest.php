@@ -225,14 +225,16 @@ namespace A;
 
 use Bang\Baz;
 
-class Foo extends Bar<Baz> {}',
+class Foo<T> extends Bar<T, Baz> {}',
                 '<?php
 namespace A;
 
 use Bang\Baz;
 
 /**
- * @template-extends Bar<Baz>
+ * @template T
+ *
+ * @template-extends Bar<T, Baz>
  */
 class Foo extends Bar {
 }',
