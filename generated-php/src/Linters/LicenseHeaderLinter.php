@@ -12,6 +12,9 @@ namespace Facebook\HHAST\Linters;
 use Facebook\HHAST\{DelimitedComment, EditableList, EditableNode, EndOfFile, EndOfLine, Script};
 use Facebook\TypeAssert;
 use HH\Lib\{C, Str, Vec};
+/**
+ * @template-extends AutoFixingASTLinter<Script>
+ */
 final class LicenseHeaderLinter extends AutoFixingASTLinter
 {
     /**

@@ -11,6 +11,9 @@ namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\{CompoundStatement, EditableNode, FunctionDeclaration, IFunctionishDeclaration, MethodishDeclaration, ParameterDeclaration, SemicolonToken, VariableToken};
 use HH\Lib\{C, Str};
+/**
+ * @template-extends AutoFixingASTLinter<ParameterDeclaration>
+ */
 final class UnusedParameterLinter extends AutoFixingASTLinter
 {
     /**

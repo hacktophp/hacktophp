@@ -14,6 +14,9 @@ use Facebook\HHAST\Linters\{ASTLinter, ASTLintError};
 /*
  * This linter ensures we always qualify classes as final or abstract
  */
+/**
+ * @template-extends ASTLinter<ClassishDeclaration>
+ */
 final class FinalOrAbstractClassLinter extends ASTLinter
 {
     /**

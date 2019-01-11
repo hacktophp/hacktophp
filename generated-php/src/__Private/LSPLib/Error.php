@@ -14,6 +14,8 @@ use Facebook\HHAST\__Private\LSP;
  * @template TResult
  * @template TErrorCode as int
  * @template TErrorData
+ *
+ * @template-extends SuccessOrError<TResult, TErrorCode, TErrorData>
  */
 final class Error extends SuccessOrError
 {

@@ -10,6 +10,9 @@
 namespace Facebook\HHAST\__Private\LSPImpl;
 
 use Facebook\HHAST\__Private\LSPLib;
+/**
+ * @template-extends LSPLib\InitializedNotification<LSPLib\ServerState>
+ */
 final class InitializedNotification extends LSPLib\InitializedNotification
 {
     /**

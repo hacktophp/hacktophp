@@ -14,6 +14,8 @@ namespace Facebook\HHAST\__Private\Asio;
  */
 /**
  * @template T
+ *
+ * @template-extends AsyncCondition<T>
  */
 final class AsyncConditionNode extends AsyncCondition
 {

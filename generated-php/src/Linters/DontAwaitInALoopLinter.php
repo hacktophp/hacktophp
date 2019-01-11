@@ -12,6 +12,9 @@ namespace Facebook\HHAST\Linters;
 use HH\Lib\{C, Vec, Str};
 use Facebook\HHAST\{AnonymousFunction, AwaitableCreationExpression, AwaitToken, EditableNode, ILoopStatement, LambdaExpression, PrefixUnaryExpression};
 use function Facebook\HHAST\find_position;
+/**
+ * @template-extends ASTLinter<PrefixUnaryExpression>
+ */
 final class DontAwaitInALoopLinter extends ASTLinter
 {
     /**

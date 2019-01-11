@@ -10,6 +10,9 @@
 namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\{EditableList, EditableNode, EndOfLine, MarkupSuffix, SingleLineComment, WhiteSpace};
+/**
+ * @template-extends AutoFixingASTLinter<MarkupSuffix>
+ */
 class StrictModeOnlyLinter extends AutoFixingASTLinter
 {
     /**

@@ -11,6 +11,9 @@ namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\{EditableNode, EditableList, FunctionCallExpression, BinaryExpression, EqualToken, DelimitedComment, ListItem, CommaToken, WhiteSpace};
 use HH\Lib\C;
+/**
+ * @template-extends AutoFixingASTLinter<FunctionCallExpression>
+ */
 class NoBasicAssignmentFunctionParameterLinter extends AutoFixingASTLinter
 {
     /**

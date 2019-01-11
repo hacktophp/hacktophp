@@ -13,6 +13,8 @@ namespace Facebook\HHAST\__Private\LSPLib;
  * @template TResult
  * @template TErrorCode as int
  * @template TErrorData
+ *
+ * @template-extends SuccessOrError<TResult, TErrorCode, TErrorData>
  */
 final class Success extends SuccessOrError
 {

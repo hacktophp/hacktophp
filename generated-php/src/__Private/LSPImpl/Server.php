@@ -13,6 +13,9 @@ use Facebook\HHAST\__Private\{Asio\AsyncPoll, LintRunLSPPublishDiagnosticsEventH
 use Facebook\HHAST\__Private\{LSPImpl, LSPLib};
 use Facebook\CLILib\{ExitException, ITerminal};
 use HH\Lib\Str;
+/**
+ * @template-extends LSPLib\Server<ServerState>
+ */
 final class Server extends LSPLib\Server
 {
     /**

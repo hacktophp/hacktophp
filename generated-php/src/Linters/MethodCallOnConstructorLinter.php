@@ -11,6 +11,9 @@ namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\{EditableNode, LeftParenToken, MemberSelectionExpression, RightParenToken, ObjectCreationExpression, ParenthesizedExpression};
 use function Facebook\HHAST\Missing;
+/**
+ * @template-extends AutoFixingASTLinter<MemberSelectionExpression>
+ */
 final class MethodCallOnConstructorLinter extends AutoFixingASTLinter
 {
     /**

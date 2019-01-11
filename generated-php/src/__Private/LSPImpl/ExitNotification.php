@@ -11,6 +11,9 @@ namespace Facebook\HHAST\__Private\LSPImpl;
 
 use Facebook\CLILib\ExitException;
 use Facebook\HHAST\__Private\LSPLib;
+/**
+ * @template-extends LSPLib\ExitNotification<LSPLib\ServerState>
+ */
 final class ExitNotification extends LSPLib\ExitNotification
 {
     /**

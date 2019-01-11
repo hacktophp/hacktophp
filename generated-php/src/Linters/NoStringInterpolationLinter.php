@@ -12,6 +12,9 @@ namespace Facebook\HHAST\Linters;
 use Facebook\HHAST\{DollarToken, DotToken, DoubleQuotedStringLiteralToken, DoubleQuotedStringLiteralHeadToken, DoubleQuotedStringLiteralTailToken, EditableList, EditableNode, EmbeddedBracedExpression, HeredocStringLiteralHeadToken, LiteralExpression, NameToken, StringLiteralBodyToken, VariableToken};
 use function Facebook\HHAST\Missing;
 use HH\Lib\{C, Vec};
+/**
+ * @template-extends AutoFixingASTLinter<LiteralExpression>
+ */
 final class NoStringInterpolationLinter extends AutoFixingASTLinter
 {
     /**

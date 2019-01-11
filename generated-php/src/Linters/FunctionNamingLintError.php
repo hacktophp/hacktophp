@@ -10,6 +10,9 @@
 namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\IFunctionishDeclaration;
+/**
+ * @template-extends ASTLintError<IFunctionishDeclaration>
+ */
 final class FunctionNamingLintError extends ASTLintError
 {
     /**

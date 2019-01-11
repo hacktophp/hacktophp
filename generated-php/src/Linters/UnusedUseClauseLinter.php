@@ -12,6 +12,9 @@ namespace Facebook\HHAST\Linters;
 use Facebook\HHAST\{ConstToken, EditableList, EditableNode, EditableToken, FunctionToken, INamespaceUseDeclaration, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, NamespaceUseClause, NamespaceToken, NameToken, TypeToken, QualifiedName};
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec};
+/**
+ * @template-extends AutoFixingASTLinter<INamespaceUseDeclaration>
+ */
 final class UnusedUseClauseLinter extends AutoFixingASTLinter
 {
     /**

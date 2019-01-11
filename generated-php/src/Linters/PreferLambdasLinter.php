@@ -13,6 +13,9 @@ use Facebook\HHAST\Linters\{ASTLintError, AutoFixingASTLinter};
 use Facebook\HHAST\{AmpersandToken, AnonymousFunction, EditableNode, EqualEqualGreaterThanToken, LambdaExpression, LambdaSignature, LeftParenToken, PrefixUnaryExpression, WhiteSpace};
 use function Facebook\HHAST\Missing;
 use HH\Lib\C;
+/**
+ * @template-extends AutoFixingASTLinter<AnonymousFunction>
+ */
 final class PreferLambdasLinter extends AutoFixingASTLinter
 {
     /**

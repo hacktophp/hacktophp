@@ -10,6 +10,9 @@
 namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\{EditableNode, NamespaceUseClause};
+/**
+ * @template-extends ASTLinter<NamespaceUseClause>
+ */
 class UseStatementWithAsLinter extends ASTLinter
 {
     /**

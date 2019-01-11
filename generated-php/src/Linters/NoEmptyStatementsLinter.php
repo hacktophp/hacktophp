@@ -11,6 +11,9 @@ namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\{ExpressionStatement, EditableToken, EditableNode, EditableList};
 use Facebook\HHAST;
+/**
+ * @template-extends AutoFixingASTLinter<ExpressionStatement>
+ */
 final class NoEmptyStatementsLinter extends AutoFixingASTLinter
 {
     /**

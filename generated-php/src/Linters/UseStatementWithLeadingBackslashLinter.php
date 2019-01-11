@@ -10,6 +10,9 @@
 namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\{BackslashToken, EditableNode, INamespaceUseDeclaration, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, NamespaceUseClause};
+/**
+ * @template-extends AutoFixingASTLinter<INamespaceUseDeclaration>
+ */
 final class UseStatementWithLeadingBackslashLinter extends AutoFixingASTLinter
 {
     /**

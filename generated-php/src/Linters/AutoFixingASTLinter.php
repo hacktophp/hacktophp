@@ -12,6 +12,8 @@ namespace Facebook\HHAST\Linters;
 use Facebook\HHAST\EditableNode;
 /**
  * @template Tnode as EditableNode
+ *
+ * @template-extends ASTLinter<Tnode>
  */
 abstract class AutoFixingASTLinter extends ASTLinter
 {

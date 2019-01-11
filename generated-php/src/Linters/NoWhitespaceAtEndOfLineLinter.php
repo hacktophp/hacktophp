@@ -10,6 +10,9 @@
 namespace Facebook\HHAST\Linters;
 
 use HH\Lib\Str;
+/**
+ * @template-extends AutoFixingLineLinter<LineLintError>
+ */
 final class NoWhitespaceAtEndOfLineLinter extends AutoFixingLineLinter
 {
     /**

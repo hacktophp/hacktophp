@@ -11,6 +11,9 @@ namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\{BinaryExpression, EditableNode, EqualEqualToken, EqualEqualEqualToken, ExclamationEqualToken, ExclamationEqualEqualToken, LessThanGreaterThanToken};
 use HH\Lib\Str;
+/**
+ * @template-extends AutoFixingASTLinter<BinaryExpression>
+ */
 final class NoPHPEqualityLinter extends AutoFixingASTLinter
 {
     /**

@@ -13,6 +13,9 @@ use Facebook\TypeAssert;
 use Facebook\HHAST\__Private\{LSP, LSPLib};
 use HH\Lib\Str;
 use Facebook\HHAST\__Private\LintRunConfig;
+/**
+ * @template-extends LSPLib\InitializeCommand<ServerState>
+ */
 final class InitializeCommand extends LSPLib\InitializeCommand
 {
     /**

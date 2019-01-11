@@ -12,6 +12,9 @@ namespace Facebook\HHAST\Linters;
 use Facebook\HHAST\{CompoundStatement, EditableList, EditableNode, EditableToken, ElseClause, ElseifClause, EndOfLine, ForeachStatement, IfStatement, LeftBraceToken, IControlFlowStatement, RightBraceToken, WhileStatement, WhiteSpace};
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec};
+/**
+ * @template-extends AutoFixingASTLinter<IControlFlowStatement>
+ */
 class MustUseBracesForControlFlowLinter extends AutoFixingASTLinter
 {
     /**

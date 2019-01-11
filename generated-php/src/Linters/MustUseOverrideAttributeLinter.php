@@ -14,6 +14,9 @@ use Facebook\TypeAssert;
 use function Facebook\HHAST\resolve_type;
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec};
+/**
+ * @template-extends AutoFixingASTLinter<MethodishDeclaration>
+ */
 final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
 {
     /**
