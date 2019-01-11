@@ -218,6 +218,24 @@ namespace Bar {
         return sqrt(pow($b[\'x\'] - $a[\'x\'], 2) + pow($b[\'y\'] - $a[\'y\'], 2));
     }
 }',
+            ],
+            'extendsTemplateParam' => [
+                '<?hh
+namespace A;
+
+use Bang\Baz;
+
+class Foo extends Bar<Baz> {}',
+                '<?php
+namespace A;
+
+use Bang\Baz;
+
+/**
+ * @template-extends Bar<Baz>
+ */
+class Foo extends Bar {
+}',
             ]
         ];
     }

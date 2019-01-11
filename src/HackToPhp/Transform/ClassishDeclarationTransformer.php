@@ -49,6 +49,11 @@ class ClassishDeclarationTransformer
 
 		$template_map = [];
 
+		$docblock = [
+			'description' => null,
+			'specials' => []
+		];
+
 		if ($node->hasTypeParameters()) {
 			$type_parameters = $node
 				->getTypeParameters()
@@ -80,17 +85,8 @@ class ClassishDeclarationTransformer
 				$templates[] = $type_parameter_name . implode(' ', $constraints);
 			}
 
-			$docblock = [
-				'description' => null,
-				'specials' => [
-					'template' => $templates
-				]
-			];
-
-			$docblock_string = Psalm\DocComment::render($docblock, '');
-
-			$comments[] = new \PhpParser\Comment\Doc(rtrim($docblock_string));
-		}		
+			$docblock['specials']['template'] = $templates;
+		}
 
 		$parent_class_nodes = $node->hasExtendsList() ? $node->getExtendsList()->getChildren() : [];
 
@@ -101,6 +97,22 @@ class ClassishDeclarationTransformer
 
 			if ($parent_class_node instanceof HHAST\GenericTypeSpecifier) {
 				$specifier = $parent_class_node->getClassType();
+
+				if (!isset($docblock['specials']['template-extends'])) {
+					$docblock['specials']['template-extends'] = [];
+				}
+
+				$extends_type = TypeTransformer::transform(
+					$parent_class_node,
+					$project,
+					$file,
+					$scope,
+					$template_map
+				);
+
+				$psalm_type = Psalm\Type::parseString($extends_type);
+
+				$docblock['specials']['template-extends'][] = $psalm_type->toNamespacedString($file->namespace, [], null, false);
 			} else {
 				$specifier = $parent_class_node->getSpecifier();
 			}
@@ -110,6 +122,12 @@ class ClassishDeclarationTransformer
 			} else {
 				$parent_classes[] = QualifiedNameTransformer::transform($specifier);
 			}
+		}
+
+		if (array_filter($docblock)) {
+			$docblock_string = Psalm\DocComment::render($docblock, '');
+
+			$comments[] = new \PhpParser\Comment\Doc(rtrim($docblock_string));
 		}
 
 		$class_implements_nodes = $node->hasImplementsList() ? $node->getImplementsList()->getChildren() : [];
