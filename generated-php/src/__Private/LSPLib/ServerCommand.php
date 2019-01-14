@@ -14,7 +14,7 @@ abstract class ServerCommand
     /**
      * @param mixed $in
      *
-     * @return \Sabre\Event\Promise<mixed>
+     * @return \Amp\Promise<mixed>
      */
     public abstract function executeAsync($in);
     /**

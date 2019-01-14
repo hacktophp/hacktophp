@@ -26,19 +26,19 @@ interface LintRunEventHandler
      * @param mixed $config
      * @param iterable<mixed, Linters\LintError> $errors
      *
-     * @return \Sabre\Event\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
+     * @return \Amp\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
      */
     public function linterRaisedErrorsAsync(Linters\BaseLinter $linter, $config, iterable $errors);
     /**
      * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $result
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public function finishedFileAsync(string $path, $result);
     /**
      * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $result
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public function finishedRunAsync($result);
 }

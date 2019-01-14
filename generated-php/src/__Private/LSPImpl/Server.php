@@ -45,11 +45,11 @@ final class Server extends LSPLib\Server
         return [new LSPImpl\DidChangeWatchedFilesNotification($this->client, $this->state), new LSPImpl\DidChangeTextDocumentNotification($this->client, $this->state), new LSPImpl\DidSaveTextDocumentNotification($this->client, $this->state), new LSPImpl\DidOpenTextDocumentNotification($this->client, $this->state), new LSPImpl\DidCloseTextDocumentNotification($this->client, $this->state), new LSPImpl\ExitNotification($this->state), new LSPImpl\InitializedNotification($this->client, $this->state)];
     }
     /**
-     * @return \Sabre\Event\Promise<int>
+     * @return \Amp\Promise<int>
      */
     public function mainAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, int> */
             function () : \Generator {
                 try {
@@ -65,11 +65,11 @@ final class Server extends LSPLib\Server
         );
     }
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     private function mainLoopAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () : \Generator {
                 $stdin = $this->terminal->getStdin();
@@ -95,11 +95,11 @@ final class Server extends LSPLib\Server
         );
     }
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     private function lintProjectAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () : \Generator {
                 (yield $this->state->waitForInitAsync());
@@ -115,11 +115,11 @@ final class Server extends LSPLib\Server
         );
     }
     /**
-     * @return \Sabre\Event\Promise<string>
+     * @return \Amp\Promise<string>
      */
     private function readMessageAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, string> */
             function () : \Generator {
                 return (yield read_message_async($this->terminal->getStdin()));

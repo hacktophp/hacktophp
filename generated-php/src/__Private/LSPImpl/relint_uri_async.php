@@ -13,11 +13,11 @@ use Facebook\HHAST\__Private\{LintRun, LintRunConfig, LintRunEventHandler};
 use Facebook\HHAST\Linters\File;
 use HH\Lib\Str;
 /**
- * @return \Sabre\Event\Promise<void>
+ * @return \Amp\Promise<void>
  */
-function relint_uri_async(LintRunEventHandler $handler, ?LintRunConfig $config, string $uri, ?string $content = null) : \Sabre\Event\Promise
+function relint_uri_async(LintRunEventHandler $handler, ?LintRunConfig $config, string $uri, ?string $content = null) : \Amp\Promise
 {
-    return \Sabre\Event\coroutine(
+    return \Amp\call(
         /** @return \Generator<int, mixed, void, void> */
         function () use($handler, $config, $uri, $content) : \Generator {
             $path = Str\strip_prefix($uri, 'file://');

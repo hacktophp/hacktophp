@@ -37,11 +37,11 @@ class InitializeCommand extends ServerCommand
     /**
      * @param mixed $p
      *
-     * @return \Sabre\Event\Promise<mixed>
+     * @return \Amp\Promise<mixed>
      */
     public function executeAsync($p)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, mixed> */
             function () use($p) : \Generator {
                 $this->state->setStatus(ServerStatus::INITIALIZING)->setClientCapabilities($p['capabilities']);

@@ -160,11 +160,11 @@ class MigrationCLI extends CLIWithRequiredArguments
         }
     }
     /**
-     * @return \Sabre\Event\Promise<int>
+     * @return \Amp\Promise<int>
      */
     public function mainAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, int> */
             function () : \Generator {
                 if ($this->xhprof) {
@@ -179,11 +179,11 @@ class MigrationCLI extends CLIWithRequiredArguments
         );
     }
     /**
-     * @return \Sabre\Event\Promise<int>
+     * @return \Amp\Promise<int>
      */
     private function mainImplAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, int> */
             function () : \Generator {
                 $err = $this->getStderr();

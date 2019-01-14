@@ -37,7 +37,7 @@ final class CodegenRelations extends CodegenBase
         $files = $this->getFileList();
         $done = new \Facebook\HHAST\__Private\Set();
         $start = \microtime(true);
-        list($all_inferences, $_) = Tuple\from_async(Vec\map_async($files, function ($file) use($t, $done) {
+        list($all_inferences, $_) = \Amp\Promise\wait(Tuple\from_async(Vec\map_async($files, function ($file) use($t, $done) {
             try {
                 return (yield $this->getRelationsInFileAsync($file));
             } catch (\Throwable $t) {
@@ -56,7 +56,7 @@ final class CodegenRelations extends CodegenBase
                 $end = $start + $total / $rate;
                 \fprintf(\STDERR, "%d%%\t(%d / %d)\tExpected finish in %ds at %s\n", (int) ($ratio * 100), $done->count(), $total, (int) ($end - $now), \strftime('%H:%M:%S', (int) $end));
             }
-        })())->wait();
+        })()));
         $result = [];
         foreach ($all_inferences as $inferences) {
             foreach ($inferences as $key => $child_keys) {
@@ -139,11 +139,11 @@ final class CodegenRelations extends CodegenBase
         }
     }
     /**
-     * @return \Sabre\Event\Promise<array<string, array<string, string>>>
+     * @return \Amp\Promise<array<string, array<string, string>>>
      */
     private function getRelationsInFileAsync(string $file)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, array<string, array<string, string>>> */
             function () use($file) : \Generator {
                 try {

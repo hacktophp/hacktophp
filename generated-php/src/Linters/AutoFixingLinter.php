@@ -16,7 +16,7 @@ use Facebook\HHAST\__Private\LSP;
 interface AutoFixingLinter
 {
     /**
-     * @return \Sabre\Event\Promise<iterable<mixed, Terror>>
+     * @return \Amp\Promise<iterable<mixed, Terror>>
      */
     public function getLintErrorsAsync();
     /**

@@ -48,7 +48,10 @@ class FunctionCallExpressionTransformer
 
 			switch ($name_string) {
 				case '\HH\Asio\join':
-					return new PhpParser\Node\Expr\MethodCall($args[0]->value, 'wait');
+					return new PhpParser\Node\Expr\FuncCall(
+						new PhpParser\Node\Name\FullyQualified('Amp\Promise\wait'),
+						$args
+					);
 
 				case '\HH\Lib\Str\length':
 					return new PhpParser\Node\Expr\FuncCall(

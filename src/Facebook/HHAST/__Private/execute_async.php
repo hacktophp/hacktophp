@@ -14,11 +14,11 @@ use HH\Lib\{Str as Str, Vec as Vec};
 // * returns a result rather than filling an out-parameter
 // * throws on error
 /**
- * @return \Sabre\Event\Promise<array<int, string>>
+ * @return \Amp\Promise<array<int, string>>
  */
-function execute_async(string ...$args)
+function execute_async(string ...$args) : \Amp\Promise
 {
-    return \Sabre\Event\coroutine(
+    return \Amp\call(
         /** @return \Generator<int, mixed, void, array<int, string>> */
         function () use($args) : \Generator {
             // no equivalent to stream_await

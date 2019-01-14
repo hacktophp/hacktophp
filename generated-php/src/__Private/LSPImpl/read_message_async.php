@@ -12,11 +12,11 @@ namespace Facebook\HHAST\__Private\LSPImpl;
 use HH\Lib\Str;
 use HH\Lib\Experimental\IO;
 /**
- * @return \Sabre\Event\Promise<string>
+ * @return \Amp\Promise<string>
  */
-function read_message_async(IO\ReadHandle $in) : \Sabre\Event\Promise
+function read_message_async(IO\ReadHandle $in) : \Amp\Promise
 {
-    return \Sabre\Event\coroutine(
+    return \Amp\call(
         /** @return \Generator<int, mixed, void, string> */
         function () use($in) : \Generator {
             $length = null;

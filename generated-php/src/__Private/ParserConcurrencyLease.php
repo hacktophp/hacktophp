@@ -25,11 +25,11 @@ final class ParserConcurrencyLease implements \IDisposable
         self::$active++;
     }
     /**
-     * @return \Sabre\Event\Promise<ParserConcurrencyLease>
+     * @return \Amp\Promise<ParserConcurrencyLease>
      */
     public static function getAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, ParserConcurrencyLease> */
             function () : \Generator {
                 while (self::$active >= self::LIMIT) {

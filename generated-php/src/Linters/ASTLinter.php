@@ -22,11 +22,11 @@ abstract class ASTLinter extends BaseLinter
      */
     private $ast;
     /**
-     * @return \Sabre\Event\Promise<HHAST\EditableNode>
+     * @return \Amp\Promise<HHAST\EditableNode>
      */
     private static function getASTFromFileAsync(File $file)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, HHAST\EditableNode> */
             function () use($file) : \Generator {
                 static $cache = null;
@@ -78,11 +78,11 @@ abstract class ASTLinter extends BaseLinter
         return $node->getCode();
     }
     /**
-     * @return \Sabre\Event\Promise<array<int, ASTLintError<Tnode>>>
+     * @return \Amp\Promise<array<int, ASTLintError<Tnode>>>
      */
     public final function getLintErrorsAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, array<int, ASTLintError<Tnode>>> */
             function () : \Generator {
                 $this->ast = (yield self::getASTFromFileAsync($this->getFile()));

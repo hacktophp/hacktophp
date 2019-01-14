@@ -58,7 +58,7 @@ final class NamespaceFallbackMigration extends BaseMigration
      */
     private static function isTypecheckerAware(string $name, string $path)
     {
-        $lines = execute_async('hh_client', '--search', "\\" . $name, '--json', $path)->wait();
+        $lines = \Amp\Promise\wait(execute_async('hh_client', '--search', "\\" . $name, '--json', $path));
         $json = \implode("\n", $lines);
         $results = TypeAssert\matches_type_structure(type_structure(self::class, 'TSearchResult'), \json_decode(
             $json,

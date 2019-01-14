@@ -14,7 +14,7 @@ abstract class ClientNotification
     /**
      * @param mixed $in
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public abstract function executeAsync($in);
 }

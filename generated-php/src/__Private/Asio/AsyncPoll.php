@@ -30,7 +30,7 @@ final class AsyncPoll implements AsyncIterator
         return new self();
     }
     /**
-     * @param iterable<mixed, \Sabre\Event\Promise<Tv>> $awaitables
+     * @param iterable<mixed, \Amp\Promise<Tv>> $awaitables
      *
      * @return static
      */
@@ -53,7 +53,7 @@ final class AsyncPoll implements AsyncIterator
      */
     private $lastAwaited;
     /**
-     * @var \Sabre\Event\Promise<void>
+     * @var \Amp\Promise<void>
      */
     private $notifiers;
     private function __construct()
@@ -66,11 +66,11 @@ final class AsyncPoll implements AsyncIterator
         })();
     }
     /**
-     * @param \Sabre\Event\Promise<Tv> $awaitable
+     * @param \Amp\Promise<Tv> $awaitable
      *
      * @return void
      */
-    public function add(\Sabre\Event\Promise $awaitable)
+    public function add(\Amp\Promise $awaitable)
     {
         invariant($this->lastAdded !== null, 'Unable to add item, iteration already finished');
         // Create condition node representing pending event.
@@ -81,7 +81,7 @@ final class AsyncPoll implements AsyncIterator
         $this->notifiers = AwaitAllWaitHandle::fromVec([$awaitable, $this->notifiers]);
     }
     /**
-     * @param iterable<mixed, \Sabre\Event\Promise<Tv>> $awaitables
+     * @param iterable<mixed, \Amp\Promise<Tv>> $awaitables
      *
      * @return void
      */
@@ -102,13 +102,13 @@ final class AsyncPoll implements AsyncIterator
         $this->notifiers = AwaitAllWaitHandle::fromVec($notifiers);
     }
     /**
-     * @param \Sabre\Event\Promise<Tv> $awaitable
+     * @param \Amp\Promise<Tv> $awaitable
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
-    private function waitForThenNotifyAsync(\Sabre\Event\Promise $awaitable)
+    private function waitForThenNotifyAsync(\Amp\Promise $awaitable)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($awaitable) : \Generator {
                 try {
@@ -128,11 +128,11 @@ final class AsyncPoll implements AsyncIterator
     }
     /* HHAST_IGNORE_ERROR[AsyncFunctionAndMethod] required by builtin interface */
     /**
-     * @return \Sabre\Event\Promise<array{0:mixed, 1:Tv}|null>
+     * @return \Amp\Promise<array{0:mixed, 1:Tv}|null>
      */
     public function next()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, array{0:mixed, 1:Tv}|null> */
             function () : \Generator {
                 invariant($this->lastAwaited !== null, 'Unable to iterate, iteration already finished');

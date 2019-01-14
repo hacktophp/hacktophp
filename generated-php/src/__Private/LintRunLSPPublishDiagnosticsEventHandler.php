@@ -38,11 +38,11 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
      * @param mixed $_config
      * @param iterable<mixed, Linters\LintError> $errors
      *
-     * @return \Sabre\Event\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
+     * @return \Amp\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
      */
     public function linterRaisedErrorsAsync(Linters\BaseLinter $linter, $_config, iterable $errors)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */
             function () use($linter, $_config, $errors) : \Generator {
                 $file = \realpath($linter->getFile()->getPath());
@@ -69,11 +69,11 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
     /**
      * @param array<int, Linters\LintError> $errors
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     private function publishDiagnosticsAsync(string $file, array $errors)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($file, $errors) : \Generator {
                 $uri = 'file://' . $file;
@@ -88,11 +88,11 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
     /**
      * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $result
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public function finishedFileAsync(string $path, $result)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($path, $result) : \Generator {
                 $path = \realpath($path);
@@ -112,7 +112,7 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
     /**
      * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_0
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public function finishedRunAsync($_0)
     {

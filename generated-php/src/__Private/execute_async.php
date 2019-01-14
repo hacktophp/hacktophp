@@ -14,11 +14,11 @@ use HH\Lib\{Str, Vec};
 // * returns a result rather than filling an out-parameter
 // * throws on error
 /**
- * @return \Sabre\Event\Promise<array<int, string>>
+ * @return \Amp\Promise<array<int, string>>
  */
-function execute_async(string ...$args) : \Sabre\Event\Promise
+function execute_async(string ...$args) : \Amp\Promise
 {
-    return \Sabre\Event\coroutine(
+    return \Amp\call(
         /** @return \Generator<int, mixed, void, array<int, string>> */
         function () use($args) : \Generator {
             $command = \implode(' ', \array_map(function ($arg) {

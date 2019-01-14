@@ -32,11 +32,11 @@ class InitializedNotification extends ClientNotification
     /**
      * @param mixed $_in
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public function executeAsync($_in)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($_in) : \Generator {
                 $this->state->setStatus(ServerStatus::INITIALIZED);

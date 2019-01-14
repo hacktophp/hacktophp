@@ -14,11 +14,11 @@ final class NewlineAtEndOfFileLinter extends BaseLinter implements AutoFixingLin
 {
     use AutoFixingLinterTrait;
     /**
-     * @return \Sabre\Event\Promise<array<int, LintError>>
+     * @return \Amp\Promise<array<int, LintError>>
      */
     public function getLintErrorsAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, array<int, LintError>> */
             function () : \Generator {
                 $contents = $this->getFile()->getContents();

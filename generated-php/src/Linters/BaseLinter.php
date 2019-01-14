@@ -13,7 +13,7 @@ use HH\Lib\{C, Str};
 abstract class BaseLinter
 {
     /**
-     * @return \Sabre\Event\Promise<array<int, LintError>>
+     * @return \Amp\Promise<array<int, LintError>>
      */
     public abstract function getLintErrorsAsync();
     /**

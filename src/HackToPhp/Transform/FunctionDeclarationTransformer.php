@@ -390,7 +390,7 @@ class FunctionDeclarationTransformer
 		return new PhpParser\Node\Stmt\Return_(
 			new PhpParser\Node\Expr\FuncCall(
 				new PhpParser\Node\Name\FullyQualified(
-					'Sabre\\Event\\coroutine'
+					'Amp\\call'
 				),
 				[
 					new PhpParser\Node\Arg(

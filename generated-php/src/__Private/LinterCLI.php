@@ -46,11 +46,11 @@ final class LinterCLI extends CLIWithArguments
         }, 'Name of the caller; intended for use with `--mode json` or `--mode lsp`', '--from'), $this->getVerbosityOption()];
     }
     /**
-     * @return \Sabre\Event\Promise<int>
+     * @return \Amp\Promise<int>
      */
     public function mainAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, int> */
             function () : \Generator {
                 if ($this->xhprof) {
@@ -65,11 +65,11 @@ final class LinterCLI extends CLIWithArguments
         );
     }
     /**
-     * @return \Sabre\Event\Promise<int>
+     * @return \Amp\Promise<int>
      */
     private function mainImplAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, int> */
             function () : \Generator {
                 $terminal = $this->getTerminal();

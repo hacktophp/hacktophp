@@ -55,11 +55,11 @@ class ServerState
         return $this->clientCapabilities;
     }
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public final function waitForInitAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () : \Generator {
                 $pre_init = [ServerStatus::PRE_INIT => ServerStatus::PRE_INIT, ServerStatus::INITIALIZING => ServerStatus::INITIALIZING];

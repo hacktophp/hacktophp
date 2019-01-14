@@ -42,11 +42,11 @@ final class InspectorCLI extends CLIWithRequiredArguments
         }, 'Automatically open the generated file', '--open')];
     }
     /**
-     * @return \Sabre\Event\Promise<int>
+     * @return \Amp\Promise<int>
      */
     public function mainAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, int> */
             function () : \Generator {
                 $err = $this->getStderr();

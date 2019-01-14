@@ -25,11 +25,11 @@ final class InitializeCommand extends LSPLib\InitializeCommand
     /**
      * @param mixed $p
      *
-     * @return \Sabre\Event\Promise<mixed>
+     * @return \Amp\Promise<mixed>
      */
     public function executeAsync($p)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, mixed> */
             function () use($p) : \Generator {
                 $options = TypeAssert\matches_type_structure(type_structure(self::class, 'TInitializationOptions'), $p['initializationOptions'] ?? []);

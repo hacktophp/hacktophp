@@ -72,11 +72,11 @@ final class LintRun
         return LintRunResult::NO_ERRORS;
     }
     /**
-     * @return \Sabre\Event\Promise<LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS>
+     * @return \Amp\Promise<LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS>
      */
     public function runAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS> */
             function () : \Generator {
                 $results = (yield Vec\map_async($this->paths, function ($path) use($config) {
@@ -90,11 +90,11 @@ final class LintRun
         );
     }
     /**
-     * @return \Sabre\Event\Promise<LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS>
+     * @return \Amp\Promise<LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS>
      */
     private function lintFileAsync(LintRunConfig $config, File $file)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS> */
             function () use($config, $file) : \Generator {
                 $config = $config->getConfigForFile($file->getPath());
@@ -119,11 +119,11 @@ final class LintRun
      * @param mixed $config
      * @param class-string<BaseLinter> $linter
      *
-     * @return \Sabre\Event\Promise<LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS>
+     * @return \Amp\Promise<LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS>
      */
     private function runLinterOnFileImplAsync($config, string $linter, File $file)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS> */
             function () use($config, $linter, $file) : \Generator {
                 if (!$linter::shouldLintFile($file)) {
@@ -149,11 +149,11 @@ final class LintRun
         );
     }
     /**
-     * @return \Sabre\Event\Promise<LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS>
+     * @return \Amp\Promise<LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS>
      */
     private function lintDirectoryAsync(LintRunConfig $config, string $path)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS> */
             function () use($config, $path) : \Generator {
                 $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
@@ -175,11 +175,11 @@ final class LintRun
         );
     }
     /**
-     * @return \Sabre\Event\Promise<LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS>
+     * @return \Amp\Promise<LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS>
      */
     private function lintPathAsync(LintRunConfig $config, string $path)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS> */
             function () use($config, $path) : \Generator {
                 if (\is_file($path)) {

@@ -32,11 +32,11 @@ final class ExecuteCommandCommand extends LSPLib\ExecuteCommandCommand
     /**
      * @param mixed $p
      *
-     * @return \Sabre\Event\Promise<mixed>
+     * @return \Amp\Promise<mixed>
      */
     public function executeAsync($p)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, mixed> */
             function () use($p) : \Generator {
                 $command = $p['command'];

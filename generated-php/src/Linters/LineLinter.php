@@ -33,11 +33,11 @@ abstract class LineLinter extends BaseLinter
         return idx($this->getLinesFromFile(), $l);
     }
     /**
-     * @return \Sabre\Event\Promise<array<int, Terror>>
+     * @return \Amp\Promise<array<int, Terror>>
      */
     public function getLintErrorsAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, array<int, Terror>> */
             function () : \Generator {
                 $lines = $this->getLinesFromFile();

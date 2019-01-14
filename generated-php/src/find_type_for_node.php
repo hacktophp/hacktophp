@@ -14,11 +14,11 @@ use Facebook\HHAST;
 use Facebook\HHAST\EditableNode;
 
 /**
- * @return \Sabre\Event\Promise<null|string>
+ * @return \Amp\Promise<null|string>
  */
-function find_type_for_node_async(EditableNode $root, EditableNode $node, string $path) : \Sabre\Event\Promise
+function find_type_for_node_async(EditableNode $root, EditableNode $node, string $path) : \Amp\Promise
 {
-    return \Sabre\Event\coroutine(
+    return \Amp\call(
         /** @return \Generator<int, mixed, void, null|string> */
         function () use($root, $node, $path) : \Generator {
             list($line, $offset) = HHAST\find_position($root, $node);

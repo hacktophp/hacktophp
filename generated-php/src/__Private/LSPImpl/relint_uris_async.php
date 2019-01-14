@@ -14,11 +14,11 @@ use HH\Lib\Vec;
 /**
  * @param array<int, string> $uris
  *
- * @return \Sabre\Event\Promise<void>
+ * @return \Amp\Promise<void>
  */
-function relint_uris_async(LintRunEventHandler $handler, ?LintRunConfig $config, array $uris) : \Sabre\Event\Promise
+function relint_uris_async(LintRunEventHandler $handler, ?LintRunConfig $config, array $uris) : \Amp\Promise
 {
-    return \Sabre\Event\coroutine(
+    return \Amp\call(
         /** @return \Generator<int, mixed, void, void> */
         function () use($handler, $config, $uris) : \Generator {
             (yield Vec\map_async($uris, function ($uri) use($handler, $config) {

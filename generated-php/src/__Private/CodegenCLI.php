@@ -34,11 +34,11 @@ final class CodegenCLI extends CLIBase
         }, 'Update inferred relationships based on the HHVM and Hack tests; requires --hhvm-path', '--rebuild-relationships')];
     }
     /**
-     * @return \Sabre\Event\Promise<int>
+     * @return \Amp\Promise<int>
      */
     public function mainAsync()
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, int> */
             function () : \Generator {
                 $generators = [CodegenEditableNodeFromJSON::class => CodegenEditableNodeFromJSON::class, CodegenEditableTokenFromData::class => CodegenEditableTokenFromData::class, CodegenEditableTriviaFromJSON::class => CodegenEditableTriviaFromJSON::class, CodegenTokens::class => CodegenTokens::class, CodegenTrivia::class => CodegenTrivia::class, CodegenSyntax::class => CodegenSyntax::class, CodegenVersion::class => CodegenVersion::class];

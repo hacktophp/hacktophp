@@ -66,11 +66,11 @@ abstract class Server
         });
     }
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public final function handleMessageAsync(string $json)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($json) : \Generator {
                 $was_request = (yield $this->tryHandleMessageTypeAsync(type_alias_structure(LSP\RequestMessage::class), function ($r) {
@@ -98,13 +98,13 @@ abstract class Server
      * @template T
      *
      * @param TypeStructure<T> $type_structure
-     * @param \Closure(T):\Sabre\Event\Promise<void> $impl
+     * @param \Closure(T):\Amp\Promise<void> $impl
      *
-     * @return \Sabre\Event\Promise<bool>
+     * @return \Amp\Promise<bool>
      */
     private function tryHandleMessageTypeAsync(TypeStructure $type_structure, \Closure $impl, string $json)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, bool> */
             function () use($type_structure, $impl, $json) : \Generator {
                 try {
@@ -118,11 +118,11 @@ abstract class Server
         );
     }
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     private function handleClientNotificationMessageAsync(LSP\NotificationMessage $notification)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($notification) : \Generator {
                 $handler = $this->notifications[$notification['method']] ?? null;
@@ -139,11 +139,11 @@ abstract class Server
         );
     }
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     private function handleRequestMessageAsync(LSP\RequestMessage $request)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($request) : \Generator {
                 $command = $this->commands[$request['method']] ?? null;

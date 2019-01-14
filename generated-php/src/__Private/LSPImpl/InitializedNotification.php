@@ -27,11 +27,11 @@ final class InitializedNotification extends LSPLib\InitializedNotification
     /**
      * @param mixed $p
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public function executeAsync($p)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($p) : \Generator {
                 $message = (new LSPLib\RegisterCapabilityCommand(__CLASS__, ['registrations' => [['id' => "relint on watched file change", 'method' => LSPLib\DidChangeWatchedFilesNotification::METHOD, 'registerOptions' => ['watchers' => [['globPattern' => '**/*.php'], ['globPattern' => '**/*.hck'], ['globPattern' => '**/*.hack'], ['globPattern' => '**/*.hh']]]]]]))->asMessage();

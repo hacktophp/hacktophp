@@ -30,11 +30,11 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
      * @param mixed $_config
      * @param iterable<mixed, Linters\LintError> $errors
      *
-     * @return \Sabre\Event\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
+     * @return \Amp\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
      */
     public function linterRaisedErrorsAsync(Linters\BaseLinter $_linter, $_config, iterable $errors)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */
             function () use($_linter, $_config, $errors) : \Generator {
                 $transformed_errors = self::transformErrors($errors);
@@ -46,7 +46,7 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
     /**
      * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_1
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public function finishedFileAsync(string $_0, $_1)
     {
@@ -54,11 +54,11 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
     /**
      * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_0
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public function finishedRunAsync($_0)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($_0) : \Generator {
                 (yield $this->terminal->getStdout()->writeAsync(\json_encode($this->getOutput())));

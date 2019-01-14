@@ -13,15 +13,15 @@ use Facebook\HHAST\__Private\LSP;
 abstract class Client
 {
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     protected abstract function sendMessageAsync(LSP\Message $message);
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public final function sendRequestMessageAsync(LSP\RequestMessage $message)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($message) : \Generator {
                 (yield $this->sendMessageAsync($message));
@@ -29,11 +29,11 @@ abstract class Client
         );
     }
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public final function sendResponseMessageAsync(LSP\ResponseMessage $message)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($message) : \Generator {
                 (yield $this->sendMessageAsync($message));
@@ -41,11 +41,11 @@ abstract class Client
         );
     }
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public final function sendNotificationMessageAsync(LSP\NotificationMessage $message)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($message) : \Generator {
                 (yield $this->sendMessageAsync($message));

@@ -12,11 +12,11 @@ function from_json(array $json, ?string $file) : EditableNode
     return EditableNode::fromJSON($json['parse_tree'], $file ?? '! no file !', 0, $json['program_text']);
 }
 /**
- * @return \Sabre\Event\Promise<array<string, mixed>>
+ * @return \Amp\Promise<array<string, mixed>>
  */
-function json_from_file_async(string $file) : \Sabre\Event\Promise
+function json_from_file_async(string $file) : \Amp\Promise
 {
-    return \Sabre\Event\coroutine(
+    return \Amp\call(
         /** @return \Generator<int, mixed, void, array<string, mixed>> */
         function () use($file) : \Generator {
             try {
@@ -53,14 +53,14 @@ function json_from_file_async(string $file) : \Sabre\Event\Promise
  */
 function json_from_file(string $file) : array
 {
-    return json_from_file_async($file)->wait();
+    return \Amp\Promise\wait(json_from_file_async($file));
 }
 /**
- * @return \Sabre\Event\Promise<EditableNode>
+ * @return \Amp\Promise<EditableNode>
  */
-function from_file_async(string $file) : \Sabre\Event\Promise
+function from_file_async(string $file) : \Amp\Promise
 {
-    return \Sabre\Event\coroutine(
+    return \Amp\call(
         /** @return \Generator<int, mixed, void, EditableNode> */
         function () use($file) : \Generator {
             $json = (yield json_from_file_async($file));
@@ -70,18 +70,18 @@ function from_file_async(string $file) : \Sabre\Event\Promise
 }
 function from_file(string $file) : EditableNode
 {
-    return from_file_async($file)->wait();
+    return \Amp\Promise\wait(from_file_async($file));
 }
 /**
- * @return \Sabre\Event\Promise<array<string, mixed>>
+ * @return \Amp\Promise<array<string, mixed>>
  */
-function json_from_text_async(string $text) : \Sabre\Event\Promise
+function json_from_text_async(string $text) : \Amp\Promise
 {
-    return \Sabre\Event\coroutine(
+    return \Amp\call(
         /** @return \Generator<int, mixed, void, array<string, mixed>> */
         function () use($text) : \Generator {
-            $file = \tempnam('/tmp', '');
-            $handle = \fopen($file, 'w');
+            $file = \tempnam("/tmp", "");
+            $handle = \fopen($file, "w");
             \fwrite($handle, $text);
             \fclose($handle);
             $json = (yield json_from_file_async($file));
@@ -95,14 +95,14 @@ function json_from_text_async(string $text) : \Sabre\Event\Promise
  */
 function json_from_text(string $text) : array
 {
-    return json_from_text_async($text)->wait();
+    return \Amp\Promise\wait(json_from_text_async($text));
 }
 /**
- * @return \Sabre\Event\Promise<EditableNode>
+ * @return \Amp\Promise<EditableNode>
  */
-function from_code_async(string $text) : \Sabre\Event\Promise
+function from_code_async(string $text) : \Amp\Promise
 {
-    return \Sabre\Event\coroutine(
+    return \Amp\call(
         /** @return \Generator<int, mixed, void, EditableNode> */
         function () use($text) : \Generator {
             $json = (yield json_from_text_async($text));
@@ -112,5 +112,5 @@ function from_code_async(string $text) : \Sabre\Event\Promise
 }
 function from_code(string $text) : EditableNode
 {
-    return from_code_async($text)->wait();
+    return \Amp\Promise\wait(from_code_async($text));
 }

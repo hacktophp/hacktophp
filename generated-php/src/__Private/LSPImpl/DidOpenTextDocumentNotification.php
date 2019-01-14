@@ -30,11 +30,11 @@ final class DidOpenTextDocumentNotification extends LSPLib\DidOpenTextDocumentNo
     /**
      * @param mixed $p
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public function executeAsync($p)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($p) : \Generator {
                 $uri = $p['textDocument']['uri'];

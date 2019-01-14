@@ -15,7 +15,7 @@ use HH\Lib\Str;
 final class Client extends LSPLib\Client
 {
     /**
-     * @var \Sabre\Event\Promise<void>|null
+     * @var \Amp\Promise<void>|null
      */
     private $pendingStdout;
     /**
@@ -27,7 +27,7 @@ final class Client extends LSPLib\Client
         $this->terminal = $terminal;
     }
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     protected function sendMessageAsync(LSP\Message $message)
     {

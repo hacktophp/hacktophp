@@ -32,11 +32,11 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
      * @param mixed $config
      * @param iterable<mixed, Linters\LintError> $errors
      *
-     * @return \Sabre\Event\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
+     * @return \Amp\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
      */
     public function linterRaisedErrorsAsync(Linters\BaseLinter $linter, $config, iterable $errors)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */
             function () use($linter, $config, $errors) : \Generator {
                 if (!$this->terminal->isInteractive()) {
@@ -52,11 +52,11 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
      * @param mixed $config
      * @param iterable<mixed, Linters\LintError> $errors
      *
-     * @return \Sabre\Event\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
+     * @return \Amp\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
      */
     private function linterRaisedErrorsImplAsync(Linters\BaseLinter $linter, $config, iterable $errors)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */
             function () use($linter, $config, $errors) : \Generator {
                 $class = \get_class($linter);
@@ -93,7 +93,7 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
     /**
      * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $_1
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public function finishedFileAsync(string $_0, $_1)
     {
@@ -101,11 +101,11 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
     /**
      * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $result
      *
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     public function finishedRunAsync($result)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($result) : \Generator {
                 if ($result === LintRunResult::NO_ERRORS) {
@@ -134,11 +134,11 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
      * @param Linters\AutoFixingLinter<Terror> $linter
      * @param Terror $error
      *
-     * @return \Sabre\Event\Promise<bool>
+     * @return \Amp\Promise<bool>
      */
     private function shouldFixLintAsync(Linters\AutoFixingLinter $linter, $error)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, bool> */
             function () use($linter, $error) : \Generator {
                 $old = $linter->getFile()->getContents();
@@ -189,11 +189,11 @@ final class LintRunCLIEventHandler implements LintRunEventHandler
         );
     }
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     private function renderLintBlameAsync(Linters\LintError $error)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($error) : \Generator {
                 $blame = $error->getPrettyBlame();

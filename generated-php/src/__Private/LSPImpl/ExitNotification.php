@@ -17,11 +17,11 @@ use Facebook\HHAST\__Private\LSPLib;
 final class ExitNotification extends LSPLib\ExitNotification
 {
     /**
-     * @return \Sabre\Event\Promise<void>
+     * @return \Amp\Promise<void>
      */
     protected function exitImplAsync(int $code, string $message)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($code, $message) : \Generator {
                 throw new ExitException($code, $message);

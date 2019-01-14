@@ -57,7 +57,7 @@ final class HSLMigration extends BaseMigration
             // possibly change argument order
             $argument_order = $replace_config['argument_order'] ?? null;
             if ($argument_order !== null || ($replace_config['has_overrides'] ?? false)) {
-                list($new_node, $found_namespaces) = $this->maybeMutateArgumentsAsync($root, $new_node, $argument_order, $path, $found_namespaces)->wait();
+                list($new_node, $found_namespaces) = \Amp\Promise\wait($this->maybeMutateArgumentsAsync($root, $new_node, $argument_order, $path, $found_namespaces));
             }
             // if we got null back here, it means the function call has unsupported arguments. forget it for now
             if ($new_node === null) {
@@ -144,11 +144,11 @@ final class HSLMigration extends BaseMigration
      * @param array<int, int>|null $argument_order
      * @param array<HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC, HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC> $found_namespaces
      *
-     * @return \Sabre\Event\Promise<array{0:null|FunctionCallExpression, 1:array<HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC, HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC>}>
+     * @return \Amp\Promise<array{0:null|FunctionCallExpression, 1:array<HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC, HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC>}>
      */
     protected function maybeMutateArgumentsAsync(EditableNode $root, FunctionCallExpression $node, ?array $argument_order, string $path, array $found_namespaces)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, array{0:null|FunctionCallExpression, 1:array<HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC, HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC>}> */
             function () use($root, $node, $argument_order, $path, $found_namespaces) : \Generator {
                 $argument_list = $node->getArgumentList();

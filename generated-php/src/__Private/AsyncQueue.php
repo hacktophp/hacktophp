@@ -12,19 +12,19 @@ namespace Facebook\HHAST\__Private;
 class AsyncQueue
 {
     /**
-     * @var \Sabre\Event\Promise<mixed>|null
+     * @var \Amp\Promise<mixed>|null
      */
     private $queue;
     /**
      * @template T
      *
-     * @param \Closure():\Sabre\Event\Promise<T> $item
+     * @param \Closure():\Amp\Promise<T> $item
      *
-     * @return \Sabre\Event\Promise<T>
+     * @return \Amp\Promise<T>
      */
     public function enqueueAndWaitForAsync(\Closure $item)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, T> */
             function () use($item) : \Generator {
                 $prev = $this->queue;

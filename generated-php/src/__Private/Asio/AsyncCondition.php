@@ -19,7 +19,7 @@ namespace Facebook\HHAST\__Private\Asio;
 class AsyncCondition
 {
     /**
-     * @var \Sabre\Event\Promise<\T>|null
+     * @var \Amp\Promise<\T>|null
      */
     private $condition = null;
     /**
@@ -69,13 +69,13 @@ class AsyncCondition
      * to $notifiers is allowed to trigger the notification.
      */
     /**
-     * @param \Sabre\Event\Promise<void> $notifiers
+     * @param \Amp\Promise<void> $notifiers
      *
-     * @return \Sabre\Event\Promise<T>
+     * @return \Amp\Promise<T>
      */
-    public final function waitAsync(\Sabre\Event\Promise $notifiers)
+    public final function waitAsync(\Amp\Promise $notifiers)
     {
-        return \Sabre\Event\coroutine(
+        return \Amp\call(
             /** @return \Generator<int, mixed, void, T> */
             function () use($notifiers) : \Generator {
                 if ($this->condition === null) {

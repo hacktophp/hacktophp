@@ -310,7 +310,7 @@ class TypeTransformer
 			}
 
 			if ($token_text === 'Awaitable') {
-				return 'Sabre\\Event\\Promise';
+				return 'Amp\\Promise';
 			}
 
 			if (isset($file->aliased_types[$token_text])) {
