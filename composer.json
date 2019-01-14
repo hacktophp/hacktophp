@@ -7,7 +7,8 @@
         "nikic/php-parser": "^4.0",
         "sabre/event": "^5.0",
         "vimeo/psalm": "dev-master",
-        "hacktophp/hsl-php": "dev-master"
+        "hacktophp/hsl-php": "dev-master",
+        "amphp/amp": "^2.1"
     },
     "license": "MIT",
     "authors": [
