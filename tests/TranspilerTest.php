@@ -173,8 +173,8 @@ function foo(mixed $i, mixed $j) {
  * @param mixed $j
  */
 function foo($i, $j) {
-    $a = \is_int($i) ? $i : (function() { throw new \TypeError(\'Failed assertion\');})();
-    $b = \is_string($j) ? $j : null;
+    $a = \is_int($__tmp__ = $i) ? $__tmp__ : (function() { throw new \TypeError(\'Failed assertion\');})();
+    $b = \is_string($__tmp__ = $j) ? $__tmp__ : null;
 }',
             ],
             'spreadTemplatedArray' => [

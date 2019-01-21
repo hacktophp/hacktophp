@@ -31,25 +31,30 @@ class AsExpressionTransformer
 		$left = ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope);
 		$right = TypeTransformer::transform($node->getRightOperand(), $project, $file, $scope);
 
+		$left_assignment = new PhpParser\Node\Expr\Assign(
+			new PhpParser\Node\Expr\Variable('__tmp__'),
+			$left
+		);
+
 		switch (get_class($specifier)) {
 			case HHAST\StringToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_string'),
-					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
+					[$left_assignment]
 				);
 				break;
 
 			case HHAST\FloatToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_float'),
-					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
+					[$left_assignment]
 				);
 				break;
 
 			case HHAST\IntToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_int'),
-					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
+					[$left_assignment]
 				);
 				break;
 
@@ -60,7 +65,7 @@ class AsExpressionTransformer
 			case HHAST\TupleTypeSpecifier::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_array'),
-					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
+					[$left_assignment]
 				);
 				break;
 
@@ -68,33 +73,33 @@ class AsExpressionTransformer
 			case HHAST\BooleanToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_bool'),
-					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
+					[$left_assignment]
 				);
 				break;
 
 			case HHAST\ObjectToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_object'),
-					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
+					[$left_assignment]
 				);
 				break;
 
 			case HHAST\ResourceToken::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_resource'),
-					[ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope)]
+					[$left_assignment]
 				);
 				break;
 
 			case HHAST\NameToken::class:
 				if ($specifier->getText() === 'nonnull') {
 					$conditional = new PhpParser\Node\Expr\BinaryOp\NotIdentical(
-						ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope),
+						$left_assignment,
 						new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
 					);
 				} else {
 					$conditional = new PhpParser\Node\Expr\Instanceof_(
-						ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope),
+						$left_assignment,
 						new PhpParser\Node\Name($specifier->getText())
 					);
 				}
@@ -102,7 +107,7 @@ class AsExpressionTransformer
 				
 			case HHAST\QualifiedName::class:
 				$conditional = new PhpParser\Node\Expr\Instanceof_(
-					ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope),
+					$left_assignment,
 					QualifiedNameTransformer::transform($specifier)
 				);
 				break;
@@ -111,7 +116,7 @@ class AsExpressionTransformer
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_a'),
 					[
-						ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope),
+						$left_assignment,
 						new PhpParser\Node\Expr\FuncCall(
 							new PhpParser\Node\Name\FullyQualified('get_class'),
 							[new PhpParser\Node\Expr\Variable('this')]
@@ -147,7 +152,7 @@ class AsExpressionTransformer
 
 		return new PhpParser\Node\Expr\Ternary(
 			$conditional,
-			$left,
+			new PhpParser\Node\Expr\Variable('__tmp__'),
 			$bad_result
 		);
 	}
