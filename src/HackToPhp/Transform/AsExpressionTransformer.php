@@ -40,10 +40,19 @@ class AsExpressionTransformer
 		$left = ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope);
 		$right = TypeTransformer::transform($node->getRightOperand(), $project, $file, $scope);
 
-		$left_assignment = new PhpParser\Node\Expr\Assign(
-			new PhpParser\Node\Expr\Variable('__tmp__'),
-			$left
-		);
+		if (!$left instanceof PhpParser\Node\Expr\Variable) {
+			$file->tmp_count++;
+
+			$tmp_var = new PhpParser\Node\Expr\Variable('__tmp' . $file->tmp_count . '__');
+
+			$left_assignment = new PhpParser\Node\Expr\Assign(
+				$tmp_var,
+				$left
+			);
+		} else {
+			$left_assignment = $left;
+			$tmp_var = $left;
+		}
 
 		switch (get_class($specifier)) {
 			case HHAST\StringToken::class:
@@ -75,7 +84,7 @@ class AsExpressionTransformer
 					),
 					new PhpParser\Node\Expr\FuncCall(
 						new PhpParser\Node\Name\FullyQualified('is_float'),
-						[new PhpParser\Node\Expr\Variable('__tmp__')]
+						[$tmp_var]
 					)
 				);
 				break;
@@ -177,7 +186,7 @@ class AsExpressionTransformer
 			$conditional = new PhpParser\Node\Expr\BinaryOp\BooleanOr(
 				$conditional,
 				new PhpParser\Node\Expr\BinaryOp\Identical(
-					new PhpParser\Node\Expr\Variable('__tmp__'),
+					$tmp_var,
 					new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
 				)
 			);
@@ -185,7 +194,7 @@ class AsExpressionTransformer
 
 		return new PhpParser\Node\Expr\Ternary(
 			$conditional,
-			new PhpParser\Node\Expr\Variable('__tmp__'),
+			$tmp_var,
 			$bad_result
 		);
 	}

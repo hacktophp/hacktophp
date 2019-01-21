@@ -187,14 +187,36 @@ class FunctionCallExpressionTransformer
 			$object = ExpressionTransformer::transform($receiver->getObject(), $project, $file, $scope);
 			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $project, $file, $scope);
 
-			$method_call = new PhpParser\Node\Expr\MethodCall(
-				$object,
-				$name,
-				$args
-			);
+			if (!$object instanceof PhpParser\Node\Expr\Variable) {
+				$file->tmp_count++;
+
+				$tmp_var = new PhpParser\Node\Expr\Variable('__tmp' . $file->tmp_count . '__');
+
+				$conditional = new PhpParser\Node\Expr\BinaryOp\NotIdentical(
+					new PhpParser\Node\Expr\Assign(
+						$tmp_var,
+						$object
+					),
+					new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
+				);
+
+				$method_call = new PhpParser\Node\Expr\MethodCall(
+					$tmp_var,
+					$name,
+					$args
+				);
+			} else {
+				$conditional = $object;
+
+				$method_call = new PhpParser\Node\Expr\MethodCall(
+					$object,
+					$name,
+					$args
+				);
+			}
 
 			return new PhpParser\Node\Expr\Ternary(
-				$object,
+				$conditional,
 				$method_call,
 				new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
 			);

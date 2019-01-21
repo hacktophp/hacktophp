@@ -164,9 +164,9 @@ function getRoadType()
             'asScalar' => [
                 '<?hh
 function foo(mixed $i, mixed $j, mixed $h) {
-    $a = $i as int;
-    $b = $j ?as string;
-    $c = $h as ?string;
+    $a = $i->a as int;
+    $b = $j->a ?as string;
+    $c = $h->a as ?string;
 }',
                 '<?php
 /**
@@ -175,9 +175,9 @@ function foo(mixed $i, mixed $j, mixed $h) {
  * @param mixed $h
  */
 function foo($i, $j, $h) {
-    $a = \is_int($__tmp__ = $i) ? $__tmp__ : (function() { throw new \TypeError(\'Failed assertion\');})();
-    $b = \is_string($__tmp__ = $j) ? $__tmp__ : null;
-    $c = \is_string($__tmp__ = $h) || $__tmp__ === null ? $__tmp__ : (function () {
+    $a = \is_int($__tmp1__ = $i->a) ? $__tmp1__ : (function() { throw new \TypeError(\'Failed assertion\');})();
+    $b = \is_string($__tmp2__ = $j->a) ? $__tmp2__ : null;
+    $c = \is_string($__tmp3__ = $h->a) || $__tmp3__ === null ? $__tmp3__ : (function () {
         throw new \TypeError("Failed assertion");
     })();
 }',

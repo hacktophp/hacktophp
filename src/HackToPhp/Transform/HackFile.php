@@ -36,4 +36,9 @@ class HackFile
 	 * @var bool
 	 */
 	public $is_hack = true;
+
+	/**
+	 * @var int
+	 */
+	public $tmp_count = 0;
 }
