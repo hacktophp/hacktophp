@@ -14,6 +14,10 @@ $options = getopt(implode('', $valid_short_options), $valid_long_options);
 $input_paths = $options['input'] ?? null;
 $output_path = $options['output'] ?? null;
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+
 if (is_string($input_paths)) {
 	$input_paths = [$input_paths];
 }
@@ -101,7 +105,7 @@ $input_file_paths = [];
 
 foreach ($input_paths as $input_path) {
 	if (is_dir($input_path)) {
-		$dir_input_file_paths = getFilesInDir($input_path, ['php']) ;
+		$dir_input_file_paths = getFilesInDir($input_path, ['php', 'hack', 'hh']) ;
 
 		foreach ($dir_input_file_paths as $dir_input_file_path) {
 			$stubbed_path = preg_replace('/^' . preg_quote($common_path, '//') . '/', '', $dir_input_file_path);
