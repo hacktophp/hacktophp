@@ -13,6 +13,13 @@ class AsExpressionTransformer
 	public static function transform($node, Project $project, HackFile $file, Scope $scope)
 	{
 		$right_operand = $node->getRightOperand();
+
+		$is_nullable = false;
+
+		if ($right_operand instanceof HHAST\NullableTypeSpecifier) {
+			$right_operand = $right_operand->getType();
+			$is_nullable = true;
+		}
 		
 		if ($right_operand instanceof HHAST\GenericTypeSpecifier) {
 			$specifier = $right_operand->getClassType();
@@ -149,6 +156,16 @@ class AsExpressionTransformer
 				])
 			)
 			: new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'));
+
+		if ($is_nullable) {
+			$conditional = new PhpParser\Node\Expr\BinaryOp\BooleanOr(
+				$conditional,
+				new PhpParser\Node\Expr\BinaryOp\Identical(
+					new PhpParser\Node\Expr\Variable('__tmp__'),
+					new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
+				)
+			);
+		}
 
 		return new PhpParser\Node\Expr\Ternary(
 			$conditional,

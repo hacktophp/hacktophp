@@ -163,18 +163,23 @@ function getRoadType()
             ],
             'asScalar' => [
                 '<?hh
-function foo(mixed $i, mixed $j) {
+function foo(mixed $i, mixed $j, mixed $h) {
     $a = $i as int;
     $b = $j ?as string;
+    $c = $h as ?string;
 }',
                 '<?php
 /**
  * @param mixed $i
  * @param mixed $j
+ * @param mixed $h
  */
-function foo($i, $j) {
+function foo($i, $j, $h) {
     $a = \is_int($__tmp__ = $i) ? $__tmp__ : (function() { throw new \TypeError(\'Failed assertion\');})();
     $b = \is_string($__tmp__ = $j) ? $__tmp__ : null;
+    $c = \is_string($__tmp__ = $h) || $__tmp__ === null ? $__tmp__ : (function () {
+        throw new \TypeError("Failed assertion");
+    })();
 }',
             ],
             'spreadTemplatedArray' => [
