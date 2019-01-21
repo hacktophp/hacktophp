@@ -236,6 +236,7 @@ class ExpressionTransformer
 		if ($node instanceof HHAST\ArrayCreationExpression
 			|| $node instanceof HHAST\ArrayIntrinsicExpression
 			|| $node instanceof HHAST\DarrayIntrinsicExpression
+			|| $node instanceof HHAST\VarrayIntrinsicExpression
 		) {
 			$fields = $node->hasMembers() ? $node->getMembers()->getChildren() : [];
 

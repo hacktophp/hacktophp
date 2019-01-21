@@ -105,11 +105,11 @@ $input_file_paths = [];
 
 foreach ($input_paths as $input_path) {
 	if (is_dir($input_path)) {
-		$dir_input_file_paths = getFilesInDir($input_path, ['php', 'hack', 'hh']) ;
+		$dir_input_file_paths = getFilesInDir($input_path, ['php', 'hack', 'hh', 'hck']) ;
 
 		foreach ($dir_input_file_paths as $dir_input_file_path) {
 			$stubbed_path = preg_replace('/^' . preg_quote($common_path, '//') . '/', '', $dir_input_file_path);
-			$output_file_path = $output_path . $stubbed_path;
+			$output_file_path = $output_path . preg_replace('/(\.(hack|hh|hck))$/', '.php', $stubbed_path);
 			
 			if (!file_exists(dirname($output_file_path))) {
 				mkdir(dirname($output_file_path), 0777, true);

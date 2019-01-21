@@ -90,7 +90,7 @@ class TypeTransformer
 					if ($child instanceof HHAST\ClosureParameterTypeSpecifier) {
 						$params[] = self::transform($child->getType(), $project, $file, $scope, $template_map);
 					} elseif ($child instanceof HHAST\VariadicParameter) {
-						$params[] = '...' . self::transform($child->getType(), $project, $file, $scope, $template_map);
+						$params[] = self::transform($child->getType(), $project, $file, $scope, $template_map) . '...';
 					}
 				}
 			}
@@ -138,7 +138,7 @@ class TypeTransformer
 				$child = $child->getItem();
 			}
 
-			if (!$child) {
+			if (!$child || $child instanceof HHAST\Missing) {
 				continue;
 			}
 

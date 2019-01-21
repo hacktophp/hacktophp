@@ -31,6 +31,8 @@ class AsExpressionTransformer
 			$specifier = $right_operand->getKeyword();
 		} elseif ($right_operand instanceof HHAST\TupleTypeSpecifier) {
 			$specifier = $right_operand;
+		} elseif ($right_operand instanceof HHAST\ShapeTypeSpecifier) {
+			$specifier = $right_operand;
 		} else {
 			$specifier = $right_operand->getSpecifier();
 		}
@@ -65,11 +67,25 @@ class AsExpressionTransformer
 				);
 				break;
 
+			case HHAST\NumToken::class:
+				$conditional = new PhpParser\Node\Expr\BinaryOp\BooleanOr(
+					new PhpParser\Node\Expr\FuncCall(
+						new PhpParser\Node\Name\FullyQualified('is_int'),
+						[$left_assignment]
+					),
+					new PhpParser\Node\Expr\FuncCall(
+						new PhpParser\Node\Name\FullyQualified('is_float'),
+						[new PhpParser\Node\Expr\Variable('__tmp__')]
+					)
+				);
+				break;
+
 			case HHAST\ArrayToken::class:
 			case HHAST\DictToken::class:
 			case HHAST\VecToken::class:
 			case HHAST\KeysetToken::class:
 			case HHAST\TupleTypeSpecifier::class:
+			case HHAST\ShapeTypeSpecifier::class:
 				$conditional = new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_array'),
 					[$left_assignment]

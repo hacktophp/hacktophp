@@ -23,23 +23,42 @@ class IsExpressionTransformer
 			$specifier = $right_operand->getSpecifier();
 		}
 
+		$left = ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope);
+
 		switch (get_class($specifier)) {
 			case HHAST\StringToken::class:
 				return new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_string'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[$left]
 				);
 
 			case HHAST\FloatToken::class:
 				return new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_float'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[$left]
 				);
 
 			case HHAST\IntToken::class:
 				return new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_int'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[$left]
+				);
+
+			case HHAST\NumToken::class:
+				$left_assignment = new PhpParser\Node\Expr\Assign(
+					new PhpParser\Node\Expr\Variable('__tmp__'),
+					$left
+				);
+
+				return new PhpParser\Node\Expr\BinaryOp\BooleanOr(
+					new PhpParser\Node\Expr\FuncCall(
+						new PhpParser\Node\Name\FullyQualified('is_int'),
+						[$left_assignment]
+					),
+					new PhpParser\Node\Expr\FuncCall(
+						new PhpParser\Node\Name\FullyQualified('is_float'),
+						[new PhpParser\Node\Expr\Variable('__tmp__')]
+					)
 				);
 
 			case HHAST\ArrayToken::class:
@@ -48,44 +67,44 @@ class IsExpressionTransformer
 			case HHAST\KeysetToken::class:
 				return new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_array'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[$left]
 				);
 
 			case HHAST\BoolToken::class:
 			case HHAST\BooleanToken::class:
 				return new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_bool'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[$left]
 				);
 
 			case HHAST\ObjectToken::class:
 				return new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_object'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[$left]
 				);
 
 			case HHAST\ResourceToken::class:
 				return new PhpParser\Node\Expr\FuncCall(
 					new PhpParser\Node\Name\FullyQualified('is_resource'),
-					[ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope)]
+					[$left]
 				);
 
 			case HHAST\NameToken::class:
 				if ($specifier->getText() === 'nonnull') {
 					return new PhpParser\Node\Expr\BinaryOp\NotIdentical(
-						ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope),
+						$left,
 						new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
 					);
 				}
 
 				return new PhpParser\Node\Expr\Instanceof_(
-					ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope),
+					$left,
 					new PhpParser\Node\Name($specifier->getText())
 				);
 
 			case HHAST\QualifiedName::class:
 				return new PhpParser\Node\Expr\Instanceof_(
-					ExpressionTransformer::transform($node->getLeftOperand(), $project, $file, $scope),
+					$left,
 					QualifiedNameTransformer::transform($specifier)
 				);
 		}
