@@ -30,7 +30,7 @@ class NoBasicAssignmentFunctionParameterLinter extends AutoFixingASTLinter
      */
     public function getLintErrorForNode(FunctionCallExpression $node, array $_parents)
     {
-        $exps = $node->getArgumentList() ? $node->getArgumentList()->getItemsOfType(BinaryExpression::class) : null;
+        $exps = ($__tmp1__ = $node->getArgumentList()) !== null ? $__tmp1__->getItemsOfType(BinaryExpression::class) : null;
         if ($exps === null) {
             return null;
         }

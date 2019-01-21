@@ -99,7 +99,7 @@ final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
             return false;
         }
         $attrs = \array_map(function ($attr) {
-            return $attr->getType() instanceof NameToken ? $attr->getType() : null ? ($attr->getType() instanceof NameToken ? $attr->getType() : null)->getText() : null;
+            return ($__tmp2__ = ($__tmp1__ = $attr->getType()) instanceof NameToken ? $__tmp1__ : null) !== null ? $__tmp2__->getText() : null;
         }, $attrs->getAttributes()->getItems());
         return C\contains($attrs, '__Override');
     }

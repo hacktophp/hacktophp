@@ -225,7 +225,7 @@ final class AssertToExpectMigration extends StepBasedMigration
         $rec = $node->getReceiver();
         $method = '';
         if ($rec instanceof MemberSelectionExpression) {
-            if ((($rec->getObject() instanceof VariableExpression ? $rec->getObject() : null ? ($rec->getObject() instanceof VariableExpression ? $rec->getObject() : null)->getExpression() : null) instanceof VariableToken ? $rec->getObject() instanceof VariableExpression ? $rec->getObject() : null ? ($rec->getObject() instanceof VariableExpression ? $rec->getObject() : null)->getExpression() : null : null ? (($rec->getObject() instanceof VariableExpression ? $rec->getObject() : null ? ($rec->getObject() instanceof VariableExpression ? $rec->getObject() : null)->getExpression() : null) instanceof VariableToken ? $rec->getObject() instanceof VariableExpression ? $rec->getObject() : null ? ($rec->getObject() instanceof VariableExpression ? $rec->getObject() : null)->getExpression() : null : null)->getText() : null) === '$this') {
+            if ((($__tmp4__ = ($__tmp3__ = ($__tmp2__ = ($__tmp1__ = $rec->getObject()) instanceof VariableExpression ? $__tmp1__ : null) !== null ? $__tmp2__->getExpression() : null) instanceof VariableToken ? $__tmp3__ : null) !== null ? $__tmp4__->getText() : null) === '$this') {
                 $method = $rec->getName()->getCode();
             }
         } else {

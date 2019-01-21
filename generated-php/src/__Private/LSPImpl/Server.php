@@ -110,7 +110,7 @@ final class Server extends LSPLib\Server
                     return;
                 }
                 $handler = new LintRunLSPPublishDiagnosticsEventHandler($this->client, $this->state);
-                (yield (new LintRun($this->state->config, $handler, ($this->state->config ? $this->state->config->getRoots() : null) ?? []))->runAsync());
+                (yield (new LintRun($this->state->config, $handler, (($__tmp1__ = $this->state->config) !== null ? $__tmp1__->getRoots() : null) ?? []))->runAsync());
             }
         );
     }

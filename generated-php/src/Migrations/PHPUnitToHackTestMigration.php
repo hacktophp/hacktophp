@@ -41,7 +41,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             return $in;
         }
         $name = $receiver->getName();
-        $name = $name instanceof HHAST\NameToken ? $name : null ? ($name instanceof HHAST\NameToken ? $name : null)->getText() : null;
+        $name = ($__tmp1__ = $name instanceof HHAST\NameToken ? $name : null) !== null ? $__tmp1__->getText() : null;
         if ($name !== 'markTestIncomplete' && $name !== 'markTestSkipped') {
             return $in;
         }
@@ -49,7 +49,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         if (!$obj instanceof HHAST\VariableExpression) {
             return $in;
         }
-        $var = $obj->getExpression() instanceof HHAST\VariableToken ? $obj->getExpression() : (function () {
+        $var = ($__tmp2__ = $obj->getExpression()) instanceof HHAST\VariableToken ? $__tmp2__ : (function () {
             throw new \TypeError('Failed assertion');
         })();
         if ($var->getText() !== '$this') {
@@ -116,12 +116,12 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         $attrs = $decl->getAttribute();
         if ($attrs === null) {
             if ($comment_text !== null) {
-                $leading = ($decl->getFirstTokenx()->getLeading() instanceof HHAST\EditableList ? $decl->getFirstTokenx()->getLeading() : (function () {
+                $leading = (($__tmp3__ = $decl->getFirstTokenx()->getLeading()) instanceof HHAST\EditableList ? $__tmp3__ : (function () {
                     throw new \TypeError('Failed assertion');
                 })())->replace($comment, $comment->withText($comment_text));
             } else {
                 $leading = [];
-                foreach (($decl->getFirstTokenx()->getLeading() instanceof HHAST\EditableList ? $decl->getFirstTokenx()->getLeading() : (function () {
+                foreach ((($__tmp4__ = $decl->getFirstTokenx()->getLeading()) instanceof HHAST\EditableList ? $__tmp4__ : (function () {
                     throw new \TypeError('Failed assertion');
                 })())->getItems() as $item) {
                     if ($item === $comment) {
@@ -145,7 +145,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             return $n instanceof HHAST\EditableNode ? $n : (function () {
                 throw new \TypeError('Failed assertion');
             })();
-        }, ($first->getLeading() instanceof HHAST\EditableList ? $first->getLeading() : (function () {
+        }, (($__tmp5__ = $first->getLeading()) instanceof HHAST\EditableList ? $__tmp5__ : (function () {
             throw new \TypeError('Failed assertion');
         })())->getItems());
         return $decl->replace($first, $first->withLeading(HHAST\EditableList::createNonEmptyListOrMissing($this->trimWhitespace($leading))));
@@ -197,7 +197,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             if (!$node instanceof HHAST\ClassishDeclaration) {
                 return $node;
             }
-            $extends = $node->getExtendsList() ? $node->getExtendsList()->getItems() : null;
+            $extends = ($__tmp6__ = $node->getExtendsList()) !== null ? $__tmp6__->getItems() : null;
             if ($extends === null) {
                 return $node;
             }
@@ -255,7 +255,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
      */
     private function renameSetUpTearDownFunctions(HHAST\FunctionDeclarationHeader $node)
     {
-        $name = $node->getNamex() instanceof HHAST\NameToken ? $node->getNamex() : null ? ($node->getNamex() instanceof HHAST\NameToken ? $node->getNamex() : null)->getText() : null;
+        $name = ($__tmp8__ = ($__tmp7__ = $node->getNamex()) instanceof HHAST\NameToken ? $__tmp7__ : null) !== null ? $__tmp8__->getText() : null;
         if ($name === null) {
             return $node;
         }
@@ -272,7 +272,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             return ($m instanceof HHAST\EditableToken ? $m : (function () {
                 throw new \TypeError('Failed assertion');
             })())->withLeading(HHAST\Missing())->withTrailing(new HHAST\WhiteSpace(' '));
-        }, ($node->getModifiers() ? $node->getModifiers()->getItems() : null) ?? []);
+        }, (($__tmp9__ = $node->getModifiers()) !== null ? $__tmp9__->getItems() : null) ?? []);
         $new_modifiers[] = new HHAST\AsyncToken(HHAST\Missing(), new HHAST\WhiteSpace(' '));
         $new_modifiers[0] = $new_modifiers[0]->withLeading($leading);
         $type = $node->getType();
@@ -293,7 +293,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             return $node;
         }
         list($comment, $comment_text, $exception) = $match;
-        $body = $node->getFunctionBody() ? $node->getFunctionBody()->getStatements() : null ? ($node->getFunctionBody() ? $node->getFunctionBody()->getStatements() : null)->getItems() : null;
+        $body = ($__tmp11__ = ($__tmp10__ = $node->getFunctionBody()) !== null ? $__tmp10__->getStatements() : null) !== null ? $__tmp11__->getItems() : null;
         if ($body === null) {
             return $node;
         }
@@ -313,11 +313,9 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
                 throw new \TypeError('Failed assertion');
             })();
         }, $leading->getItems()) : [$leading];
-        $idx = C\find_key($items, function ($it) use($comment) {
+        $idx = ($__tmp12__ = C\find_key($items, function ($it) use($comment) {
             return $it === $comment;
-        }) !== null ? C\find_key($items, function ($it) use($comment) {
-            return $it === $comment;
-        }) : (function () {
+        })) !== null ? $__tmp12__ : (function () {
             throw new \TypeError('Failed assertion');
         })();
         return $node->replace($first, $first->withLeading(HHAST\EditableList::createNonEmptyListOrMissing(Vec\take($items, $idx))));
@@ -327,7 +325,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
      */
     private final function migrateExpectException(HHAST\MethodishDeclaration $node)
     {
-        $body = $node->getFunctionBody() ? $node->getFunctionBody()->getStatements() : null ? ($node->getFunctionBody() ? $node->getFunctionBody()->getStatements() : null)->getItems() : null;
+        $body = ($__tmp14__ = ($__tmp13__ = $node->getFunctionBody()) !== null ? $__tmp13__->getStatements() : null) !== null ? $__tmp14__->getItems() : null;
         if ($body === null) {
             return $node;
         }
@@ -361,11 +359,11 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             if (!$r instanceof HHAST\MemberSelectionExpression) {
                 return false;
             }
-            $var = ($r->getObject() instanceof HHAST\VariableExpression ? $r->getObject() : null ? ($r->getObject() instanceof HHAST\VariableExpression ? $r->getObject() : null)->getExpression() : null) instanceof HHAST\VariableToken ? $r->getObject() instanceof HHAST\VariableExpression ? $r->getObject() : null ? ($r->getObject() instanceof HHAST\VariableExpression ? $r->getObject() : null)->getExpression() : null : null;
+            $var = ($__tmp17__ = ($__tmp16__ = ($__tmp15__ = $r->getObject()) instanceof HHAST\VariableExpression ? $__tmp15__ : null) !== null ? $__tmp16__->getExpression() : null) instanceof HHAST\VariableToken ? $__tmp17__ : null;
             if (($var ? $var->getText() : null) !== '$this') {
                 return false;
             }
-            $n = $r->getNamex() instanceof HHAST\NameToken ? $r->getNamex() : null;
+            $n = ($__tmp18__ = $r->getNamex()) instanceof HHAST\NameToken ? $__tmp18__ : null;
             if (($n ? $n->getText() : null) !== 'expectException') {
                 return false;
             }
@@ -374,11 +372,9 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         if ($idx === null) {
             return $statements;
         }
-        $expect_exception = ($statements[$idx] instanceof HHAST\ExpressionStatement ? $statements[$idx] : (function () {
+        $expect_exception = ($__tmp20__ = (($__tmp19__ = $statements[$idx]) instanceof HHAST\ExpressionStatement ? $__tmp19__ : (function () {
             throw new \TypeError('Failed assertion');
-        })())->getExpressionx() instanceof HHAST\FunctionCallExpression ? ($statements[$idx] instanceof HHAST\ExpressionStatement ? $statements[$idx] : (function () {
-            throw new \TypeError('Failed assertion');
-        })())->getExpressionx() : (function () {
+        })())->getExpressionx()) instanceof HHAST\FunctionCallExpression ? $__tmp20__ : (function () {
             throw new \TypeError('Failed assertion');
         })();
         $pre = Vec\take($statements, $idx);
@@ -405,7 +401,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             $t = $statement->getFirstTokenx();
             return $statement->replace($t, $t->withLeading(new HHAST\WhiteSpace($t->getLeadingWhitespace()->getCode() . $indent)));
         }, $statements), $indent);
-        $new_line_leading = HHAST\EditableList::createNonEmptyListOrMissing([(C\first($statements) ? C\first($statements)->getFirstToken() : null ? (C\first($statements) ? C\first($statements)->getFirstToken() : null)->getLeadingWhitespace() : null) ?? new HHAST\WhiteSpace($indent . $indent)]);
+        $new_line_leading = HHAST\EditableList::createNonEmptyListOrMissing([(($__tmp22__ = ($__tmp21__ = C\first($statements)) !== null ? $__tmp21__->getFirstToken() : null) !== null ? $__tmp22__->getLeadingWhitespace() : null) ?? new HHAST\WhiteSpace($indent . $indent)]);
         $a = HHAST\EditableList::createNonEmptyListOrMissing($statements);
         $b = HHAST\EditableList::createNonEmptyListOrMissing($inner);
         invariant($a->getCode() !== $b->getCode(), 'idempotency problem');

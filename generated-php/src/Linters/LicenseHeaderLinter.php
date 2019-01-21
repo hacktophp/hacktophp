@@ -38,7 +38,7 @@ final class LicenseHeaderLinter extends AutoFixingASTLinter
         if ($first instanceof EndOfFile) {
             return null;
         }
-        $leading = $first->getFirstToken() ? $first->getFirstToken()->getLeading() : null;
+        $leading = ($__tmp1__ = $first->getFirstToken()) !== null ? $__tmp1__->getLeading() : null;
         if ($leading instanceof EditableList) {
             $leading = $leading->getItems()[0];
         }

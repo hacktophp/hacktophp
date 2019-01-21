@@ -66,7 +66,7 @@ function get_unresolved_referenced_names(EditableNode $root) : array
         // `new Foo()` gets us a SimpleTypeSpecifier, but
         // <<Foo>> gets us a NameToken directly
         if ($node instanceof ConstructorCall) {
-            $name = $node->getType() instanceof NameToken ? $node->getType() : null;
+            $name = ($__tmp1__ = $node->getType()) instanceof NameToken ? $__tmp1__ : null;
             if ($name !== null) {
                 $ret['types'][] = $name->getText();
             }

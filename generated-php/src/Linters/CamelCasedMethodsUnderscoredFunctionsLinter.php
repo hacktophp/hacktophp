@@ -24,7 +24,7 @@ class CamelCasedMethodsUnderscoredFunctionsLinter extends FunctionNamingLinter
         }
         // Allow camel-case if it's a factory function, e.g.
         //   function Missing(): Missing;
-        $type = $func->getDeclarationHeader()->getType() ? $func->getDeclarationHeader()->getType()->getCode() : null;
+        $type = ($__tmp1__ = $func->getDeclarationHeader()->getType()) !== null ? $__tmp1__->getCode() : null;
         if ($type !== null) {
             $type = C\lastx(\explode('\\', C\firstx(\explode('<', Str\trim($type)))));
             if ($type === $name) {

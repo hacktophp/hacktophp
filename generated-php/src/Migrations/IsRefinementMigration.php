@@ -70,7 +70,7 @@ final class IsRefinementMigration extends BaseMigration
             if ($make_replacement === null) {
                 return $node;
             }
-            $replacement = new HHAST\IsExpression($node->getArgumentListx()->getItems()[0] !== null ? $node->getArgumentListx()->getItems()[0] : (function () {
+            $replacement = new HHAST\IsExpression(($__tmp1__ = $node->getArgumentListx()->getItems()[0]) !== null ? $__tmp1__ : (function () {
                 throw new \TypeError('Failed assertion');
             })(), new HHAST\IsToken(new HHAST\WhiteSpace(' '), new HHAST\WhiteSpace(' ')), $make_replacement());
             $parent = C\lastx($parents !== null ? $parents : (function () {

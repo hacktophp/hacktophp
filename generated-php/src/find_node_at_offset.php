@@ -15,7 +15,7 @@ function find_node_at_offset(EditableNode $root, int $offset) : EditableNode
     if ($offset === 0) {
         return $root;
     }
-    if ($offset === ($root->getFirstToken() ? $root->getFirstToken()->getLeading() : null ? ($root->getFirstToken() ? $root->getFirstToken()->getLeading() : null)->getWidth() : null)) {
+    if ($offset === (($__tmp2__ = ($__tmp1__ = $root->getFirstToken()) !== null ? $__tmp1__->getLeading() : null) !== null ? $__tmp2__->getWidth() : null)) {
         return $root;
     }
     foreach ($root->getChildren() as $child) {

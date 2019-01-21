@@ -33,6 +33,6 @@ function get_current_namespace(EditableNode $_node, array $parents) : ?string
         invariant($body->isMissing() || $body instanceof NamespaceEmptyBody, "if using namespace blocks, all code must be in a NS block - got %s", \get_class($body));
         return $ns->getQualifiedNameAsString();
     }
-    return Str\strip_prefix(Str\trim((TypeAssert\instance_of(NamespaceDeclaration::class, C\firstx($namespaces))->getName() ? TypeAssert\instance_of(NamespaceDeclaration::class, C\firstx($namespaces))->getName()->getCode() : null) ?? ''), '\\') === '' ? null : Str\strip_prefix(Str\trim((TypeAssert\instance_of(NamespaceDeclaration::class, C\firstx($namespaces))->getName() ? TypeAssert\instance_of(NamespaceDeclaration::class, C\firstx($namespaces))->getName()->getCode() : null) ?? ''), '\\');
+    return Str\strip_prefix(Str\trim((($__tmp1__ = TypeAssert\instance_of(NamespaceDeclaration::class, C\firstx($namespaces))->getName()) !== null ? $__tmp1__->getCode() : null) ?? ''), '\\') === '' ? null : Str\strip_prefix(Str\trim((($__tmp1__ = TypeAssert\instance_of(NamespaceDeclaration::class, C\firstx($namespaces))->getName()) !== null ? $__tmp1__->getCode() : null) ?? ''), '\\');
 }
 

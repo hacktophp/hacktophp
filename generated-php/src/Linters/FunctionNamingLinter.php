@@ -82,7 +82,7 @@ abstract class FunctionNamingLinter extends ASTLinter
             $new = $this->getSuggestedNameForFunction($old, $node);
         } else {
             if ($node instanceof MethodishDeclaration) {
-                if (C\is_empty((array) (($node->getFunctionDeclHeader()->getModifiers() ? $node->getFunctionDeclHeader()->getModifiers()->getDescendantsOfType(StaticToken::class) : null) ?? []))) {
+                if (C\is_empty((array) ((($__tmp1__ = $node->getFunctionDeclHeader()->getModifiers()) !== null ? $__tmp1__->getDescendantsOfType(StaticToken::class) : null) ?? []))) {
                     $what = 'Method';
                     $new = $this->getSuggestedNameForInstanceMethod($old, $node);
                 } else {
@@ -104,7 +104,7 @@ abstract class FunctionNamingLinter extends ASTLinter
                 return $c instanceof ClassishDeclaration;
             });
             invariant($class instanceof ClassishDeclaration, 'failed to find a class for a method');
-            $class = $class->getName() ? $class->getName()->getText() : null;
+            $class = ($__tmp2__ = $class->getName()) !== null ? $__tmp2__->getText() : null;
         }
         return new FunctionNamingLintError($this, $this->getErrorDescription($what, $class, $old, $new), $ns, $class, $old, $new, $node);
     }

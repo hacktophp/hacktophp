@@ -263,10 +263,10 @@ final class CodegenRelations extends CodegenBase
         };
         // https://github.com/hhvm/hhast/issues/151
         $_ = function ($x) {
-            return \is_a($x->flatten([]), \get_class($this)) ? $x->flatten([]) : null;
+            return \is_a($__tmp1__ = $x->flatten([]), \get_class($this)) ? $__tmp1__ : null;
         };
         $_ = function ($x) {
-            return \is_a($x->flatten([]), \get_class($this)) ? $x->flatten([]) : (function () {
+            return \is_a($__tmp2__ = $x->flatten([]), \get_class($this)) ? $__tmp2__ : (function () {
                 throw new \TypeError('Failed assertion');
             })();
         };
