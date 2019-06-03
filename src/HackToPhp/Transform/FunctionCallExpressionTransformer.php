@@ -187,33 +187,23 @@ class FunctionCallExpressionTransformer
 			$object = ExpressionTransformer::transform($receiver->getObject(), $project, $file, $scope);
 			$name = ExpressionTransformer::transformVariableName($receiver->getName(), $project, $file, $scope);
 
-			if (!$object instanceof PhpParser\Node\Expr\Variable) {
-				$file->tmp_count++;
+			$file->tmp_count++;
 
-				$tmp_var = new PhpParser\Node\Expr\Variable('__tmp' . $file->tmp_count . '__');
+			$tmp_var = new PhpParser\Node\Expr\Variable('__tmp' . $file->tmp_count . '__');
 
-				$conditional = new PhpParser\Node\Expr\BinaryOp\NotIdentical(
-					new PhpParser\Node\Expr\Assign(
-						$tmp_var,
-						$object
-					),
-					new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
-				);
-
-				$method_call = new PhpParser\Node\Expr\MethodCall(
+			$conditional = new PhpParser\Node\Expr\BinaryOp\NotIdentical(
+				new PhpParser\Node\Expr\Assign(
 					$tmp_var,
-					$name,
-					$args
-				);
-			} else {
-				$conditional = $object;
+					$object
+				),
+				new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
+			);
 
-				$method_call = new PhpParser\Node\Expr\MethodCall(
-					$object,
-					$name,
-					$args
-				);
-			}
+			$method_call = new PhpParser\Node\Expr\MethodCall(
+				$tmp_var,
+				$name,
+				$args
+			);
 
 			return new PhpParser\Node\Expr\Ternary(
 				$conditional,
