@@ -52,7 +52,7 @@ class ExpressionTransformer
 				);
 			}
 
-			var_dump($inner_expression);
+			return new PhpParser\Node\Stmt\Nop();
 
 			throw new \UnexpectedValueException('Unrecognised expression statement token ' . $name_string);
 		}
