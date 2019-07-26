@@ -19,6 +19,8 @@ function editable_node_from_json(array $json, string $file, int $offset, string 
             return HHAST\EditableList::fromJSON($json, $file, $offset, $source);
         case 'missing':
             return HHAST\Missing();
+        case 'attribute':
+            return HHAST\Attribute::fromJSON($json, $file, $offset, $source);
         case 'after_halt_compiler':
             return HHAST\AfterHaltCompiler::fromJSON($json, $file, $offset, $source);
         case 'delimited_comment':
