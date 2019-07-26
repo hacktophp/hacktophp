@@ -78,21 +78,6 @@ class LiteralExpressionTransformer
 
 				return new PhpParser\Node\Scalar\DNumber((float) $value);
 
-			case HHAST\ExecutionStringLiteralToken::class:
-				return new PhpParser\Node\Expr\ShellExec([
-					new PhpParser\Node\Scalar\EncapsedStringPart(
-						substr($literal->getText(), 1, -1)
-					)
-				]);
-
-			case HHAST\StringLiteralBodyToken::class:
-				return new PhpParser\Node\Scalar\String_(
-					str_replace(['\\\\', '\\\''], ['\\', '\''], substr($literal->getText(), 1, -1)),
-					[
-						'kind' => PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED
-					]
-				);
-
 			case HHAST\EditableList::class:
 				$children = $literal->getChildren();
 				$first_child = $children[0];
@@ -110,6 +95,12 @@ class LiteralExpressionTransformer
 								if ($item instanceof HHAST\ExecutionStringLiteralTailToken) {
 									return new PhpParser\Node\Scalar\EncapsedStringPart(
 										stripcslashes(substr($item->getText(), 0, -1))
+									);
+								}
+
+								if ($item instanceof HHAST\StringLiteralBodyToken) {
+									return new PhpParser\Node\Scalar\EncapsedStringPart(
+										stripcslashes(substr($item->getText(), 1))
 									);
 								}
 
