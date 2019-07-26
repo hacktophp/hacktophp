@@ -21,9 +21,12 @@ final class NamespaceDeclaration extends NamespaceDeclarationGeneratedBase
         if ($name instanceof NameToken) {
             return $name->getText();
         }
+        if ($name === null) {
+            return '';
+        }
         return \implode("\\", \array_map(function ($t) {
             return $t->getText();
-        }, $this->getDescendantsOfType(NameToken::class)));
+        }, $name->getDescendantsOfType(NameToken::class)));
     }
 }
 

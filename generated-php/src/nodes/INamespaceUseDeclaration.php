@@ -14,7 +14,7 @@ interface INamespaceUseDeclaration
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value);
+    public function withKeyword(UseToken $value);
     /**
      * @return bool
      */
@@ -30,33 +30,35 @@ interface INamespaceUseDeclaration
     /**
      * @return static
      */
-    public function withKind(EditableNode $value);
+    public function withKind(Token $value);
     /**
      * @return bool
      */
     public function hasKind();
     /**
-     * @return null|EditableToken
+     * @return null|Token
      */
     public function getKind();
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getKindx();
     /**
+     * @param NodeList<ListItem<NamespaceUseClause>> $value
+     *
      * @return static
      */
-    public function withClauses(EditableNode $value);
+    public function withClauses(NodeList $value);
     /**
      * @return bool
      */
     public function hasClauses();
     /**
-     * @return EditableList<NamespaceUseClause>
+     * @return NodeList<ListItem<NamespaceUseClause>>
      */
     public function getClauses();
     /**
-     * @return EditableList<NamespaceUseClause>
+     * @return NodeList<ListItem<NamespaceUseClause>>
      */
     public function getClausesx();
     /**

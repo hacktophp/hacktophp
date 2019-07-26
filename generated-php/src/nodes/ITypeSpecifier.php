@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-interface IFunctionishDeclaration extends IHasFunctionBody
+interface ITypeSpecifier
 {
 }
 

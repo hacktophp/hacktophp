@@ -9,7 +9,8 @@
  */
 namespace Facebook\HHAST;
 
-interface IFunctionishDeclaration extends IHasFunctionBody
+final class ClassishDeclaration extends ClassishDeclarationGeneratedBase
 {
+    use AttributeAsAttributeSpecTrait;
 }
 

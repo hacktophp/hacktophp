@@ -9,7 +9,14 @@
  */
 namespace Facebook\HHAST;
 
-interface IFunctionishDeclaration extends IHasFunctionBody
+final class StatementList extends WrapperNode implements IStatement
 {
+    /**
+     * @return mixed
+     */
+    public function getWrappedNode()
+    {
+        return $this->wrapped;
+    }
 }
 

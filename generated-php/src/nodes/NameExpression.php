@@ -9,7 +9,14 @@
  */
 namespace Facebook\HHAST;
 
-interface IFunctionishDeclaration extends IHasFunctionBody
+final class NameExpression extends WrapperNode implements IExpression
 {
+    /**
+     * @return mixed
+     */
+    public function getWrappedNode()
+    {
+        return $this->wrapped;
+    }
 }
 
