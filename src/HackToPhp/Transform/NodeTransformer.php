@@ -32,7 +32,7 @@ class NodeTransformer
 		}
 
 		if ($node instanceof HHAST\MarkupSection) {
-			if ($node->hasSuffix() && $node->getSuffix()->getName()->getText() !== 'hh') {
+			if ($node->hasSuffix() && $node->getSuffix()->getName() && $node->getSuffix()->getName()->getText() !== 'hh') {
 				$file->is_hack = false;
 			}
 

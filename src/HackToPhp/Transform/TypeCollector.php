@@ -37,7 +37,7 @@ class TypeCollector
 
 					$file->namespace = $namespace_name;
 
-					if ($declaration->hasBody() && !$declaration->getBody() instanceof HHAST\NamespaceEmptyBody) {
+					if ($declaration->hasBody() && !$declaration->getBody() instanceof HHAST\NamespaceEmptyBody && $declaration->getBody()->getDeclarations()) {
 						self::collect($declaration->getBody()->getDeclarations(), $project, $file, $scope);
 					} else {
 						foreach (array_slice($declarations, $i + 1) as $sub_node) {
