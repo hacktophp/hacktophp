@@ -6,7 +6,7 @@
  * @generated SignedSource<<08946bea5740e5232fab573cfa3a34d3>>
  */
 namespace Facebook\HHAST;
-use namespace Facebook\TypeAssert;
+use Facebook\TypeAssert;
 
 final class Attribute extends EditableNode {
 
@@ -19,7 +19,7 @@ final class Attribute extends EditableNode {
     EditableNode $name,
     EditableNode $left_paren,
     EditableNode $values,
-    EditableNode $right_paren,
+    EditableNode $right_paren
   ) {
     parent::__construct('attribute');
     $this->_name = $name;
@@ -32,41 +32,41 @@ final class Attribute extends EditableNode {
     $json,
     string $file,
     int $offset,
-    string $source,
+    string $source
   ) {
     $name = EditableNode::fromJSON(
       /* UNSAFE_EXPR */ $json['attribute_name'],
       $file,
       $offset,
-      $source,
+      $source
     );
     $offset += $name->getWidth();
     $left_paren = EditableNode::fromJSON(
       /* UNSAFE_EXPR */ $json['attribute_left_paren'],
       $file,
       $offset,
-      $source,
+      $source
     );
     $offset += $left_paren->getWidth();
     $values = EditableNode::fromJSON(
       /* UNSAFE_EXPR */ $json['attribute_values'],
       $file,
       $offset,
-      $source,
+      $source
     );
     $offset += $values->getWidth();
     $right_paren = EditableNode::fromJSON(
       /* UNSAFE_EXPR */ $json['attribute_right_paren'],
       $file,
       $offset,
-      $source,
+      $source
     );
     $offset += $right_paren->getWidth();
     return new static($name, $left_paren, $values, $right_paren);
   }
 
-  public function getChildren(): dict<string, EditableNode> {
-    return dict[
+  public function getChildren() {
+    return [
       'name' => $this->_name,
       'left_paren' => $this->_left_paren,
       'values' => $this->_values,
@@ -76,9 +76,9 @@ final class Attribute extends EditableNode {
 
   public function rewriteDescendants(
     $rewriter,
-    $parents = null,
+    $parents = null
   ) {
-    $parents = $parents === null ? vec[] : vec($parents);
+    $parents = $parents === null ? [] : $parents;
     $parents[] = $this;
     $name = $this->_name->rewrite($rewriter, $parents);
     $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
@@ -107,7 +107,7 @@ final class Attribute extends EditableNode {
       $value,
       $this->_left_paren,
       $this->_values,
-      $this->_right_paren,
+      $this->_right_paren
     );
   }
 
@@ -178,14 +178,14 @@ final class Attribute extends EditableNode {
     return !$this->_values->isMissing();
   }
 
-  public function getValues(): ?EditableList<EditableNode> {
+  public function getValues() {
     if ($this->_values->isMissing()) {
       return null;
     }
     return TypeAssert\instance_of(EditableList::class, $this->_values);
   }
 
-  public function getValuesx(): EditableList<EditableNode> {
+  public function getValuesx() {
     return TypeAssert\instance_of(EditableList::class, $this->_values);
   }
 
