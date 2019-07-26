@@ -85,6 +85,14 @@ class LiteralExpressionTransformer
 					)
 				]);
 
+			case HHAST\StringLiteralBodyToken::class:
+				return new PhpParser\Node\Scalar\String_(
+					str_replace(['\\\\', '\\\''], ['\\', '\''], substr($literal->getText(), 1, -1)),
+					[
+						'kind' => PhpParser\Node\Scalar\String_::KIND_SINGLE_QUOTED
+					]
+				);
+
 			case HHAST\EditableList::class:
 				$children = $literal->getChildren();
 				$first_child = $children[0];
