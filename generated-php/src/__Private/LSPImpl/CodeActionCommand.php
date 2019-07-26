@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\__Private\LSPImpl;
 
 use Facebook\HHAST\__Private\{LSP, LSPLib};
-use Facebook\HHAST\Linters;
+use Facebook\HHAST\{AutoFixingLinter, LintError};
 use HH\Lib\{C, Str, Vec};
 final class CodeActionCommand extends LSPLib\CodeActionCommand
 {
@@ -45,7 +45,7 @@ final class CodeActionCommand extends LSPLib\CodeActionCommand
                         return null;
                     }
                     $linter = $e->getLinter();
-                    if (!$linter instanceof Linters\AutoFixingLinter) {
+                    if (!$linter instanceof AutoFixingLinter) {
                         return null;
                     }
                     try {
@@ -81,9 +81,9 @@ final class CodeActionCommand extends LSPLib\CodeActionCommand
         );
     }
     /**
-     * @param array<int, Linters\LintError> $errors
+     * @param array<int, LintError> $errors
      *
-     * @return null|Linters\LintError
+     * @return null|LintError
      */
     private function findError(LSP\Diagnostic $diagnostic, array $errors)
     {

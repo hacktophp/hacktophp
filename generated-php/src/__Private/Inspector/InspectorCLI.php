@@ -59,7 +59,7 @@ final class InspectorCLI extends CLIWithRequiredArguments
                     (yield $err->writeAsync("Provided path is not a file.\n"));
                     return 1;
                 }
-                $ast = HHAST\from_file($input);
+                $ast = (yield HHAST\from_file_async(HHAST\File::fromPath($input)));
                 // No XHP as XHP currently doesn't support namespaces
                 $output = $this->outputPath ?? Str\format('%s/hhast-inspect-%s.html', Str\strip_suffix(\sys_get_temp_dir(), '/'), \bin2hex(\random_bytes(16)));
                 \file_put_contents($output, $this->getHTMLHeader() . $this->getHTMLForNode($ast) . $this->getHTMLFooter());
@@ -88,33 +88,26 @@ final class InspectorCLI extends CLIWithRequiredArguments
     /**
      * @return string
      */
-    private function getHTMLForNode(HHAST\EditableNode $node)
+    private function getHTMLForNode(HHAST\Node $node)
     {
-        if ($node instanceof HHAST\Missing) {
-            return '';
-        }
         if ($node->isTrivia()) {
             $inner = \htmlspecialchars($node->getCode());
         } else {
-            if ($node instanceof HHAST\EditableToken) {
+            if ($node instanceof HHAST\Token) {
                 $inner = '';
                 $leading = $node->getLeading();
-                if (!$leading instanceof HHAST\Missing) {
-                    $inner .= '<span data-field="leading">' . $this->getHTMLForNode($leading) . '</span>';
-                }
+                $inner .= '<span data-field="leading">' . $this->getHTMLForNode($leading) . '</span>';
                 $inner .= \htmlspecialchars($node->getText());
                 $trailing = $node->getTrailing();
-                if (!$trailing instanceof HHAST\Missing) {
-                    $inner .= '<span data-field="trailing">' . $this->getHTMLForNode($trailing) . '</span>';
-                }
+                $inner .= '<span data-field="trailing">' . $this->getHTMLForNode($trailing) . '</span>';
             } else {
                 $inner = \implode('', Dict\map_with_key($node->getChildren(), function ($key, $child) {
-                    return Str\format('<span data-field="%s">%s</span>', $key, $this->getHTMLForNode($child));
+                    return Str\format('<span data-field="%s">%s</span>', (string) $key, $this->getHTMLForNode($child));
                 }));
             }
         }
         $class = C\lastx(\explode("\\", \get_class($node)));
-        return Str\format('<span class="hs-%s" data-node="%s">%s</span>', Str\strip_prefix($class, 'Editable'), $class, $inner);
+        return Str\format('<span class="hs-%s" data-node="%s">%s</span>', Str\strip_prefix($class, ''), $class, $inner);
     }
 }
 

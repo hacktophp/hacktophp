@@ -46,10 +46,7 @@ final class DidChangeTextDocumentNotification extends LSPLib\DidChangeTextDocume
                 }
                 $change = C\onlyx($p['contentChanges'], 'whole document sync only');
                 invariant(!Shapes::keyExists($change, 'range'), 'whole document sync only');
-                try {
-                    (yield relint_uri_async(new LintRunLSPPublishDiagnosticsEventHandler($this->client, $this->state), $this->state->config, $uri, $change['text']));
-                } catch (\Throwable $_) {
-                }
+                (yield relint_uri_async(new LintRunLSPPublishDiagnosticsEventHandler($this->client, $this->state), $this->state->config, $uri, $change['text']));
             }
         );
     }

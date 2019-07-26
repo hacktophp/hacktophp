@@ -9,9 +9,9 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST\Linters;
 use HH\Lib\{C, Math, Str, Vec};
-use Facebook\CLILib\{CLIWithArguments, ExitException};
+use Facebook\HHAST\LinterException;
+use Facebook\CLILib\CLIWithArguments;
 use Facebook\CLILib\CLIOptions;
 final class LinterCLI extends CLIWithArguments
 {
@@ -19,6 +19,10 @@ final class LinterCLI extends CLIWithArguments
      * @var bool
      */
     private $xhprof = false;
+    /**
+     * @var null|string
+     */
+    private $xhprofDotFile = null;
     /**
      * @var LinterCLIMode::PLAIN|LinterCLIMode::JSON|LinterCLIMode::LSP
      */
@@ -37,10 +41,11 @@ final class LinterCLI extends CLIWithArguments
     protected function getSupportedOptions()
     {
         return [CLIOptions\flag(function () {
-            throw new ExitException(1, "--perf is no longer supported; consider --xhprof");
-        }, '[unsupported]', '--perf'), CLIOptions\flag(function () {
             $this->xhprof = true;
-        }, 'Enable XHProf profiling', '--xhprof'), CLIOptions\with_required_enum(LinterCLIMode::class, function ($m) {
+        }, 'Enable XHProf profiling', '--xhprof'), CLIOptions\with_required_string(function ($v) {
+            $this->xhprof = true;
+            $this->xhprofDotFile = $v;
+        }, 'Enable XHProf profiling, and generate a GraphViz dot file', '--xhprof-dot'), CLIOptions\with_required_enum(LinterCLIMode::class, function ($m) {
             $this->mode = $m;
         }, 'Set the output mode; supported values are ' . \implode(' | ', LinterCLIMode::getValues()), '--mode', '-m'), CLIOptions\with_required_string(function ($_) {
         }, 'Name of the caller; intended for use with `--mode json` or `--mode lsp`', '--from'), $this->getVerbosityOption()];
@@ -58,7 +63,18 @@ final class LinterCLI extends CLIWithArguments
                 }
                 $result = (yield $this->mainImplAsync());
                 if ($this->xhprof) {
-                    XHProf::disableAndDump(\STDERR);
+                    $dotfile = $this->xhprofDotFile;
+                    if (\is_null($dotfile)) {
+                        XHProf::disableAndDump(\STDERR);
+                    } else {
+                        $dot = XHProf::disableAndGenerateDot();
+                        try {
+                            $file = \HH\Lib\Experimental\Filesystem\open_write_only($dotfile, \HH\Lib\Experimental\Filesystem\FileWriteMode::TRUNCATE);
+                            (yield $file->writeAsync($dot));
+                        } finally {
+                        }
+                        (yield $this->getStderr()->writeAsync(Str\format("Wrote XHProf data to %s\n", $dotfile)));
+                    }
                 }
                 return $result;
             }
@@ -110,7 +126,7 @@ final class LinterCLI extends CLIWithArguments
                 }
                 try {
                     $result = (yield (new LintRun($config, $error_handler, $roots))->runAsync());
-                } catch (Linters\LinterException $e) {
+                } catch (LinterException $e) {
                     $orig = $e->getPrevious() ?? $e;
                     $err = $terminal->getStderr();
                     $pos = $e->getPosition();

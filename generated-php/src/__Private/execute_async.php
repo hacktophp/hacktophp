@@ -27,13 +27,13 @@ function execute_async(string ...$args) : \Amp\Promise
             $spec = [0 => ['pipe', 'r'], 1 => ['pipe', 'w'], 2 => ['pipe', 'w']];
             $pipes = [];
             $proc = \proc_open($command, $spec, $pipes);
+            invariant($proc, "Failed to execute: %s", $command);
             list($stdin, $stdout, $stderr) = $pipes;
             \fclose($stdin);
             \stream_set_blocking($stdout, false);
             $exit_code = -2;
             $output = '';
             while (true) {
-                /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
                 $chunk = \stream_get_contents($stdout);
                 $output .= $chunk;
                 $status = \proc_get_status($proc);
@@ -41,7 +41,8 @@ function execute_async(string ...$args) : \Amp\Promise
                     $exit_code = $status['exitcode'];
                     break;
                 }
-                (yield \stream_await($stdout, \STREAM_AWAIT_READ | \STREAM_AWAIT_ERROR));
+                /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
+                (yield \stream_await($stdout, \STREAM_AWAIT_READ));
             }
             $output .= \stream_get_contents($stdout);
             \fclose($stdout);

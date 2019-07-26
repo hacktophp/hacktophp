@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST\Linters;
+use Facebook\HHAST\{BaseLinter, LintError};
 use HH\Lib\{C, Str, Vec};
 final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHandler
 {
@@ -27,36 +27,37 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
         $this->state = $state;
     }
     /**
-     * @var null|string
-     */
-    private $file = null;
-    /**
-     * @var array<int, Linters\LintError>
+     * @var array<string, array<int, LintError>>
      */
     private $errors = [];
     /**
+     * @return string
+     */
+    private static function realPath(string $in)
+    {
+        return \realpath($in);
+    }
+    /**
      * @param mixed $_config
-     * @param iterable<mixed, Linters\LintError> $errors
+     * @param iterable<mixed, LintError> $errors
      *
      * @return \Amp\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
      */
-    public function linterRaisedErrorsAsync(Linters\BaseLinter $linter, $_config, iterable $errors)
+    public function linterRaisedErrorsAsync(BaseLinter $linter, $_config, iterable $errors)
     {
         return \Amp\call(
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */
             function () use($linter, $_config, $errors) : \Generator {
-                $file = \realpath($linter->getFile()->getPath());
-                invariant($this->file === null || $this->file === $file, "Unexpected file change in lint process");
-                $this->file = $file;
-                $this->errors = \array_merge($errors, $this->errors ?? []);
+                $file = self::realPath($linter->getFile()->getPath());
+                $this->errors[$file] = \array_merge((array) $errors, $this->errors[$file] ?? []);
                 return LintAutoFixResult::SOME_UNFIXED;
             }
         );
     }
     /**
-     * @return array{range:LSP\Range, severity:LSP\DiagnosticSeverity, code:array-key, source:string, message:string, relatedInformation:array<int, LSP\DiagnosticRelatedInformation>}
+     * @return array{range:LSP\Range, severity:LSP\DiagnosticSeverity::ERROR|LSP\DiagnosticSeverity::WARNING|LSP\DiagnosticSeverity::INFORMATION|LSP\DiagnosticSeverity::HINT, code:array-key, source:string, message:string, relatedInformation:array<int, array{location:LSP\Location, message:string}>}
      */
-    private function asDiagnostic(Linters\LintError $error)
+    private function asDiagnostic(LintError $error)
     {
         $range = $error->getRange();
         $start = $range[0] ?? [0, 0];
@@ -67,7 +68,7 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
         return ['range' => ['start' => $start, 'end' => $end], 'severity' => LSP\DiagnosticSeverity::WARNING, 'message' => $error->getDescription(), 'code' => $source, 'source' => 'HHAST'];
     }
     /**
-     * @param array<int, Linters\LintError> $errors
+     * @param array<int, LintError> $errors
      *
      * @return \Amp\Promise<void>
      */
@@ -95,17 +96,15 @@ final class LintRunLSPPublishDiagnosticsEventHandler implements LintRunEventHand
         return \Amp\call(
             /** @return \Generator<int, mixed, void, void> */
             function () use($path, $result) : \Generator {
-                $path = \realpath($path);
-                invariant($this->file === null || $this->file === $path, "Unexpected file change");
-                $errors = $this->errors;
+                $path = self::realPath($path);
+                $errors = $this->errors[$path] ?? [];
                 if ($result === LintRunResult::NO_ERRORS) {
                     invariant(C\is_empty($errors), "Linter reports no errors, but we have errors");
                 } else {
                     invariant(!C\is_empty($errors), "Linter reports errors, but we have none");
                 }
                 (yield $this->publishDiagnosticsAsync($path, $errors));
-                $this->file = null;
-                $this->errors = [];
+                unset($this->errors[$path]);
             }
         );
     }

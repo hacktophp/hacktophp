@@ -9,20 +9,19 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST\Linters;
-use Facebook\TypeAssert;
+use Facebook\{HHAST, TypeAssert};
 use HH\Lib\{C, Keyset, Str, Vec};
-use Facebook\HHAST\Linters\BaseLinter;
+use Facebook\HHAST\BaseLinter;
 final class LintRunConfig
 {
     /**
      * @var array<int, class-string<BaseLinter>>
      */
-    const DEFAULT_LINTERS = [Linters\AsyncFunctionAndMethodLinter::class, Linters\CamelCasedMethodsUnderscoredFunctionsLinter::class, Linters\DontAwaitInALoopLinter::class, Linters\LicenseHeaderLinter::class, Linters\NewlineAtEndOfFileLinter::class, Linters\NoBasicAssignmentFunctionParameterLinter::class, Linters\MethodCallOnConstructorLinter::class, Linters\MustUseBracesForControlFlowLinter::class, Linters\MustUseOverrideAttributeLinter::class, Linters\NoPHPEqualityLinter::class, Linters\UnusedParameterLinter::class, Linters\UnusedUseClauseLinter::class, Linters\UseStatementWithLeadingBackslashLinter::class, Linters\UseStatementWithoutKindLinter::class, Linters\NoWhitespaceAtEndOfLineLinter::class];
+    const DEFAULT_LINTERS = [HHAST\AsyncFunctionAndMethodLinter::class, HHAST\CamelCasedMethodsUnderscoredFunctionsLinter::class, HHAST\DontAwaitInALoopLinter::class, HHAST\LicenseHeaderLinter::class, HHAST\NewlineAtEndOfFileLinter::class, HHAST\NoBasicAssignmentFunctionParameterLinter::class, HHAST\MethodCallOnConstructorLinter::class, HHAST\MustUseBracesForControlFlowLinter::class, HHAST\MustUseOverrideAttributeLinter::class, HHAST\NoElseifLinter::class, HHAST\NoPHPEqualityLinter::class, HHAST\UnusedParameterLinter::class, HHAST\UnusedUseClauseLinter::class, HHAST\UseStatementWithLeadingBackslashLinter::class, HHAST\UseStatementWithoutKindLinter::class, HHAST\GroupUseStatementsLinter::class, HHAST\GroupUseStatementAlphabetizationLinter::class, HHAST\NoWhitespaceAtEndOfLineLinter::class];
     /**
      * @var array<int, class-string<BaseLinter>>
      */
-    const NON_DEFAULT_LINTERS = [Linters\NoStringInterpolationLinter::class, Linters\StrictModeOnlyLinter::class, Linters\UseStatementWithAsLinter::class];
+    const NON_DEFAULT_LINTERS = [HHAST\NoStringInterpolationLinter::class, HHAST\StrictModeOnlyLinter::class, HHAST\UseStatementWithAsLinter::class];
     /**
      * @param NamedLinterGroup::ALL_BUILTINS|NamedLinterGroup::DEFAULT_BUILTINS|NamedLinterGroup::NO_BUILTINS $group
      *
@@ -117,6 +116,7 @@ final class LintRunConfig
         })) {
             return ['linters' => [], 'autoFixBlacklist' => []];
         }
+        $builtin_linters = $this->configFile['builtinLinters'] ?? NamedLinterGroup::DEFAULT_BUILTINS;
         $linters = $this->configFile['extraLinters'] ?? [];
         $blacklist = $this->configFile['disabledLinters'] ?? [];
         $autofix_blacklist = $this->configFile['disabledAutoFixes'] ?? [];
@@ -135,12 +135,15 @@ final class LintRunConfig
             if ($override['disableAllLinters'] ?? false) {
                 return ['linters' => [], 'autoFixBlacklist' => []];
             }
+            if (Shapes::keyExists($override, 'builtinLinters')) {
+                $builtin_linters = $override['builtinLinters'];
+            }
             $linters = \array_merge($override['extraLinters'] ?? [], $linters);
             $blacklist = \array_merge($override['disabledLinters'] ?? [], $blacklist);
             $autofix_blacklist = \array_merge($override['disabledAutoFixes'] ?? [], $autofix_blacklist);
             $no_autofixes = $no_autofixes || ($override['disableAllAutoFixes'] ?? false);
         }
-        $normalize = function ($list) {
+        $normalize = function (array $list) {
             return Keyset\map($list, function ($linter) {
                 return $this->getFullyQualifiedLinterName($linter);
             });
@@ -148,12 +151,12 @@ final class LintRunConfig
         $linters = $normalize($linters);
         $blacklist = $normalize($blacklist);
         $autofix_blacklist = $normalize($autofix_blacklist);
-        $linters = Keyset\union($linters, self::getNamedLinterGroup($this->configFile['builtinLinters'] ?? NamedLinterGroup::DEFAULT_BUILTINS));
+        $linters = Keyset\union($linters, self::getNamedLinterGroup($builtin_linters));
         $linters = Keyset\diff($linters, $blacklist);
         if ($no_autofixes) {
             $autofix_blacklist = $linters;
         }
-        $assert_types = function ($list) {
+        $assert_types = function (array $list) {
             return Keyset\map($list, function ($str) {
                 return TypeAssert\classname_of(BaseLinter::class, $str);
             });
@@ -167,6 +170,9 @@ final class LintRunConfig
      */
     private function getFullyQualifiedLinterName(string $name)
     {
+        if (Str\starts_with($name, "Facebook\\HHAST\\Linters")) {
+            $name = "Facebook\\HHAST" . Str\strip_prefix($name, "Facebook\\HHAST\\Linters");
+        }
         $aliases = $this->configFile['namespaceAliases'] ?? [];
         if (C\is_empty($aliases)) {
             return $name;

@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\__Private;
 
 use Facebook\CLILib\ITerminal;
-use Facebook\HHAST\Linters;
+use Facebook\HHAST\{BaseLinter, LintError};
 use HH\Lib\Vec;
 final class LintRunJSONEventHandler implements LintRunEventHandler
 {
@@ -28,11 +28,11 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
     }
     /**
      * @param mixed $_config
-     * @param iterable<mixed, Linters\LintError> $errors
+     * @param iterable<mixed, LintError> $errors
      *
      * @return \Amp\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
      */
-    public function linterRaisedErrorsAsync(Linters\BaseLinter $_linter, $_config, iterable $errors)
+    public function linterRaisedErrorsAsync(BaseLinter $_linter, $_config, iterable $errors)
     {
         return \Amp\call(
             /** @return \Generator<int, mixed, void, LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED> */
@@ -73,7 +73,7 @@ final class LintRunJSONEventHandler implements LintRunEventHandler
         return ['passed' => !$this->errors, 'errors' => $this->errors];
     }
     /**
-     * @param iterable<mixed, Linters\LintError> $errors
+     * @param iterable<mixed, LintError> $errors
      *
      * @return array<int, mixed>
      */

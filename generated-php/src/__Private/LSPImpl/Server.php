@@ -9,10 +9,11 @@
  */
 namespace Facebook\HHAST\__Private\LSPImpl;
 
-use Facebook\HHAST\__Private\{Asio\AsyncPoll, LintRunLSPPublishDiagnosticsEventHandler, LintRun};
+use Facebook\HHAST\__Private\{LintRun, LintRunLSPPublishDiagnosticsEventHandler};
 use Facebook\HHAST\__Private\{LSPImpl, LSPLib};
 use Facebook\CLILib\{ExitException, ITerminal};
 use HH\Lib\Str;
+use HH\Lib\Experimental\Async;
 /**
  * @template-extends LSPLib\Server<ServerState>
  */
@@ -57,7 +58,12 @@ final class Server extends LSPLib\Server
                 } catch (ExitException $e) {
                     return $e->getCode();
                 } catch (\Throwable $e) {
-                    (yield $this->terminal->getStderr()->writeAsync(Str\format("Uncaught exception: %s:\n%s\n%s\n", \get_class($e), $e->getMessage(), $e->getTraceAsString())));
+                    $message = Str\format("Uncaught exception: %s:\n%s\n%s\n", \get_class($e), $e->getMessage(), $e->getTraceAsString());
+                    $previous = $e->getPrevious();
+                    if ($previous !== null) {
+                        $message .= Str\format("Previous exception: %s:\n%s\n%s\n", \get_class($previous), $previous->getMessage(), $previous->getTraceAsString());
+                    }
+                    (yield $this->terminal->getStderr()->writeAsync($message));
                     throw $e;
                 }
                 return 0;
@@ -73,19 +79,22 @@ final class Server extends LSPLib\Server
             /** @return \Generator<int, mixed, void, void> */
             function () : \Generator {
                 $stdin = $this->terminal->getStdin();
-                $poll = AsyncPoll::create();
+                $poll = Async\Poll::create();
                 $poll->add($this->lintProjectAsync());
                 $debug = (bool) \getenv('HHAST_LSP_DEBUG') ?? false;
                 $verbose = $debug ? $this->terminal->getStderr() : null;
                 $poll->add((function () use($stdin, $verbose, $body, $this, $poll) {
                     while (!$stdin->isEndOfFile()) {
-                        (yield $verbose ? $verbose->writeAsync("< [waiting]\n") : null);
+                        /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
+                        (yield ($__tmp1__ = $verbose) !== null ? $__tmp1__->writeAsync("< [waiting]\n") : null);
+                        /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
                         $body = (yield $this->readMessageAsync());
-                        (yield $verbose ? $verbose->writeAsync("> [dispatch]\n") : null);
+                        /* HHAST_IGNORE_ERROR[DontAwaitInALoop] */
+                        (yield ($__tmp2__ = $verbose) !== null ? $__tmp2__->writeAsync("> [dispatch]\n") : null);
                         $poll->add((function () use($verbose, $body, $this) {
-                            (yield $verbose ? $verbose->writeAsync("> [start]\n") : null);
+                            (yield ($__tmp3__ = $verbose) !== null ? $__tmp3__->writeAsync("> [start]\n") : null);
                             (yield $this->handleMessageAsync($body));
-                            (yield $verbose ? $verbose->writeAsync("> [done]\n") : null);
+                            (yield ($__tmp4__ = $verbose) !== null ? $__tmp4__->writeAsync("> [done]\n") : null);
                         })());
                     }
                 })());
@@ -110,7 +119,7 @@ final class Server extends LSPLib\Server
                     return;
                 }
                 $handler = new LintRunLSPPublishDiagnosticsEventHandler($this->client, $this->state);
-                (yield (new LintRun($this->state->config, $handler, (($__tmp1__ = $this->state->config) !== null ? $__tmp1__->getRoots() : null) ?? []))->runAsync());
+                (yield (new LintRun($this->state->config, $handler, (($__tmp5__ = $this->state->config) !== null ? $__tmp5__->getRoots() : null) ?? []))->runAsync());
             }
         );
     }

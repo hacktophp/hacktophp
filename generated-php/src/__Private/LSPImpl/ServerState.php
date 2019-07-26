@@ -9,8 +9,8 @@
  */
 namespace Facebook\HHAST\__Private\LSPImpl;
 
-use Facebook\HHAST\Linters;
 use Facebook\HHAST\__Private\LSPLib;
+use Facebook\HHAST\LintError;
 use Facebook\HHAST\__Private\LintRunConfig;
 final class ServerState extends LSPLib\ServerState
 {
@@ -31,7 +31,7 @@ final class ServerState extends LSPLib\ServerState
      */
     public $openFiles = [];
     /**
-     * @var array<string, array<int, Linters\LintError>>
+     * @var array<string, array<int, LintError>>
      */
     public $lintErrors = [];
     // For Unit Tests

@@ -41,7 +41,7 @@ final class CodegenCLI extends CLIBase
         return \Amp\call(
             /** @return \Generator<int, mixed, void, int> */
             function () : \Generator {
-                $generators = [CodegenEditableNodeFromJSON::class => CodegenEditableNodeFromJSON::class, CodegenEditableTokenFromData::class => CodegenEditableTokenFromData::class, CodegenEditableTriviaFromJSON::class => CodegenEditableTriviaFromJSON::class, CodegenTokens::class => CodegenTokens::class, CodegenTrivia::class => CodegenTrivia::class, CodegenSyntax::class => CodegenSyntax::class, CodegenVersion::class => CodegenVersion::class];
+                $generators = [CodegenNodeFromJSON::class => CodegenNodeFromJSON::class, CodegenTokenFromData::class => CodegenTokenFromData::class, CodegenTriviaFromJSON::class => CodegenTriviaFromJSON::class, CodegenTokens::class => CodegenTokens::class, CodegenTrivia::class => CodegenTrivia::class, CodegenSyntax::class => CodegenSyntax::class, CodegenVersion::class => CodegenVersion::class];
                 $schema = $this->getSchema();
                 $rebuild_relationships = $this->rebuildRelationships;
                 if ($rebuild_relationships) {
@@ -52,7 +52,7 @@ final class CodegenCLI extends CLIBase
                     }
                     $relationships = [];
                     foreach ($generators as $generator) {
-                        (new $generator($schema, $relationships))->generate();
+                        (new $generator($schema, $relationships))->withoutHackfmt()->generate();
                     }
                     (new CodegenRelations($hhvm, $schema))->generate();
                 }
@@ -70,7 +70,7 @@ final class CodegenCLI extends CLIBase
     private function getSchema()
     {
         $json = \file_get_contents(\Facebook\AutoloadMap\Generated\root() . '/codegen/schema.json');
-        $array = \json_decode($json, true);
+        $array = \json_decode($json, true, 512);
         return TypeAssert\matches_type_structure(type_structure(self::class, 'TSchema'), $array);
     }
 }

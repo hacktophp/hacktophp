@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\__Private;
 
-use Facebook\HHAST\Linters;
+use Facebook\HHAST\{BaseLinter, LintError};
 /**
  * Interface for creating custom handlers for lint errors that are found during
  * a hhast-lint run. Some examples of hander actions are generating human
@@ -24,11 +24,11 @@ interface LintRunEventHandler
      */
     /**
      * @param mixed $config
-     * @param iterable<mixed, Linters\LintError> $errors
+     * @param iterable<mixed, LintError> $errors
      *
      * @return \Amp\Promise<LintAutoFixResult::ALL_FIXED|LintAutoFixResult::SOME_UNFIXED>
      */
-    public function linterRaisedErrorsAsync(Linters\BaseLinter $linter, $config, iterable $errors);
+    public function linterRaisedErrorsAsync(BaseLinter $linter, $config, iterable $errors);
     /**
      * @param LintRunResult::NO_ERRORS|LintRunResult::HAD_AUTOFIXED_ERRORS|LintRunResult::HAVE_UNFIXED_ERRORS $result
      *

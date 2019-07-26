@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\__Private\LSPImpl;
 
 use Facebook\HHAST\__Private\{LintRun, LintRunConfig, LintRunEventHandler};
-use Facebook\HHAST\Linters\File;
+use Facebook\HHAST\File;
 use HH\Lib\Str;
 /**
  * @return \Amp\Promise<void>
@@ -20,13 +20,16 @@ function relint_uri_async(LintRunEventHandler $handler, ?LintRunConfig $config, 
     return \Amp\call(
         /** @return \Generator<int, mixed, void, void> */
         function () use($handler, $config, $uri, $content) : \Generator {
-            $path = Str\strip_prefix($uri, 'file://');
-            $config = $config ?? LintRunConfig::getForPath($path);
-            $lint_run = new LintRun($config, $handler, [$path]);
-            if ($content !== null) {
-                $lint_run = $lint_run->withFile(new File($path, $content));
+            try {
+                $path = Str\strip_prefix($uri, 'file://');
+                $config = $config ?? LintRunConfig::getForPath($path);
+                $lint_run = new LintRun($config, $handler, [$path]);
+                if ($content !== null) {
+                    $lint_run = $lint_run->withFile(File::fromPathAndContents($path, $content));
+                }
+                (yield $lint_run->runAsync());
+            } catch (\Throwable $_) {
             }
-            (yield $lint_run->runAsync());
         }
     );
 }
