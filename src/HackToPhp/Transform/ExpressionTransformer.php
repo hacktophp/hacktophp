@@ -52,7 +52,7 @@ class ExpressionTransformer
 				);
 			}
 
-			throw new \UnexpectedValueException('Unrecognised expression statement token');
+			throw new \UnexpectedValueException('Unrecognised expression statement token ' . $name_string);
 		}
 
 		$token_comments = self::getTokenCommentsRecursively($node);
