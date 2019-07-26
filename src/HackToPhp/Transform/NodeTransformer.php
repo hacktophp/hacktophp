@@ -59,7 +59,7 @@ class NodeTransformer
 			return ExpressionTransformer::transformStatement($node, $project, $file, $scope);
 		}
 
-		if ($node instanceof HHAST\EditableToken) {
+		if ($node instanceof HHAST\Token) {
 			return $node->getText();
 		}
 

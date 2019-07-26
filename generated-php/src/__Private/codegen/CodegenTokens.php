@@ -66,14 +66,14 @@ final class CodegenTokens extends CodegenBase
      */
     public function generateExtends($token)
     {
-        $cls = 'EditableTokenWithFixedText';
+        $cls = 'TokenWithFixedText';
         $text = $token['text'];
         if ($text !== null && Str\uppercase($text) !== Str\lowercase($text)) {
-            $cls = 'EditableTokenWithVariableText';
+            $cls = 'TokenWithVariableText';
         } else {
             foreach ($token['fields'] as $field) {
                 if ($field['name'] === 'text') {
-                    $cls = 'EditableTokenWithVariableText';
+                    $cls = 'TokenWithVariableText';
                 }
             }
         }

@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{CompoundStatement, EditableList, EditableNode, EditableToken, ElseClause, ElseifClause, EndOfLine, ForeachStatement, IfStatement, LeftBraceToken, IControlFlowStatement, RightBraceToken, WhileStatement, WhiteSpace};
+use Facebook\HHAST\{CompoundStatement, EditableList, EditableNode, Token, ElseClause, ElseifClause, EndOfLine, ForeachStatement, IfStatement, LeftBraceToken, IControlFlowStatement, RightBraceToken, WhileStatement, WhiteSpace};
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec};
 /**
@@ -67,7 +67,7 @@ class MustUseBracesForControlFlowLinter extends AutoFixingASTLinter
         return null;
     }
     /**
-     * @return EditableToken
+     * @return Token
      */
     private function getLastHeadToken(EditableNode $node)
     {

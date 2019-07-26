@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ConstToken, EditableList, EditableNode, EditableToken, FunctionToken, INamespaceUseDeclaration, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, NamespaceUseClause, NamespaceToken, NameToken, TypeToken, QualifiedName};
+use Facebook\HHAST\{ConstToken, EditableList, EditableNode, Token, FunctionToken, INamespaceUseDeclaration, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, NamespaceUseClause, NamespaceToken, NameToken, TypeToken, QualifiedName};
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec};
 /**
@@ -45,7 +45,7 @@ final class UnusedUseClauseLinter extends AutoFixingASTLinter
      *
      * @return array<int, array{0:string, 1:NamespaceUseClause}>
      */
-    private function getUnusedClauses(?EditableToken $kind, array $clauses)
+    private function getUnusedClauses(?Token $kind, array $clauses)
     {
         $used = $this->getUnresolvedReferencedNames();
         $unused = [];

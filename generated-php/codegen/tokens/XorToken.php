@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-final class XorToken extends EditableTokenWithVariableText
+final class XorToken extends TokenWithVariableText
 {
     /**
      * @var string

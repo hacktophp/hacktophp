@@ -543,7 +543,7 @@ class ExpressionTransformer
 				continue;
 			}
 
-			if ($child instanceof HHAST\EditableToken) {
+			if ($child instanceof HHAST\Token) {
 				return self::getTokenComments($child);
 			}
 
@@ -557,7 +557,7 @@ class ExpressionTransformer
 		return [];
 	}
 
-	public static function getTokenComments(HHAST\EditableToken $token) : array
+	public static function getTokenComments(HHAST\Token $token) : array
 	{
 		$comment_nodes = $token->hasLeading()
 			? array_merge(

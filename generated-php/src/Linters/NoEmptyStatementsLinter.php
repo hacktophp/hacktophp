@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ExpressionStatement, EditableToken, EditableNode, EditableList};
+use Facebook\HHAST\{ExpressionStatement, Token, EditableNode, EditableList};
 use Facebook\HHAST;
 /**
  * @template-extends AutoFixingASTLinter<ExpressionStatement>
@@ -77,7 +77,7 @@ final class NoEmptyStatementsLinter extends AutoFixingASTLinter
     /**
      * @return bool
      */
-    private function isOperatorWithoutSideEffects(EditableToken $op)
+    private function isOperatorWithoutSideEffects(Token $op)
     {
         // The pipe operator does not necessarily have any side effects but it
         // typically implies function invocation which can have side effects.
@@ -92,7 +92,7 @@ final class NoEmptyStatementsLinter extends AutoFixingASTLinter
     /**
      * @return bool
      */
-    private function isAssignmentOperator(EditableToken $op)
+    private function isAssignmentOperator(Token $op)
     {
         return $op instanceof HHAST\AmpersandEqualToken || $op instanceof HHAST\BarEqualToken || $op instanceof HHAST\CaratEqualToken || $op instanceof HHAST\DotEqualToken || $op instanceof HHAST\EqualToken || $op instanceof HHAST\GreaterThanEqualToken || $op instanceof HHAST\GreaterThanGreaterThanEqualToken || $op instanceof HHAST\LessThanEqualToken || $op instanceof HHAST\LessThanLessThanEqualToken || $op instanceof HHAST\MinusEqualToken || $op instanceof HHAST\PercentEqualToken || $op instanceof HHAST\PlusEqualToken || $op instanceof HHAST\QuestionQuestionEqualToken || $op instanceof HHAST\SlashEqualToken || $op instanceof HHAST\StarEqualToken || $op instanceof HHAST\StarStarEqualToken;
     }

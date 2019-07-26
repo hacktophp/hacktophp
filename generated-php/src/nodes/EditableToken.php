@@ -11,7 +11,7 @@ namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
 use HH\Lib\Str;
-abstract class EditableToken extends EditableNode
+abstract class Token extends EditableNode
 {
     /**
      * @var string
@@ -139,15 +139,15 @@ abstract class EditableToken extends EditableNode
         return $this->getLeading()->getCode() . $this->getText() . $this->getTrailing()->getCode();
     }
     /**
-     * @return EditableToken
+     * @return Token
      */
     public abstract function withLeading(EditableNode $leading);
     /**
-     * @return EditableToken
+     * @return Token
      */
     public abstract function withTrailing(EditableNode $trailing);
     /**
-     * @return EditableToken
+     * @return Token
      */
     private static function factory(string $file, int $offset, string $token_kind, EditableNode $leading, EditableNode $trailing, string $token_text)
     {
@@ -156,7 +156,7 @@ abstract class EditableToken extends EditableNode
     /**
      * @param array<string, mixed> $json
      *
-     * @return EditableToken
+     * @return Token
      */
     public static function fromJSON(array $json, string $file, int $offset, string $source)
     {
@@ -176,17 +176,17 @@ abstract class EditableToken extends EditableNode
             return $j['width'] + $p;
         }, $trailing_position);
         $trailing = EditableList::createNonEmptyListOrMissing($trailing_list);
-        return EditableToken::factory($file, $token_position, $json['kind'], $leading, $trailing, $token_text);
+        return Token::factory($file, $token_position, $json['kind'], $leading, $trailing, $token_text);
     }
     /**
-     * @return EditableToken
+     * @return Token
      */
     public final function getFirstToken()
     {
         return $this;
     }
     /**
-     * @return EditableToken
+     * @return Token
      */
     public final function getLastToken()
     {

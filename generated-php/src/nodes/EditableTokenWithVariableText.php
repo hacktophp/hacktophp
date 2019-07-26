@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-abstract class EditableTokenWithVariableText extends EditableToken
+abstract class TokenWithVariableText extends Token
 {
     public function __construct(EditableNode $leading, EditableNode $trailing, string $token_text)
     {

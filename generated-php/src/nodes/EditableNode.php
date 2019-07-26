@@ -260,14 +260,14 @@ abstract class EditableNode
         });
     }
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getFirstTokenx()
     {
         return TypeAssert\not_null($this->getFirstToken());
     }
     /**
-     * @return null|EditableToken
+     * @return null|Token
      */
     public function getFirstToken()
     {
@@ -279,14 +279,14 @@ abstract class EditableNode
         return null;
     }
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getLastTokenx()
     {
         return TypeAssert\not_null($this->getLastToken());
     }
     /**
-     * @return null|EditableToken
+     * @return null|Token
      */
     public function getLastToken()
     {
@@ -315,7 +315,7 @@ abstract class EditableNode
             if ($token === null) {
                 throw new \Exception('Unable to find token to insert trivia.');
             }
-            $token = TypeAssert\instance_of(EditableToken::class, $token);
+            $token = TypeAssert\instance_of(Token::class, $token);
             // Inserting trivia before token is inserting to the right end of
             // the leading trivia.
             $new_leading = EditableList::concat($token->getLeading(), $new_node);
@@ -342,7 +342,7 @@ abstract class EditableNode
             if ($token === null) {
                 throw new \Exception('Unable to find token to insert trivia.');
             }
-            $token = TypeAssert\instance_of(EditableToken::class, $token);
+            $token = TypeAssert\instance_of(Token::class, $token);
             // Inserting trivia after token is inserting to the left end of
             // the trailing trivia.
             $new_trailing = EditableList::concat($new_node, $token->getTrailing());

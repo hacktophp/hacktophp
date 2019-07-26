@@ -1,9 +1,4 @@
 <?php
-/**
- * This file is generated. Do not modify it manually!
- *
- * @generated SignedSource<<92afee155c2af285506dafb81b215143>>
- */
 namespace Facebook\HHAST\__Private;
 
 /**

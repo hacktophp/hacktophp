@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters\SuppressASTLinter;
 
-use Facebook\HHAST\{BreakStatement, ContinueStatement, EchoStatement, EditableNode, EditableToken, GotoStatement, IControlFlowStatement, ReturnStatement, ThrowStatement, TryStatement, UnsetStatement};
+use Facebook\HHAST\{BreakStatement, ContinueStatement, EchoStatement, EditableNode, Token, GotoStatement, IControlFlowStatement, ReturnStatement, ThrowStatement, TryStatement, UnsetStatement};
 use Facebook\HHAST\Linters\{BaseLinter, LintError};
 use HH\Lib\{C, Str, Vec};
 /**
@@ -26,7 +26,7 @@ function is_linter_error_suppressed(BaseLinter $linter, EditableNode $node, arra
     return is_linter_suppressed_in_current_node($token, $fixme, $ignore) || is_linter_suppressed_in_sibling_node($parents, $fixme, $ignore) || is_linter_suppressed_up_to_statement($parents, $fixme, $ignore);
 }
 // Check the current token's leading trivia. For example a comment on the line before
-function is_linter_suppressed_in_current_node(?EditableToken $token, string $fixme, string $ignore) : bool
+function is_linter_suppressed_in_current_node(?Token $token, string $fixme, string $ignore) : bool
 {
     if ($token === null) {
         return false;

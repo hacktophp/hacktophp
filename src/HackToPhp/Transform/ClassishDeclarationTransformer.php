@@ -309,7 +309,7 @@ class ClassishDeclarationTransformer
 								if ($aliasing_name instanceof HHAST\ScopeResolutionExpression) {
 									$qualifier = $aliasing_name->getQualifier();
 
-									if ($qualifier instanceof HHAST\EditableToken) {
+									if ($qualifier instanceof HHAST\Token) {
 										$class = $qualifier->getText();
 									} elseif ($qualifier instanceof HHAST\QualifiedName) {
 										$class = QualifiedNameTransformer::getText($qualifier);

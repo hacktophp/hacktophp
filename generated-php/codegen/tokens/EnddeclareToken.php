@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-final class EnddeclareToken extends EditableTokenWithVariableText
+final class EnddeclareToken extends TokenWithVariableText
 {
     /**
      * @var string

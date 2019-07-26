@@ -70,7 +70,7 @@ class TypeTransformer
 			return $token_text;
 		}
 
-		if ($node instanceof HHAST\EditableToken) {
+		if ($node instanceof HHAST\Token) {
 			return self::transformToken($node, $project, $file, $scope, $template_map);
 		}
 
@@ -120,7 +120,7 @@ class TypeTransformer
 					continue;
 				}
 
-				if ($child instanceof HHAST\EditableToken) {
+				if ($child instanceof HHAST\Token) {
 					$string_types[] = self::transformToken($child, $project, $file, $scope, $template_map);
 					continue;
 				}
@@ -142,7 +142,7 @@ class TypeTransformer
 				continue;
 			}
 
-			if ($child instanceof HHAST\EditableToken) {
+			if ($child instanceof HHAST\Token) {
 				$string_type .= self::transformToken($child, $project, $file, $scope, $template_map);
 				continue;
 			}
@@ -275,7 +275,7 @@ class TypeTransformer
 		return 'array{' . implode(',', $field_types) . '}';
 	}
 
-	public static function transformToken(HHAST\EditableToken $node, Project $project, HackFile $file, Scope $scope, array $template_map = []) : string
+	public static function transformToken(HHAST\Token $node, Project $project, HackFile $file, Scope $scope, array $template_map = []) : string
 	{
 		$token_text = $node->getText();
 

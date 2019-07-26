@@ -192,17 +192,17 @@ abstract class AlternateLoopStatementGeneratedBase extends EditableNode implemen
      * @return EnddeclareToken | EndforToken | EndforeachToken | EndwhileToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getClosingKeyword()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_closing_keyword);
+        return TypeAssert\instance_of(Token::class, $this->_closing_keyword);
     }
     /**
      * @return EnddeclareToken | EndforToken | EndforeachToken | EndwhileToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getClosingKeywordx()
     {

@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-final class LessThanGreaterThanToken extends EditableTokenWithFixedText
+final class LessThanGreaterThanToken extends TokenWithFixedText
 {
     /**
      * @var string

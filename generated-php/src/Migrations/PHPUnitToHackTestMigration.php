@@ -20,7 +20,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
     {
         $name = \implode('', \array_map(function ($t) {
             return $t->getText();
-        }, $in->getDescendantsOfType(HHAST\EditableToken::class)));
+        }, $in->getDescendantsOfType(HHAST\Token::class)));
         if ($name !== "\\PHPUnit_Framework_TestCase" && $name !== "\\PHPUnit\\Framework\\TestCase" && $name !== "PHPUnit_Framework_TestCase" && $name !== "PHPUnit\\Framework\\TestCase" && $name !== "Facebook\\HackTest\\HackTestCase" && $name !== "\\Facebook\\HackTest\\HackTestCase") {
             return $in;
         }
@@ -244,7 +244,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         }
         $text = Str\strip_prefix(\implode('', \array_map(function ($t) {
             return $t->getText();
-        }, $what->getDescendantsOfType(HHAST\EditableToken::class))), '\\');
+        }, $what->getDescendantsOfType(HHAST\Token::class))), '\\');
         if ($text !== 'PHPUnit_Framework_TestCase' && $text !== 'PHPUnit\\Framework\\TestCase' && $text !== 'Facebook\\HackTest\\HackTestCase') {
             return $node;
         }
@@ -269,7 +269,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
             if ($m instanceof HHAST\PrivateToken || $m instanceof HHAST\ProtectedToken) {
                 return new HHAST\PublicToken(HHAST\Missing(), new HHAST\WhiteSpace(' '));
             }
-            return ($m instanceof HHAST\EditableToken ? $m : (function () {
+            return ($m instanceof HHAST\Token ? $m : (function () {
                 throw new \TypeError('Failed assertion');
             })())->withLeading(HHAST\Missing())->withTrailing(new HHAST\WhiteSpace(' '));
         }, (($__tmp9__ = $node->getModifiers()) !== null ? $__tmp9__->getItems() : null) ?? []);

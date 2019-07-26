@@ -12,7 +12,7 @@ namespace Facebook\HHAST\__Private;
 use Facebook\TypeAssert;
 use HH\Lib\Str;
 use Facebook\HackCodegen\{HackBuilderKeys, HackBuilderValues};
-final class CodegenEditableTokenFromData extends CodegenBase
+final class CodegenTokenFromData extends CodegenBase
 {
     /**
      * @return void
@@ -40,7 +40,7 @@ final class CodegenEditableTokenFromData extends CodegenBase
             $kind = StrP\underscored($token['token_kind']);
             $class_map_with_text[$kind] = Str\format('HHAST\\%sToken::class', $token['token_kind']);
         }
-        $cg->codegenFile($this->getOutputDirectory() . '/editable_token_from_data.php')->setNamespace('Facebook\\HHAST\\__Private')->useNamespace('Facebook\\HHAST')->addClass($cg->codegenClass('TokenClassMap')->addConstant($cg->codegenClassConstant('WITH_TEXT')->setType('dict<string, classname<HHAST\\EditableTokenWithVariableText>>')->setValue($class_map_with_text, HackBuilderValues::dict(HackBuilderKeys::export(), HackBuilderValues::literal())))->addConstant($cg->codegenClassConstant('WITHOUT_TEXT')->setType('dict<string, classname<HHAST\\EditableTokenWithFixedText>>')->setValue($class_map, HackBuilderValues::dict(HackBuilderKeys::export(), HackBuilderValues::literal()))))->addFunction($cg->codegenFunction('editable_token_from_data')->setReturnType('HHAST\\EditableToken')->addParameter('string $file')->addParameter('int $offset')->addParameter('string $token_kind')->addParameter('HHAST\\EditableNode $leading')->addParameter('HHAST\\EditableNode $trailing')->addParameter('string $token_text')->setBody($cg->codegenHackBuilder()->add('$cls = TokenClassMap::WITHOUT_TEXT[$token_kind] ?? null;')->add('if ($cls !== null) { return new $cls($leading, $trailing); }')->add('$cls = TokenClassMap::WITH_TEXT[$token_kind] ?? null;')->add('if ($cls !== null) { return new $cls($leading, $trailing, $token_text); }')->addMultilineCall('throw new HHAST\\UnsupportedTokenError', ['$file', '$offset', '$token_kind'])->getCode()))->save();
+        $cg->codegenFile($this->getOutputDirectory() . '/editable_token_from_data.php')->setNamespace('Facebook\\HHAST\\__Private')->useNamespace('Facebook\\HHAST')->addClass($cg->codegenClass('TokenClassMap')->addConstant($cg->codegenClassConstant('WITH_TEXT')->setType('dict<string, classname<HHAST\\TokenWithVariableText>>')->setValue($class_map_with_text, HackBuilderValues::dict(HackBuilderKeys::export(), HackBuilderValues::literal())))->addConstant($cg->codegenClassConstant('WITHOUT_TEXT')->setType('dict<string, classname<HHAST\\TokenWithFixedText>>')->setValue($class_map, HackBuilderValues::dict(HackBuilderKeys::export(), HackBuilderValues::literal()))))->addFunction($cg->codegenFunction('editable_token_from_data')->setReturnType('HHAST\\Token')->addParameter('string $file')->addParameter('int $offset')->addParameter('string $token_kind')->addParameter('HHAST\\EditableNode $leading')->addParameter('HHAST\\EditableNode $trailing')->addParameter('string $token_text')->setBody($cg->codegenHackBuilder()->add('$cls = TokenClassMap::WITHOUT_TEXT[$token_kind] ?? null;')->add('if ($cls !== null) { return new $cls($leading, $trailing); }')->add('$cls = TokenClassMap::WITH_TEXT[$token_kind] ?? null;')->add('if ($cls !== null) { return new $cls($leading, $trailing, $token_text); }')->addMultilineCall('throw new HHAST\\UnsupportedTokenError', ['$file', '$offset', '$token_kind'])->getCode()))->save();
     }
 }
 

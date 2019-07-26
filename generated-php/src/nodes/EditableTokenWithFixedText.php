@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-abstract class EditableTokenWithFixedText extends EditableToken
+abstract class TokenWithFixedText extends Token
 {
     public function __construct(EditableNode $leading, EditableNode $trailing)
     {

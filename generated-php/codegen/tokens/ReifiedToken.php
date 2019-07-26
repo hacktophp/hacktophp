@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-final class ReifiedToken extends EditableTokenWithVariableText
+final class ReifiedToken extends TokenWithVariableText
 {
     /**
      * @var string

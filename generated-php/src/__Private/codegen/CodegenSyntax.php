@@ -82,7 +82,7 @@ final class CodegenSyntax extends CodegenBase
         if (C\every($types, function ($t) {
             return Str\starts_with($t, 'token:');
         })) {
-            return 'EditableToken';
+            return 'Token';
         }
         if (C\every($types, function ($t) {
             return Str\starts_with($t, 'list<');
@@ -232,7 +232,7 @@ final class CodegenSyntax extends CodegenBase
     private function getSyntaxClass(string $child)
     {
         if ($child === 'token') {
-            return 'EditableToken';
+            return 'Token';
         }
         if ($child === 'list<>') {
             return 'EditableList<EditableNode>';

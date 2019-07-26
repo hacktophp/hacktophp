@@ -6,7 +6,7 @@
  */
 namespace Facebook\HHAST;
 
-final class ExecutionStringLiteralTailToken extends EditableTokenWithVariableText
+final class ExecutionStringLiteralTailToken extends TokenWithVariableText
 {
     /**
      * @var string

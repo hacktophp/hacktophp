@@ -20,7 +20,7 @@ class FunctionCallExpressionTransformer
 		if ($receiver instanceof HHAST\ScopeResolutionExpression) {
 			$qualifier = $receiver->getQualifier();
 
-			if ($qualifier instanceof HHAST\EditableToken) {
+			if ($qualifier instanceof HHAST\Token) {
 				$class = new PhpParser\Node\Name($qualifier->getText());
 			} elseif ($qualifier instanceof HHAST\QualifiedName) {
 				$class = QualifiedNameTransformer::transform($qualifier);

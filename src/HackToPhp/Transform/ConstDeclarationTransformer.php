@@ -13,14 +13,16 @@ class ConstDeclarationTransformer
 		$abstract = false;
 
 		$flags = 0;
-		$visibility = $node->hasVisibility() ? $node->getVisibility() : null;
+		$modifiers = $node->hasModifiers() ? $node->getModifiers() : [];
 
-		if ($visibility instanceof HHAST\PublicToken) {
-			$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
-		} elseif ($visibility instanceof HHAST\ProtectedToken) {
-			$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED;
-		} elseif ($visibility instanceof HHAST\PrivateToken) {
-			$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
+		foreach ($modifiers as $modifier) {
+			if ($modifer instanceof HHAST\PublicToken) {
+				$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PUBLIC;
+			} elseif ($modifer instanceof HHAST\ProtectedToken) {
+				$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PROTECTED;
+			} elseif ($modifer instanceof HHAST\PrivateToken) {
+				$flags |= PhpParser\Node\Stmt\Class_::MODIFIER_PRIVATE;
+			}
 		}
 
 		$type = $node->hasTypeSpecifier() ? $node->getTypeSpecifier() : null;
