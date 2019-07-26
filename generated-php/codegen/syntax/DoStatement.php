@@ -2,44 +2,48 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<4c8b60669b284b2eb04e4a0a7af10440>>
+ * @generated SignedSource<<7f61a524d6e3573bae77348c6cb71da7>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class DoStatement extends EditableNode implements IControlFlowStatement, ILoopStatement
+use HH\Lib\Dict;
+final class DoStatement extends Node implements IControlFlowStatement, ILoopStatement, IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'do_statement';
+    /**
+     * @var DoToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var IStatement
      */
     private $_body;
     /**
-     * @var EditableNode
+     * @var WhileToken
      */
     private $_while_keyword;
     /**
-     * @var EditableNode
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_condition;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $body, EditableNode $while_keyword, EditableNode $left_paren, EditableNode $condition, EditableNode $right_paren, EditableNode $semicolon)
+    public function __construct(DoToken $keyword, IStatement $body, WhileToken $while_keyword, LeftParenToken $left_paren, IExpression $condition, RightParenToken $right_paren, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('do_statement');
         $this->_keyword = $keyword;
         $this->_body = $body;
         $this->_while_keyword = $while_keyword;
@@ -47,61 +51,86 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
         $this->_condition = $condition;
         $this->_right_paren = $right_paren;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['do_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['do_keyword'], $file, $offset, $source, 'DoToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $body = EditableNode::fromJSON($json['do_body'], $file, $offset, $source);
+        $body = Node::fromJSON($json['do_body'], $file, $offset, $source, 'IStatement');
+        $body = $body !== null ? $body : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $body->getWidth();
-        $while_keyword = EditableNode::fromJSON($json['do_while_keyword'], $file, $offset, $source);
+        $while_keyword = Node::fromJSON($json['do_while_keyword'], $file, $offset, $source, 'WhileToken');
+        $while_keyword = $while_keyword !== null ? $while_keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $while_keyword->getWidth();
-        $left_paren = EditableNode::fromJSON($json['do_left_paren'], $file, $offset, $source);
+        $left_paren = Node::fromJSON($json['do_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $condition = EditableNode::fromJSON($json['do_condition'], $file, $offset, $source);
+        $condition = Node::fromJSON($json['do_condition'], $file, $offset, $source, 'IExpression');
+        $condition = $condition !== null ? $condition : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $condition->getWidth();
-        $right_paren = EditableNode::fromJSON($json['do_right_paren'], $file, $offset, $source);
+        $right_paren = Node::fromJSON($json['do_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        $semicolon = EditableNode::fromJSON($json['do_semicolon'], $file, $offset, $source);
+        $semicolon = Node::fromJSON($json['do_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($keyword, $body, $while_keyword, $left_paren, $condition, $right_paren, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $body, $while_keyword, $left_paren, $condition, $right_paren, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'body' => $this->_body, 'while_keyword' => $this->_while_keyword, 'left_paren' => $this->_left_paren, 'condition' => $this->_condition, 'right_paren' => $this->_right_paren, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'body' => $this->_body, 'while_keyword' => $this->_while_keyword, 'left_paren' => $this->_left_paren, 'condition' => $this->_condition, 'right_paren' => $this->_right_paren, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $body = $this->_body->rewrite($rewriter, $parents);
-        $while_keyword = $this->_while_keyword->rewrite($rewriter, $parents);
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $condition = $this->_condition->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $body = $rewriter($this->_body, $parents);
+        $while_keyword = $rewriter($this->_while_keyword, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $condition = $rewriter($this->_condition, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $body === $this->_body && $while_keyword === $this->_while_keyword && $left_paren === $this->_left_paren && $condition === $this->_condition && $right_paren === $this->_right_paren && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $body, $while_keyword, $left_paren, $condition, $right_paren, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -110,7 +139,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(DoToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -122,7 +151,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return DoToken
@@ -145,7 +174,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getBodyUNTYPED()
     {
@@ -154,7 +183,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
     /**
      * @return static
      */
-    public function withBody(EditableNode $value)
+    public function withBody(IStatement $value)
     {
         if ($value === $this->_body) {
             return $this;
@@ -166,30 +195,30 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
      */
     public function hasBody()
     {
-        return !$this->_body->isMissing();
+        return $this->_body !== null;
     }
     /**
      * @return CompoundStatement | ExpressionStatement
      */
     /**
-     * @return EditableNode
+     * @return IStatement
      */
     public function getBody()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_body);
+        return TypeAssert\instance_of(IStatement::class, $this->_body);
     }
     /**
      * @return CompoundStatement | ExpressionStatement
      */
     /**
-     * @return EditableNode
+     * @return IStatement
      */
     public function getBodyx()
     {
         return $this->getBody();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getWhileKeywordUNTYPED()
     {
@@ -198,7 +227,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
     /**
      * @return static
      */
-    public function withWhileKeyword(EditableNode $value)
+    public function withWhileKeyword(WhileToken $value)
     {
         if ($value === $this->_while_keyword) {
             return $this;
@@ -210,7 +239,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
      */
     public function hasWhileKeyword()
     {
-        return !$this->_while_keyword->isMissing();
+        return $this->_while_keyword !== null;
     }
     /**
      * @return WhileToken
@@ -233,7 +262,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
         return $this->getWhileKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -242,7 +271,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -254,7 +283,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -277,7 +306,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getConditionUNTYPED()
     {
@@ -286,7 +315,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
     /**
      * @return static
      */
-    public function withCondition(EditableNode $value)
+    public function withCondition(IExpression $value)
     {
         if ($value === $this->_condition) {
             return $this;
@@ -298,32 +327,32 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
      */
     public function hasCondition()
     {
-        return !$this->_condition->isMissing();
+        return $this->_condition !== null;
     }
     /**
      * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
-     * PrefixUnaryExpression | SubscriptExpression | VariableExpression
+     * SubscriptExpression | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getCondition()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_condition);
+        return TypeAssert\instance_of(IExpression::class, $this->_condition);
     }
     /**
      * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
-     * PrefixUnaryExpression | SubscriptExpression | VariableExpression
+     * SubscriptExpression | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getConditionx()
     {
         return $this->getCondition();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -332,7 +361,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -344,7 +373,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
      * @return RightParenToken
@@ -367,7 +396,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
         return $this->getRightParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -376,7 +405,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -388,7 +417,7 @@ final class DoStatement extends EditableNode implements IControlFlowStatement, I
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return SemicolonToken

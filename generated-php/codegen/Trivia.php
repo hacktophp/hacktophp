@@ -2,15 +2,19 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<9488bcb9d1e88f74517bcd8442aa4d83>>
+ * @generated SignedSource<<04266f712b921560483cee7aad4b47bf>>
  */
 namespace Facebook\HHAST;
 
-final class AfterHaltCompiler extends EditableTrivia
+final class AfterHaltCompiler extends Trivia
 {
-    public function __construct(string $text)
+    /**
+     * @var string
+     */
+    const SYNTAX_KIND = 'after_halt_compiler';
+    public function __construct(string $text, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('after_halt_compiler', $text);
+        parent::__construct($text, $source_ref);
     }
     /**
      * @return static
@@ -23,11 +27,15 @@ final class AfterHaltCompiler extends EditableTrivia
         return new self($text);
     }
 }
-final class DelimitedComment extends EditableTrivia implements IComment
+final class DelimitedComment extends Trivia implements IComment
 {
-    public function __construct(string $text)
+    /**
+     * @var string
+     */
+    const SYNTAX_KIND = 'delimited_comment';
+    public function __construct(string $text, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('delimited_comment', $text);
+        parent::__construct($text, $source_ref);
     }
     /**
      * @return static
@@ -40,11 +48,15 @@ final class DelimitedComment extends EditableTrivia implements IComment
         return new self($text);
     }
 }
-final class EndOfLine extends EditableTrivia
+final class EndOfLine extends Trivia
 {
-    public function __construct(string $text)
+    /**
+     * @var string
+     */
+    const SYNTAX_KIND = 'end_of_line';
+    public function __construct(string $text, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('end_of_line', $text);
+        parent::__construct($text, $source_ref);
     }
     /**
      * @return static
@@ -57,11 +69,15 @@ final class EndOfLine extends EditableTrivia
         return new self($text);
     }
 }
-final class ExtraTokenError extends EditableTrivia
+final class ExtraTokenError extends Trivia
 {
-    public function __construct(string $text)
+    /**
+     * @var string
+     */
+    const SYNTAX_KIND = 'extra_token_error';
+    public function __construct(string $text, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('extra_token_error', $text);
+        parent::__construct($text, $source_ref);
     }
     /**
      * @return static
@@ -74,11 +90,15 @@ final class ExtraTokenError extends EditableTrivia
         return new self($text);
     }
 }
-final class FallThrough extends EditableTrivia
+final class FallThrough extends Trivia
 {
-    public function __construct(string $text)
+    /**
+     * @var string
+     */
+    const SYNTAX_KIND = 'fall_through';
+    public function __construct(string $text, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('fall_through', $text);
+        parent::__construct($text, $source_ref);
     }
     /**
      * @return static
@@ -91,11 +111,15 @@ final class FallThrough extends EditableTrivia
         return new self($text);
     }
 }
-final class FixMe extends EditableTrivia
+final class FixMe extends Trivia
 {
-    public function __construct(string $text)
+    /**
+     * @var string
+     */
+    const SYNTAX_KIND = 'fix_me';
+    public function __construct(string $text, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('fix_me', $text);
+        parent::__construct($text, $source_ref);
     }
     /**
      * @return static
@@ -108,11 +132,15 @@ final class FixMe extends EditableTrivia
         return new self($text);
     }
 }
-final class IgnoreError extends EditableTrivia
+final class IgnoreError extends Trivia
 {
-    public function __construct(string $text)
+    /**
+     * @var string
+     */
+    const SYNTAX_KIND = 'ignore_error';
+    public function __construct(string $text, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('ignore_error', $text);
+        parent::__construct($text, $source_ref);
     }
     /**
      * @return static
@@ -125,11 +153,15 @@ final class IgnoreError extends EditableTrivia
         return new self($text);
     }
 }
-final class SingleLineComment extends EditableTrivia implements IComment
+final class SingleLineComment extends Trivia implements IComment
 {
-    public function __construct(string $text)
+    /**
+     * @var string
+     */
+    const SYNTAX_KIND = 'single_line_comment';
+    public function __construct(string $text, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('single_line_comment', $text);
+        parent::__construct($text, $source_ref);
     }
     /**
      * @return static
@@ -142,45 +174,15 @@ final class SingleLineComment extends EditableTrivia implements IComment
         return new self($text);
     }
 }
-final class Unsafe extends EditableTrivia
+final class WhiteSpace extends Trivia
 {
-    public function __construct(string $text)
-    {
-        parent::__construct('unsafe', $text);
-    }
     /**
-     * @return static
+     * @var string
      */
-    public function withText(string $text)
+    const SYNTAX_KIND = 'whitespace';
+    public function __construct(string $text, ?__Private\SourceRef $source_ref = null)
     {
-        if ($text === $this->getText()) {
-            return $this;
-        }
-        return new self($text);
-    }
-}
-final class UnsafeExpression extends EditableTrivia
-{
-    public function __construct(string $text)
-    {
-        parent::__construct('unsafe_expression', $text);
-    }
-    /**
-     * @return static
-     */
-    public function withText(string $text)
-    {
-        if ($text === $this->getText()) {
-            return $this;
-        }
-        return new self($text);
-    }
-}
-final class WhiteSpace extends EditableTrivia
-{
-    public function __construct(string $text)
-    {
-        parent::__construct('whitespace', $text);
+        parent::__construct($text, $source_ref);
     }
     /**
      * @return static

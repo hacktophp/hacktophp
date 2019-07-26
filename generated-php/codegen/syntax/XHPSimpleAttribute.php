@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<f2bf5048a1b6a54920f62b169889a36a>>
+ * @generated SignedSource<<44f88d87e78cc9ec66a1dc2aa3053e3c>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class XHPSimpleAttribute extends EditableNode
+use HH\Lib\Dict;
+final class XHPSimpleAttribute extends Node implements IXHPAttribute
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'xhp_simple_attribute';
+    /**
+     * @var XHPElementNameToken
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var EqualToken
      */
     private $_equal;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_expression;
-    public function __construct(EditableNode $name, EditableNode $equal, EditableNode $expression)
+    public function __construct(XHPElementNameToken $name, EqualToken $equal, Node $expression, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('xhp_simple_attribute');
         $this->_name = $name;
         $this->_equal = $equal;
         $this->_expression = $expression;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $name = EditableNode::fromJSON($json['xhp_simple_attribute_name'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $name = Node::fromJSON($json['xhp_simple_attribute_name'], $file, $offset, $source, 'XHPElementNameToken');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $equal = EditableNode::fromJSON($json['xhp_simple_attribute_equal'], $file, $offset, $source);
+        $equal = Node::fromJSON($json['xhp_simple_attribute_equal'], $file, $offset, $source, 'EqualToken');
+        $equal = $equal !== null ? $equal : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $equal->getWidth();
-        $expression = EditableNode::fromJSON($json['xhp_simple_attribute_expression'], $file, $offset, $source);
+        $expression = Node::fromJSON($json['xhp_simple_attribute_expression'], $file, $offset, $source, 'Node');
+        $expression = $expression !== null ? $expression : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $expression->getWidth();
-        return new static($name, $equal, $expression);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($name, $equal, $expression, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['name' => $this->_name, 'equal' => $this->_equal, 'expression' => $this->_expression];
+        return Dict\filter_nulls(['name' => $this->_name, 'equal' => $this->_equal, 'expression' => $this->_expression]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $equal = $this->_equal->rewrite($rewriter, $parents);
-        $expression = $this->_expression->rewrite($rewriter, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $equal = $rewriter($this->_equal, $parents);
+        $expression = $rewriter($this->_expression, $parents);
         if ($name === $this->_name && $equal === $this->_equal && $expression === $this->_expression) {
             return $this;
         }
         return new static($name, $equal, $expression);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -78,7 +95,7 @@ final class XHPSimpleAttribute extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(XHPElementNameToken $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -90,7 +107,7 @@ final class XHPSimpleAttribute extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return XHPElementNameToken
@@ -113,7 +130,7 @@ final class XHPSimpleAttribute extends EditableNode
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getEqualUNTYPED()
     {
@@ -122,7 +139,7 @@ final class XHPSimpleAttribute extends EditableNode
     /**
      * @return static
      */
-    public function withEqual(EditableNode $value)
+    public function withEqual(EqualToken $value)
     {
         if ($value === $this->_equal) {
             return $this;
@@ -134,7 +151,7 @@ final class XHPSimpleAttribute extends EditableNode
      */
     public function hasEqual()
     {
-        return !$this->_equal->isMissing();
+        return $this->_equal !== null;
     }
     /**
      * @return EqualToken
@@ -157,7 +174,7 @@ final class XHPSimpleAttribute extends EditableNode
         return $this->getEqual();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getExpressionUNTYPED()
     {
@@ -166,7 +183,7 @@ final class XHPSimpleAttribute extends EditableNode
     /**
      * @return static
      */
-    public function withExpression(EditableNode $value)
+    public function withExpression(Node $value)
     {
         if ($value === $this->_expression) {
             return $this;
@@ -178,23 +195,23 @@ final class XHPSimpleAttribute extends EditableNode
      */
     public function hasExpression()
     {
-        return !$this->_expression->isMissing();
+        return $this->_expression !== null;
     }
     /**
      * @return BracedExpression | XHPStringLiteralToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getExpression()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+        return $this->_expression;
     }
     /**
      * @return BracedExpression | XHPStringLiteralToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getExpressionx()
     {

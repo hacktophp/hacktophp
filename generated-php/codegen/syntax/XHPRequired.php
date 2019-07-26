@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<7de13b3e1e58f71e0375b56d59008061>>
+ * @generated SignedSource<<ffcf7d834fddf52e681663f7fa4bee6d>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class XHPRequired extends EditableNode
+use HH\Lib\Dict;
+final class XHPRequired extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'xhp_required';
+    /**
+     * @var AtToken
      */
     private $_at;
     /**
-     * @var EditableNode
+     * @var RequiredToken
      */
     private $_keyword;
-    public function __construct(EditableNode $at, EditableNode $keyword)
+    public function __construct(AtToken $at, RequiredToken $keyword, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('xhp_required');
         $this->_at = $at;
         $this->_keyword = $keyword;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $at = EditableNode::fromJSON($json['xhp_required_at'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $at = Node::fromJSON($json['xhp_required_at'], $file, $offset, $source, 'AtToken');
+        $at = $at !== null ? $at : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $at->getWidth();
-        $keyword = EditableNode::fromJSON($json['xhp_required_keyword'], $file, $offset, $source);
+        $keyword = Node::fromJSON($json['xhp_required_keyword'], $file, $offset, $source, 'RequiredToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        return new static($at, $keyword);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($at, $keyword, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['at' => $this->_at, 'keyword' => $this->_keyword];
+        return Dict\filter_nulls(['at' => $this->_at, 'keyword' => $this->_keyword]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $at = $this->_at->rewrite($rewriter, $parents);
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
+        $at = $rewriter($this->_at, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
         if ($at === $this->_at && $keyword === $this->_keyword) {
             return $this;
         }
         return new static($at, $keyword);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAtUNTYPED()
     {
@@ -70,7 +84,7 @@ final class XHPRequired extends EditableNode
     /**
      * @return static
      */
-    public function withAt(EditableNode $value)
+    public function withAt(AtToken $value)
     {
         if ($value === $this->_at) {
             return $this;
@@ -82,7 +96,7 @@ final class XHPRequired extends EditableNode
      */
     public function hasAt()
     {
-        return !$this->_at->isMissing();
+        return $this->_at !== null;
     }
     /**
      * @return AtToken
@@ -105,7 +119,7 @@ final class XHPRequired extends EditableNode
         return $this->getAt();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -114,7 +128,7 @@ final class XHPRequired extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(RequiredToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -126,7 +140,7 @@ final class XHPRequired extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return RequiredToken

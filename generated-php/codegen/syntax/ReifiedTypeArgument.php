@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<ed29e58ee125748d5d5476807e438f23>>
+ * @generated SignedSource<<6d1ed53ce97533a091fef3e88aacbba5>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ReifiedTypeArgument extends EditableNode
+use HH\Lib\Dict;
+final class ReifiedTypeArgument extends Node implements ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'reified_type_argument';
+    /**
+     * @var Node
      */
     private $_reified;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_type;
-    public function __construct(EditableNode $reified, EditableNode $type)
+    public function __construct(Node $reified, Node $type, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('reified_type_argument');
         $this->_reified = $reified;
         $this->_type = $type;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $reified = EditableNode::fromJSON($json['reified_type_argument_reified'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $reified = Node::fromJSON($json['reified_type_argument_reified'], $file, $offset, $source, 'Node');
+        $reified = $reified !== null ? $reified : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $reified->getWidth();
-        $type = EditableNode::fromJSON($json['reified_type_argument_type'], $file, $offset, $source);
+        $type = Node::fromJSON($json['reified_type_argument_type'], $file, $offset, $source, 'Node');
+        $type = $type !== null ? $type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $type->getWidth();
-        return new static($reified, $type);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($reified, $type, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['reified' => $this->_reified, 'type' => $this->_type];
+        return Dict\filter_nulls(['reified' => $this->_reified, 'type' => $this->_type]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $reified = $this->_reified->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
+        $reified = $rewriter($this->_reified, $parents);
+        $type = $rewriter($this->_type, $parents);
         if ($reified === $this->_reified && $type === $this->_type) {
             return $this;
         }
         return new static($reified, $type);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getReifiedUNTYPED()
     {
@@ -70,7 +84,7 @@ final class ReifiedTypeArgument extends EditableNode
     /**
      * @return static
      */
-    public function withReified(EditableNode $value)
+    public function withReified(Node $value)
     {
         if ($value === $this->_reified) {
             return $this;
@@ -82,30 +96,30 @@ final class ReifiedTypeArgument extends EditableNode
      */
     public function hasReified()
     {
-        return !$this->_reified->isMissing();
+        return $this->_reified !== null;
     }
     /**
-     * @return unknown
+     * @return
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getReified()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_reified);
+        return $this->_reified;
     }
     /**
-     * @return unknown
+     * @return
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getReifiedx()
     {
         return $this->getReified();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -114,7 +128,7 @@ final class ReifiedTypeArgument extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(Node $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -126,23 +140,23 @@ final class ReifiedTypeArgument extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
-     * @return unknown
+     * @return
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getType()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return $this->_type;
     }
     /**
-     * @return unknown
+     * @return
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getTypex()
     {

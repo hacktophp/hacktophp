@@ -2,82 +2,99 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<6cf6c16a1b8f522fcc26cb68a31f6c05>>
+ * @generated SignedSource<<5c7517686329c6d5f6347e9db24b4466>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class UsingStatementFunctionScoped extends EditableNode
+use HH\Lib\Dict;
+final class UsingStatementFunctionScoped extends Node implements IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'using_statement_function_scoped';
+    /**
+     * @var null|AwaitToken
      */
     private $_await_keyword;
     /**
-     * @var EditableNode
+     * @var UsingToken
      */
     private $_using_keyword;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_expression;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $await_keyword, EditableNode $using_keyword, EditableNode $expression, EditableNode $semicolon)
+    public function __construct(?AwaitToken $await_keyword, UsingToken $using_keyword, IExpression $expression, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('using_statement_function_scoped');
         $this->_await_keyword = $await_keyword;
         $this->_using_keyword = $using_keyword;
         $this->_expression = $expression;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $await_keyword = EditableNode::fromJSON($json['using_function_await_keyword'], $file, $offset, $source);
-        $offset += $await_keyword->getWidth();
-        $using_keyword = EditableNode::fromJSON($json['using_function_using_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $await_keyword = Node::fromJSON($json['using_function_await_keyword'], $file, $offset, $source, 'AwaitToken');
+        $offset += (($__tmp1__ = $await_keyword) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $using_keyword = Node::fromJSON($json['using_function_using_keyword'], $file, $offset, $source, 'UsingToken');
+        $using_keyword = $using_keyword !== null ? $using_keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $using_keyword->getWidth();
-        $expression = EditableNode::fromJSON($json['using_function_expression'], $file, $offset, $source);
+        $expression = Node::fromJSON($json['using_function_expression'], $file, $offset, $source, 'IExpression');
+        $expression = $expression !== null ? $expression : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $expression->getWidth();
-        $semicolon = EditableNode::fromJSON($json['using_function_semicolon'], $file, $offset, $source);
+        $semicolon = Node::fromJSON($json['using_function_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($await_keyword, $using_keyword, $expression, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($await_keyword, $using_keyword, $expression, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['await_keyword' => $this->_await_keyword, 'using_keyword' => $this->_using_keyword, 'expression' => $this->_expression, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['await_keyword' => $this->_await_keyword, 'using_keyword' => $this->_using_keyword, 'expression' => $this->_expression, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $await_keyword = $this->_await_keyword->rewrite($rewriter, $parents);
-        $using_keyword = $this->_using_keyword->rewrite($rewriter, $parents);
-        $expression = $this->_expression->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $await_keyword = $this->_await_keyword === null ? null : $rewriter($this->_await_keyword, $parents);
+        $using_keyword = $rewriter($this->_using_keyword, $parents);
+        $expression = $rewriter($this->_expression, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($await_keyword === $this->_await_keyword && $using_keyword === $this->_using_keyword && $expression === $this->_expression && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($await_keyword, $using_keyword, $expression, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAwaitKeywordUNTYPED()
     {
@@ -86,7 +103,7 @@ final class UsingStatementFunctionScoped extends EditableNode
     /**
      * @return static
      */
-    public function withAwaitKeyword(EditableNode $value)
+    public function withAwaitKeyword(?AwaitToken $value)
     {
         if ($value === $this->_await_keyword) {
             return $this;
@@ -98,7 +115,7 @@ final class UsingStatementFunctionScoped extends EditableNode
      */
     public function hasAwaitKeyword()
     {
-        return !$this->_await_keyword->isMissing();
+        return $this->_await_keyword !== null;
     }
     /**
      * @return null | AwaitToken
@@ -108,10 +125,7 @@ final class UsingStatementFunctionScoped extends EditableNode
      */
     public function getAwaitKeyword()
     {
-        if ($this->_await_keyword->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(AwaitToken::class, $this->_await_keyword);
+        return $this->_await_keyword;
     }
     /**
      * @return AwaitToken
@@ -121,10 +135,10 @@ final class UsingStatementFunctionScoped extends EditableNode
      */
     public function getAwaitKeywordx()
     {
-        return TypeAssert\instance_of(AwaitToken::class, $this->_await_keyword);
+        return TypeAssert\not_null($this->getAwaitKeyword());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getUsingKeywordUNTYPED()
     {
@@ -133,7 +147,7 @@ final class UsingStatementFunctionScoped extends EditableNode
     /**
      * @return static
      */
-    public function withUsingKeyword(EditableNode $value)
+    public function withUsingKeyword(UsingToken $value)
     {
         if ($value === $this->_using_keyword) {
             return $this;
@@ -145,7 +159,7 @@ final class UsingStatementFunctionScoped extends EditableNode
      */
     public function hasUsingKeyword()
     {
-        return !$this->_using_keyword->isMissing();
+        return $this->_using_keyword !== null;
     }
     /**
      * @return UsingToken
@@ -168,7 +182,7 @@ final class UsingStatementFunctionScoped extends EditableNode
         return $this->getUsingKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getExpressionUNTYPED()
     {
@@ -177,7 +191,7 @@ final class UsingStatementFunctionScoped extends EditableNode
     /**
      * @return static
      */
-    public function withExpression(EditableNode $value)
+    public function withExpression(IExpression $value)
     {
         if ($value === $this->_expression) {
             return $this;
@@ -189,32 +203,32 @@ final class UsingStatementFunctionScoped extends EditableNode
      */
     public function hasExpression()
     {
-        return !$this->_expression->isMissing();
+        return $this->_expression !== null;
     }
     /**
      * @return BinaryExpression | LambdaExpression | ObjectCreationExpression |
-     * ParenthesizedExpression | PrefixUnaryExpression | VariableExpression
+     * ParenthesizedExpression | PrefixUnaryExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getExpression()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+        return TypeAssert\instance_of(IExpression::class, $this->_expression);
     }
     /**
      * @return BinaryExpression | LambdaExpression | ObjectCreationExpression |
-     * ParenthesizedExpression | PrefixUnaryExpression | VariableExpression
+     * ParenthesizedExpression | PrefixUnaryExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getExpressionx()
     {
         return $this->getExpression();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -223,7 +237,7 @@ final class UsingStatementFunctionScoped extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -235,7 +249,7 @@ final class UsingStatementFunctionScoped extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return SemicolonToken

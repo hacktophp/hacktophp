@@ -2,90 +2,107 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<507280db341a08f60165807ef4018f56>>
+ * @generated SignedSource<<ae3ec45cb8a1ecef07d32c47aec8b222>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class LambdaSignature extends EditableNode
+use HH\Lib\Dict;
+final class LambdaSignature extends Node implements ILambdaSignature
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'lambda_signature';
+    /**
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<IParameter>>|null
      */
     private $_parameters;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
     /**
-     * @var EditableNode
+     * @var null|ColonToken
      */
     private $_colon;
     /**
-     * @var EditableNode
+     * @var null|ITypeSpecifier
      */
     private $_type;
-    public function __construct(EditableNode $left_paren, EditableNode $parameters, EditableNode $right_paren, EditableNode $colon, EditableNode $type)
+    /**
+     * @param NodeList<ListItem<IParameter>>|null $parameters
+     */
+    public function __construct(LeftParenToken $left_paren, ?NodeList $parameters, RightParenToken $right_paren, ?ColonToken $colon, ?ITypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('lambda_signature');
         $this->_left_paren = $left_paren;
         $this->_parameters = $parameters;
         $this->_right_paren = $right_paren;
         $this->_colon = $colon;
         $this->_type = $type;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $left_paren = EditableNode::fromJSON($json['lambda_left_paren'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $left_paren = Node::fromJSON($json['lambda_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $parameters = EditableNode::fromJSON($json['lambda_parameters'], $file, $offset, $source);
-        $offset += $parameters->getWidth();
-        $right_paren = EditableNode::fromJSON($json['lambda_right_paren'], $file, $offset, $source);
+        $parameters = Node::fromJSON($json['lambda_parameters'], $file, $offset, $source, 'NodeList<ListItem<IParameter>>');
+        $offset += (($__tmp1__ = $parameters) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $right_paren = Node::fromJSON($json['lambda_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        $colon = EditableNode::fromJSON($json['lambda_colon'], $file, $offset, $source);
-        $offset += $colon->getWidth();
-        $type = EditableNode::fromJSON($json['lambda_type'], $file, $offset, $source);
-        $offset += $type->getWidth();
-        return new static($left_paren, $parameters, $right_paren, $colon, $type);
+        $colon = Node::fromJSON($json['lambda_colon'], $file, $offset, $source, 'ColonToken');
+        $offset += (($__tmp2__ = $colon) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $type = Node::fromJSON($json['lambda_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $offset += (($__tmp3__ = $type) !== null ? $__tmp3__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($left_paren, $parameters, $right_paren, $colon, $type, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['left_paren' => $this->_left_paren, 'parameters' => $this->_parameters, 'right_paren' => $this->_right_paren, 'colon' => $this->_colon, 'type' => $this->_type];
+        return Dict\filter_nulls(['left_paren' => $this->_left_paren, 'parameters' => $this->_parameters, 'right_paren' => $this->_right_paren, 'colon' => $this->_colon, 'type' => $this->_type]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $parameters = $this->_parameters->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
-        $colon = $this->_colon->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $parameters = $this->_parameters === null ? null : $rewriter($this->_parameters, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
+        $colon = $this->_colon === null ? null : $rewriter($this->_colon, $parents);
+        $type = $this->_type === null ? null : $rewriter($this->_type, $parents);
         if ($left_paren === $this->_left_paren && $parameters === $this->_parameters && $right_paren === $this->_right_paren && $colon === $this->_colon && $type === $this->_type) {
             return $this;
         }
         return new static($left_paren, $parameters, $right_paren, $colon, $type);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -94,7 +111,7 @@ final class LambdaSignature extends EditableNode
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -106,7 +123,7 @@ final class LambdaSignature extends EditableNode
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -129,16 +146,18 @@ final class LambdaSignature extends EditableNode
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getParametersUNTYPED()
     {
         return $this->_parameters;
     }
     /**
+     * @param NodeList<ListItem<IParameter>>|null $value
+     *
      * @return static
      */
-    public function withParameters(EditableNode $value)
+    public function withParameters(?NodeList $value)
     {
         if ($value === $this->_parameters) {
             return $this;
@@ -150,35 +169,32 @@ final class LambdaSignature extends EditableNode
      */
     public function hasParameters()
     {
-        return !$this->_parameters->isMissing();
+        return $this->_parameters !== null;
     }
     /**
-     * @return EditableList<ParameterDeclaration> | EditableList<EditableNode> |
-     * EditableList<VariadicParameter> | null
+     * @return NodeList<ListItem<ParameterDeclaration>> |
+     * NodeList<ListItem<VariadicParameter>> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<ListItem<IParameter>>|null
      */
     public function getParameters()
     {
-        if ($this->_parameters->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_parameters);
+        return $this->_parameters;
     }
     /**
-     * @return EditableList<ParameterDeclaration> | EditableList<EditableNode> |
-     * EditableList<VariadicParameter>
+     * @return NodeList<ListItem<ParameterDeclaration>> |
+     * NodeList<ListItem<VariadicParameter>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<IParameter>>
      */
     public function getParametersx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_parameters);
+        return TypeAssert\not_null($this->getParameters());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -187,7 +203,7 @@ final class LambdaSignature extends EditableNode
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -199,7 +215,7 @@ final class LambdaSignature extends EditableNode
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
      * @return RightParenToken
@@ -222,7 +238,7 @@ final class LambdaSignature extends EditableNode
         return $this->getRightParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getColonUNTYPED()
     {
@@ -231,7 +247,7 @@ final class LambdaSignature extends EditableNode
     /**
      * @return static
      */
-    public function withColon(EditableNode $value)
+    public function withColon(?ColonToken $value)
     {
         if ($value === $this->_colon) {
             return $this;
@@ -243,7 +259,7 @@ final class LambdaSignature extends EditableNode
      */
     public function hasColon()
     {
-        return !$this->_colon->isMissing();
+        return $this->_colon !== null;
     }
     /**
      * @return null | ColonToken
@@ -253,10 +269,7 @@ final class LambdaSignature extends EditableNode
      */
     public function getColon()
     {
-        if ($this->_colon->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+        return $this->_colon;
     }
     /**
      * @return ColonToken
@@ -266,10 +279,10 @@ final class LambdaSignature extends EditableNode
      */
     public function getColonx()
     {
-        return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+        return TypeAssert\not_null($this->getColon());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -278,7 +291,7 @@ final class LambdaSignature extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(?ITypeSpecifier $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -290,32 +303,29 @@ final class LambdaSignature extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
      * @return ClosureTypeSpecifier | GenericTypeSpecifier | KeysetTypeSpecifier
      * | null | SimpleTypeSpecifier
      */
     /**
-     * @return null|EditableNode
+     * @return null|ITypeSpecifier
      */
     public function getType()
     {
-        if ($this->_type->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return $this->_type;
     }
     /**
      * @return ClosureTypeSpecifier | GenericTypeSpecifier | KeysetTypeSpecifier
      * | SimpleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getTypex()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return TypeAssert\not_null($this->getType());
     }
 }
 

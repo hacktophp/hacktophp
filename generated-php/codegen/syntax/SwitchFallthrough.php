@@ -2,66 +2,74 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<bc196035e77196040fdeba5790dbab05>>
+ * @generated SignedSource<<ac60645c84ec608f9f7347cc9ede2ed1>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class SwitchFallthrough extends EditableNode
+use HH\Lib\Dict;
+final class SwitchFallthrough extends Node implements IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'switch_fallthrough';
+    /**
+     * @var null|Node
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var null|Node
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $semicolon)
+    public function __construct(?Node $keyword, ?Node $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('switch_fallthrough');
         $this->_keyword = $keyword;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['fallthrough_keyword'], $file, $offset, $source);
-        $offset += $keyword->getWidth();
-        $semicolon = EditableNode::fromJSON($json['fallthrough_semicolon'], $file, $offset, $source);
-        $offset += $semicolon->getWidth();
-        return new static($keyword, $semicolon);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['fallthrough_keyword'], $file, $offset, $source, 'Node');
+        $offset += (($__tmp1__ = $keyword) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $semicolon = Node::fromJSON($json['fallthrough_semicolon'], $file, $offset, $source, 'Node');
+        $offset += (($__tmp2__ = $semicolon) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $this->_keyword === null ? null : $rewriter($this->_keyword, $parents);
+        $semicolon = $this->_semicolon === null ? null : $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -70,7 +78,7 @@ final class SwitchFallthrough extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(?Node $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -82,33 +90,30 @@ final class SwitchFallthrough extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return null
      */
     /**
-     * @return null|EditableNode
+     * @return null|Node
      */
     public function getKeyword()
     {
-        if ($this->_keyword->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_keyword);
+        return $this->_keyword;
     }
     /**
      * @return
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getKeywordx()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_keyword);
+        return TypeAssert\not_null($this->getKeyword());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -117,7 +122,7 @@ final class SwitchFallthrough extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(?Node $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -129,30 +134,27 @@ final class SwitchFallthrough extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return null
      */
     /**
-     * @return null|EditableNode
+     * @return null|Node
      */
     public function getSemicolon()
     {
-        if ($this->_semicolon->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_semicolon);
+        return $this->_semicolon;
     }
     /**
      * @return
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getSemicolonx()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_semicolon);
+        return TypeAssert\not_null($this->getSemicolon());
     }
 }
 

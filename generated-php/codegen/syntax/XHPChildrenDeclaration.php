@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<f08c4289e3f127fa10615c5cfa5b14b7>>
+ * @generated SignedSource<<7b09c7dcf5ba973ed788ec5469d0b986>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class XHPChildrenDeclaration extends EditableNode
+use HH\Lib\Dict;
+final class XHPChildrenDeclaration extends Node implements IClassBodyDeclaration, ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'xhp_children_declaration';
+    /**
+     * @var ChildrenToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_expression;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $expression, EditableNode $semicolon)
+    public function __construct(ChildrenToken $keyword, Node $expression, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('xhp_children_declaration');
         $this->_keyword = $keyword;
         $this->_expression = $expression;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['xhp_children_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['xhp_children_keyword'], $file, $offset, $source, 'ChildrenToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $expression = EditableNode::fromJSON($json['xhp_children_expression'], $file, $offset, $source);
+        $expression = Node::fromJSON($json['xhp_children_expression'], $file, $offset, $source, 'Node');
+        $expression = $expression !== null ? $expression : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $expression->getWidth();
-        $semicolon = EditableNode::fromJSON($json['xhp_children_semicolon'], $file, $offset, $source);
+        $semicolon = Node::fromJSON($json['xhp_children_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($keyword, $expression, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $expression, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'expression' => $this->_expression, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'expression' => $this->_expression, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $expression = $this->_expression->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $expression = $rewriter($this->_expression, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $expression === $this->_expression && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $expression, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -78,7 +95,7 @@ final class XHPChildrenDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(ChildrenToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -90,30 +107,30 @@ final class XHPChildrenDeclaration extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
-     * @return unknown
+     * @return ChildrenToken
      */
     /**
-     * @return EditableNode
+     * @return ChildrenToken
      */
     public function getKeyword()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_keyword);
+        return TypeAssert\instance_of(ChildrenToken::class, $this->_keyword);
     }
     /**
-     * @return unknown
+     * @return ChildrenToken
      */
     /**
-     * @return EditableNode
+     * @return ChildrenToken
      */
     public function getKeywordx()
     {
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getExpressionUNTYPED()
     {
@@ -122,7 +139,7 @@ final class XHPChildrenDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withExpression(EditableNode $value)
+    public function withExpression(Node $value)
     {
         if ($value === $this->_expression) {
             return $this;
@@ -134,30 +151,30 @@ final class XHPChildrenDeclaration extends EditableNode
      */
     public function hasExpression()
     {
-        return !$this->_expression->isMissing();
+        return $this->_expression !== null;
     }
     /**
-     * @return unknown
+     * @return EmptyToken | XHPChildrenParenthesizedList
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getExpression()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+        return $this->_expression;
     }
     /**
-     * @return unknown
+     * @return EmptyToken | XHPChildrenParenthesizedList
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getExpressionx()
     {
         return $this->getExpression();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -166,7 +183,7 @@ final class XHPChildrenDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -178,23 +195,23 @@ final class XHPChildrenDeclaration extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
-     * @return unknown
+     * @return SemicolonToken
      */
     /**
-     * @return EditableNode
+     * @return SemicolonToken
      */
     public function getSemicolon()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_semicolon);
+        return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
     }
     /**
-     * @return unknown
+     * @return SemicolonToken
      */
     /**
-     * @return EditableNode
+     * @return SemicolonToken
      */
     public function getSemicolonx()
     {

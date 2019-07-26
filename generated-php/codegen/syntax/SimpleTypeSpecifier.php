@@ -2,58 +2,69 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<2d5a6ff24cad262808e1b227d6ba82dd>>
+ * @generated SignedSource<<b631f9963aa9791b63d5b45339f25b67>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class SimpleTypeSpecifier extends EditableNode
+use HH\Lib\Dict;
+final class SimpleTypeSpecifier extends Node implements ISimpleCreationSpecifier, ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'simple_type_specifier';
+    /**
+     * @var Node
      */
     private $_specifier;
-    public function __construct(EditableNode $specifier)
+    public function __construct(Node $specifier, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('simple_type_specifier');
         $this->_specifier = $specifier;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $specifier = EditableNode::fromJSON($json['simple_type_specifier'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $specifier = Node::fromJSON($json['simple_type_specifier'], $file, $offset, $source, 'Node');
+        $specifier = $specifier !== null ? $specifier : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $specifier->getWidth();
-        return new static($specifier);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($specifier, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['specifier' => $this->_specifier];
+        return Dict\filter_nulls(['specifier' => $this->_specifier]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $specifier = $this->_specifier->rewrite($rewriter, $parents);
+        $specifier = $rewriter($this->_specifier, $parents);
         if ($specifier === $this->_specifier) {
             return $this;
         }
         return new static($specifier);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSpecifierUNTYPED()
     {
@@ -62,7 +73,7 @@ final class SimpleTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withSpecifier(EditableNode $value)
+    public function withSpecifier(Node $value)
     {
         if ($value === $this->_specifier) {
             return $this;
@@ -74,33 +85,33 @@ final class SimpleTypeSpecifier extends EditableNode
      */
     public function hasSpecifier()
     {
-        return !$this->_specifier->isMissing();
+        return $this->_specifier !== null;
     }
     /**
-     * @return QualifiedName | XHPClassNameToken | ConstructToken | ArrayToken |
-     * ArraykeyToken | BoolToken | BooleanToken | DarrayToken | DictToken |
-     * DoubleToken | FloatToken | IntToken | IntegerToken | KeysetToken |
-     * MixedToken | NameToken | NoreturnToken | NullLiteralToken | NumToken |
-     * ObjectToken | ParentToken | RealToken | ResourceToken | SelfToken |
-     * StringToken | ThisToken | VarToken | VarrayToken | VecToken | VoidToken
+     * @return QualifiedName | XHPClassNameToken | ArrayToken | ArraykeyToken |
+     * BoolToken | BooleanToken | DarrayToken | DictToken | DoubleToken |
+     * FloatToken | IntToken | IntegerToken | KeysetToken | MixedToken |
+     * NameToken | NoreturnToken | NullLiteralToken | NumToken | ObjectToken |
+     * ParentToken | RealToken | ResourceToken | SelfToken | StringToken |
+     * ThisToken | VarToken | VarrayToken | VecToken | VoidToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getSpecifier()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_specifier);
+        return $this->_specifier;
     }
     /**
-     * @return QualifiedName | XHPClassNameToken | ConstructToken | ArrayToken |
-     * ArraykeyToken | BoolToken | BooleanToken | DarrayToken | DictToken |
-     * DoubleToken | FloatToken | IntToken | IntegerToken | KeysetToken |
-     * MixedToken | NameToken | NoreturnToken | NullLiteralToken | NumToken |
-     * ObjectToken | ParentToken | RealToken | ResourceToken | SelfToken |
-     * StringToken | ThisToken | VarToken | VarrayToken | VecToken | VoidToken
+     * @return QualifiedName | XHPClassNameToken | ArrayToken | ArraykeyToken |
+     * BoolToken | BooleanToken | DarrayToken | DictToken | DoubleToken |
+     * FloatToken | IntToken | IntegerToken | KeysetToken | MixedToken |
+     * NameToken | NoreturnToken | NullLiteralToken | NumToken | ObjectToken |
+     * ParentToken | RealToken | ResourceToken | SelfToken | StringToken |
+     * ThisToken | VarToken | VarrayToken | VecToken | VoidToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getSpecifierx()
     {

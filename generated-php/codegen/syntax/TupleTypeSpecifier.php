@@ -2,74 +2,94 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<426c12b1880cf2c49e04ad89e32aabf1>>
+ * @generated SignedSource<<4d94fa72a352a5940133bd250ca4cd48>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class TupleTypeSpecifier extends EditableNode
+use HH\Lib\Dict;
+final class TupleTypeSpecifier extends Node implements ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'tuple_type_specifier';
+    /**
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<ITypeSpecifier>>
      */
     private $_types;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
-    public function __construct(EditableNode $left_paren, EditableNode $types, EditableNode $right_paren)
+    /**
+     * @param NodeList<ListItem<ITypeSpecifier>> $types
+     */
+    public function __construct(LeftParenToken $left_paren, NodeList $types, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('tuple_type_specifier');
         $this->_left_paren = $left_paren;
         $this->_types = $types;
         $this->_right_paren = $right_paren;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $left_paren = EditableNode::fromJSON($json['tuple_left_paren'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $left_paren = Node::fromJSON($json['tuple_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $types = EditableNode::fromJSON($json['tuple_types'], $file, $offset, $source);
+        $types = Node::fromJSON($json['tuple_types'], $file, $offset, $source, 'NodeList<ListItem<ITypeSpecifier>>');
+        $types = $types !== null ? $types : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $types->getWidth();
-        $right_paren = EditableNode::fromJSON($json['tuple_right_paren'], $file, $offset, $source);
+        $right_paren = Node::fromJSON($json['tuple_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        return new static($left_paren, $types, $right_paren);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($left_paren, $types, $right_paren, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['left_paren' => $this->_left_paren, 'types' => $this->_types, 'right_paren' => $this->_right_paren];
+        return Dict\filter_nulls(['left_paren' => $this->_left_paren, 'types' => $this->_types, 'right_paren' => $this->_right_paren]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $types = $this->_types->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $types = $rewriter($this->_types, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
         if ($left_paren === $this->_left_paren && $types === $this->_types && $right_paren === $this->_right_paren) {
             return $this;
         }
         return new static($left_paren, $types, $right_paren);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -78,7 +98,7 @@ final class TupleTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -90,7 +110,7 @@ final class TupleTypeSpecifier extends EditableNode
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -113,16 +133,18 @@ final class TupleTypeSpecifier extends EditableNode
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypesUNTYPED()
     {
         return $this->_types;
     }
     /**
+     * @param NodeList<ListItem<ITypeSpecifier>> $value
+     *
      * @return static
      */
-    public function withTypes(EditableNode $value)
+    public function withTypes(NodeList $value)
     {
         if ($value === $this->_types) {
             return $this;
@@ -134,34 +156,42 @@ final class TupleTypeSpecifier extends EditableNode
      */
     public function hasTypes()
     {
-        return !$this->_types->isMissing();
+        return $this->_types !== null;
     }
     /**
-     * @return EditableList<EditableNode> | EditableList<SimpleTypeSpecifier> |
-     * EditableList<TupleTypeSpecifier> | EditableList<VectorArrayTypeSpecifier>
-     * | EditableList<VectorTypeSpecifier>
+     * @return NodeList<ListItem<ITypeSpecifier>> |
+     * NodeList<ListItem<GenericTypeSpecifier>> |
+     * NodeList<ListItem<ISimpleCreationSpecifier>> |
+     * NodeList<ListItem<SimpleTypeSpecifier>> |
+     * NodeList<ListItem<TupleTypeSpecifier>> |
+     * NodeList<ListItem<VectorArrayTypeSpecifier>> |
+     * NodeList<ListItem<VectorTypeSpecifier>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<ITypeSpecifier>>
      */
     public function getTypes()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_types);
+        return TypeAssert\instance_of(NodeList::class, $this->_types);
     }
     /**
-     * @return EditableList<EditableNode> | EditableList<SimpleTypeSpecifier> |
-     * EditableList<TupleTypeSpecifier> | EditableList<VectorArrayTypeSpecifier>
-     * | EditableList<VectorTypeSpecifier>
+     * @return NodeList<ListItem<ITypeSpecifier>> |
+     * NodeList<ListItem<GenericTypeSpecifier>> |
+     * NodeList<ListItem<ISimpleCreationSpecifier>> |
+     * NodeList<ListItem<SimpleTypeSpecifier>> |
+     * NodeList<ListItem<TupleTypeSpecifier>> |
+     * NodeList<ListItem<VectorArrayTypeSpecifier>> |
+     * NodeList<ListItem<VectorTypeSpecifier>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<ITypeSpecifier>>
      */
     public function getTypesx()
     {
         return $this->getTypes();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -170,7 +200,7 @@ final class TupleTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -182,7 +212,7 @@ final class TupleTypeSpecifier extends EditableNode
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
      * @return RightParenToken

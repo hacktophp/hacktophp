@@ -2,90 +2,110 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<8b7abea035c7ae3c8d4a6e0548eb0989>>
+ * @generated SignedSource<<cca3c913f6463b4c6354700562d9029f>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class VectorTypeSpecifier extends EditableNode
+use HH\Lib\Dict;
+final class VectorTypeSpecifier extends Node implements ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'vector_type_specifier';
+    /**
+     * @var VecToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var LessThanToken
      */
     private $_left_angle;
     /**
-     * @var EditableNode
+     * @var ITypeSpecifier
      */
     private $_type;
     /**
-     * @var EditableNode
+     * @var null|Node
      */
     private $_trailing_comma;
     /**
-     * @var EditableNode
+     * @var GreaterThanToken
      */
     private $_right_angle;
-    public function __construct(EditableNode $keyword, EditableNode $left_angle, EditableNode $type, EditableNode $trailing_comma, EditableNode $right_angle)
+    public function __construct(VecToken $keyword, LessThanToken $left_angle, ITypeSpecifier $type, ?Node $trailing_comma, GreaterThanToken $right_angle, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('vector_type_specifier');
         $this->_keyword = $keyword;
         $this->_left_angle = $left_angle;
         $this->_type = $type;
         $this->_trailing_comma = $trailing_comma;
         $this->_right_angle = $right_angle;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['vector_type_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['vector_type_keyword'], $file, $offset, $source, 'VecToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_angle = EditableNode::fromJSON($json['vector_type_left_angle'], $file, $offset, $source);
+        $left_angle = Node::fromJSON($json['vector_type_left_angle'], $file, $offset, $source, 'LessThanToken');
+        $left_angle = $left_angle !== null ? $left_angle : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_angle->getWidth();
-        $type = EditableNode::fromJSON($json['vector_type_type'], $file, $offset, $source);
+        $type = Node::fromJSON($json['vector_type_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $type = $type !== null ? $type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $type->getWidth();
-        $trailing_comma = EditableNode::fromJSON($json['vector_type_trailing_comma'], $file, $offset, $source);
-        $offset += $trailing_comma->getWidth();
-        $right_angle = EditableNode::fromJSON($json['vector_type_right_angle'], $file, $offset, $source);
+        $trailing_comma = Node::fromJSON($json['vector_type_trailing_comma'], $file, $offset, $source, 'Node');
+        $offset += (($__tmp1__ = $trailing_comma) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $right_angle = Node::fromJSON($json['vector_type_right_angle'], $file, $offset, $source, 'GreaterThanToken');
+        $right_angle = $right_angle !== null ? $right_angle : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_angle->getWidth();
-        return new static($keyword, $left_angle, $type, $trailing_comma, $right_angle);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $left_angle, $type, $trailing_comma, $right_angle, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'left_angle' => $this->_left_angle, 'type' => $this->_type, 'trailing_comma' => $this->_trailing_comma, 'right_angle' => $this->_right_angle];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'left_angle' => $this->_left_angle, 'type' => $this->_type, 'trailing_comma' => $this->_trailing_comma, 'right_angle' => $this->_right_angle]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_angle = $this->_left_angle->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
-        $trailing_comma = $this->_trailing_comma->rewrite($rewriter, $parents);
-        $right_angle = $this->_right_angle->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_angle = $rewriter($this->_left_angle, $parents);
+        $type = $rewriter($this->_type, $parents);
+        $trailing_comma = $this->_trailing_comma === null ? null : $rewriter($this->_trailing_comma, $parents);
+        $right_angle = $rewriter($this->_right_angle, $parents);
         if ($keyword === $this->_keyword && $left_angle === $this->_left_angle && $type === $this->_type && $trailing_comma === $this->_trailing_comma && $right_angle === $this->_right_angle) {
             return $this;
         }
         return new static($keyword, $left_angle, $type, $trailing_comma, $right_angle);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -94,7 +114,7 @@ final class VectorTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(VecToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -106,7 +126,7 @@ final class VectorTypeSpecifier extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return VecToken
@@ -129,7 +149,7 @@ final class VectorTypeSpecifier extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftAngleUNTYPED()
     {
@@ -138,7 +158,7 @@ final class VectorTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withLeftAngle(EditableNode $value)
+    public function withLeftAngle(LessThanToken $value)
     {
         if ($value === $this->_left_angle) {
             return $this;
@@ -150,7 +170,7 @@ final class VectorTypeSpecifier extends EditableNode
      */
     public function hasLeftAngle()
     {
-        return !$this->_left_angle->isMissing();
+        return $this->_left_angle !== null;
     }
     /**
      * @return LessThanToken
@@ -173,7 +193,7 @@ final class VectorTypeSpecifier extends EditableNode
         return $this->getLeftAngle();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -182,7 +202,7 @@ final class VectorTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(ITypeSpecifier $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -194,34 +214,36 @@ final class VectorTypeSpecifier extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
-     * @return ClassnameTypeSpecifier | ClosureTypeSpecifier |
-     * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
-     * TupleTypeSpecifier | VectorTypeSpecifier
+     * @return ClassnameTypeSpecifier | DarrayTypeSpecifier |
+     * DictionaryTypeSpecifier | LikeTypeSpecifier | NullableTypeSpecifier |
+     * ShapeTypeSpecifier | SimpleTypeSpecifier | TupleTypeSpecifier |
+     * VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getType()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return TypeAssert\instance_of(ITypeSpecifier::class, $this->_type);
     }
     /**
-     * @return ClassnameTypeSpecifier | ClosureTypeSpecifier |
-     * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
-     * TupleTypeSpecifier | VectorTypeSpecifier
+     * @return ClassnameTypeSpecifier | DarrayTypeSpecifier |
+     * DictionaryTypeSpecifier | LikeTypeSpecifier | NullableTypeSpecifier |
+     * ShapeTypeSpecifier | SimpleTypeSpecifier | TupleTypeSpecifier |
+     * VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getTypex()
     {
         return $this->getType();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTrailingCommaUNTYPED()
     {
@@ -230,7 +252,7 @@ final class VectorTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withTrailingComma(EditableNode $value)
+    public function withTrailingComma(?Node $value)
     {
         if ($value === $this->_trailing_comma) {
             return $this;
@@ -242,33 +264,30 @@ final class VectorTypeSpecifier extends EditableNode
      */
     public function hasTrailingComma()
     {
-        return !$this->_trailing_comma->isMissing();
+        return $this->_trailing_comma !== null;
     }
     /**
      * @return null
      */
     /**
-     * @return null|EditableNode
+     * @return null|Node
      */
     public function getTrailingComma()
     {
-        if ($this->_trailing_comma->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_trailing_comma);
+        return $this->_trailing_comma;
     }
     /**
      * @return
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getTrailingCommax()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_trailing_comma);
+        return TypeAssert\not_null($this->getTrailingComma());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightAngleUNTYPED()
     {
@@ -277,7 +296,7 @@ final class VectorTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withRightAngle(EditableNode $value)
+    public function withRightAngle(GreaterThanToken $value)
     {
         if ($value === $this->_right_angle) {
             return $this;
@@ -289,7 +308,7 @@ final class VectorTypeSpecifier extends EditableNode
      */
     public function hasRightAngle()
     {
-        return !$this->_right_angle->isMissing();
+        return $this->_right_angle !== null;
     }
     /**
      * @return GreaterThanToken

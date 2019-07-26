@@ -2,53 +2,65 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<d241e0f0d408ce55acf7ddc60b3e5f22>>
+ * @generated SignedSource<<822b517e8d5ca177416b9f6bc5ab3565>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class TypeConstDeclaration extends EditableNode
+use HH\Lib\Dict;
+final class TypeConstDeclaration extends Node implements IClassBodyDeclaration
 {
     /**
-     * @var EditableNode
+     * @var string
      */
-    private $_abstract;
+    const SYNTAX_KIND = 'type_const_declaration';
     /**
-     * @var EditableNode
+     * @var null|OldAttributeSpecification
+     */
+    private $_attribute_spec;
+    /**
+     * @var NodeList<Token>|null
+     */
+    private $_modifiers;
+    /**
+     * @var ConstToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var TypeToken
      */
     private $_type_keyword;
     /**
-     * @var EditableNode
+     * @var NameToken
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var null|Node
      */
     private $_type_parameters;
     /**
-     * @var EditableNode
+     * @var null|TypeConstraint
      */
     private $_type_constraint;
     /**
-     * @var EditableNode
+     * @var null|EqualToken
      */
     private $_equal;
     /**
-     * @var EditableNode
+     * @var null|ITypeSpecifier
      */
     private $_type_specifier;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $abstract, EditableNode $keyword, EditableNode $type_keyword, EditableNode $name, EditableNode $type_parameters, EditableNode $type_constraint, EditableNode $equal, EditableNode $type_specifier, EditableNode $semicolon)
+    /**
+     * @param NodeList<Token>|null $modifiers
+     */
+    public function __construct(?OldAttributeSpecification $attribute_spec, ?NodeList $modifiers, ConstToken $keyword, TypeToken $type_keyword, NameToken $name, ?Node $type_parameters, ?TypeConstraint $type_constraint, ?EqualToken $equal, ?ITypeSpecifier $type_specifier, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('type_const_declaration');
-        $this->_abstract = $abstract;
+        $this->_attribute_spec = $attribute_spec;
+        $this->_modifiers = $modifiers;
         $this->_keyword = $keyword;
         $this->_type_keyword = $type_keyword;
         $this->_name = $name;
@@ -57,114 +69,177 @@ final class TypeConstDeclaration extends EditableNode
         $this->_equal = $equal;
         $this->_type_specifier = $type_specifier;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $abstract = EditableNode::fromJSON($json['type_const_abstract'], $file, $offset, $source);
-        $offset += $abstract->getWidth();
-        $keyword = EditableNode::fromJSON($json['type_const_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $attribute_spec = Node::fromJSON($json['type_const_attribute_spec'], $file, $offset, $source, 'OldAttributeSpecification');
+        $offset += (($__tmp1__ = $attribute_spec) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $modifiers = Node::fromJSON($json['type_const_modifiers'], $file, $offset, $source, 'NodeList<Token>');
+        $offset += (($__tmp2__ = $modifiers) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $keyword = Node::fromJSON($json['type_const_keyword'], $file, $offset, $source, 'ConstToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $type_keyword = EditableNode::fromJSON($json['type_const_type_keyword'], $file, $offset, $source);
+        $type_keyword = Node::fromJSON($json['type_const_type_keyword'], $file, $offset, $source, 'TypeToken');
+        $type_keyword = $type_keyword !== null ? $type_keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $type_keyword->getWidth();
-        $name = EditableNode::fromJSON($json['type_const_name'], $file, $offset, $source);
+        $name = Node::fromJSON($json['type_const_name'], $file, $offset, $source, 'NameToken');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $type_parameters = EditableNode::fromJSON($json['type_const_type_parameters'], $file, $offset, $source);
-        $offset += $type_parameters->getWidth();
-        $type_constraint = EditableNode::fromJSON($json['type_const_type_constraint'], $file, $offset, $source);
-        $offset += $type_constraint->getWidth();
-        $equal = EditableNode::fromJSON($json['type_const_equal'], $file, $offset, $source);
-        $offset += $equal->getWidth();
-        $type_specifier = EditableNode::fromJSON($json['type_const_type_specifier'], $file, $offset, $source);
-        $offset += $type_specifier->getWidth();
-        $semicolon = EditableNode::fromJSON($json['type_const_semicolon'], $file, $offset, $source);
+        $type_parameters = Node::fromJSON($json['type_const_type_parameters'], $file, $offset, $source, 'Node');
+        $offset += (($__tmp3__ = $type_parameters) !== null ? $__tmp3__->getWidth() : null) ?? 0;
+        $type_constraint = Node::fromJSON($json['type_const_type_constraint'], $file, $offset, $source, 'TypeConstraint');
+        $offset += (($__tmp4__ = $type_constraint) !== null ? $__tmp4__->getWidth() : null) ?? 0;
+        $equal = Node::fromJSON($json['type_const_equal'], $file, $offset, $source, 'EqualToken');
+        $offset += (($__tmp5__ = $equal) !== null ? $__tmp5__->getWidth() : null) ?? 0;
+        $type_specifier = Node::fromJSON($json['type_const_type_specifier'], $file, $offset, $source, 'ITypeSpecifier');
+        $offset += (($__tmp6__ = $type_specifier) !== null ? $__tmp6__->getWidth() : null) ?? 0;
+        $semicolon = Node::fromJSON($json['type_const_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($abstract, $keyword, $type_keyword, $name, $type_parameters, $type_constraint, $equal, $type_specifier, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($attribute_spec, $modifiers, $keyword, $type_keyword, $name, $type_parameters, $type_constraint, $equal, $type_specifier, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['abstract' => $this->_abstract, 'keyword' => $this->_keyword, 'type_keyword' => $this->_type_keyword, 'name' => $this->_name, 'type_parameters' => $this->_type_parameters, 'type_constraint' => $this->_type_constraint, 'equal' => $this->_equal, 'type_specifier' => $this->_type_specifier, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['attribute_spec' => $this->_attribute_spec, 'modifiers' => $this->_modifiers, 'keyword' => $this->_keyword, 'type_keyword' => $this->_type_keyword, 'name' => $this->_name, 'type_parameters' => $this->_type_parameters, 'type_constraint' => $this->_type_constraint, 'equal' => $this->_equal, 'type_specifier' => $this->_type_specifier, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $abstract = $this->_abstract->rewrite($rewriter, $parents);
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $type_keyword = $this->_type_keyword->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $type_parameters = $this->_type_parameters->rewrite($rewriter, $parents);
-        $type_constraint = $this->_type_constraint->rewrite($rewriter, $parents);
-        $equal = $this->_equal->rewrite($rewriter, $parents);
-        $type_specifier = $this->_type_specifier->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
-        if ($abstract === $this->_abstract && $keyword === $this->_keyword && $type_keyword === $this->_type_keyword && $name === $this->_name && $type_parameters === $this->_type_parameters && $type_constraint === $this->_type_constraint && $equal === $this->_equal && $type_specifier === $this->_type_specifier && $semicolon === $this->_semicolon) {
+        $attribute_spec = $this->_attribute_spec === null ? null : $rewriter($this->_attribute_spec, $parents);
+        $modifiers = $this->_modifiers === null ? null : $rewriter($this->_modifiers, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $type_keyword = $rewriter($this->_type_keyword, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $type_parameters = $this->_type_parameters === null ? null : $rewriter($this->_type_parameters, $parents);
+        $type_constraint = $this->_type_constraint === null ? null : $rewriter($this->_type_constraint, $parents);
+        $equal = $this->_equal === null ? null : $rewriter($this->_equal, $parents);
+        $type_specifier = $this->_type_specifier === null ? null : $rewriter($this->_type_specifier, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
+        if ($attribute_spec === $this->_attribute_spec && $modifiers === $this->_modifiers && $keyword === $this->_keyword && $type_keyword === $this->_type_keyword && $name === $this->_name && $type_parameters === $this->_type_parameters && $type_constraint === $this->_type_constraint && $equal === $this->_equal && $type_specifier === $this->_type_specifier && $semicolon === $this->_semicolon) {
             return $this;
         }
-        return new static($abstract, $keyword, $type_keyword, $name, $type_parameters, $type_constraint, $equal, $type_specifier, $semicolon);
+        return new static($attribute_spec, $modifiers, $keyword, $type_keyword, $name, $type_parameters, $type_constraint, $equal, $type_specifier, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
-    public function getAbstractUNTYPED()
+    public function getAttributeSpecUNTYPED()
     {
-        return $this->_abstract;
+        return $this->_attribute_spec;
     }
     /**
      * @return static
      */
-    public function withAbstract(EditableNode $value)
+    public function withAttributeSpec(?OldAttributeSpecification $value)
     {
-        if ($value === $this->_abstract) {
+        if ($value === $this->_attribute_spec) {
             return $this;
         }
-        return new static($value, $this->_keyword, $this->_type_keyword, $this->_name, $this->_type_parameters, $this->_type_constraint, $this->_equal, $this->_type_specifier, $this->_semicolon);
+        return new static($value, $this->_modifiers, $this->_keyword, $this->_type_keyword, $this->_name, $this->_type_parameters, $this->_type_constraint, $this->_equal, $this->_type_specifier, $this->_semicolon);
     }
     /**
      * @return bool
      */
-    public function hasAbstract()
+    public function hasAttributeSpec()
     {
-        return !$this->_abstract->isMissing();
+        return $this->_attribute_spec !== null;
     }
     /**
-     * @return null | AbstractToken
+     * @return null | OldAttributeSpecification
      */
     /**
-     * @return null|AbstractToken
+     * @return null|OldAttributeSpecification
      */
-    public function getAbstract()
+    public function getAttributeSpec()
     {
-        if ($this->_abstract->isMissing()) {
-            return null;
+        return $this->_attribute_spec;
+    }
+    /**
+     * @return OldAttributeSpecification
+     */
+    /**
+     * @return OldAttributeSpecification
+     */
+    public function getAttributeSpecx()
+    {
+        return TypeAssert\not_null($this->getAttributeSpec());
+    }
+    /**
+     * @return null|Node
+     */
+    public function getModifiersUNTYPED()
+    {
+        return $this->_modifiers;
+    }
+    /**
+     * @param NodeList<Token>|null $value
+     *
+     * @return static
+     */
+    public function withModifiers(?NodeList $value)
+    {
+        if ($value === $this->_modifiers) {
+            return $this;
         }
-        return TypeAssert\instance_of(AbstractToken::class, $this->_abstract);
+        return new static($this->_attribute_spec, $value, $this->_keyword, $this->_type_keyword, $this->_name, $this->_type_parameters, $this->_type_constraint, $this->_equal, $this->_type_specifier, $this->_semicolon);
     }
     /**
-     * @return AbstractToken
+     * @return bool
      */
-    /**
-     * @return AbstractToken
-     */
-    public function getAbstractx()
+    public function hasModifiers()
     {
-        return TypeAssert\instance_of(AbstractToken::class, $this->_abstract);
+        return $this->_modifiers !== null;
     }
     /**
-     * @return EditableNode
+     * @return NodeList<AbstractToken> | NodeList<Token> | NodeList<PublicToken>
+     * | null
+     */
+    /**
+     * @return NodeList<Token>|null
+     */
+    public function getModifiers()
+    {
+        return $this->_modifiers;
+    }
+    /**
+     * @return NodeList<AbstractToken> | NodeList<Token> | NodeList<PublicToken>
+     */
+    /**
+     * @return NodeList<Token>
+     */
+    public function getModifiersx()
+    {
+        return TypeAssert\not_null($this->getModifiers());
+    }
+    /**
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -173,19 +248,19 @@ final class TypeConstDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(ConstToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
         }
-        return new static($this->_abstract, $value, $this->_type_keyword, $this->_name, $this->_type_parameters, $this->_type_constraint, $this->_equal, $this->_type_specifier, $this->_semicolon);
+        return new static($this->_attribute_spec, $this->_modifiers, $value, $this->_type_keyword, $this->_name, $this->_type_parameters, $this->_type_constraint, $this->_equal, $this->_type_specifier, $this->_semicolon);
     }
     /**
      * @return bool
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return ConstToken
@@ -208,7 +283,7 @@ final class TypeConstDeclaration extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeKeywordUNTYPED()
     {
@@ -217,19 +292,19 @@ final class TypeConstDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withTypeKeyword(EditableNode $value)
+    public function withTypeKeyword(TypeToken $value)
     {
         if ($value === $this->_type_keyword) {
             return $this;
         }
-        return new static($this->_abstract, $this->_keyword, $value, $this->_name, $this->_type_parameters, $this->_type_constraint, $this->_equal, $this->_type_specifier, $this->_semicolon);
+        return new static($this->_attribute_spec, $this->_modifiers, $this->_keyword, $value, $this->_name, $this->_type_parameters, $this->_type_constraint, $this->_equal, $this->_type_specifier, $this->_semicolon);
     }
     /**
      * @return bool
      */
     public function hasTypeKeyword()
     {
-        return !$this->_type_keyword->isMissing();
+        return $this->_type_keyword !== null;
     }
     /**
      * @return TypeToken
@@ -252,7 +327,7 @@ final class TypeConstDeclaration extends EditableNode
         return $this->getTypeKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -261,19 +336,19 @@ final class TypeConstDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(NameToken $value)
     {
         if ($value === $this->_name) {
             return $this;
         }
-        return new static($this->_abstract, $this->_keyword, $this->_type_keyword, $value, $this->_type_parameters, $this->_type_constraint, $this->_equal, $this->_type_specifier, $this->_semicolon);
+        return new static($this->_attribute_spec, $this->_modifiers, $this->_keyword, $this->_type_keyword, $value, $this->_type_parameters, $this->_type_constraint, $this->_equal, $this->_type_specifier, $this->_semicolon);
     }
     /**
      * @return bool
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return NameToken
@@ -296,7 +371,7 @@ final class TypeConstDeclaration extends EditableNode
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeParametersUNTYPED()
     {
@@ -305,45 +380,42 @@ final class TypeConstDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withTypeParameters(EditableNode $value)
+    public function withTypeParameters(?Node $value)
     {
         if ($value === $this->_type_parameters) {
             return $this;
         }
-        return new static($this->_abstract, $this->_keyword, $this->_type_keyword, $this->_name, $value, $this->_type_constraint, $this->_equal, $this->_type_specifier, $this->_semicolon);
+        return new static($this->_attribute_spec, $this->_modifiers, $this->_keyword, $this->_type_keyword, $this->_name, $value, $this->_type_constraint, $this->_equal, $this->_type_specifier, $this->_semicolon);
     }
     /**
      * @return bool
      */
     public function hasTypeParameters()
     {
-        return !$this->_type_parameters->isMissing();
+        return $this->_type_parameters !== null;
     }
     /**
      * @return null
      */
     /**
-     * @return null|EditableNode
+     * @return null|Node
      */
     public function getTypeParameters()
     {
-        if ($this->_type_parameters->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_type_parameters);
+        return $this->_type_parameters;
     }
     /**
      * @return
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getTypeParametersx()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type_parameters);
+        return TypeAssert\not_null($this->getTypeParameters());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeConstraintUNTYPED()
     {
@@ -352,19 +424,19 @@ final class TypeConstDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withTypeConstraint(EditableNode $value)
+    public function withTypeConstraint(?TypeConstraint $value)
     {
         if ($value === $this->_type_constraint) {
             return $this;
         }
-        return new static($this->_abstract, $this->_keyword, $this->_type_keyword, $this->_name, $this->_type_parameters, $value, $this->_equal, $this->_type_specifier, $this->_semicolon);
+        return new static($this->_attribute_spec, $this->_modifiers, $this->_keyword, $this->_type_keyword, $this->_name, $this->_type_parameters, $value, $this->_equal, $this->_type_specifier, $this->_semicolon);
     }
     /**
      * @return bool
      */
     public function hasTypeConstraint()
     {
-        return !$this->_type_constraint->isMissing();
+        return $this->_type_constraint !== null;
     }
     /**
      * @return null | TypeConstraint
@@ -374,10 +446,7 @@ final class TypeConstDeclaration extends EditableNode
      */
     public function getTypeConstraint()
     {
-        if ($this->_type_constraint->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(TypeConstraint::class, $this->_type_constraint);
+        return $this->_type_constraint;
     }
     /**
      * @return TypeConstraint
@@ -387,10 +456,10 @@ final class TypeConstDeclaration extends EditableNode
      */
     public function getTypeConstraintx()
     {
-        return TypeAssert\instance_of(TypeConstraint::class, $this->_type_constraint);
+        return TypeAssert\not_null($this->getTypeConstraint());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getEqualUNTYPED()
     {
@@ -399,19 +468,19 @@ final class TypeConstDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withEqual(EditableNode $value)
+    public function withEqual(?EqualToken $value)
     {
         if ($value === $this->_equal) {
             return $this;
         }
-        return new static($this->_abstract, $this->_keyword, $this->_type_keyword, $this->_name, $this->_type_parameters, $this->_type_constraint, $value, $this->_type_specifier, $this->_semicolon);
+        return new static($this->_attribute_spec, $this->_modifiers, $this->_keyword, $this->_type_keyword, $this->_name, $this->_type_parameters, $this->_type_constraint, $value, $this->_type_specifier, $this->_semicolon);
     }
     /**
      * @return bool
      */
     public function hasEqual()
     {
-        return !$this->_equal->isMissing();
+        return $this->_equal !== null;
     }
     /**
      * @return null | EqualToken
@@ -421,10 +490,7 @@ final class TypeConstDeclaration extends EditableNode
      */
     public function getEqual()
     {
-        if ($this->_equal->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EqualToken::class, $this->_equal);
+        return $this->_equal;
     }
     /**
      * @return EqualToken
@@ -434,10 +500,10 @@ final class TypeConstDeclaration extends EditableNode
      */
     public function getEqualx()
     {
-        return TypeAssert\instance_of(EqualToken::class, $this->_equal);
+        return TypeAssert\not_null($this->getEqual());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeSpecifierUNTYPED()
     {
@@ -446,51 +512,50 @@ final class TypeConstDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withTypeSpecifier(EditableNode $value)
+    public function withTypeSpecifier(?ITypeSpecifier $value)
     {
         if ($value === $this->_type_specifier) {
             return $this;
         }
-        return new static($this->_abstract, $this->_keyword, $this->_type_keyword, $this->_name, $this->_type_parameters, $this->_type_constraint, $this->_equal, $value, $this->_semicolon);
+        return new static($this->_attribute_spec, $this->_modifiers, $this->_keyword, $this->_type_keyword, $this->_name, $this->_type_parameters, $this->_type_constraint, $this->_equal, $value, $this->_semicolon);
     }
     /**
      * @return bool
      */
     public function hasTypeSpecifier()
     {
-        return !$this->_type_specifier->isMissing();
+        return $this->_type_specifier !== null;
     }
     /**
-     * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
-     * GenericTypeSpecifier | KeysetTypeSpecifier | null | NullableTypeSpecifier
-     * | ShapeTypeSpecifier | SimpleTypeSpecifier | TupleTypeSpecifier |
-     * TypeConstant | VectorTypeSpecifier
+     * @return ClosureTypeSpecifier | DarrayTypeSpecifier |
+     * DictionaryTypeSpecifier | GenericTypeSpecifier | KeysetTypeSpecifier |
+     * LikeTypeSpecifier | null | NullableTypeSpecifier | ShapeTypeSpecifier |
+     * SimpleTypeSpecifier | TupleTypeSpecifier | TypeConstant |
+     * VarrayTypeSpecifier | VectorTypeSpecifier
      */
     /**
-     * @return null|EditableNode
+     * @return null|ITypeSpecifier
      */
     public function getTypeSpecifier()
     {
-        if ($this->_type_specifier->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_type_specifier);
+        return $this->_type_specifier;
     }
     /**
-     * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
-     * GenericTypeSpecifier | KeysetTypeSpecifier | NullableTypeSpecifier |
-     * ShapeTypeSpecifier | SimpleTypeSpecifier | TupleTypeSpecifier |
-     * TypeConstant | VectorTypeSpecifier
+     * @return ClosureTypeSpecifier | DarrayTypeSpecifier |
+     * DictionaryTypeSpecifier | GenericTypeSpecifier | KeysetTypeSpecifier |
+     * LikeTypeSpecifier | NullableTypeSpecifier | ShapeTypeSpecifier |
+     * SimpleTypeSpecifier | TupleTypeSpecifier | TypeConstant |
+     * VarrayTypeSpecifier | VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getTypeSpecifierx()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type_specifier);
+        return TypeAssert\not_null($this->getTypeSpecifier());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -499,19 +564,19 @@ final class TypeConstDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
         }
-        return new static($this->_abstract, $this->_keyword, $this->_type_keyword, $this->_name, $this->_type_parameters, $this->_type_constraint, $this->_equal, $this->_type_specifier, $value);
+        return new static($this->_attribute_spec, $this->_modifiers, $this->_keyword, $this->_type_keyword, $this->_name, $this->_type_parameters, $this->_type_constraint, $this->_equal, $this->_type_specifier, $value);
     }
     /**
      * @return bool
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return SemicolonToken

@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<622280109da024471064b84230d4ad71>>
+ * @generated SignedSource<<ed86ed6c8c517dc05bd0f4b64391ca9b>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class AsExpression extends EditableNode
+use HH\Lib\Dict;
+final class AsExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'as_expression';
+    /**
+     * @var IExpression
      */
     private $_left_operand;
     /**
-     * @var EditableNode
+     * @var AsToken
      */
     private $_operator;
     /**
-     * @var EditableNode
+     * @var ITypeSpecifier
      */
     private $_right_operand;
-    public function __construct(EditableNode $left_operand, EditableNode $operator, EditableNode $right_operand)
+    public function __construct(IExpression $left_operand, AsToken $operator, ITypeSpecifier $right_operand, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('as_expression');
         $this->_left_operand = $left_operand;
         $this->_operator = $operator;
         $this->_right_operand = $right_operand;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $left_operand = EditableNode::fromJSON($json['as_left_operand'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $left_operand = Node::fromJSON($json['as_left_operand'], $file, $offset, $source, 'IExpression');
+        $left_operand = $left_operand !== null ? $left_operand : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_operand->getWidth();
-        $operator = EditableNode::fromJSON($json['as_operator'], $file, $offset, $source);
+        $operator = Node::fromJSON($json['as_operator'], $file, $offset, $source, 'AsToken');
+        $operator = $operator !== null ? $operator : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $operator->getWidth();
-        $right_operand = EditableNode::fromJSON($json['as_right_operand'], $file, $offset, $source);
+        $right_operand = Node::fromJSON($json['as_right_operand'], $file, $offset, $source, 'ITypeSpecifier');
+        $right_operand = $right_operand !== null ? $right_operand : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_operand->getWidth();
-        return new static($left_operand, $operator, $right_operand);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($left_operand, $operator, $right_operand, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['left_operand' => $this->_left_operand, 'operator' => $this->_operator, 'right_operand' => $this->_right_operand];
+        return Dict\filter_nulls(['left_operand' => $this->_left_operand, 'operator' => $this->_operator, 'right_operand' => $this->_right_operand]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $left_operand = $this->_left_operand->rewrite($rewriter, $parents);
-        $operator = $this->_operator->rewrite($rewriter, $parents);
-        $right_operand = $this->_right_operand->rewrite($rewriter, $parents);
+        $left_operand = $rewriter($this->_left_operand, $parents);
+        $operator = $rewriter($this->_operator, $parents);
+        $right_operand = $rewriter($this->_right_operand, $parents);
         if ($left_operand === $this->_left_operand && $operator === $this->_operator && $right_operand === $this->_right_operand) {
             return $this;
         }
         return new static($left_operand, $operator, $right_operand);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftOperandUNTYPED()
     {
@@ -78,7 +95,7 @@ final class AsExpression extends EditableNode
     /**
      * @return static
      */
-    public function withLeftOperand(EditableNode $value)
+    public function withLeftOperand(IExpression $value)
     {
         if ($value === $this->_left_operand) {
             return $this;
@@ -90,34 +107,34 @@ final class AsExpression extends EditableNode
      */
     public function hasLeftOperand()
     {
-        return !$this->_left_operand->isMissing();
+        return $this->_left_operand !== null;
     }
     /**
-     * @return CollectionLiteralExpression | FunctionCallExpression |
-     * LiteralExpression | MemberSelectionExpression | ParenthesizedExpression |
-     * TupleExpression | VariableExpression
+     * @return FunctionCallExpression | LiteralExpression |
+     * MemberSelectionExpression | ParenthesizedExpression |
+     * PrefixUnaryExpression | TupleExpression | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getLeftOperand()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_left_operand);
+        return TypeAssert\instance_of(IExpression::class, $this->_left_operand);
     }
     /**
-     * @return CollectionLiteralExpression | FunctionCallExpression |
-     * LiteralExpression | MemberSelectionExpression | ParenthesizedExpression |
-     * TupleExpression | VariableExpression
+     * @return FunctionCallExpression | LiteralExpression |
+     * MemberSelectionExpression | ParenthesizedExpression |
+     * PrefixUnaryExpression | TupleExpression | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getLeftOperandx()
     {
         return $this->getLeftOperand();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOperatorUNTYPED()
     {
@@ -126,7 +143,7 @@ final class AsExpression extends EditableNode
     /**
      * @return static
      */
-    public function withOperator(EditableNode $value)
+    public function withOperator(AsToken $value)
     {
         if ($value === $this->_operator) {
             return $this;
@@ -138,7 +155,7 @@ final class AsExpression extends EditableNode
      */
     public function hasOperator()
     {
-        return !$this->_operator->isMissing();
+        return $this->_operator !== null;
     }
     /**
      * @return AsToken
@@ -161,7 +178,7 @@ final class AsExpression extends EditableNode
         return $this->getOperator();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightOperandUNTYPED()
     {
@@ -170,7 +187,7 @@ final class AsExpression extends EditableNode
     /**
      * @return static
      */
-    public function withRightOperand(EditableNode $value)
+    public function withRightOperand(ITypeSpecifier $value)
     {
         if ($value === $this->_right_operand) {
             return $this;
@@ -182,27 +199,27 @@ final class AsExpression extends EditableNode
      */
     public function hasRightOperand()
     {
-        return !$this->_right_operand->isMissing();
+        return $this->_right_operand !== null;
     }
     /**
-     * @return ClosureTypeSpecifier | GenericTypeSpecifier |
+     * @return DictionaryTypeSpecifier | GenericTypeSpecifier |
      * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
-     * SoftTypeSpecifier | TupleTypeSpecifier
+     * TupleTypeSpecifier | TypeConstant | VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getRightOperand()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_right_operand);
+        return TypeAssert\instance_of(ITypeSpecifier::class, $this->_right_operand);
     }
     /**
-     * @return ClosureTypeSpecifier | GenericTypeSpecifier |
+     * @return DictionaryTypeSpecifier | GenericTypeSpecifier |
      * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
-     * SoftTypeSpecifier | TupleTypeSpecifier
+     * TupleTypeSpecifier | TypeConstant | VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getRightOperandx()
     {

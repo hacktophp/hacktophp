@@ -2,66 +2,77 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<14ae5900dfd1358ea7df542d39835215>>
+ * @generated SignedSource<<282af90195f5550cbdaee1baabedbe31>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ConstantDeclarator extends EditableNode
+use HH\Lib\Dict;
+final class ConstantDeclarator extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'constant_declarator';
+    /**
+     * @var NameToken
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var null|SimpleInitializer
      */
     private $_initializer;
-    public function __construct(EditableNode $name, EditableNode $initializer)
+    public function __construct(NameToken $name, ?SimpleInitializer $initializer, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('constant_declarator');
         $this->_name = $name;
         $this->_initializer = $initializer;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $name = EditableNode::fromJSON($json['constant_declarator_name'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $name = Node::fromJSON($json['constant_declarator_name'], $file, $offset, $source, 'NameToken');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $initializer = EditableNode::fromJSON($json['constant_declarator_initializer'], $file, $offset, $source);
-        $offset += $initializer->getWidth();
-        return new static($name, $initializer);
+        $initializer = Node::fromJSON($json['constant_declarator_initializer'], $file, $offset, $source, 'SimpleInitializer');
+        $offset += (($__tmp1__ = $initializer) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($name, $initializer, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['name' => $this->_name, 'initializer' => $this->_initializer];
+        return Dict\filter_nulls(['name' => $this->_name, 'initializer' => $this->_initializer]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $initializer = $this->_initializer->rewrite($rewriter, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $initializer = $this->_initializer === null ? null : $rewriter($this->_initializer, $parents);
         if ($name === $this->_name && $initializer === $this->_initializer) {
             return $this;
         }
         return new static($name, $initializer);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -70,7 +81,7 @@ final class ConstantDeclarator extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(NameToken $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -82,7 +93,7 @@ final class ConstantDeclarator extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return NameToken
@@ -105,7 +116,7 @@ final class ConstantDeclarator extends EditableNode
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getInitializerUNTYPED()
     {
@@ -114,7 +125,7 @@ final class ConstantDeclarator extends EditableNode
     /**
      * @return static
      */
-    public function withInitializer(EditableNode $value)
+    public function withInitializer(?SimpleInitializer $value)
     {
         if ($value === $this->_initializer) {
             return $this;
@@ -126,7 +137,7 @@ final class ConstantDeclarator extends EditableNode
      */
     public function hasInitializer()
     {
-        return !$this->_initializer->isMissing();
+        return $this->_initializer !== null;
     }
     /**
      * @return null | SimpleInitializer
@@ -136,10 +147,7 @@ final class ConstantDeclarator extends EditableNode
      */
     public function getInitializer()
     {
-        if ($this->_initializer->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(SimpleInitializer::class, $this->_initializer);
+        return $this->_initializer;
     }
     /**
      * @return SimpleInitializer
@@ -149,7 +157,7 @@ final class ConstantDeclarator extends EditableNode
      */
     public function getInitializerx()
     {
-        return TypeAssert\instance_of(SimpleInitializer::class, $this->_initializer);
+        return TypeAssert\not_null($this->getInitializer());
     }
 }
 

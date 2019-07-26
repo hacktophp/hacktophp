@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<7db4f1fcd2c82bab6fe5d2d1384e477e>>
+ * @generated SignedSource<<1eea2c629a247f51dbf2884fae24aab5>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class NullableTypeSpecifier extends EditableNode
+use HH\Lib\Dict;
+final class NullableTypeSpecifier extends Node implements ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'nullable_type_specifier';
+    /**
+     * @var QuestionToken
      */
     private $_question;
     /**
-     * @var EditableNode
+     * @var ITypeSpecifier
      */
     private $_type;
-    public function __construct(EditableNode $question, EditableNode $type)
+    public function __construct(QuestionToken $question, ITypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('nullable_type_specifier');
         $this->_question = $question;
         $this->_type = $type;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $question = EditableNode::fromJSON($json['nullable_question'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $question = Node::fromJSON($json['nullable_question'], $file, $offset, $source, 'QuestionToken');
+        $question = $question !== null ? $question : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $question->getWidth();
-        $type = EditableNode::fromJSON($json['nullable_type'], $file, $offset, $source);
+        $type = Node::fromJSON($json['nullable_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $type = $type !== null ? $type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $type->getWidth();
-        return new static($question, $type);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($question, $type, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['question' => $this->_question, 'type' => $this->_type];
+        return Dict\filter_nulls(['question' => $this->_question, 'type' => $this->_type]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $question = $this->_question->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
+        $question = $rewriter($this->_question, $parents);
+        $type = $rewriter($this->_type, $parents);
         if ($question === $this->_question && $type === $this->_type) {
             return $this;
         }
         return new static($question, $type);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getQuestionUNTYPED()
     {
@@ -70,7 +84,7 @@ final class NullableTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withQuestion(EditableNode $value)
+    public function withQuestion(QuestionToken $value)
     {
         if ($value === $this->_question) {
             return $this;
@@ -82,7 +96,7 @@ final class NullableTypeSpecifier extends EditableNode
      */
     public function hasQuestion()
     {
-        return !$this->_question->isMissing();
+        return $this->_question !== null;
     }
     /**
      * @return QuestionToken
@@ -105,7 +119,7 @@ final class NullableTypeSpecifier extends EditableNode
         return $this->getQuestion();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -114,7 +128,7 @@ final class NullableTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(ITypeSpecifier $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -126,29 +140,31 @@ final class NullableTypeSpecifier extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
      * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
-     * GenericTypeSpecifier | MapArrayTypeSpecifier | ShapeTypeSpecifier |
-     * SimpleTypeSpecifier | SoftTypeSpecifier | TupleTypeSpecifier |
-     * TypeConstant | VectorArrayTypeSpecifier | VectorTypeSpecifier
+     * GenericTypeSpecifier | LikeTypeSpecifier | MapArrayTypeSpecifier |
+     * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
+     * TupleTypeSpecifier | TypeConstant | VectorArrayTypeSpecifier |
+     * VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getType()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return TypeAssert\instance_of(ITypeSpecifier::class, $this->_type);
     }
     /**
      * @return ClosureTypeSpecifier | DictionaryTypeSpecifier |
-     * GenericTypeSpecifier | MapArrayTypeSpecifier | ShapeTypeSpecifier |
-     * SimpleTypeSpecifier | SoftTypeSpecifier | TupleTypeSpecifier |
-     * TypeConstant | VectorArrayTypeSpecifier | VectorTypeSpecifier
+     * GenericTypeSpecifier | LikeTypeSpecifier | MapArrayTypeSpecifier |
+     * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
+     * TupleTypeSpecifier | TypeConstant | VectorArrayTypeSpecifier |
+     * VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getTypex()
     {

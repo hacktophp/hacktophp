@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<3ebd1f8a5e3e127efa1717c8135e3b93>>
+ * @generated SignedSource<<81e6be15ce8091ed5713e7e4baad2cab>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class NamespaceBody extends EditableNode
+use HH\Lib\Dict;
+final class NamespaceBody extends Node implements INamespaceBody
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'namespace_body';
+    /**
+     * @var LeftBraceToken
      */
     private $_left_brace;
     /**
-     * @var EditableNode
+     * @var NodeList<Node>|null
      */
     private $_declarations;
     /**
-     * @var EditableNode
+     * @var RightBraceToken
      */
     private $_right_brace;
-    public function __construct(EditableNode $left_brace, EditableNode $declarations, EditableNode $right_brace)
+    /**
+     * @param NodeList<Node>|null $declarations
+     */
+    public function __construct(LeftBraceToken $left_brace, ?NodeList $declarations, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('namespace_body');
         $this->_left_brace = $left_brace;
         $this->_declarations = $declarations;
         $this->_right_brace = $right_brace;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $left_brace = EditableNode::fromJSON($json['namespace_left_brace'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $left_brace = Node::fromJSON($json['namespace_left_brace'], $file, $offset, $source, 'LeftBraceToken');
+        $left_brace = $left_brace !== null ? $left_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_brace->getWidth();
-        $declarations = EditableNode::fromJSON($json['namespace_declarations'], $file, $offset, $source);
-        $offset += $declarations->getWidth();
-        $right_brace = EditableNode::fromJSON($json['namespace_right_brace'], $file, $offset, $source);
+        $declarations = Node::fromJSON($json['namespace_declarations'], $file, $offset, $source, 'NodeList<Node>');
+        $offset += (($__tmp1__ = $declarations) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $right_brace = Node::fromJSON($json['namespace_right_brace'], $file, $offset, $source, 'RightBraceToken');
+        $right_brace = $right_brace !== null ? $right_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_brace->getWidth();
-        return new static($left_brace, $declarations, $right_brace);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($left_brace, $declarations, $right_brace, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['left_brace' => $this->_left_brace, 'declarations' => $this->_declarations, 'right_brace' => $this->_right_brace];
+        return Dict\filter_nulls(['left_brace' => $this->_left_brace, 'declarations' => $this->_declarations, 'right_brace' => $this->_right_brace]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $left_brace = $this->_left_brace->rewrite($rewriter, $parents);
-        $declarations = $this->_declarations->rewrite($rewriter, $parents);
-        $right_brace = $this->_right_brace->rewrite($rewriter, $parents);
+        $left_brace = $rewriter($this->_left_brace, $parents);
+        $declarations = $this->_declarations === null ? null : $rewriter($this->_declarations, $parents);
+        $right_brace = $rewriter($this->_right_brace, $parents);
         if ($left_brace === $this->_left_brace && $declarations === $this->_declarations && $right_brace === $this->_right_brace) {
             return $this;
         }
         return new static($left_brace, $declarations, $right_brace);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftBraceUNTYPED()
     {
@@ -78,7 +95,7 @@ final class NamespaceBody extends EditableNode
     /**
      * @return static
      */
-    public function withLeftBrace(EditableNode $value)
+    public function withLeftBrace(LeftBraceToken $value)
     {
         if ($value === $this->_left_brace) {
             return $this;
@@ -90,7 +107,7 @@ final class NamespaceBody extends EditableNode
      */
     public function hasLeftBrace()
     {
-        return !$this->_left_brace->isMissing();
+        return $this->_left_brace !== null;
     }
     /**
      * @return LeftBraceToken
@@ -113,16 +130,18 @@ final class NamespaceBody extends EditableNode
         return $this->getLeftBrace();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getDeclarationsUNTYPED()
     {
         return $this->_declarations;
     }
     /**
+     * @param NodeList<Node>|null $value
+     *
      * @return static
      */
-    public function withDeclarations(EditableNode $value)
+    public function withDeclarations(?NodeList $value)
     {
         if ($value === $this->_declarations) {
             return $this;
@@ -134,33 +153,43 @@ final class NamespaceBody extends EditableNode
      */
     public function hasDeclarations()
     {
-        return !$this->_declarations->isMissing();
+        return $this->_declarations !== null;
     }
     /**
-     * @return EditableList<EditableNode> | null
+     * @return NodeList<AliasDeclaration> | NodeList<Node> |
+     * NodeList<IHasAttributeSpec> | NodeList<ClassishDeclaration> |
+     * NodeList<ConstDeclaration> | NodeList<EchoStatement> |
+     * NodeList<IStatement> | NodeList<EnumDeclaration> |
+     * NodeList<ExpressionStatement> | NodeList<FunctionDeclaration> |
+     * NodeList<InclusionDirective> | NodeList<NamespaceGroupUseDeclaration> |
+     * NodeList<INamespaceUseDeclaration> | NodeList<NamespaceUseDeclaration> |
+     * null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<Node>|null
      */
     public function getDeclarations()
     {
-        if ($this->_declarations->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_declarations);
+        return $this->_declarations;
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<AliasDeclaration> | NodeList<Node> |
+     * NodeList<IHasAttributeSpec> | NodeList<ClassishDeclaration> |
+     * NodeList<ConstDeclaration> | NodeList<EchoStatement> |
+     * NodeList<IStatement> | NodeList<EnumDeclaration> |
+     * NodeList<ExpressionStatement> | NodeList<FunctionDeclaration> |
+     * NodeList<InclusionDirective> | NodeList<NamespaceGroupUseDeclaration> |
+     * NodeList<INamespaceUseDeclaration> | NodeList<NamespaceUseDeclaration>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<Node>
      */
     public function getDeclarationsx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_declarations);
+        return TypeAssert\not_null($this->getDeclarations());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightBraceUNTYPED()
     {
@@ -169,7 +198,7 @@ final class NamespaceBody extends EditableNode
     /**
      * @return static
      */
-    public function withRightBrace(EditableNode $value)
+    public function withRightBrace(RightBraceToken $value)
     {
         if ($value === $this->_right_brace) {
             return $this;
@@ -181,19 +210,16 @@ final class NamespaceBody extends EditableNode
      */
     public function hasRightBrace()
     {
-        return !$this->_right_brace->isMissing();
+        return $this->_right_brace !== null;
     }
     /**
-     * @return null | RightBraceToken
+     * @return RightBraceToken
      */
     /**
-     * @return null|RightBraceToken
+     * @return RightBraceToken
      */
     public function getRightBrace()
     {
-        if ($this->_right_brace->isMissing()) {
-            return null;
-        }
         return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
     }
     /**
@@ -204,7 +230,7 @@ final class NamespaceBody extends EditableNode
      */
     public function getRightBracex()
     {
-        return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+        return $this->getRightBrace();
     }
 }
 

@@ -2,82 +2,102 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<7340a1b66509f40efaeeeebe2bc10795>>
+ * @generated SignedSource<<b2b132cbcb5c6774a8766054a9c48658>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ShapeExpression extends EditableNode
+use HH\Lib\Dict;
+final class ShapeExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'shape_expression';
+    /**
+     * @var ShapeToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<FieldInitializer>>|null
      */
     private $_fields;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
-    public function __construct(EditableNode $keyword, EditableNode $left_paren, EditableNode $fields, EditableNode $right_paren)
+    /**
+     * @param NodeList<ListItem<FieldInitializer>>|null $fields
+     */
+    public function __construct(ShapeToken $keyword, LeftParenToken $left_paren, ?NodeList $fields, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('shape_expression');
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;
         $this->_fields = $fields;
         $this->_right_paren = $right_paren;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['shape_expression_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['shape_expression_keyword'], $file, $offset, $source, 'ShapeToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_paren = EditableNode::fromJSON($json['shape_expression_left_paren'], $file, $offset, $source);
+        $left_paren = Node::fromJSON($json['shape_expression_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $fields = EditableNode::fromJSON($json['shape_expression_fields'], $file, $offset, $source);
-        $offset += $fields->getWidth();
-        $right_paren = EditableNode::fromJSON($json['shape_expression_right_paren'], $file, $offset, $source);
+        $fields = Node::fromJSON($json['shape_expression_fields'], $file, $offset, $source, 'NodeList<ListItem<FieldInitializer>>');
+        $offset += (($__tmp1__ = $fields) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $right_paren = Node::fromJSON($json['shape_expression_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        return new static($keyword, $left_paren, $fields, $right_paren);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $left_paren, $fields, $right_paren, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'fields' => $this->_fields, 'right_paren' => $this->_right_paren];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'fields' => $this->_fields, 'right_paren' => $this->_right_paren]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $fields = $this->_fields->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $fields = $this->_fields === null ? null : $rewriter($this->_fields, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
         if ($keyword === $this->_keyword && $left_paren === $this->_left_paren && $fields === $this->_fields && $right_paren === $this->_right_paren) {
             return $this;
         }
         return new static($keyword, $left_paren, $fields, $right_paren);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -86,7 +106,7 @@ final class ShapeExpression extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(ShapeToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -98,7 +118,7 @@ final class ShapeExpression extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return ShapeToken
@@ -121,7 +141,7 @@ final class ShapeExpression extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -130,7 +150,7 @@ final class ShapeExpression extends EditableNode
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -142,7 +162,7 @@ final class ShapeExpression extends EditableNode
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -165,16 +185,18 @@ final class ShapeExpression extends EditableNode
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getFieldsUNTYPED()
     {
         return $this->_fields;
     }
     /**
+     * @param NodeList<ListItem<FieldInitializer>>|null $value
+     *
      * @return static
      */
-    public function withFields(EditableNode $value)
+    public function withFields(?NodeList $value)
     {
         if ($value === $this->_fields) {
             return $this;
@@ -186,33 +208,30 @@ final class ShapeExpression extends EditableNode
      */
     public function hasFields()
     {
-        return !$this->_fields->isMissing();
+        return $this->_fields !== null;
     }
     /**
-     * @return EditableList<FieldInitializer> | null
+     * @return NodeList<ListItem<FieldInitializer>> | null
      */
     /**
-     * @return EditableList<FieldInitializer>|null
+     * @return NodeList<ListItem<FieldInitializer>>|null
      */
     public function getFields()
     {
-        if ($this->_fields->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_fields);
+        return $this->_fields;
     }
     /**
-     * @return EditableList<FieldInitializer>
+     * @return NodeList<ListItem<FieldInitializer>>
      */
     /**
-     * @return EditableList<FieldInitializer>
+     * @return NodeList<ListItem<FieldInitializer>>
      */
     public function getFieldsx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_fields);
+        return TypeAssert\not_null($this->getFields());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -221,7 +240,7 @@ final class ShapeExpression extends EditableNode
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -233,19 +252,16 @@ final class ShapeExpression extends EditableNode
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
-     * @return null | RightParenToken
+     * @return RightParenToken
      */
     /**
-     * @return null|RightParenToken
+     * @return RightParenToken
      */
     public function getRightParen()
     {
-        if ($this->_right_paren->isMissing()) {
-            return null;
-        }
         return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
     }
     /**
@@ -256,7 +272,7 @@ final class ShapeExpression extends EditableNode
      */
     public function getRightParenx()
     {
-        return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+        return $this->getRightParen();
     }
 }
 

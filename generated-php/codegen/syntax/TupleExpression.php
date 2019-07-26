@@ -2,82 +2,102 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<b2f189859651a5e47d28e7a4475d2784>>
+ * @generated SignedSource<<5691d07c3e92e18b47392dfdccbefe52>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class TupleExpression extends EditableNode
+use HH\Lib\Dict;
+final class TupleExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'tuple_expression';
+    /**
+     * @var TupleToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<IExpression>>|null
      */
     private $_items;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
-    public function __construct(EditableNode $keyword, EditableNode $left_paren, EditableNode $items, EditableNode $right_paren)
+    /**
+     * @param NodeList<ListItem<IExpression>>|null $items
+     */
+    public function __construct(TupleToken $keyword, LeftParenToken $left_paren, ?NodeList $items, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('tuple_expression');
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;
         $this->_items = $items;
         $this->_right_paren = $right_paren;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['tuple_expression_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['tuple_expression_keyword'], $file, $offset, $source, 'TupleToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_paren = EditableNode::fromJSON($json['tuple_expression_left_paren'], $file, $offset, $source);
+        $left_paren = Node::fromJSON($json['tuple_expression_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $items = EditableNode::fromJSON($json['tuple_expression_items'], $file, $offset, $source);
-        $offset += $items->getWidth();
-        $right_paren = EditableNode::fromJSON($json['tuple_expression_right_paren'], $file, $offset, $source);
+        $items = Node::fromJSON($json['tuple_expression_items'], $file, $offset, $source, 'NodeList<ListItem<IExpression>>');
+        $offset += (($__tmp1__ = $items) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $right_paren = Node::fromJSON($json['tuple_expression_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        return new static($keyword, $left_paren, $items, $right_paren);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $left_paren, $items, $right_paren, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'items' => $this->_items, 'right_paren' => $this->_right_paren];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'items' => $this->_items, 'right_paren' => $this->_right_paren]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $items = $this->_items->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $items = $this->_items === null ? null : $rewriter($this->_items, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
         if ($keyword === $this->_keyword && $left_paren === $this->_left_paren && $items === $this->_items && $right_paren === $this->_right_paren) {
             return $this;
         }
         return new static($keyword, $left_paren, $items, $right_paren);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -86,7 +106,7 @@ final class TupleExpression extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(TupleToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -98,7 +118,7 @@ final class TupleExpression extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return TupleToken
@@ -121,7 +141,7 @@ final class TupleExpression extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -130,7 +150,7 @@ final class TupleExpression extends EditableNode
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -142,7 +162,7 @@ final class TupleExpression extends EditableNode
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -165,16 +185,18 @@ final class TupleExpression extends EditableNode
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getItemsUNTYPED()
     {
         return $this->_items;
     }
     /**
+     * @param NodeList<ListItem<IExpression>>|null $value
+     *
      * @return static
      */
-    public function withItems(EditableNode $value)
+    public function withItems(?NodeList $value)
     {
         if ($value === $this->_items) {
             return $this;
@@ -186,39 +208,50 @@ final class TupleExpression extends EditableNode
      */
     public function hasItems()
     {
-        return !$this->_items->isMissing();
+        return $this->_items !== null;
     }
     /**
-     * @return EditableList<ArrayCreationExpression> | EditableList<EditableNode>
-     * | EditableList<ArrayIntrinsicExpression> | EditableList<BinaryExpression>
-     * | EditableList<CastExpression> | EditableList<FunctionCallExpression> |
-     * EditableList<LiteralExpression> | EditableList<VariableExpression> | null
+     * @return NodeList<ListItem<ArrayCreationExpression>> |
+     * NodeList<ListItem<IContainer>> | NodeList<ListItem<IExpression>> |
+     * NodeList<ListItem<BinaryExpression>> | NodeList<ListItem<CastExpression>>
+     * | NodeList<ListItem<DarrayIntrinsicExpression>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<LiteralExpression>> |
+     * NodeList<ListItem<ObjectCreationExpression>> |
+     * NodeList<ListItem<SubscriptExpression>> |
+     * NodeList<ListItem<VariableExpression>> |
+     * NodeList<ListItem<VarrayIntrinsicExpression>> |
+     * NodeList<ListItem<VectorIntrinsicExpression>> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<ListItem<IExpression>>|null
      */
     public function getItems()
     {
-        if ($this->_items->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_items);
+        return $this->_items;
     }
     /**
-     * @return EditableList<ArrayCreationExpression> | EditableList<EditableNode>
-     * | EditableList<ArrayIntrinsicExpression> | EditableList<BinaryExpression>
-     * | EditableList<CastExpression> | EditableList<FunctionCallExpression> |
-     * EditableList<LiteralExpression> | EditableList<VariableExpression>
+     * @return NodeList<ListItem<ArrayCreationExpression>> |
+     * NodeList<ListItem<IContainer>> | NodeList<ListItem<IExpression>> |
+     * NodeList<ListItem<BinaryExpression>> | NodeList<ListItem<CastExpression>>
+     * | NodeList<ListItem<DarrayIntrinsicExpression>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<LiteralExpression>> |
+     * NodeList<ListItem<ObjectCreationExpression>> |
+     * NodeList<ListItem<SubscriptExpression>> |
+     * NodeList<ListItem<VariableExpression>> |
+     * NodeList<ListItem<VarrayIntrinsicExpression>> |
+     * NodeList<ListItem<VectorIntrinsicExpression>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<IExpression>>
      */
     public function getItemsx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_items);
+        return TypeAssert\not_null($this->getItems());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -227,7 +260,7 @@ final class TupleExpression extends EditableNode
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -239,7 +272,7 @@ final class TupleExpression extends EditableNode
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
      * @return RightParenToken

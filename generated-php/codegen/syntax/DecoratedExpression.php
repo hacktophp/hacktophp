@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<60ad2f5e844e0bde1accddb49597e116>>
+ * @generated SignedSource<<fc1f397fd9af47e87d5edf6168f275ba>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class DecoratedExpression extends EditableNode
+use HH\Lib\Dict;
+final class DecoratedExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'decorated_expression';
+    /**
+     * @var Token
      */
     private $_decorator;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_expression;
-    public function __construct(EditableNode $decorator, EditableNode $expression)
+    public function __construct(Token $decorator, IExpression $expression, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('decorated_expression');
         $this->_decorator = $decorator;
         $this->_expression = $expression;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $decorator = EditableNode::fromJSON($json['decorated_expression_decorator'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $decorator = Node::fromJSON($json['decorated_expression_decorator'], $file, $offset, $source, 'Token');
+        $decorator = $decorator !== null ? $decorator : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $decorator->getWidth();
-        $expression = EditableNode::fromJSON($json['decorated_expression_expression'], $file, $offset, $source);
+        $expression = Node::fromJSON($json['decorated_expression_expression'], $file, $offset, $source, 'IExpression');
+        $expression = $expression !== null ? $expression : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $expression->getWidth();
-        return new static($decorator, $expression);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($decorator, $expression, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['decorator' => $this->_decorator, 'expression' => $this->_expression];
+        return Dict\filter_nulls(['decorator' => $this->_decorator, 'expression' => $this->_expression]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $decorator = $this->_decorator->rewrite($rewriter, $parents);
-        $expression = $this->_expression->rewrite($rewriter, $parents);
+        $decorator = $rewriter($this->_decorator, $parents);
+        $expression = $rewriter($this->_expression, $parents);
         if ($decorator === $this->_decorator && $expression === $this->_expression) {
             return $this;
         }
         return new static($decorator, $expression);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getDecoratorUNTYPED()
     {
@@ -70,7 +84,7 @@ final class DecoratedExpression extends EditableNode
     /**
      * @return static
      */
-    public function withDecorator(EditableNode $value)
+    public function withDecorator(Token $value)
     {
         if ($value === $this->_decorator) {
             return $this;
@@ -82,30 +96,30 @@ final class DecoratedExpression extends EditableNode
      */
     public function hasDecorator()
     {
-        return !$this->_decorator->isMissing();
+        return $this->_decorator !== null;
     }
     /**
      * @return AmpersandToken | DotDotDotToken | InoutToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getDecorator()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_decorator);
+        return TypeAssert\instance_of(Token::class, $this->_decorator);
     }
     /**
      * @return AmpersandToken | DotDotDotToken | InoutToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getDecoratorx()
     {
         return $this->getDecorator();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getExpressionUNTYPED()
     {
@@ -114,7 +128,7 @@ final class DecoratedExpression extends EditableNode
     /**
      * @return static
      */
-    public function withExpression(EditableNode $value)
+    public function withExpression(IExpression $value)
     {
         if ($value === $this->_expression) {
             return $this;
@@ -126,27 +140,27 @@ final class DecoratedExpression extends EditableNode
      */
     public function hasExpression()
     {
-        return !$this->_expression->isMissing();
+        return $this->_expression !== null;
     }
     /**
      * @return ArrayCreationExpression | ArrayIntrinsicExpression |
-     * DecoratedExpression | FunctionCallExpression | ScopeResolutionExpression |
-     * SubscriptExpression | VariableToken | VariableExpression
+     * FunctionCallExpression | ScopeResolutionExpression | SubscriptExpression |
+     * VariableToken | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getExpression()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+        return TypeAssert\instance_of(IExpression::class, $this->_expression);
     }
     /**
      * @return ArrayCreationExpression | ArrayIntrinsicExpression |
-     * DecoratedExpression | FunctionCallExpression | ScopeResolutionExpression |
-     * SubscriptExpression | VariableToken | VariableExpression
+     * FunctionCallExpression | ScopeResolutionExpression | SubscriptExpression |
+     * VariableToken | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getExpressionx()
     {

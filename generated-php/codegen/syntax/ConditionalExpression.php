@@ -2,90 +2,113 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<067757043b4fa6bccf306ea5268184c2>>
+ * @generated SignedSource<<8fca081682194930384b5a2cf9ff3083>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ConditionalExpression extends EditableNode
+use HH\Lib\Dict;
+final class ConditionalExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'conditional_expression';
+    /**
+     * @var IExpression
      */
     private $_test;
     /**
-     * @var EditableNode
+     * @var QuestionToken
      */
     private $_question;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_consequence;
     /**
-     * @var EditableNode
+     * @var ColonToken
      */
     private $_colon;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_alternative;
-    public function __construct(EditableNode $test, EditableNode $question, EditableNode $consequence, EditableNode $colon, EditableNode $alternative)
+    public function __construct(IExpression $test, QuestionToken $question, IExpression $consequence, ColonToken $colon, IExpression $alternative, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('conditional_expression');
         $this->_test = $test;
         $this->_question = $question;
         $this->_consequence = $consequence;
         $this->_colon = $colon;
         $this->_alternative = $alternative;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $test = EditableNode::fromJSON($json['conditional_test'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $test = Node::fromJSON($json['conditional_test'], $file, $offset, $source, 'IExpression');
+        $test = $test !== null ? $test : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $test->getWidth();
-        $question = EditableNode::fromJSON($json['conditional_question'], $file, $offset, $source);
+        $question = Node::fromJSON($json['conditional_question'], $file, $offset, $source, 'QuestionToken');
+        $question = $question !== null ? $question : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $question->getWidth();
-        $consequence = EditableNode::fromJSON($json['conditional_consequence'], $file, $offset, $source);
+        $consequence = Node::fromJSON($json['conditional_consequence'], $file, $offset, $source, 'IExpression');
+        $consequence = $consequence !== null ? $consequence : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $consequence->getWidth();
-        $colon = EditableNode::fromJSON($json['conditional_colon'], $file, $offset, $source);
+        $colon = Node::fromJSON($json['conditional_colon'], $file, $offset, $source, 'ColonToken');
+        $colon = $colon !== null ? $colon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $colon->getWidth();
-        $alternative = EditableNode::fromJSON($json['conditional_alternative'], $file, $offset, $source);
+        $alternative = Node::fromJSON($json['conditional_alternative'], $file, $offset, $source, 'IExpression');
+        $alternative = $alternative !== null ? $alternative : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $alternative->getWidth();
-        return new static($test, $question, $consequence, $colon, $alternative);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($test, $question, $consequence, $colon, $alternative, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['test' => $this->_test, 'question' => $this->_question, 'consequence' => $this->_consequence, 'colon' => $this->_colon, 'alternative' => $this->_alternative];
+        return Dict\filter_nulls(['test' => $this->_test, 'question' => $this->_question, 'consequence' => $this->_consequence, 'colon' => $this->_colon, 'alternative' => $this->_alternative]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $test = $this->_test->rewrite($rewriter, $parents);
-        $question = $this->_question->rewrite($rewriter, $parents);
-        $consequence = $this->_consequence->rewrite($rewriter, $parents);
-        $colon = $this->_colon->rewrite($rewriter, $parents);
-        $alternative = $this->_alternative->rewrite($rewriter, $parents);
+        $test = $rewriter($this->_test, $parents);
+        $question = $rewriter($this->_question, $parents);
+        $consequence = $rewriter($this->_consequence, $parents);
+        $colon = $rewriter($this->_colon, $parents);
+        $alternative = $rewriter($this->_alternative, $parents);
         if ($test === $this->_test && $question === $this->_question && $consequence === $this->_consequence && $colon === $this->_colon && $alternative === $this->_alternative) {
             return $this;
         }
         return new static($test, $question, $consequence, $colon, $alternative);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTestUNTYPED()
     {
@@ -94,7 +117,7 @@ final class ConditionalExpression extends EditableNode
     /**
      * @return static
      */
-    public function withTest(EditableNode $value)
+    public function withTest(IExpression $value)
     {
         if ($value === $this->_test) {
             return $this;
@@ -106,40 +129,38 @@ final class ConditionalExpression extends EditableNode
      */
     public function hasTest()
     {
-        return !$this->_test->isMissing();
+        return $this->_test !== null;
     }
     /**
-     * @return BinaryExpression | ConditionalExpression | EmptyExpression |
-     * FunctionCallExpression | InstanceofExpression | IsExpression |
+     * @return BinaryExpression | FunctionCallExpression | IsExpression |
      * IssetExpression | LiteralExpression | MemberSelectionExpression |
      * ParenthesizedExpression | PipeVariableExpression | PrefixUnaryExpression |
-     * ScopeResolutionExpression | SubscriptExpression | ColonToken |
-     * LessThanToken | NameToken | VariableExpression
+     * ScopeResolutionExpression | SubscriptExpression | NameToken |
+     * VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getTest()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_test);
+        return TypeAssert\instance_of(IExpression::class, $this->_test);
     }
     /**
-     * @return BinaryExpression | ConditionalExpression | EmptyExpression |
-     * FunctionCallExpression | InstanceofExpression | IsExpression |
+     * @return BinaryExpression | FunctionCallExpression | IsExpression |
      * IssetExpression | LiteralExpression | MemberSelectionExpression |
      * ParenthesizedExpression | PipeVariableExpression | PrefixUnaryExpression |
-     * ScopeResolutionExpression | SubscriptExpression | ColonToken |
-     * LessThanToken | NameToken | VariableExpression
+     * ScopeResolutionExpression | SubscriptExpression | NameToken |
+     * VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getTestx()
     {
         return $this->getTest();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getQuestionUNTYPED()
     {
@@ -148,7 +169,7 @@ final class ConditionalExpression extends EditableNode
     /**
      * @return static
      */
-    public function withQuestion(EditableNode $value)
+    public function withQuestion(QuestionToken $value)
     {
         if ($value === $this->_question) {
             return $this;
@@ -160,7 +181,7 @@ final class ConditionalExpression extends EditableNode
      */
     public function hasQuestion()
     {
-        return !$this->_question->isMissing();
+        return $this->_question !== null;
     }
     /**
      * @return QuestionToken
@@ -183,7 +204,7 @@ final class ConditionalExpression extends EditableNode
         return $this->getQuestion();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getConsequenceUNTYPED()
     {
@@ -192,7 +213,7 @@ final class ConditionalExpression extends EditableNode
     /**
      * @return static
      */
-    public function withConsequence(EditableNode $value)
+    public function withConsequence(IExpression $value)
     {
         if ($value === $this->_consequence) {
             return $this;
@@ -204,26 +225,7 @@ final class ConditionalExpression extends EditableNode
      */
     public function hasConsequence()
     {
-        return !$this->_consequence->isMissing();
-    }
-    /**
-     * @return ArrayCreationExpression | ArrayIntrinsicExpression |
-     * BinaryExpression | CastExpression | CollectionLiteralExpression |
-     * FunctionCallExpression | LambdaExpression | LiteralExpression |
-     * MemberSelectionExpression | null | ObjectCreationExpression |
-     * ParenthesizedExpression | PrefixUnaryExpression |
-     * ScopeResolutionExpression | SubscriptExpression | NameToken |
-     * VariableExpression
-     */
-    /**
-     * @return null|EditableNode
-     */
-    public function getConsequence()
-    {
-        if ($this->_consequence->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_consequence);
+        return $this->_consequence !== null;
     }
     /**
      * @return ArrayCreationExpression | ArrayIntrinsicExpression |
@@ -231,18 +233,34 @@ final class ConditionalExpression extends EditableNode
      * FunctionCallExpression | LambdaExpression | LiteralExpression |
      * MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PrefixUnaryExpression |
-     * ScopeResolutionExpression | SubscriptExpression | NameToken |
-     * VariableExpression
+     * ScopeResolutionExpression | ShapeExpression | SubscriptExpression |
+     * NameToken | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
+     */
+    public function getConsequence()
+    {
+        return TypeAssert\instance_of(IExpression::class, $this->_consequence);
+    }
+    /**
+     * @return ArrayCreationExpression | ArrayIntrinsicExpression |
+     * BinaryExpression | CastExpression | CollectionLiteralExpression |
+     * FunctionCallExpression | LambdaExpression | LiteralExpression |
+     * MemberSelectionExpression | ObjectCreationExpression |
+     * ParenthesizedExpression | PrefixUnaryExpression |
+     * ScopeResolutionExpression | ShapeExpression | SubscriptExpression |
+     * NameToken | VariableExpression
+     */
+    /**
+     * @return IExpression
      */
     public function getConsequencex()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_consequence);
+        return $this->getConsequence();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getColonUNTYPED()
     {
@@ -251,7 +269,7 @@ final class ConditionalExpression extends EditableNode
     /**
      * @return static
      */
-    public function withColon(EditableNode $value)
+    public function withColon(ColonToken $value)
     {
         if ($value === $this->_colon) {
             return $this;
@@ -263,19 +281,16 @@ final class ConditionalExpression extends EditableNode
      */
     public function hasColon()
     {
-        return !$this->_colon->isMissing();
+        return $this->_colon !== null;
     }
     /**
-     * @return null | ColonToken
+     * @return ColonToken
      */
     /**
-     * @return null|ColonToken
+     * @return ColonToken
      */
     public function getColon()
     {
-        if ($this->_colon->isMissing()) {
-            return null;
-        }
         return TypeAssert\instance_of(ColonToken::class, $this->_colon);
     }
     /**
@@ -286,10 +301,10 @@ final class ConditionalExpression extends EditableNode
      */
     public function getColonx()
     {
-        return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+        return $this->getColon();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAlternativeUNTYPED()
     {
@@ -298,7 +313,7 @@ final class ConditionalExpression extends EditableNode
     /**
      * @return static
      */
-    public function withAlternative(EditableNode $value)
+    public function withAlternative(IExpression $value)
     {
         if ($value === $this->_alternative) {
             return $this;
@@ -310,42 +325,41 @@ final class ConditionalExpression extends EditableNode
      */
     public function hasAlternative()
     {
-        return !$this->_alternative->isMissing();
+        return $this->_alternative !== null;
     }
     /**
-     * @return AnonymousFunction | ArrayCreationExpression |
-     * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
-     * CollectionLiteralExpression | FunctionCallExpression | IssetExpression |
-     * LambdaExpression | LiteralExpression | MemberSelectionExpression | null |
-     * ObjectCreationExpression | ParenthesizedExpression | PrefixUnaryExpression
-     * | ScopeResolutionExpression | SubscriptExpression | NameToken | UseToken |
-     * TupleExpression | VariableExpression
+     * @return ArrayCreationExpression | ArrayIntrinsicExpression |
+     * BinaryExpression | CastExpression | CollectionLiteralExpression |
+     * DarrayIntrinsicExpression | DictionaryIntrinsicExpression |
+     * FunctionCallExpression | LambdaExpression | LiteralExpression |
+     * MemberSelectionExpression | ObjectCreationExpression |
+     * ParenthesizedExpression | PrefixUnaryExpression |
+     * ScopeResolutionExpression | SubscriptExpression | NameToken |
+     * VariableExpression
      */
     /**
-     * @return null|EditableNode
+     * @return IExpression
      */
     public function getAlternative()
     {
-        if ($this->_alternative->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_alternative);
+        return TypeAssert\instance_of(IExpression::class, $this->_alternative);
     }
     /**
-     * @return AnonymousFunction | ArrayCreationExpression |
-     * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
-     * CollectionLiteralExpression | FunctionCallExpression | IssetExpression |
-     * LambdaExpression | LiteralExpression | MemberSelectionExpression |
-     * ObjectCreationExpression | ParenthesizedExpression | PrefixUnaryExpression
-     * | ScopeResolutionExpression | SubscriptExpression | NameToken | UseToken |
-     * TupleExpression | VariableExpression
+     * @return ArrayCreationExpression | ArrayIntrinsicExpression |
+     * BinaryExpression | CastExpression | CollectionLiteralExpression |
+     * DarrayIntrinsicExpression | DictionaryIntrinsicExpression |
+     * FunctionCallExpression | LambdaExpression | LiteralExpression |
+     * MemberSelectionExpression | ObjectCreationExpression |
+     * ParenthesizedExpression | PrefixUnaryExpression |
+     * ScopeResolutionExpression | SubscriptExpression | NameToken |
+     * VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getAlternativex()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_alternative);
+        return $this->getAlternative();
     }
 }
 

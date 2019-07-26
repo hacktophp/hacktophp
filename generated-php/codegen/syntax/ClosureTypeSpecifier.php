@@ -2,52 +2,59 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<576bd85595d21d1fa0126c1c7678178b>>
+ * @generated SignedSource<<10a8689fddf260cc26bf82fb05fad1a5>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ClosureTypeSpecifier extends EditableNode
+use HH\Lib\Dict;
+final class ClosureTypeSpecifier extends Node implements ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'closure_type_specifier';
+    /**
+     * @var LeftParenToken
      */
     private $_outer_left_paren;
     /**
-     * @var EditableNode
+     * @var null|Node
      */
     private $_coroutine;
     /**
-     * @var EditableNode
+     * @var FunctionToken
      */
     private $_function_keyword;
     /**
-     * @var EditableNode
+     * @var LeftParenToken
      */
     private $_inner_left_paren;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<ITypeSpecifier>>|null
      */
     private $_parameter_list;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_inner_right_paren;
     /**
-     * @var EditableNode
+     * @var ColonToken
      */
     private $_colon;
     /**
-     * @var EditableNode
+     * @var ITypeSpecifier
      */
     private $_return_type;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_outer_right_paren;
-    public function __construct(EditableNode $outer_left_paren, EditableNode $coroutine, EditableNode $function_keyword, EditableNode $inner_left_paren, EditableNode $parameter_list, EditableNode $inner_right_paren, EditableNode $colon, EditableNode $return_type, EditableNode $outer_right_paren)
+    /**
+     * @param NodeList<ListItem<ITypeSpecifier>>|null $parameter_list
+     */
+    public function __construct(LeftParenToken $outer_left_paren, ?Node $coroutine, FunctionToken $function_keyword, LeftParenToken $inner_left_paren, ?NodeList $parameter_list, RightParenToken $inner_right_paren, ColonToken $colon, ITypeSpecifier $return_type, RightParenToken $outer_right_paren, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('closure_type_specifier');
         $this->_outer_left_paren = $outer_left_paren;
         $this->_coroutine = $coroutine;
         $this->_function_keyword = $function_keyword;
@@ -57,67 +64,92 @@ final class ClosureTypeSpecifier extends EditableNode
         $this->_colon = $colon;
         $this->_return_type = $return_type;
         $this->_outer_right_paren = $outer_right_paren;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $outer_left_paren = EditableNode::fromJSON($json['closure_outer_left_paren'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $outer_left_paren = Node::fromJSON($json['closure_outer_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $outer_left_paren = $outer_left_paren !== null ? $outer_left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $outer_left_paren->getWidth();
-        $coroutine = EditableNode::fromJSON($json['closure_coroutine'], $file, $offset, $source);
-        $offset += $coroutine->getWidth();
-        $function_keyword = EditableNode::fromJSON($json['closure_function_keyword'], $file, $offset, $source);
+        $coroutine = Node::fromJSON($json['closure_coroutine'], $file, $offset, $source, 'Node');
+        $offset += (($__tmp1__ = $coroutine) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $function_keyword = Node::fromJSON($json['closure_function_keyword'], $file, $offset, $source, 'FunctionToken');
+        $function_keyword = $function_keyword !== null ? $function_keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $function_keyword->getWidth();
-        $inner_left_paren = EditableNode::fromJSON($json['closure_inner_left_paren'], $file, $offset, $source);
+        $inner_left_paren = Node::fromJSON($json['closure_inner_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $inner_left_paren = $inner_left_paren !== null ? $inner_left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $inner_left_paren->getWidth();
-        $parameter_list = EditableNode::fromJSON($json['closure_parameter_list'], $file, $offset, $source);
-        $offset += $parameter_list->getWidth();
-        $inner_right_paren = EditableNode::fromJSON($json['closure_inner_right_paren'], $file, $offset, $source);
+        $parameter_list = Node::fromJSON($json['closure_parameter_list'], $file, $offset, $source, 'NodeList<ListItem<ITypeSpecifier>>');
+        $offset += (($__tmp2__ = $parameter_list) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $inner_right_paren = Node::fromJSON($json['closure_inner_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $inner_right_paren = $inner_right_paren !== null ? $inner_right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $inner_right_paren->getWidth();
-        $colon = EditableNode::fromJSON($json['closure_colon'], $file, $offset, $source);
+        $colon = Node::fromJSON($json['closure_colon'], $file, $offset, $source, 'ColonToken');
+        $colon = $colon !== null ? $colon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $colon->getWidth();
-        $return_type = EditableNode::fromJSON($json['closure_return_type'], $file, $offset, $source);
+        $return_type = Node::fromJSON($json['closure_return_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $return_type = $return_type !== null ? $return_type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $return_type->getWidth();
-        $outer_right_paren = EditableNode::fromJSON($json['closure_outer_right_paren'], $file, $offset, $source);
+        $outer_right_paren = Node::fromJSON($json['closure_outer_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $outer_right_paren = $outer_right_paren !== null ? $outer_right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $outer_right_paren->getWidth();
-        return new static($outer_left_paren, $coroutine, $function_keyword, $inner_left_paren, $parameter_list, $inner_right_paren, $colon, $return_type, $outer_right_paren);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($outer_left_paren, $coroutine, $function_keyword, $inner_left_paren, $parameter_list, $inner_right_paren, $colon, $return_type, $outer_right_paren, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['outer_left_paren' => $this->_outer_left_paren, 'coroutine' => $this->_coroutine, 'function_keyword' => $this->_function_keyword, 'inner_left_paren' => $this->_inner_left_paren, 'parameter_list' => $this->_parameter_list, 'inner_right_paren' => $this->_inner_right_paren, 'colon' => $this->_colon, 'return_type' => $this->_return_type, 'outer_right_paren' => $this->_outer_right_paren];
+        return Dict\filter_nulls(['outer_left_paren' => $this->_outer_left_paren, 'coroutine' => $this->_coroutine, 'function_keyword' => $this->_function_keyword, 'inner_left_paren' => $this->_inner_left_paren, 'parameter_list' => $this->_parameter_list, 'inner_right_paren' => $this->_inner_right_paren, 'colon' => $this->_colon, 'return_type' => $this->_return_type, 'outer_right_paren' => $this->_outer_right_paren]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $outer_left_paren = $this->_outer_left_paren->rewrite($rewriter, $parents);
-        $coroutine = $this->_coroutine->rewrite($rewriter, $parents);
-        $function_keyword = $this->_function_keyword->rewrite($rewriter, $parents);
-        $inner_left_paren = $this->_inner_left_paren->rewrite($rewriter, $parents);
-        $parameter_list = $this->_parameter_list->rewrite($rewriter, $parents);
-        $inner_right_paren = $this->_inner_right_paren->rewrite($rewriter, $parents);
-        $colon = $this->_colon->rewrite($rewriter, $parents);
-        $return_type = $this->_return_type->rewrite($rewriter, $parents);
-        $outer_right_paren = $this->_outer_right_paren->rewrite($rewriter, $parents);
+        $outer_left_paren = $rewriter($this->_outer_left_paren, $parents);
+        $coroutine = $this->_coroutine === null ? null : $rewriter($this->_coroutine, $parents);
+        $function_keyword = $rewriter($this->_function_keyword, $parents);
+        $inner_left_paren = $rewriter($this->_inner_left_paren, $parents);
+        $parameter_list = $this->_parameter_list === null ? null : $rewriter($this->_parameter_list, $parents);
+        $inner_right_paren = $rewriter($this->_inner_right_paren, $parents);
+        $colon = $rewriter($this->_colon, $parents);
+        $return_type = $rewriter($this->_return_type, $parents);
+        $outer_right_paren = $rewriter($this->_outer_right_paren, $parents);
         if ($outer_left_paren === $this->_outer_left_paren && $coroutine === $this->_coroutine && $function_keyword === $this->_function_keyword && $inner_left_paren === $this->_inner_left_paren && $parameter_list === $this->_parameter_list && $inner_right_paren === $this->_inner_right_paren && $colon === $this->_colon && $return_type === $this->_return_type && $outer_right_paren === $this->_outer_right_paren) {
             return $this;
         }
         return new static($outer_left_paren, $coroutine, $function_keyword, $inner_left_paren, $parameter_list, $inner_right_paren, $colon, $return_type, $outer_right_paren);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOuterLeftParenUNTYPED()
     {
@@ -126,7 +158,7 @@ final class ClosureTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withOuterLeftParen(EditableNode $value)
+    public function withOuterLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_outer_left_paren) {
             return $this;
@@ -138,7 +170,7 @@ final class ClosureTypeSpecifier extends EditableNode
      */
     public function hasOuterLeftParen()
     {
-        return !$this->_outer_left_paren->isMissing();
+        return $this->_outer_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -161,7 +193,7 @@ final class ClosureTypeSpecifier extends EditableNode
         return $this->getOuterLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getCoroutineUNTYPED()
     {
@@ -170,7 +202,7 @@ final class ClosureTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withCoroutine(EditableNode $value)
+    public function withCoroutine(?Node $value)
     {
         if ($value === $this->_coroutine) {
             return $this;
@@ -182,33 +214,30 @@ final class ClosureTypeSpecifier extends EditableNode
      */
     public function hasCoroutine()
     {
-        return !$this->_coroutine->isMissing();
+        return $this->_coroutine !== null;
     }
     /**
-     * @return null | CoroutineToken
+     * @return null
      */
     /**
-     * @return null|CoroutineToken
+     * @return null|Node
      */
     public function getCoroutine()
     {
-        if ($this->_coroutine->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(CoroutineToken::class, $this->_coroutine);
+        return $this->_coroutine;
     }
     /**
-     * @return CoroutineToken
+     * @return
      */
     /**
-     * @return CoroutineToken
+     * @return Node
      */
     public function getCoroutinex()
     {
-        return TypeAssert\instance_of(CoroutineToken::class, $this->_coroutine);
+        return TypeAssert\not_null($this->getCoroutine());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getFunctionKeywordUNTYPED()
     {
@@ -217,7 +246,7 @@ final class ClosureTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withFunctionKeyword(EditableNode $value)
+    public function withFunctionKeyword(FunctionToken $value)
     {
         if ($value === $this->_function_keyword) {
             return $this;
@@ -229,7 +258,7 @@ final class ClosureTypeSpecifier extends EditableNode
      */
     public function hasFunctionKeyword()
     {
-        return !$this->_function_keyword->isMissing();
+        return $this->_function_keyword !== null;
     }
     /**
      * @return FunctionToken
@@ -252,7 +281,7 @@ final class ClosureTypeSpecifier extends EditableNode
         return $this->getFunctionKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getInnerLeftParenUNTYPED()
     {
@@ -261,7 +290,7 @@ final class ClosureTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withInnerLeftParen(EditableNode $value)
+    public function withInnerLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_inner_left_paren) {
             return $this;
@@ -273,7 +302,7 @@ final class ClosureTypeSpecifier extends EditableNode
      */
     public function hasInnerLeftParen()
     {
-        return !$this->_inner_left_paren->isMissing();
+        return $this->_inner_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -296,16 +325,18 @@ final class ClosureTypeSpecifier extends EditableNode
         return $this->getInnerLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getParameterListUNTYPED()
     {
         return $this->_parameter_list;
     }
     /**
+     * @param NodeList<ListItem<ITypeSpecifier>>|null $value
+     *
      * @return static
      */
-    public function withParameterList(EditableNode $value)
+    public function withParameterList(?NodeList $value)
     {
         if ($value === $this->_parameter_list) {
             return $this;
@@ -317,35 +348,33 @@ final class ClosureTypeSpecifier extends EditableNode
      */
     public function hasParameterList()
     {
-        return !$this->_parameter_list->isMissing();
+        return $this->_parameter_list !== null;
     }
     /**
-     * @return EditableList<ClosureParameterTypeSpecifier> |
-     * EditableList<EditableNode> | EditableList<VariadicParameter> | null
+     * @return NodeList<ListItem<ClosureParameterTypeSpecifier>> |
+     * NodeList<ListItem<ITypeSpecifier>> | NodeList<ListItem<VariadicParameter>>
+     * | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<ListItem<ITypeSpecifier>>|null
      */
     public function getParameterList()
     {
-        if ($this->_parameter_list->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_parameter_list);
+        return $this->_parameter_list;
     }
     /**
-     * @return EditableList<ClosureParameterTypeSpecifier> |
-     * EditableList<EditableNode> | EditableList<VariadicParameter>
+     * @return NodeList<ListItem<ClosureParameterTypeSpecifier>> |
+     * NodeList<ListItem<ITypeSpecifier>> | NodeList<ListItem<VariadicParameter>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<ITypeSpecifier>>
      */
     public function getParameterListx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_parameter_list);
+        return TypeAssert\not_null($this->getParameterList());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getInnerRightParenUNTYPED()
     {
@@ -354,7 +383,7 @@ final class ClosureTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withInnerRightParen(EditableNode $value)
+    public function withInnerRightParen(RightParenToken $value)
     {
         if ($value === $this->_inner_right_paren) {
             return $this;
@@ -366,7 +395,7 @@ final class ClosureTypeSpecifier extends EditableNode
      */
     public function hasInnerRightParen()
     {
-        return !$this->_inner_right_paren->isMissing();
+        return $this->_inner_right_paren !== null;
     }
     /**
      * @return RightParenToken
@@ -389,7 +418,7 @@ final class ClosureTypeSpecifier extends EditableNode
         return $this->getInnerRightParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getColonUNTYPED()
     {
@@ -398,7 +427,7 @@ final class ClosureTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withColon(EditableNode $value)
+    public function withColon(ColonToken $value)
     {
         if ($value === $this->_colon) {
             return $this;
@@ -410,7 +439,7 @@ final class ClosureTypeSpecifier extends EditableNode
      */
     public function hasColon()
     {
-        return !$this->_colon->isMissing();
+        return $this->_colon !== null;
     }
     /**
      * @return ColonToken
@@ -433,7 +462,7 @@ final class ClosureTypeSpecifier extends EditableNode
         return $this->getColon();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getReturnTypeUNTYPED()
     {
@@ -442,7 +471,7 @@ final class ClosureTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withReturnType(EditableNode $value)
+    public function withReturnType(ITypeSpecifier $value)
     {
         if ($value === $this->_return_type) {
             return $this;
@@ -454,32 +483,32 @@ final class ClosureTypeSpecifier extends EditableNode
      */
     public function hasReturnType()
     {
-        return !$this->_return_type->isMissing();
+        return $this->_return_type !== null;
     }
     /**
-     * @return ClosureTypeSpecifier | GenericTypeSpecifier |
+     * @return ClosureTypeSpecifier | GenericTypeSpecifier | LikeTypeSpecifier |
      * NullableTypeSpecifier | SimpleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getReturnType()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_return_type);
+        return TypeAssert\instance_of(ITypeSpecifier::class, $this->_return_type);
     }
     /**
-     * @return ClosureTypeSpecifier | GenericTypeSpecifier |
+     * @return ClosureTypeSpecifier | GenericTypeSpecifier | LikeTypeSpecifier |
      * NullableTypeSpecifier | SimpleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getReturnTypex()
     {
         return $this->getReturnType();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOuterRightParenUNTYPED()
     {
@@ -488,7 +517,7 @@ final class ClosureTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withOuterRightParen(EditableNode $value)
+    public function withOuterRightParen(RightParenToken $value)
     {
         if ($value === $this->_outer_right_paren) {
             return $this;
@@ -500,7 +529,7 @@ final class ClosureTypeSpecifier extends EditableNode
      */
     public function hasOuterRightParen()
     {
-        return !$this->_outer_right_paren->isMissing();
+        return $this->_outer_right_paren !== null;
     }
     /**
      * @return RightParenToken

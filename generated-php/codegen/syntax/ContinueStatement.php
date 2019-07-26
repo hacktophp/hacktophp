@@ -2,74 +2,88 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<c9b9fff377bba2e6f3c7e00acbdfdd32>>
+ * @generated SignedSource<<6774fc608c4be726018db9724ab20e27>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ContinueStatement extends EditableNode
+use HH\Lib\Dict;
+final class ContinueStatement extends Node implements IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'continue_statement';
+    /**
+     * @var ContinueToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var null|LiteralExpression
      */
     private $_level;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $level, EditableNode $semicolon)
+    public function __construct(ContinueToken $keyword, ?LiteralExpression $level, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('continue_statement');
         $this->_keyword = $keyword;
         $this->_level = $level;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['continue_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['continue_keyword'], $file, $offset, $source, 'ContinueToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $level = EditableNode::fromJSON($json['continue_level'], $file, $offset, $source);
-        $offset += $level->getWidth();
-        $semicolon = EditableNode::fromJSON($json['continue_semicolon'], $file, $offset, $source);
+        $level = Node::fromJSON($json['continue_level'], $file, $offset, $source, 'LiteralExpression');
+        $offset += (($__tmp1__ = $level) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $semicolon = Node::fromJSON($json['continue_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($keyword, $level, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $level, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'level' => $this->_level, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'level' => $this->_level, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $level = $this->_level->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $level = $this->_level === null ? null : $rewriter($this->_level, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $level === $this->_level && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $level, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -78,7 +92,7 @@ final class ContinueStatement extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(ContinueToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -90,7 +104,7 @@ final class ContinueStatement extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return ContinueToken
@@ -113,7 +127,7 @@ final class ContinueStatement extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLevelUNTYPED()
     {
@@ -122,7 +136,7 @@ final class ContinueStatement extends EditableNode
     /**
      * @return static
      */
-    public function withLevel(EditableNode $value)
+    public function withLevel(?LiteralExpression $value)
     {
         if ($value === $this->_level) {
             return $this;
@@ -134,33 +148,30 @@ final class ContinueStatement extends EditableNode
      */
     public function hasLevel()
     {
-        return !$this->_level->isMissing();
+        return $this->_level !== null;
     }
     /**
-     * @return LiteralExpression | null | VariableExpression
+     * @return LiteralExpression | null
      */
     /**
-     * @return null|EditableNode
+     * @return null|LiteralExpression
      */
     public function getLevel()
     {
-        if ($this->_level->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_level);
+        return $this->_level;
     }
     /**
-     * @return LiteralExpression | VariableExpression
+     * @return LiteralExpression
      */
     /**
-     * @return EditableNode
+     * @return LiteralExpression
      */
     public function getLevelx()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_level);
+        return TypeAssert\not_null($this->getLevel());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -169,7 +180,7 @@ final class ContinueStatement extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -181,7 +192,7 @@ final class ContinueStatement extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return SemicolonToken

@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<fc150534346c197114b0aa711a0423ed>>
+ * @generated SignedSource<<bd8797c078ab95557bf06675da01c6b3>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class PrefixUnaryExpression extends EditableNode
+use HH\Lib\Dict;
+final class PrefixUnaryExpression extends Node implements IHasOperator, ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'prefix_unary_expression';
+    /**
+     * @var Token
      */
     private $_operator;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_operand;
-    public function __construct(EditableNode $operator, EditableNode $operand)
+    public function __construct(Token $operator, IExpression $operand, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('prefix_unary_expression');
         $this->_operator = $operator;
         $this->_operand = $operand;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $operator = EditableNode::fromJSON($json['prefix_unary_operator'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $operator = Node::fromJSON($json['prefix_unary_operator'], $file, $offset, $source, 'Token');
+        $operator = $operator !== null ? $operator : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $operator->getWidth();
-        $operand = EditableNode::fromJSON($json['prefix_unary_operand'], $file, $offset, $source);
+        $operand = Node::fromJSON($json['prefix_unary_operand'], $file, $offset, $source, 'IExpression');
+        $operand = $operand !== null ? $operand : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $operand->getWidth();
-        return new static($operator, $operand);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($operator, $operand, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['operator' => $this->_operator, 'operand' => $this->_operand];
+        return Dict\filter_nulls(['operator' => $this->_operator, 'operand' => $this->_operand]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $operator = $this->_operator->rewrite($rewriter, $parents);
-        $operand = $this->_operand->rewrite($rewriter, $parents);
+        $operator = $rewriter($this->_operator, $parents);
+        $operand = $rewriter($this->_operand, $parents);
         if ($operator === $this->_operator && $operand === $this->_operand) {
             return $this;
         }
         return new static($operator, $operand);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOperatorUNTYPED()
     {
@@ -70,7 +84,7 @@ final class PrefixUnaryExpression extends EditableNode
     /**
      * @return static
      */
-    public function withOperator(EditableNode $value)
+    public function withOperator(Token $value)
     {
         if ($value === $this->_operator) {
             return $this;
@@ -82,34 +96,34 @@ final class PrefixUnaryExpression extends EditableNode
      */
     public function hasOperator()
     {
-        return !$this->_operator->isMissing();
+        return $this->_operator !== null;
     }
     /**
-     * @return ExclamationToken | DollarToken | AmpersandToken | PlusToken |
-     * PlusPlusToken | MinusToken | MinusMinusToken | AtToken | AwaitToken |
-     * CloneToken | PrintToken | SuspendToken | TildeToken
+     * @return ExclamationToken | AmpersandToken | PlusToken | PlusPlusToken |
+     * MinusToken | MinusMinusToken | AtToken | AwaitToken | CloneToken |
+     * PrintToken | TildeToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getOperator()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_operator);
+        return TypeAssert\instance_of(Token::class, $this->_operator);
     }
     /**
-     * @return ExclamationToken | DollarToken | AmpersandToken | PlusToken |
-     * PlusPlusToken | MinusToken | MinusMinusToken | AtToken | AwaitToken |
-     * CloneToken | PrintToken | SuspendToken | TildeToken
+     * @return ExclamationToken | AmpersandToken | PlusToken | PlusPlusToken |
+     * MinusToken | MinusMinusToken | AtToken | AwaitToken | CloneToken |
+     * PrintToken | TildeToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getOperatorx()
     {
         return $this->getOperator();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOperandUNTYPED()
     {
@@ -118,7 +132,7 @@ final class PrefixUnaryExpression extends EditableNode
     /**
      * @return static
      */
-    public function withOperand(EditableNode $value)
+    public function withOperand(IExpression $value)
     {
         if ($value === $this->_operand) {
             return $this;
@@ -130,41 +144,37 @@ final class PrefixUnaryExpression extends EditableNode
      */
     public function hasOperand()
     {
-        return !$this->_operand->isMissing();
+        return $this->_operand !== null;
     }
     /**
      * @return AnonymousFunction | ArrayIntrinsicExpression |
-     * AwaitableCreationExpression | BinaryExpression | BracedExpression |
-     * CastExpression | ConditionalExpression | DefineExpression |
-     * EmptyExpression | EvalExpression | FunctionCallExpression |
-     * InclusionExpression | InstanceofExpression | IssetExpression |
-     * LiteralExpression | MemberSelectionExpression | ObjectCreationExpression |
-     * ParenthesizedExpression | PipeVariableExpression | PostfixUnaryExpression
-     * | PrefixUnaryExpression | SafeMemberSelectionExpression |
-     * ScopeResolutionExpression | SubscriptExpression | EndOfFileToken |
-     * NameToken | VariableToken | VariableExpression
+     * AwaitableCreationExpression | BinaryExpression | CastExpression |
+     * ConditionalExpression | EvalExpression | FunctionCallExpression |
+     * InclusionExpression | IsExpression | IssetExpression | LiteralExpression |
+     * MemberSelectionExpression | ObjectCreationExpression |
+     * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
+     * QualifiedName | ScopeResolutionExpression | SubscriptExpression |
+     * NameToken | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getOperand()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_operand);
+        return TypeAssert\instance_of(IExpression::class, $this->_operand);
     }
     /**
      * @return AnonymousFunction | ArrayIntrinsicExpression |
-     * AwaitableCreationExpression | BinaryExpression | BracedExpression |
-     * CastExpression | ConditionalExpression | DefineExpression |
-     * EmptyExpression | EvalExpression | FunctionCallExpression |
-     * InclusionExpression | InstanceofExpression | IssetExpression |
-     * LiteralExpression | MemberSelectionExpression | ObjectCreationExpression |
-     * ParenthesizedExpression | PipeVariableExpression | PostfixUnaryExpression
-     * | PrefixUnaryExpression | SafeMemberSelectionExpression |
-     * ScopeResolutionExpression | SubscriptExpression | EndOfFileToken |
-     * NameToken | VariableToken | VariableExpression
+     * AwaitableCreationExpression | BinaryExpression | CastExpression |
+     * ConditionalExpression | EvalExpression | FunctionCallExpression |
+     * InclusionExpression | IsExpression | IssetExpression | LiteralExpression |
+     * MemberSelectionExpression | ObjectCreationExpression |
+     * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
+     * QualifiedName | ScopeResolutionExpression | SubscriptExpression |
+     * NameToken | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getOperandx()
     {

@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<d62d5ee4ae95c3b90be1832d15b323c4>>
+ * @generated SignedSource<<a30482e692ac25438c91717dac4691e3>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class SimpleInitializer extends EditableNode
+use HH\Lib\Dict;
+final class SimpleInitializer extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'simple_initializer';
+    /**
+     * @var EqualToken
      */
     private $_equal;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_value;
-    public function __construct(EditableNode $equal, EditableNode $value)
+    public function __construct(EqualToken $equal, IExpression $value, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('simple_initializer');
         $this->_equal = $equal;
         $this->_value = $value;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $equal = EditableNode::fromJSON($json['simple_initializer_equal'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $equal = Node::fromJSON($json['simple_initializer_equal'], $file, $offset, $source, 'EqualToken');
+        $equal = $equal !== null ? $equal : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $equal->getWidth();
-        $value = EditableNode::fromJSON($json['simple_initializer_value'], $file, $offset, $source);
+        $value = Node::fromJSON($json['simple_initializer_value'], $file, $offset, $source, 'IExpression');
+        $value = $value !== null ? $value : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $value->getWidth();
-        return new static($equal, $value);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($equal, $value, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['equal' => $this->_equal, 'value' => $this->_value];
+        return Dict\filter_nulls(['equal' => $this->_equal, 'value' => $this->_value]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $equal = $this->_equal->rewrite($rewriter, $parents);
-        $value = $this->_value->rewrite($rewriter, $parents);
+        $equal = $rewriter($this->_equal, $parents);
+        $value = $rewriter($this->_value, $parents);
         if ($equal === $this->_equal && $value === $this->_value) {
             return $this;
         }
         return new static($equal, $value);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getEqualUNTYPED()
     {
@@ -70,7 +84,7 @@ final class SimpleInitializer extends EditableNode
     /**
      * @return static
      */
-    public function withEqual(EditableNode $value)
+    public function withEqual(EqualToken $value)
     {
         if ($value === $this->_equal) {
             return $this;
@@ -82,7 +96,7 @@ final class SimpleInitializer extends EditableNode
      */
     public function hasEqual()
     {
-        return !$this->_equal->isMissing();
+        return $this->_equal !== null;
     }
     /**
      * @return EqualToken
@@ -105,7 +119,7 @@ final class SimpleInitializer extends EditableNode
         return $this->getEqual();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getValueUNTYPED()
     {
@@ -114,7 +128,7 @@ final class SimpleInitializer extends EditableNode
     /**
      * @return static
      */
-    public function withValue(EditableNode $value)
+    public function withValue(IExpression $value)
     {
         if ($value === $this->_value) {
             return $this;
@@ -126,41 +140,37 @@ final class SimpleInitializer extends EditableNode
      */
     public function hasValue()
     {
-        return !$this->_value->isMissing();
+        return $this->_value !== null;
     }
     /**
-     * @return AnonymousFunction | ArrayCreationExpression |
-     * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
-     * CollectionLiteralExpression | ConditionalExpression |
+     * @return ArrayCreationExpression | ArrayIntrinsicExpression |
+     * BinaryExpression | CollectionLiteralExpression | ConditionalExpression |
      * DarrayIntrinsicExpression | DictionaryIntrinsicExpression |
      * FunctionCallExpression | KeysetIntrinsicExpression | LambdaExpression |
-     * LiteralExpression | ObjectCreationExpression | ParenthesizedExpression |
-     * PrefixUnaryExpression | QualifiedName | ScopeResolutionExpression |
-     * ShapeExpression | SubscriptExpression | NameToken | TupleExpression |
-     * VariableExpression | VarrayIntrinsicExpression | VectorIntrinsicExpression
-     * | XHPExpression
+     * LiteralExpression | ParenthesizedExpression | PrefixUnaryExpression |
+     * QualifiedName | ScopeResolutionExpression | ShapeExpression | NameToken |
+     * TupleExpression | VarrayIntrinsicExpression | VectorIntrinsicExpression |
+     * XHPExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getValue()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_value);
+        return TypeAssert\instance_of(IExpression::class, $this->_value);
     }
     /**
-     * @return AnonymousFunction | ArrayCreationExpression |
-     * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
-     * CollectionLiteralExpression | ConditionalExpression |
+     * @return ArrayCreationExpression | ArrayIntrinsicExpression |
+     * BinaryExpression | CollectionLiteralExpression | ConditionalExpression |
      * DarrayIntrinsicExpression | DictionaryIntrinsicExpression |
      * FunctionCallExpression | KeysetIntrinsicExpression | LambdaExpression |
-     * LiteralExpression | ObjectCreationExpression | ParenthesizedExpression |
-     * PrefixUnaryExpression | QualifiedName | ScopeResolutionExpression |
-     * ShapeExpression | SubscriptExpression | NameToken | TupleExpression |
-     * VariableExpression | VarrayIntrinsicExpression | VectorIntrinsicExpression
-     * | XHPExpression
+     * LiteralExpression | ParenthesizedExpression | PrefixUnaryExpression |
+     * QualifiedName | ScopeResolutionExpression | ShapeExpression | NameToken |
+     * TupleExpression | VarrayIntrinsicExpression | VectorIntrinsicExpression |
+     * XHPExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getValuex()
     {

@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<cd6ba52db76f28fa62e7142d553e7b0b>>
+ * @generated SignedSource<<f367bb38593d8c89b34899e81b74c177>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class InclusionExpression extends EditableNode
+use HH\Lib\Dict;
+final class InclusionExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'inclusion_expression';
+    /**
+     * @var Token
      */
     private $_require;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_filename;
-    public function __construct(EditableNode $require, EditableNode $filename)
+    public function __construct(Token $require, IExpression $filename, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('inclusion_expression');
         $this->_require = $require;
         $this->_filename = $filename;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $require = EditableNode::fromJSON($json['inclusion_require'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $require = Node::fromJSON($json['inclusion_require'], $file, $offset, $source, 'Token');
+        $require = $require !== null ? $require : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $require->getWidth();
-        $filename = EditableNode::fromJSON($json['inclusion_filename'], $file, $offset, $source);
+        $filename = Node::fromJSON($json['inclusion_filename'], $file, $offset, $source, 'IExpression');
+        $filename = $filename !== null ? $filename : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $filename->getWidth();
-        return new static($require, $filename);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($require, $filename, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['require' => $this->_require, 'filename' => $this->_filename];
+        return Dict\filter_nulls(['require' => $this->_require, 'filename' => $this->_filename]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $require = $this->_require->rewrite($rewriter, $parents);
-        $filename = $this->_filename->rewrite($rewriter, $parents);
+        $require = $rewriter($this->_require, $parents);
+        $filename = $rewriter($this->_filename, $parents);
         if ($require === $this->_require && $filename === $this->_filename) {
             return $this;
         }
         return new static($require, $filename);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRequireUNTYPED()
     {
@@ -70,7 +84,7 @@ final class InclusionExpression extends EditableNode
     /**
      * @return static
      */
-    public function withRequire(EditableNode $value)
+    public function withRequire(Token $value)
     {
         if ($value === $this->_require) {
             return $this;
@@ -82,30 +96,30 @@ final class InclusionExpression extends EditableNode
      */
     public function hasRequire()
     {
-        return !$this->_require->isMissing();
+        return $this->_require !== null;
     }
     /**
      * @return IncludeToken | Include_onceToken | RequireToken | Require_onceToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getRequire()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_require);
+        return TypeAssert\instance_of(Token::class, $this->_require);
     }
     /**
      * @return IncludeToken | Include_onceToken | RequireToken | Require_onceToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getRequirex()
     {
         return $this->getRequire();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getFilenameUNTYPED()
     {
@@ -114,7 +128,7 @@ final class InclusionExpression extends EditableNode
     /**
      * @return static
      */
-    public function withFilename(EditableNode $value)
+    public function withFilename(IExpression $value)
     {
         if ($value === $this->_filename) {
             return $this;
@@ -126,25 +140,25 @@ final class InclusionExpression extends EditableNode
      */
     public function hasFilename()
     {
-        return !$this->_filename->isMissing();
+        return $this->_filename !== null;
     }
     /**
      * @return BinaryExpression | LiteralExpression | ParenthesizedExpression |
      * SubscriptExpression | NameToken | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getFilename()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_filename);
+        return TypeAssert\instance_of(IExpression::class, $this->_filename);
     }
     /**
      * @return BinaryExpression | LiteralExpression | ParenthesizedExpression |
      * SubscriptExpression | NameToken | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getFilenamex()
     {

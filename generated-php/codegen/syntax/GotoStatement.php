@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<6359e6876f3cbf0f6b2bee6c055385dd>>
+ * @generated SignedSource<<848cec49e8aeb3fdc5f4c4e81f834eb5>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class GotoStatement extends EditableNode
+use HH\Lib\Dict;
+final class GotoStatement extends Node implements IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'goto_statement';
+    /**
+     * @var GotoToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var NameToken
      */
     private $_label_name;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $label_name, EditableNode $semicolon)
+    public function __construct(GotoToken $keyword, NameToken $label_name, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('goto_statement');
         $this->_keyword = $keyword;
         $this->_label_name = $label_name;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['goto_statement_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['goto_statement_keyword'], $file, $offset, $source, 'GotoToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $label_name = EditableNode::fromJSON($json['goto_statement_label_name'], $file, $offset, $source);
+        $label_name = Node::fromJSON($json['goto_statement_label_name'], $file, $offset, $source, 'NameToken');
+        $label_name = $label_name !== null ? $label_name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $label_name->getWidth();
-        $semicolon = EditableNode::fromJSON($json['goto_statement_semicolon'], $file, $offset, $source);
+        $semicolon = Node::fromJSON($json['goto_statement_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($keyword, $label_name, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $label_name, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'label_name' => $this->_label_name, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'label_name' => $this->_label_name, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $label_name = $this->_label_name->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $label_name = $rewriter($this->_label_name, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $label_name === $this->_label_name && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $label_name, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -78,7 +95,7 @@ final class GotoStatement extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(GotoToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -90,7 +107,7 @@ final class GotoStatement extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return GotoToken
@@ -113,7 +130,7 @@ final class GotoStatement extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLabelNameUNTYPED()
     {
@@ -122,7 +139,7 @@ final class GotoStatement extends EditableNode
     /**
      * @return static
      */
-    public function withLabelName(EditableNode $value)
+    public function withLabelName(NameToken $value)
     {
         if ($value === $this->_label_name) {
             return $this;
@@ -134,7 +151,7 @@ final class GotoStatement extends EditableNode
      */
     public function hasLabelName()
     {
-        return !$this->_label_name->isMissing();
+        return $this->_label_name !== null;
     }
     /**
      * @return NameToken
@@ -157,7 +174,7 @@ final class GotoStatement extends EditableNode
         return $this->getLabelName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -166,7 +183,7 @@ final class GotoStatement extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -178,7 +195,7 @@ final class GotoStatement extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return SemicolonToken

@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<5b330a55a89774ef8062323437174825>>
+ * @generated SignedSource<<0e8e5dbf2149904fdaf69382718ef837>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class WhereConstraint extends EditableNode
+use HH\Lib\Dict;
+final class WhereConstraint extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'where_constraint';
+    /**
+     * @var ITypeSpecifier
      */
     private $_left_type;
     /**
-     * @var EditableNode
+     * @var Token
      */
     private $_operator;
     /**
-     * @var EditableNode
+     * @var ITypeSpecifier
      */
     private $_right_type;
-    public function __construct(EditableNode $left_type, EditableNode $operator, EditableNode $right_type)
+    public function __construct(ITypeSpecifier $left_type, Token $operator, ITypeSpecifier $right_type, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('where_constraint');
         $this->_left_type = $left_type;
         $this->_operator = $operator;
         $this->_right_type = $right_type;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $left_type = EditableNode::fromJSON($json['where_constraint_left_type'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $left_type = Node::fromJSON($json['where_constraint_left_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $left_type = $left_type !== null ? $left_type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_type->getWidth();
-        $operator = EditableNode::fromJSON($json['where_constraint_operator'], $file, $offset, $source);
+        $operator = Node::fromJSON($json['where_constraint_operator'], $file, $offset, $source, 'Token');
+        $operator = $operator !== null ? $operator : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $operator->getWidth();
-        $right_type = EditableNode::fromJSON($json['where_constraint_right_type'], $file, $offset, $source);
+        $right_type = Node::fromJSON($json['where_constraint_right_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $right_type = $right_type !== null ? $right_type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_type->getWidth();
-        return new static($left_type, $operator, $right_type);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($left_type, $operator, $right_type, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['left_type' => $this->_left_type, 'operator' => $this->_operator, 'right_type' => $this->_right_type];
+        return Dict\filter_nulls(['left_type' => $this->_left_type, 'operator' => $this->_operator, 'right_type' => $this->_right_type]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $left_type = $this->_left_type->rewrite($rewriter, $parents);
-        $operator = $this->_operator->rewrite($rewriter, $parents);
-        $right_type = $this->_right_type->rewrite($rewriter, $parents);
+        $left_type = $rewriter($this->_left_type, $parents);
+        $operator = $rewriter($this->_operator, $parents);
+        $right_type = $rewriter($this->_right_type, $parents);
         if ($left_type === $this->_left_type && $operator === $this->_operator && $right_type === $this->_right_type) {
             return $this;
         }
         return new static($left_type, $operator, $right_type);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftTypeUNTYPED()
     {
@@ -78,7 +95,7 @@ final class WhereConstraint extends EditableNode
     /**
      * @return static
      */
-    public function withLeftType(EditableNode $value)
+    public function withLeftType(ITypeSpecifier $value)
     {
         if ($value === $this->_left_type) {
             return $this;
@@ -90,30 +107,32 @@ final class WhereConstraint extends EditableNode
      */
     public function hasLeftType()
     {
-        return !$this->_left_type->isMissing();
+        return $this->_left_type !== null;
     }
     /**
-     * @return GenericTypeSpecifier | SimpleTypeSpecifier | TypeConstant
+     * @return GenericTypeSpecifier | SimpleTypeSpecifier | TypeConstant |
+     * VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getLeftType()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_left_type);
+        return TypeAssert\instance_of(ITypeSpecifier::class, $this->_left_type);
     }
     /**
-     * @return GenericTypeSpecifier | SimpleTypeSpecifier | TypeConstant
+     * @return GenericTypeSpecifier | SimpleTypeSpecifier | TypeConstant |
+     * VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getLeftTypex()
     {
         return $this->getLeftType();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOperatorUNTYPED()
     {
@@ -122,7 +141,7 @@ final class WhereConstraint extends EditableNode
     /**
      * @return static
      */
-    public function withOperator(EditableNode $value)
+    public function withOperator(Token $value)
     {
         if ($value === $this->_operator) {
             return $this;
@@ -134,30 +153,30 @@ final class WhereConstraint extends EditableNode
      */
     public function hasOperator()
     {
-        return !$this->_operator->isMissing();
+        return $this->_operator !== null;
     }
     /**
      * @return EqualToken | AsToken | SuperToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getOperator()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_operator);
+        return TypeAssert\instance_of(Token::class, $this->_operator);
     }
     /**
      * @return EqualToken | AsToken | SuperToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getOperatorx()
     {
         return $this->getOperator();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightTypeUNTYPED()
     {
@@ -166,7 +185,7 @@ final class WhereConstraint extends EditableNode
     /**
      * @return static
      */
-    public function withRightType(EditableNode $value)
+    public function withRightType(ITypeSpecifier $value)
     {
         if ($value === $this->_right_type) {
             return $this;
@@ -178,25 +197,27 @@ final class WhereConstraint extends EditableNode
      */
     public function hasRightType()
     {
-        return !$this->_right_type->isMissing();
+        return $this->_right_type !== null;
     }
     /**
-     * @return GenericTypeSpecifier | NullableTypeSpecifier | SimpleTypeSpecifier
-     * | TypeConstant | VectorTypeSpecifier
+     * @return DictionaryTypeSpecifier | GenericTypeSpecifier |
+     * NullableTypeSpecifier | SimpleTypeSpecifier | TypeConstant |
+     * VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getRightType()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_right_type);
+        return TypeAssert\instance_of(ITypeSpecifier::class, $this->_right_type);
     }
     /**
-     * @return GenericTypeSpecifier | NullableTypeSpecifier | SimpleTypeSpecifier
-     * | TypeConstant | VectorTypeSpecifier
+     * @return DictionaryTypeSpecifier | GenericTypeSpecifier |
+     * NullableTypeSpecifier | SimpleTypeSpecifier | TypeConstant |
+     * VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getRightTypex()
     {

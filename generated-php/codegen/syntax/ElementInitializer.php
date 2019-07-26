@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<df5559d353cd7251d215d44f79bcb073>>
+ * @generated SignedSource<<94ef02e78c959c5ba25c8098df476c63>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ElementInitializer extends EditableNode
+use HH\Lib\Dict;
+final class ElementInitializer extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'element_initializer';
+    /**
+     * @var IExpression
      */
     private $_key;
     /**
-     * @var EditableNode
+     * @var EqualGreaterThanToken
      */
     private $_arrow;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_value;
-    public function __construct(EditableNode $key, EditableNode $arrow, EditableNode $value)
+    public function __construct(IExpression $key, EqualGreaterThanToken $arrow, IExpression $value, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('element_initializer');
         $this->_key = $key;
         $this->_arrow = $arrow;
         $this->_value = $value;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $key = EditableNode::fromJSON($json['element_key'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $key = Node::fromJSON($json['element_key'], $file, $offset, $source, 'IExpression');
+        $key = $key !== null ? $key : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $key->getWidth();
-        $arrow = EditableNode::fromJSON($json['element_arrow'], $file, $offset, $source);
+        $arrow = Node::fromJSON($json['element_arrow'], $file, $offset, $source, 'EqualGreaterThanToken');
+        $arrow = $arrow !== null ? $arrow : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $arrow->getWidth();
-        $value = EditableNode::fromJSON($json['element_value'], $file, $offset, $source);
+        $value = Node::fromJSON($json['element_value'], $file, $offset, $source, 'IExpression');
+        $value = $value !== null ? $value : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $value->getWidth();
-        return new static($key, $arrow, $value);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($key, $arrow, $value, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['key' => $this->_key, 'arrow' => $this->_arrow, 'value' => $this->_value];
+        return Dict\filter_nulls(['key' => $this->_key, 'arrow' => $this->_arrow, 'value' => $this->_value]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $key = $this->_key->rewrite($rewriter, $parents);
-        $arrow = $this->_arrow->rewrite($rewriter, $parents);
-        $value = $this->_value->rewrite($rewriter, $parents);
+        $key = $rewriter($this->_key, $parents);
+        $arrow = $rewriter($this->_arrow, $parents);
+        $value = $rewriter($this->_value, $parents);
         if ($key === $this->_key && $arrow === $this->_arrow && $value === $this->_value) {
             return $this;
         }
         return new static($key, $arrow, $value);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeyUNTYPED()
     {
@@ -78,7 +95,7 @@ final class ElementInitializer extends EditableNode
     /**
      * @return static
      */
-    public function withKey(EditableNode $value)
+    public function withKey(IExpression $value)
     {
         if ($value === $this->_key) {
             return $this;
@@ -90,42 +107,40 @@ final class ElementInitializer extends EditableNode
      */
     public function hasKey()
     {
-        return !$this->_key->isMissing();
+        return $this->_key !== null;
     }
     /**
      * @return AnonymousFunction | ArrayCreationExpression |
      * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
-     * CollectionLiteralExpression | DictionaryIntrinsicExpression |
-     * FunctionCallExpression | KeysetIntrinsicExpression | LiteralExpression |
-     * ObjectCreationExpression | ParenthesizedExpression | PrefixUnaryExpression
-     * | QualifiedName | ScopeResolutionExpression | NameToken |
-     * VariableExpression | VectorIntrinsicExpression
+     * FunctionCallExpression | LiteralExpression | ObjectCreationExpression |
+     * ParenthesizedExpression | PrefixUnaryExpression | QualifiedName |
+     * ScopeResolutionExpression | SubscriptExpression | NameToken |
+     * VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getKey()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_key);
+        return TypeAssert\instance_of(IExpression::class, $this->_key);
     }
     /**
      * @return AnonymousFunction | ArrayCreationExpression |
      * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
-     * CollectionLiteralExpression | DictionaryIntrinsicExpression |
-     * FunctionCallExpression | KeysetIntrinsicExpression | LiteralExpression |
-     * ObjectCreationExpression | ParenthesizedExpression | PrefixUnaryExpression
-     * | QualifiedName | ScopeResolutionExpression | NameToken |
-     * VariableExpression | VectorIntrinsicExpression
+     * FunctionCallExpression | LiteralExpression | ObjectCreationExpression |
+     * ParenthesizedExpression | PrefixUnaryExpression | QualifiedName |
+     * ScopeResolutionExpression | SubscriptExpression | NameToken |
+     * VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getKeyx()
     {
         return $this->getKey();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getArrowUNTYPED()
     {
@@ -134,7 +149,7 @@ final class ElementInitializer extends EditableNode
     /**
      * @return static
      */
-    public function withArrow(EditableNode $value)
+    public function withArrow(EqualGreaterThanToken $value)
     {
         if ($value === $this->_arrow) {
             return $this;
@@ -146,7 +161,7 @@ final class ElementInitializer extends EditableNode
      */
     public function hasArrow()
     {
-        return !$this->_arrow->isMissing();
+        return $this->_arrow !== null;
     }
     /**
      * @return EqualGreaterThanToken
@@ -169,7 +184,7 @@ final class ElementInitializer extends EditableNode
         return $this->getArrow();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getValueUNTYPED()
     {
@@ -178,7 +193,7 @@ final class ElementInitializer extends EditableNode
     /**
      * @return static
      */
-    public function withValue(EditableNode $value)
+    public function withValue(IExpression $value)
     {
         if ($value === $this->_value) {
             return $this;
@@ -190,41 +205,41 @@ final class ElementInitializer extends EditableNode
      */
     public function hasValue()
     {
-        return !$this->_value->isMissing();
+        return $this->_value !== null;
     }
     /**
      * @return AnonymousFunction | ArrayCreationExpression |
-     * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
-     * CollectionLiteralExpression | ConditionalExpression |
+     * ArrayIntrinsicExpression | AwaitableCreationExpression | BinaryExpression
+     * | CastExpression | CollectionLiteralExpression | ConditionalExpression |
      * DarrayIntrinsicExpression | DictionaryIntrinsicExpression |
      * FunctionCallExpression | IssetExpression | KeysetIntrinsicExpression |
      * LiteralExpression | MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PrefixUnaryExpression | QualifiedName |
-     * ScopeResolutionExpression | SubscriptExpression | NameToken |
-     * TupleExpression | VariableExpression | VarrayIntrinsicExpression |
-     * VectorIntrinsicExpression
+     * ScopeResolutionExpression | ShapeExpression | SubscriptExpression |
+     * NameToken | TupleExpression | VariableExpression |
+     * VarrayIntrinsicExpression | VectorIntrinsicExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getValue()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_value);
+        return TypeAssert\instance_of(IExpression::class, $this->_value);
     }
     /**
      * @return AnonymousFunction | ArrayCreationExpression |
-     * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
-     * CollectionLiteralExpression | ConditionalExpression |
+     * ArrayIntrinsicExpression | AwaitableCreationExpression | BinaryExpression
+     * | CastExpression | CollectionLiteralExpression | ConditionalExpression |
      * DarrayIntrinsicExpression | DictionaryIntrinsicExpression |
      * FunctionCallExpression | IssetExpression | KeysetIntrinsicExpression |
      * LiteralExpression | MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PrefixUnaryExpression | QualifiedName |
-     * ScopeResolutionExpression | SubscriptExpression | NameToken |
-     * TupleExpression | VariableExpression | VarrayIntrinsicExpression |
-     * VectorIntrinsicExpression
+     * ScopeResolutionExpression | ShapeExpression | SubscriptExpression |
+     * NameToken | TupleExpression | VariableExpression |
+     * VarrayIntrinsicExpression | VectorIntrinsicExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getValuex()
     {

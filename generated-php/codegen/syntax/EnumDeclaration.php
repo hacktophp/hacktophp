@@ -2,52 +2,59 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<85dbc279f341f783da0c7a1ab3fb9e7d>>
+ * @generated SignedSource<<d873988fa4d46b798103120ae6d10bcb>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class EnumDeclaration extends EditableNode
+use HH\Lib\Dict;
+final class EnumDeclaration extends Node implements IHasAttributeSpec
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'enum_declaration';
+    /**
+     * @var null|OldAttributeSpecification
      */
     private $_attribute_spec;
     /**
-     * @var EditableNode
+     * @var EnumToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var NameToken
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var ColonToken
      */
     private $_colon;
     /**
-     * @var EditableNode
+     * @var ITypeSpecifier
      */
     private $_base;
     /**
-     * @var EditableNode
+     * @var null|TypeConstraint
      */
     private $_type;
     /**
-     * @var EditableNode
+     * @var LeftBraceToken
      */
     private $_left_brace;
     /**
-     * @var EditableNode
+     * @var NodeList<Enumerator>|null
      */
     private $_enumerators;
     /**
-     * @var EditableNode
+     * @var RightBraceToken
      */
     private $_right_brace;
-    public function __construct(EditableNode $attribute_spec, EditableNode $keyword, EditableNode $name, EditableNode $colon, EditableNode $base, EditableNode $type, EditableNode $left_brace, EditableNode $enumerators, EditableNode $right_brace)
+    /**
+     * @param NodeList<Enumerator>|null $enumerators
+     */
+    public function __construct(?OldAttributeSpecification $attribute_spec, EnumToken $keyword, NameToken $name, ColonToken $colon, ITypeSpecifier $base, ?TypeConstraint $type, LeftBraceToken $left_brace, ?NodeList $enumerators, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('enum_declaration');
         $this->_attribute_spec = $attribute_spec;
         $this->_keyword = $keyword;
         $this->_name = $name;
@@ -57,67 +64,89 @@ final class EnumDeclaration extends EditableNode
         $this->_left_brace = $left_brace;
         $this->_enumerators = $enumerators;
         $this->_right_brace = $right_brace;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $attribute_spec = EditableNode::fromJSON($json['enum_attribute_spec'], $file, $offset, $source);
-        $offset += $attribute_spec->getWidth();
-        $keyword = EditableNode::fromJSON($json['enum_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $attribute_spec = Node::fromJSON($json['enum_attribute_spec'], $file, $offset, $source, 'OldAttributeSpecification');
+        $offset += (($__tmp1__ = $attribute_spec) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $keyword = Node::fromJSON($json['enum_keyword'], $file, $offset, $source, 'EnumToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $name = EditableNode::fromJSON($json['enum_name'], $file, $offset, $source);
+        $name = Node::fromJSON($json['enum_name'], $file, $offset, $source, 'NameToken');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $colon = EditableNode::fromJSON($json['enum_colon'], $file, $offset, $source);
+        $colon = Node::fromJSON($json['enum_colon'], $file, $offset, $source, 'ColonToken');
+        $colon = $colon !== null ? $colon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $colon->getWidth();
-        $base = EditableNode::fromJSON($json['enum_base'], $file, $offset, $source);
+        $base = Node::fromJSON($json['enum_base'], $file, $offset, $source, 'ITypeSpecifier');
+        $base = $base !== null ? $base : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $base->getWidth();
-        $type = EditableNode::fromJSON($json['enum_type'], $file, $offset, $source);
-        $offset += $type->getWidth();
-        $left_brace = EditableNode::fromJSON($json['enum_left_brace'], $file, $offset, $source);
+        $type = Node::fromJSON($json['enum_type'], $file, $offset, $source, 'TypeConstraint');
+        $offset += (($__tmp2__ = $type) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $left_brace = Node::fromJSON($json['enum_left_brace'], $file, $offset, $source, 'LeftBraceToken');
+        $left_brace = $left_brace !== null ? $left_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_brace->getWidth();
-        $enumerators = EditableNode::fromJSON($json['enum_enumerators'], $file, $offset, $source);
-        $offset += $enumerators->getWidth();
-        $right_brace = EditableNode::fromJSON($json['enum_right_brace'], $file, $offset, $source);
+        $enumerators = Node::fromJSON($json['enum_enumerators'], $file, $offset, $source, 'NodeList<Enumerator>');
+        $offset += (($__tmp3__ = $enumerators) !== null ? $__tmp3__->getWidth() : null) ?? 0;
+        $right_brace = Node::fromJSON($json['enum_right_brace'], $file, $offset, $source, 'RightBraceToken');
+        $right_brace = $right_brace !== null ? $right_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_brace->getWidth();
-        return new static($attribute_spec, $keyword, $name, $colon, $base, $type, $left_brace, $enumerators, $right_brace);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($attribute_spec, $keyword, $name, $colon, $base, $type, $left_brace, $enumerators, $right_brace, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['attribute_spec' => $this->_attribute_spec, 'keyword' => $this->_keyword, 'name' => $this->_name, 'colon' => $this->_colon, 'base' => $this->_base, 'type' => $this->_type, 'left_brace' => $this->_left_brace, 'enumerators' => $this->_enumerators, 'right_brace' => $this->_right_brace];
+        return Dict\filter_nulls(['attribute_spec' => $this->_attribute_spec, 'keyword' => $this->_keyword, 'name' => $this->_name, 'colon' => $this->_colon, 'base' => $this->_base, 'type' => $this->_type, 'left_brace' => $this->_left_brace, 'enumerators' => $this->_enumerators, 'right_brace' => $this->_right_brace]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $attribute_spec = $this->_attribute_spec->rewrite($rewriter, $parents);
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $colon = $this->_colon->rewrite($rewriter, $parents);
-        $base = $this->_base->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
-        $left_brace = $this->_left_brace->rewrite($rewriter, $parents);
-        $enumerators = $this->_enumerators->rewrite($rewriter, $parents);
-        $right_brace = $this->_right_brace->rewrite($rewriter, $parents);
+        $attribute_spec = $this->_attribute_spec === null ? null : $rewriter($this->_attribute_spec, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $colon = $rewriter($this->_colon, $parents);
+        $base = $rewriter($this->_base, $parents);
+        $type = $this->_type === null ? null : $rewriter($this->_type, $parents);
+        $left_brace = $rewriter($this->_left_brace, $parents);
+        $enumerators = $this->_enumerators === null ? null : $rewriter($this->_enumerators, $parents);
+        $right_brace = $rewriter($this->_right_brace, $parents);
         if ($attribute_spec === $this->_attribute_spec && $keyword === $this->_keyword && $name === $this->_name && $colon === $this->_colon && $base === $this->_base && $type === $this->_type && $left_brace === $this->_left_brace && $enumerators === $this->_enumerators && $right_brace === $this->_right_brace) {
             return $this;
         }
         return new static($attribute_spec, $keyword, $name, $colon, $base, $type, $left_brace, $enumerators, $right_brace);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAttributeSpecUNTYPED()
     {
@@ -126,7 +155,7 @@ final class EnumDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withAttributeSpec(EditableNode $value)
+    public function withAttributeSpec(?OldAttributeSpecification $value)
     {
         if ($value === $this->_attribute_spec) {
             return $this;
@@ -138,33 +167,30 @@ final class EnumDeclaration extends EditableNode
      */
     public function hasAttributeSpec()
     {
-        return !$this->_attribute_spec->isMissing();
+        return $this->_attribute_spec !== null;
     }
     /**
-     * @return AttributeSpecification | null
+     * @return null | OldAttributeSpecification
      */
     /**
-     * @return null|AttributeSpecification
+     * @return null|OldAttributeSpecification
      */
     public function getAttributeSpec()
     {
-        if ($this->_attribute_spec->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute_spec);
+        return $this->_attribute_spec;
     }
     /**
-     * @return AttributeSpecification
+     * @return OldAttributeSpecification
      */
     /**
-     * @return AttributeSpecification
+     * @return OldAttributeSpecification
      */
     public function getAttributeSpecx()
     {
-        return TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute_spec);
+        return TypeAssert\not_null($this->getAttributeSpec());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -173,7 +199,7 @@ final class EnumDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(EnumToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -185,7 +211,7 @@ final class EnumDeclaration extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return EnumToken
@@ -208,7 +234,7 @@ final class EnumDeclaration extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -217,7 +243,7 @@ final class EnumDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(NameToken $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -229,7 +255,7 @@ final class EnumDeclaration extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return NameToken
@@ -252,7 +278,7 @@ final class EnumDeclaration extends EditableNode
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getColonUNTYPED()
     {
@@ -261,7 +287,7 @@ final class EnumDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withColon(EditableNode $value)
+    public function withColon(ColonToken $value)
     {
         if ($value === $this->_colon) {
             return $this;
@@ -273,7 +299,7 @@ final class EnumDeclaration extends EditableNode
      */
     public function hasColon()
     {
-        return !$this->_colon->isMissing();
+        return $this->_colon !== null;
     }
     /**
      * @return ColonToken
@@ -296,7 +322,7 @@ final class EnumDeclaration extends EditableNode
         return $this->getColon();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getBaseUNTYPED()
     {
@@ -305,7 +331,7 @@ final class EnumDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withBase(EditableNode $value)
+    public function withBase(ITypeSpecifier $value)
     {
         if ($value === $this->_base) {
             return $this;
@@ -317,30 +343,30 @@ final class EnumDeclaration extends EditableNode
      */
     public function hasBase()
     {
-        return !$this->_base->isMissing();
+        return $this->_base !== null;
     }
     /**
      * @return ClassnameTypeSpecifier | GenericTypeSpecifier | SimpleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getBase()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_base);
+        return TypeAssert\instance_of(ITypeSpecifier::class, $this->_base);
     }
     /**
      * @return ClassnameTypeSpecifier | GenericTypeSpecifier | SimpleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getBasex()
     {
         return $this->getBase();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -349,7 +375,7 @@ final class EnumDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(?TypeConstraint $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -361,7 +387,7 @@ final class EnumDeclaration extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
      * @return null | TypeConstraint
@@ -371,10 +397,7 @@ final class EnumDeclaration extends EditableNode
      */
     public function getType()
     {
-        if ($this->_type->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(TypeConstraint::class, $this->_type);
+        return $this->_type;
     }
     /**
      * @return TypeConstraint
@@ -384,10 +407,10 @@ final class EnumDeclaration extends EditableNode
      */
     public function getTypex()
     {
-        return TypeAssert\instance_of(TypeConstraint::class, $this->_type);
+        return TypeAssert\not_null($this->getType());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftBraceUNTYPED()
     {
@@ -396,7 +419,7 @@ final class EnumDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withLeftBrace(EditableNode $value)
+    public function withLeftBrace(LeftBraceToken $value)
     {
         if ($value === $this->_left_brace) {
             return $this;
@@ -408,7 +431,7 @@ final class EnumDeclaration extends EditableNode
      */
     public function hasLeftBrace()
     {
-        return !$this->_left_brace->isMissing();
+        return $this->_left_brace !== null;
     }
     /**
      * @return LeftBraceToken
@@ -431,16 +454,18 @@ final class EnumDeclaration extends EditableNode
         return $this->getLeftBrace();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getEnumeratorsUNTYPED()
     {
         return $this->_enumerators;
     }
     /**
+     * @param NodeList<Enumerator>|null $value
+     *
      * @return static
      */
-    public function withEnumerators(EditableNode $value)
+    public function withEnumerators(?NodeList $value)
     {
         if ($value === $this->_enumerators) {
             return $this;
@@ -452,33 +477,30 @@ final class EnumDeclaration extends EditableNode
      */
     public function hasEnumerators()
     {
-        return !$this->_enumerators->isMissing();
+        return $this->_enumerators !== null;
     }
     /**
-     * @return EditableList<EditableNode> | null
+     * @return NodeList<Enumerator> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<Enumerator>|null
      */
     public function getEnumerators()
     {
-        if ($this->_enumerators->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_enumerators);
+        return $this->_enumerators;
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<Enumerator>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<Enumerator>
      */
     public function getEnumeratorsx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_enumerators);
+        return TypeAssert\not_null($this->getEnumerators());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightBraceUNTYPED()
     {
@@ -487,7 +509,7 @@ final class EnumDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withRightBrace(EditableNode $value)
+    public function withRightBrace(RightBraceToken $value)
     {
         if ($value === $this->_right_brace) {
             return $this;
@@ -499,7 +521,7 @@ final class EnumDeclaration extends EditableNode
      */
     public function hasRightBrace()
     {
-        return !$this->_right_brace->isMissing();
+        return $this->_right_brace !== null;
     }
     /**
      * @return RightBraceToken

@@ -2,90 +2,113 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<8f735c3b9856fa6c95abe9d4f9708260>>
+ * @generated SignedSource<<d3232d58973572138bdebaf0eb5aa1b5>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class XHPEnumType extends EditableNode
+use HH\Lib\Dict;
+final class XHPEnumType extends Node implements ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'xhp_enum_type';
+    /**
+     * @var null|Node
      */
     private $_optional;
     /**
-     * @var EditableNode
+     * @var EnumToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var LeftBraceToken
      */
     private $_left_brace;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<LiteralExpression>>
      */
     private $_values;
     /**
-     * @var EditableNode
+     * @var RightBraceToken
      */
     private $_right_brace;
-    public function __construct(EditableNode $optional, EditableNode $keyword, EditableNode $left_brace, EditableNode $values, EditableNode $right_brace)
+    /**
+     * @param NodeList<ListItem<LiteralExpression>> $values
+     */
+    public function __construct(?Node $optional, EnumToken $keyword, LeftBraceToken $left_brace, NodeList $values, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('xhp_enum_type');
         $this->_optional = $optional;
         $this->_keyword = $keyword;
         $this->_left_brace = $left_brace;
         $this->_values = $values;
         $this->_right_brace = $right_brace;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $optional = EditableNode::fromJSON($json['xhp_enum_optional'], $file, $offset, $source);
-        $offset += $optional->getWidth();
-        $keyword = EditableNode::fromJSON($json['xhp_enum_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $optional = Node::fromJSON($json['xhp_enum_optional'], $file, $offset, $source, 'Node');
+        $offset += (($__tmp1__ = $optional) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $keyword = Node::fromJSON($json['xhp_enum_keyword'], $file, $offset, $source, 'EnumToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_brace = EditableNode::fromJSON($json['xhp_enum_left_brace'], $file, $offset, $source);
+        $left_brace = Node::fromJSON($json['xhp_enum_left_brace'], $file, $offset, $source, 'LeftBraceToken');
+        $left_brace = $left_brace !== null ? $left_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_brace->getWidth();
-        $values = EditableNode::fromJSON($json['xhp_enum_values'], $file, $offset, $source);
+        $values = Node::fromJSON($json['xhp_enum_values'], $file, $offset, $source, 'NodeList<ListItem<LiteralExpression>>');
+        $values = $values !== null ? $values : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $values->getWidth();
-        $right_brace = EditableNode::fromJSON($json['xhp_enum_right_brace'], $file, $offset, $source);
+        $right_brace = Node::fromJSON($json['xhp_enum_right_brace'], $file, $offset, $source, 'RightBraceToken');
+        $right_brace = $right_brace !== null ? $right_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_brace->getWidth();
-        return new static($optional, $keyword, $left_brace, $values, $right_brace);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($optional, $keyword, $left_brace, $values, $right_brace, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['optional' => $this->_optional, 'keyword' => $this->_keyword, 'left_brace' => $this->_left_brace, 'values' => $this->_values, 'right_brace' => $this->_right_brace];
+        return Dict\filter_nulls(['optional' => $this->_optional, 'keyword' => $this->_keyword, 'left_brace' => $this->_left_brace, 'values' => $this->_values, 'right_brace' => $this->_right_brace]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $optional = $this->_optional->rewrite($rewriter, $parents);
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_brace = $this->_left_brace->rewrite($rewriter, $parents);
-        $values = $this->_values->rewrite($rewriter, $parents);
-        $right_brace = $this->_right_brace->rewrite($rewriter, $parents);
+        $optional = $this->_optional === null ? null : $rewriter($this->_optional, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_brace = $rewriter($this->_left_brace, $parents);
+        $values = $rewriter($this->_values, $parents);
+        $right_brace = $rewriter($this->_right_brace, $parents);
         if ($optional === $this->_optional && $keyword === $this->_keyword && $left_brace === $this->_left_brace && $values === $this->_values && $right_brace === $this->_right_brace) {
             return $this;
         }
         return new static($optional, $keyword, $left_brace, $values, $right_brace);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOptionalUNTYPED()
     {
@@ -94,7 +117,7 @@ final class XHPEnumType extends EditableNode
     /**
      * @return static
      */
-    public function withOptional(EditableNode $value)
+    public function withOptional(?Node $value)
     {
         if ($value === $this->_optional) {
             return $this;
@@ -106,33 +129,30 @@ final class XHPEnumType extends EditableNode
      */
     public function hasOptional()
     {
-        return !$this->_optional->isMissing();
+        return $this->_optional !== null;
     }
     /**
      * @return null
      */
     /**
-     * @return null|EditableNode
+     * @return null|Node
      */
     public function getOptional()
     {
-        if ($this->_optional->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_optional);
+        return $this->_optional;
     }
     /**
      * @return
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getOptionalx()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_optional);
+        return TypeAssert\not_null($this->getOptional());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -141,7 +161,7 @@ final class XHPEnumType extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(EnumToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -153,7 +173,7 @@ final class XHPEnumType extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return EnumToken
@@ -176,7 +196,7 @@ final class XHPEnumType extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftBraceUNTYPED()
     {
@@ -185,7 +205,7 @@ final class XHPEnumType extends EditableNode
     /**
      * @return static
      */
-    public function withLeftBrace(EditableNode $value)
+    public function withLeftBrace(LeftBraceToken $value)
     {
         if ($value === $this->_left_brace) {
             return $this;
@@ -197,7 +217,7 @@ final class XHPEnumType extends EditableNode
      */
     public function hasLeftBrace()
     {
-        return !$this->_left_brace->isMissing();
+        return $this->_left_brace !== null;
     }
     /**
      * @return LeftBraceToken
@@ -220,16 +240,18 @@ final class XHPEnumType extends EditableNode
         return $this->getLeftBrace();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getValuesUNTYPED()
     {
         return $this->_values;
     }
     /**
+     * @param NodeList<ListItem<LiteralExpression>> $value
+     *
      * @return static
      */
-    public function withValues(EditableNode $value)
+    public function withValues(NodeList $value)
     {
         if ($value === $this->_values) {
             return $this;
@@ -241,30 +263,30 @@ final class XHPEnumType extends EditableNode
      */
     public function hasValues()
     {
-        return !$this->_values->isMissing();
+        return $this->_values !== null;
     }
     /**
-     * @return EditableList<LiteralExpression>
+     * @return NodeList<ListItem<LiteralExpression>>
      */
     /**
-     * @return EditableList<LiteralExpression>
+     * @return NodeList<ListItem<LiteralExpression>>
      */
     public function getValues()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_values);
+        return TypeAssert\instance_of(NodeList::class, $this->_values);
     }
     /**
-     * @return EditableList<LiteralExpression>
+     * @return NodeList<ListItem<LiteralExpression>>
      */
     /**
-     * @return EditableList<LiteralExpression>
+     * @return NodeList<ListItem<LiteralExpression>>
      */
     public function getValuesx()
     {
         return $this->getValues();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightBraceUNTYPED()
     {
@@ -273,7 +295,7 @@ final class XHPEnumType extends EditableNode
     /**
      * @return static
      */
-    public function withRightBrace(EditableNode $value)
+    public function withRightBrace(RightBraceToken $value)
     {
         if ($value === $this->_right_brace) {
             return $this;
@@ -285,7 +307,7 @@ final class XHPEnumType extends EditableNode
      */
     public function hasRightBrace()
     {
-        return !$this->_right_brace->isMissing();
+        return $this->_right_brace !== null;
     }
     /**
      * @return RightBraceToken

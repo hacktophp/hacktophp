@@ -2,98 +2,109 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<263b3e09f94796a9099579ce6cec0921>>
+ * @generated SignedSource<<ec668586f3d06a259177d749e406ba62>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ParameterDeclaration extends EditableNode
+use HH\Lib\Dict;
+abstract class ParameterDeclarationGeneratedBase extends Node implements IHasTypeHint, IHasAttributeSpec, IParameter
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'parameter_declaration';
+    /**
+     * @var null|OldAttributeSpecification
      */
     private $_attribute;
     /**
-     * @var EditableNode
+     * @var null|Token
      */
     private $_visibility;
     /**
-     * @var EditableNode
+     * @var null|InoutToken
      */
     private $_call_convention;
     /**
-     * @var EditableNode
+     * @var null|ITypeSpecifier
      */
     private $_type;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var null|SimpleInitializer
      */
     private $_default_value;
-    public function __construct(EditableNode $attribute, EditableNode $visibility, EditableNode $call_convention, EditableNode $type, EditableNode $name, EditableNode $default_value)
+    public function __construct(?OldAttributeSpecification $attribute, ?Token $visibility, ?InoutToken $call_convention, ?ITypeSpecifier $type, IExpression $name, ?SimpleInitializer $default_value, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('parameter_declaration');
         $this->_attribute = $attribute;
         $this->_visibility = $visibility;
         $this->_call_convention = $call_convention;
         $this->_type = $type;
         $this->_name = $name;
         $this->_default_value = $default_value;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $attribute = EditableNode::fromJSON($json['parameter_attribute'], $file, $offset, $source);
-        $offset += $attribute->getWidth();
-        $visibility = EditableNode::fromJSON($json['parameter_visibility'], $file, $offset, $source);
-        $offset += $visibility->getWidth();
-        $call_convention = EditableNode::fromJSON($json['parameter_call_convention'], $file, $offset, $source);
-        $offset += $call_convention->getWidth();
-        $type = EditableNode::fromJSON($json['parameter_type'], $file, $offset, $source);
-        $offset += $type->getWidth();
-        $name = EditableNode::fromJSON($json['parameter_name'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $attribute = Node::fromJSON($json['parameter_attribute'], $file, $offset, $source, 'OldAttributeSpecification');
+        $offset += (($__tmp1__ = $attribute) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $visibility = Node::fromJSON($json['parameter_visibility'], $file, $offset, $source, 'Token');
+        $offset += (($__tmp2__ = $visibility) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $call_convention = Node::fromJSON($json['parameter_call_convention'], $file, $offset, $source, 'InoutToken');
+        $offset += (($__tmp3__ = $call_convention) !== null ? $__tmp3__->getWidth() : null) ?? 0;
+        $type = Node::fromJSON($json['parameter_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $offset += (($__tmp4__ = $type) !== null ? $__tmp4__->getWidth() : null) ?? 0;
+        $name = Node::fromJSON($json['parameter_name'], $file, $offset, $source, 'IExpression');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $default_value = EditableNode::fromJSON($json['parameter_default_value'], $file, $offset, $source);
-        $offset += $default_value->getWidth();
-        return new static($attribute, $visibility, $call_convention, $type, $name, $default_value);
+        $default_value = Node::fromJSON($json['parameter_default_value'], $file, $offset, $source, 'SimpleInitializer');
+        $offset += (($__tmp5__ = $default_value) !== null ? $__tmp5__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($attribute, $visibility, $call_convention, $type, $name, $default_value, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['attribute' => $this->_attribute, 'visibility' => $this->_visibility, 'call_convention' => $this->_call_convention, 'type' => $this->_type, 'name' => $this->_name, 'default_value' => $this->_default_value];
+        return Dict\filter_nulls(['attribute' => $this->_attribute, 'visibility' => $this->_visibility, 'call_convention' => $this->_call_convention, 'type' => $this->_type, 'name' => $this->_name, 'default_value' => $this->_default_value]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $attribute = $this->_attribute->rewrite($rewriter, $parents);
-        $visibility = $this->_visibility->rewrite($rewriter, $parents);
-        $call_convention = $this->_call_convention->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $default_value = $this->_default_value->rewrite($rewriter, $parents);
+        $attribute = $this->_attribute === null ? null : $rewriter($this->_attribute, $parents);
+        $visibility = $this->_visibility === null ? null : $rewriter($this->_visibility, $parents);
+        $call_convention = $this->_call_convention === null ? null : $rewriter($this->_call_convention, $parents);
+        $type = $this->_type === null ? null : $rewriter($this->_type, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $default_value = $this->_default_value === null ? null : $rewriter($this->_default_value, $parents);
         if ($attribute === $this->_attribute && $visibility === $this->_visibility && $call_convention === $this->_call_convention && $type === $this->_type && $name === $this->_name && $default_value === $this->_default_value) {
             return $this;
         }
         return new static($attribute, $visibility, $call_convention, $type, $name, $default_value);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAttributeUNTYPED()
     {
@@ -102,7 +113,7 @@ final class ParameterDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withAttribute(EditableNode $value)
+    public function withAttribute(?OldAttributeSpecification $value)
     {
         if ($value === $this->_attribute) {
             return $this;
@@ -114,33 +125,30 @@ final class ParameterDeclaration extends EditableNode
      */
     public function hasAttribute()
     {
-        return !$this->_attribute->isMissing();
+        return $this->_attribute !== null;
     }
     /**
-     * @return AttributeSpecification | null
+     * @return null | OldAttributeSpecification
      */
     /**
-     * @return null|AttributeSpecification
+     * @return null|OldAttributeSpecification
      */
     public function getAttribute()
     {
-        if ($this->_attribute->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute);
+        return $this->_attribute;
     }
     /**
-     * @return AttributeSpecification
+     * @return OldAttributeSpecification
      */
     /**
-     * @return AttributeSpecification
+     * @return OldAttributeSpecification
      */
     public function getAttributex()
     {
-        return TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute);
+        return TypeAssert\not_null($this->getAttribute());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getVisibilityUNTYPED()
     {
@@ -149,7 +157,7 @@ final class ParameterDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withVisibility(EditableNode $value)
+    public function withVisibility(?Token $value)
     {
         if ($value === $this->_visibility) {
             return $this;
@@ -161,33 +169,30 @@ final class ParameterDeclaration extends EditableNode
      */
     public function hasVisibility()
     {
-        return !$this->_visibility->isMissing();
+        return $this->_visibility !== null;
     }
     /**
      * @return null | PrivateToken | ProtectedToken | PublicToken
      */
     /**
-     * @return null|EditableToken
+     * @return null|Token
      */
     public function getVisibility()
     {
-        if ($this->_visibility->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableToken::class, $this->_visibility);
+        return $this->_visibility;
     }
     /**
      * @return PrivateToken | ProtectedToken | PublicToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getVisibilityx()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_visibility);
+        return TypeAssert\not_null($this->getVisibility());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getCallConventionUNTYPED()
     {
@@ -196,7 +201,7 @@ final class ParameterDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withCallConvention(EditableNode $value)
+    public function withCallConvention(?InoutToken $value)
     {
         if ($value === $this->_call_convention) {
             return $this;
@@ -208,7 +213,7 @@ final class ParameterDeclaration extends EditableNode
      */
     public function hasCallConvention()
     {
-        return !$this->_call_convention->isMissing();
+        return $this->_call_convention !== null;
     }
     /**
      * @return null | InoutToken
@@ -218,10 +223,7 @@ final class ParameterDeclaration extends EditableNode
      */
     public function getCallConvention()
     {
-        if ($this->_call_convention->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(InoutToken::class, $this->_call_convention);
+        return $this->_call_convention;
     }
     /**
      * @return InoutToken
@@ -231,10 +233,10 @@ final class ParameterDeclaration extends EditableNode
      */
     public function getCallConventionx()
     {
-        return TypeAssert\instance_of(InoutToken::class, $this->_call_convention);
+        return TypeAssert\not_null($this->getCallConvention());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -243,7 +245,7 @@ final class ParameterDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(?ITypeSpecifier $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -255,43 +257,40 @@ final class ParameterDeclaration extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
      * @return ClassnameTypeSpecifier | ClosureTypeSpecifier |
      * DarrayTypeSpecifier | DictionaryTypeSpecifier | GenericTypeSpecifier |
-     * KeysetTypeSpecifier | MapArrayTypeSpecifier | null | NullableTypeSpecifier
-     * | ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
-     * TupleTypeSpecifier | TypeConstant | VarrayTypeSpecifier |
-     * VectorArrayTypeSpecifier | VectorTypeSpecifier
+     * KeysetTypeSpecifier | LikeTypeSpecifier | MapArrayTypeSpecifier | null |
+     * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
+     * SoftTypeSpecifier | TupleTypeSpecifier | TypeConstant |
+     * VarrayTypeSpecifier | VectorArrayTypeSpecifier | VectorTypeSpecifier
      */
     /**
-     * @return null|EditableNode
+     * @return null|ITypeSpecifier
      */
     public function getType()
     {
-        if ($this->_type->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return $this->_type;
     }
     /**
      * @return ClassnameTypeSpecifier | ClosureTypeSpecifier |
      * DarrayTypeSpecifier | DictionaryTypeSpecifier | GenericTypeSpecifier |
-     * KeysetTypeSpecifier | MapArrayTypeSpecifier | NullableTypeSpecifier |
-     * ShapeTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
-     * TupleTypeSpecifier | TypeConstant | VarrayTypeSpecifier |
-     * VectorArrayTypeSpecifier | VectorTypeSpecifier
+     * KeysetTypeSpecifier | LikeTypeSpecifier | MapArrayTypeSpecifier |
+     * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
+     * SoftTypeSpecifier | TupleTypeSpecifier | TypeConstant |
+     * VarrayTypeSpecifier | VectorArrayTypeSpecifier | VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getTypex()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return TypeAssert\not_null($this->getType());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -300,7 +299,7 @@ final class ParameterDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(IExpression $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -312,33 +311,30 @@ final class ParameterDeclaration extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
-    }
-    /**
-     * @return DecoratedExpression | null | VariableToken
-     */
-    /**
-     * @return null|EditableNode
-     */
-    public function getName()
-    {
-        if ($this->_name->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_name);
+        return $this->_name !== null;
     }
     /**
      * @return DecoratedExpression | VariableToken
      */
     /**
-     * @return EditableNode
+     * @return IExpression
+     */
+    public function getName()
+    {
+        return TypeAssert\instance_of(IExpression::class, $this->_name);
+    }
+    /**
+     * @return DecoratedExpression | VariableToken
+     */
+    /**
+     * @return IExpression
      */
     public function getNamex()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_name);
+        return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getDefaultValueUNTYPED()
     {
@@ -347,7 +343,7 @@ final class ParameterDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withDefaultValue(EditableNode $value)
+    public function withDefaultValue(?SimpleInitializer $value)
     {
         if ($value === $this->_default_value) {
             return $this;
@@ -359,7 +355,7 @@ final class ParameterDeclaration extends EditableNode
      */
     public function hasDefaultValue()
     {
-        return !$this->_default_value->isMissing();
+        return $this->_default_value !== null;
     }
     /**
      * @return null | SimpleInitializer
@@ -369,10 +365,7 @@ final class ParameterDeclaration extends EditableNode
      */
     public function getDefaultValue()
     {
-        if ($this->_default_value->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(SimpleInitializer::class, $this->_default_value);
+        return $this->_default_value;
     }
     /**
      * @return SimpleInitializer
@@ -382,7 +375,7 @@ final class ParameterDeclaration extends EditableNode
      */
     public function getDefaultValuex()
     {
-        return TypeAssert\instance_of(SimpleInitializer::class, $this->_default_value);
+        return TypeAssert\not_null($this->getDefaultValue());
     }
 }
 

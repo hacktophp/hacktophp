@@ -2,98 +2,124 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<cbeab3de95b2869d73dca9b3353c9a73>>
+ * @generated SignedSource<<f108c6e7002662ca5b21693ac5c39cd7>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class LetStatement extends EditableNode
+use HH\Lib\Dict;
+final class LetStatement extends Node implements IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'let_statement';
+    /**
+     * @var Node
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_colon;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_type;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_initializer;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $name, EditableNode $colon, EditableNode $type, EditableNode $initializer, EditableNode $semicolon)
+    public function __construct(Node $keyword, Node $name, Node $colon, Node $type, Node $initializer, Node $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('let_statement');
         $this->_keyword = $keyword;
         $this->_name = $name;
         $this->_colon = $colon;
         $this->_type = $type;
         $this->_initializer = $initializer;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['let_statement_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['let_statement_keyword'], $file, $offset, $source, 'Node');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $name = EditableNode::fromJSON($json['let_statement_name'], $file, $offset, $source);
+        $name = Node::fromJSON($json['let_statement_name'], $file, $offset, $source, 'Node');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $colon = EditableNode::fromJSON($json['let_statement_colon'], $file, $offset, $source);
+        $colon = Node::fromJSON($json['let_statement_colon'], $file, $offset, $source, 'Node');
+        $colon = $colon !== null ? $colon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $colon->getWidth();
-        $type = EditableNode::fromJSON($json['let_statement_type'], $file, $offset, $source);
+        $type = Node::fromJSON($json['let_statement_type'], $file, $offset, $source, 'Node');
+        $type = $type !== null ? $type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $type->getWidth();
-        $initializer = EditableNode::fromJSON($json['let_statement_initializer'], $file, $offset, $source);
+        $initializer = Node::fromJSON($json['let_statement_initializer'], $file, $offset, $source, 'Node');
+        $initializer = $initializer !== null ? $initializer : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $initializer->getWidth();
-        $semicolon = EditableNode::fromJSON($json['let_statement_semicolon'], $file, $offset, $source);
+        $semicolon = Node::fromJSON($json['let_statement_semicolon'], $file, $offset, $source, 'Node');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($keyword, $name, $colon, $type, $initializer, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $name, $colon, $type, $initializer, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'name' => $this->_name, 'colon' => $this->_colon, 'type' => $this->_type, 'initializer' => $this->_initializer, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'name' => $this->_name, 'colon' => $this->_colon, 'type' => $this->_type, 'initializer' => $this->_initializer, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $colon = $this->_colon->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
-        $initializer = $this->_initializer->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $colon = $rewriter($this->_colon, $parents);
+        $type = $rewriter($this->_type, $parents);
+        $initializer = $rewriter($this->_initializer, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $name === $this->_name && $colon === $this->_colon && $type === $this->_type && $initializer === $this->_initializer && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $name, $colon, $type, $initializer, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -102,7 +128,7 @@ final class LetStatement extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(Node $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -114,30 +140,30 @@ final class LetStatement extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
-     * @return LetToken
+     * @return
      */
     /**
-     * @return LetToken
+     * @return Node
      */
     public function getKeyword()
     {
-        return TypeAssert\instance_of(LetToken::class, $this->_keyword);
+        return $this->_keyword;
     }
     /**
-     * @return LetToken
+     * @return
      */
     /**
-     * @return LetToken
+     * @return Node
      */
     public function getKeywordx()
     {
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -146,7 +172,7 @@ final class LetStatement extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(Node $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -158,30 +184,30 @@ final class LetStatement extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
-     * @return NameToken
+     * @return
      */
     /**
-     * @return NameToken
+     * @return Node
      */
     public function getName()
     {
-        return TypeAssert\instance_of(NameToken::class, $this->_name);
+        return $this->_name;
     }
     /**
-     * @return NameToken
+     * @return
      */
     /**
-     * @return NameToken
+     * @return Node
      */
     public function getNamex()
     {
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getColonUNTYPED()
     {
@@ -190,7 +216,7 @@ final class LetStatement extends EditableNode
     /**
      * @return static
      */
-    public function withColon(EditableNode $value)
+    public function withColon(Node $value)
     {
         if ($value === $this->_colon) {
             return $this;
@@ -202,33 +228,30 @@ final class LetStatement extends EditableNode
      */
     public function hasColon()
     {
-        return !$this->_colon->isMissing();
+        return $this->_colon !== null;
     }
     /**
-     * @return null | ColonToken
+     * @return
      */
     /**
-     * @return null|ColonToken
+     * @return Node
      */
     public function getColon()
     {
-        if ($this->_colon->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+        return $this->_colon;
     }
     /**
-     * @return ColonToken
+     * @return
      */
     /**
-     * @return ColonToken
+     * @return Node
      */
     public function getColonx()
     {
-        return TypeAssert\instance_of(ColonToken::class, $this->_colon);
+        return $this->getColon();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -237,7 +260,7 @@ final class LetStatement extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(Node $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -249,35 +272,30 @@ final class LetStatement extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
-     * @return ClosureTypeSpecifier | GenericTypeSpecifier | null |
-     * NullableTypeSpecifier | SimpleTypeSpecifier
+     * @return
      */
     /**
-     * @return null|EditableNode
+     * @return Node
      */
     public function getType()
     {
-        if ($this->_type->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return $this->_type;
     }
     /**
-     * @return ClosureTypeSpecifier | GenericTypeSpecifier |
-     * NullableTypeSpecifier | SimpleTypeSpecifier
+     * @return
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getTypex()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return $this->getType();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getInitializerUNTYPED()
     {
@@ -286,7 +304,7 @@ final class LetStatement extends EditableNode
     /**
      * @return static
      */
-    public function withInitializer(EditableNode $value)
+    public function withInitializer(Node $value)
     {
         if ($value === $this->_initializer) {
             return $this;
@@ -298,30 +316,30 @@ final class LetStatement extends EditableNode
      */
     public function hasInitializer()
     {
-        return !$this->_initializer->isMissing();
+        return $this->_initializer !== null;
     }
     /**
-     * @return SimpleInitializer
+     * @return
      */
     /**
-     * @return SimpleInitializer
+     * @return Node
      */
     public function getInitializer()
     {
-        return TypeAssert\instance_of(SimpleInitializer::class, $this->_initializer);
+        return $this->_initializer;
     }
     /**
-     * @return SimpleInitializer
+     * @return
      */
     /**
-     * @return SimpleInitializer
+     * @return Node
      */
     public function getInitializerx()
     {
         return $this->getInitializer();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -330,7 +348,7 @@ final class LetStatement extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(Node $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -342,23 +360,23 @@ final class LetStatement extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
-     * @return SemicolonToken
+     * @return
      */
     /**
-     * @return SemicolonToken
+     * @return Node
      */
     public function getSemicolon()
     {
-        return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+        return $this->_semicolon;
     }
     /**
-     * @return SemicolonToken
+     * @return
      */
     /**
-     * @return SemicolonToken
+     * @return Node
      */
     public function getSemicolonx()
     {

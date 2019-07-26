@@ -2,67 +2,83 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<928736883fc6861fc2dcb834e258f805>>
+ * @generated SignedSource<<5c0c75552fb2187898dd2f2213f930c2>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class QualifiedName extends EditableNode
+use HH\Lib\Dict;
+final class QualifiedName extends Node implements INameishNode, __Private\IWrappableWithSimpleTypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'qualified_name';
+    /**
+     * @var NodeList<ListItem<null|NameToken>>
      */
     private $_parts;
-    public function __construct(EditableNode $parts)
+    /**
+     * @param NodeList<ListItem<null|NameToken>> $parts
+     */
+    public function __construct(NodeList $parts, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('qualified_name');
         $this->_parts = $parts;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $parts = EditableNode::fromJSON($json['qualified_name_parts'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $parts = Node::fromJSON($json['qualified_name_parts'], $file, $offset, $source, 'NodeList<ListItem<?NameToken>>');
+        $parts = $parts !== null ? $parts : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $parts->getWidth();
-        return new static($parts);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($parts, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['parts' => $this->_parts];
+        return Dict\filter_nulls(['parts' => $this->_parts]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $parts = $this->_parts->rewrite($rewriter, $parents);
+        $parts = $rewriter($this->_parts, $parents);
         if ($parts === $this->_parts) {
             return $this;
         }
         return new static($parts);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getPartsUNTYPED()
     {
         return $this->_parts;
     }
     /**
+     * @param NodeList<ListItem<null|NameToken>> $value
+     *
      * @return static
      */
-    public function withParts(EditableNode $value)
+    public function withParts(NodeList $value)
     {
         if ($value === $this->_parts) {
             return $this;
@@ -74,23 +90,23 @@ final class QualifiedName extends EditableNode
      */
     public function hasParts()
     {
-        return !$this->_parts->isMissing();
+        return $this->_parts !== null;
     }
     /**
-     * @return EditableList<?NameToken> | EditableList<NameToken>
+     * @return NodeList<ListItem<?NameToken>> | NodeList<ListItem<NameToken>>
      */
     /**
-     * @return EditableList<null|NameToken>
+     * @return NodeList<ListItem<null|NameToken>>
      */
     public function getParts()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_parts);
+        return TypeAssert\instance_of(NodeList::class, $this->_parts);
     }
     /**
-     * @return EditableList<?NameToken> | EditableList<NameToken>
+     * @return NodeList<ListItem<?NameToken>> | NodeList<ListItem<NameToken>>
      */
     /**
-     * @return EditableList<null|NameToken>
+     * @return NodeList<ListItem<null|NameToken>>
      */
     public function getPartsx()
     {

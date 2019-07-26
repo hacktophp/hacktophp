@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<1c046505ac8916bd99667f98144be1a0>>
+ * @generated SignedSource<<edda522f672cc55db93f4bf56d2afc89>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class BinaryExpression extends EditableNode
+use HH\Lib\Dict;
+final class BinaryExpression extends Node implements IHasOperator, ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'binary_expression';
+    /**
+     * @var IExpression
      */
     private $_left_operand;
     /**
-     * @var EditableNode
+     * @var Token
      */
     private $_operator;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_right_operand;
-    public function __construct(EditableNode $left_operand, EditableNode $operator, EditableNode $right_operand)
+    public function __construct(IExpression $left_operand, Token $operator, IExpression $right_operand, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('binary_expression');
         $this->_left_operand = $left_operand;
         $this->_operator = $operator;
         $this->_right_operand = $right_operand;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $left_operand = EditableNode::fromJSON($json['binary_left_operand'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $left_operand = Node::fromJSON($json['binary_left_operand'], $file, $offset, $source, 'IExpression');
+        $left_operand = $left_operand !== null ? $left_operand : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_operand->getWidth();
-        $operator = EditableNode::fromJSON($json['binary_operator'], $file, $offset, $source);
+        $operator = Node::fromJSON($json['binary_operator'], $file, $offset, $source, 'Token');
+        $operator = $operator !== null ? $operator : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $operator->getWidth();
-        $right_operand = EditableNode::fromJSON($json['binary_right_operand'], $file, $offset, $source);
+        $right_operand = Node::fromJSON($json['binary_right_operand'], $file, $offset, $source, 'IExpression');
+        $right_operand = $right_operand !== null ? $right_operand : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_operand->getWidth();
-        return new static($left_operand, $operator, $right_operand);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($left_operand, $operator, $right_operand, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['left_operand' => $this->_left_operand, 'operator' => $this->_operator, 'right_operand' => $this->_right_operand];
+        return Dict\filter_nulls(['left_operand' => $this->_left_operand, 'operator' => $this->_operator, 'right_operand' => $this->_right_operand]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $left_operand = $this->_left_operand->rewrite($rewriter, $parents);
-        $operator = $this->_operator->rewrite($rewriter, $parents);
-        $right_operand = $this->_right_operand->rewrite($rewriter, $parents);
+        $left_operand = $rewriter($this->_left_operand, $parents);
+        $operator = $rewriter($this->_operator, $parents);
+        $right_operand = $rewriter($this->_right_operand, $parents);
         if ($left_operand === $this->_left_operand && $operator === $this->_operator && $right_operand === $this->_right_operand) {
             return $this;
         }
         return new static($left_operand, $operator, $right_operand);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftOperandUNTYPED()
     {
@@ -78,7 +95,7 @@ final class BinaryExpression extends EditableNode
     /**
      * @return static
      */
-    public function withLeftOperand(EditableNode $value)
+    public function withLeftOperand(IExpression $value)
     {
         if ($value === $this->_left_operand) {
             return $this;
@@ -90,52 +107,48 @@ final class BinaryExpression extends EditableNode
      */
     public function hasLeftOperand()
     {
-        return !$this->_left_operand->isMissing();
+        return $this->_left_operand !== null;
     }
     /**
-     * @return AnonymousFunction | ArrayCreationExpression |
-     * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
+     * @return ArrayCreationExpression | ArrayIntrinsicExpression | AsExpression
+     * | AwaitableCreationExpression | BinaryExpression | CastExpression |
      * CollectionLiteralExpression | DarrayIntrinsicExpression |
-     * DictionaryIntrinsicExpression | EmptyExpression | FunctionCallExpression |
-     * InstanceofExpression | IsExpression | IssetExpression |
-     * KeysetIntrinsicExpression | ListExpression | LiteralExpression |
-     * MemberSelectionExpression | ObjectCreationExpression |
+     * DictionaryIntrinsicExpression | FunctionCallExpression | IsExpression |
+     * IssetExpression | KeysetIntrinsicExpression | ListExpression |
+     * LiteralExpression | MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PipeVariableExpression | PostfixUnaryExpression
      * | PrefixUnaryExpression | QualifiedName | ScopeResolutionExpression |
-     * ShapeExpression | SubscriptExpression | RightParenToken | LessThanToken |
-     * NameToken | RightBraceToken | VariableExpression |
-     * VarrayIntrinsicExpression | VectorIntrinsicExpression | XHPExpression
+     * SubscriptExpression | NameToken | VariableExpression |
+     * VarrayIntrinsicExpression | VectorIntrinsicExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getLeftOperand()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_left_operand);
+        return TypeAssert\instance_of(IExpression::class, $this->_left_operand);
     }
     /**
-     * @return AnonymousFunction | ArrayCreationExpression |
-     * ArrayIntrinsicExpression | BinaryExpression | CastExpression |
+     * @return ArrayCreationExpression | ArrayIntrinsicExpression | AsExpression
+     * | AwaitableCreationExpression | BinaryExpression | CastExpression |
      * CollectionLiteralExpression | DarrayIntrinsicExpression |
-     * DictionaryIntrinsicExpression | EmptyExpression | FunctionCallExpression |
-     * InstanceofExpression | IsExpression | IssetExpression |
-     * KeysetIntrinsicExpression | ListExpression | LiteralExpression |
-     * MemberSelectionExpression | ObjectCreationExpression |
+     * DictionaryIntrinsicExpression | FunctionCallExpression | IsExpression |
+     * IssetExpression | KeysetIntrinsicExpression | ListExpression |
+     * LiteralExpression | MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PipeVariableExpression | PostfixUnaryExpression
      * | PrefixUnaryExpression | QualifiedName | ScopeResolutionExpression |
-     * ShapeExpression | SubscriptExpression | RightParenToken | LessThanToken |
-     * NameToken | RightBraceToken | VariableExpression |
-     * VarrayIntrinsicExpression | VectorIntrinsicExpression | XHPExpression
+     * SubscriptExpression | NameToken | VariableExpression |
+     * VarrayIntrinsicExpression | VectorIntrinsicExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getLeftOperandx()
     {
         return $this->getLeftOperand();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOperatorUNTYPED()
     {
@@ -144,7 +157,7 @@ final class BinaryExpression extends EditableNode
     /**
      * @return static
      */
-    public function withOperator(EditableNode $value)
+    public function withOperator(Token $value)
     {
         if ($value === $this->_operator) {
             return $this;
@@ -156,7 +169,7 @@ final class BinaryExpression extends EditableNode
      */
     public function hasOperator()
     {
-        return !$this->_operator->isMissing();
+        return $this->_operator !== null;
     }
     /**
      * @return ExclamationEqualToken | ExclamationEqualEqualToken | PercentToken
@@ -165,20 +178,19 @@ final class BinaryExpression extends EditableNode
      * StarEqualToken | PlusToken | PlusEqualToken | MinusToken | MinusEqualToken
      * | DotToken | DotEqualToken | SlashToken | SlashEqualToken | LessThanToken
      * | LessThanLessThanToken | LessThanLessThanEqualToken | LessThanEqualToken
-     * | LessThanEqualGreaterThanToken | LessThanGreaterThanToken | EqualToken |
-     * EqualEqualToken | EqualEqualEqualToken | GreaterThanToken |
-     * GreaterThanEqualToken | GreaterThanGreaterThanToken |
-     * GreaterThanGreaterThanEqualToken | QuestionColonToken |
-     * QuestionQuestionToken | QuestionQuestionEqualToken | CaratToken |
-     * CaratEqualToken | AndToken | OrToken | XorToken | BarToken | BarEqualToken
-     * | BarGreaterThanToken | BarBarToken
+     * | LessThanEqualGreaterThanToken | EqualToken | EqualEqualToken |
+     * EqualEqualEqualToken | GreaterThanToken | GreaterThanEqualToken |
+     * GreaterThanGreaterThanToken | GreaterThanGreaterThanEqualToken |
+     * QuestionColonToken | QuestionQuestionToken | QuestionQuestionEqualToken |
+     * CaratToken | CaratEqualToken | BarToken | BarEqualToken |
+     * BarGreaterThanToken | BarBarToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getOperator()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_operator);
+        return TypeAssert\instance_of(Token::class, $this->_operator);
     }
     /**
      * @return ExclamationEqualToken | ExclamationEqualEqualToken | PercentToken
@@ -187,23 +199,22 @@ final class BinaryExpression extends EditableNode
      * StarEqualToken | PlusToken | PlusEqualToken | MinusToken | MinusEqualToken
      * | DotToken | DotEqualToken | SlashToken | SlashEqualToken | LessThanToken
      * | LessThanLessThanToken | LessThanLessThanEqualToken | LessThanEqualToken
-     * | LessThanEqualGreaterThanToken | LessThanGreaterThanToken | EqualToken |
-     * EqualEqualToken | EqualEqualEqualToken | GreaterThanToken |
-     * GreaterThanEqualToken | GreaterThanGreaterThanToken |
-     * GreaterThanGreaterThanEqualToken | QuestionColonToken |
-     * QuestionQuestionToken | QuestionQuestionEqualToken | CaratToken |
-     * CaratEqualToken | AndToken | OrToken | XorToken | BarToken | BarEqualToken
-     * | BarGreaterThanToken | BarBarToken
+     * | LessThanEqualGreaterThanToken | EqualToken | EqualEqualToken |
+     * EqualEqualEqualToken | GreaterThanToken | GreaterThanEqualToken |
+     * GreaterThanGreaterThanToken | GreaterThanGreaterThanEqualToken |
+     * QuestionColonToken | QuestionQuestionToken | QuestionQuestionEqualToken |
+     * CaratToken | CaratEqualToken | BarToken | BarEqualToken |
+     * BarGreaterThanToken | BarBarToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getOperatorx()
     {
         return $this->getOperator();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightOperandUNTYPED()
     {
@@ -212,7 +223,7 @@ final class BinaryExpression extends EditableNode
     /**
      * @return static
      */
-    public function withRightOperand(EditableNode $value)
+    public function withRightOperand(IExpression $value)
     {
         if ($value === $this->_right_operand) {
             return $this;
@@ -224,62 +235,55 @@ final class BinaryExpression extends EditableNode
      */
     public function hasRightOperand()
     {
-        return !$this->_right_operand->isMissing();
+        return $this->_right_operand !== null;
     }
     /**
      * @return AnonymousFunction | ArrayCreationExpression |
      * ArrayIntrinsicExpression | AsExpression | AwaitableCreationExpression |
      * BinaryExpression | CastExpression | CollectionLiteralExpression |
      * ConditionalExpression | DarrayIntrinsicExpression |
-     * DictionaryIntrinsicExpression | EmptyExpression | EvalExpression |
-     * FunctionCallExpression | FunctionCallWithTypeArgumentsExpression |
-     * InclusionExpression | InstanceofExpression | IsExpression |
-     * IssetExpression | KeysetIntrinsicExpression | LambdaExpression |
-     * LiteralExpression | MemberSelectionExpression | null |
-     * NullableAsExpression | ObjectCreationExpression | ParenthesizedExpression
-     * | Php7AnonymousFunction | PipeVariableExpression | PostfixUnaryExpression
-     * | PrefixUnaryExpression | PrefixedStringExpression | QualifiedName |
+     * DictionaryIntrinsicExpression | EvalExpression | FunctionCallExpression |
+     * InclusionExpression | IsExpression | IssetExpression |
+     * KeysetIntrinsicExpression | LambdaExpression | LiteralExpression |
+     * MemberSelectionExpression | NullableAsExpression |
+     * ObjectCreationExpression | ParenthesizedExpression |
+     * PipeVariableExpression | PostfixUnaryExpression | PrefixUnaryExpression |
+     * PrefixedStringExpression | QualifiedName | RecordCreationExpression |
      * SafeMemberSelectionExpression | ScopeResolutionExpression |
-     * ShapeExpression | SubscriptExpression | SemicolonToken | QuestionToken |
-     * EndOfFileToken | NameToken | TupleExpression | VariableExpression |
-     * VarrayIntrinsicExpression | VectorIntrinsicExpression | XHPExpression |
-     * YieldExpression | YieldFromExpression
+     * ShapeExpression | SubscriptExpression | NameToken | TupleExpression |
+     * VariableExpression | VarrayIntrinsicExpression | VectorIntrinsicExpression
+     * | XHPExpression | YieldExpression | YieldFromExpression
      */
     /**
-     * @return null|EditableNode
+     * @return IExpression
      */
     public function getRightOperand()
     {
-        if ($this->_right_operand->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_right_operand);
+        return TypeAssert\instance_of(IExpression::class, $this->_right_operand);
     }
     /**
      * @return AnonymousFunction | ArrayCreationExpression |
      * ArrayIntrinsicExpression | AsExpression | AwaitableCreationExpression |
      * BinaryExpression | CastExpression | CollectionLiteralExpression |
      * ConditionalExpression | DarrayIntrinsicExpression |
-     * DictionaryIntrinsicExpression | EmptyExpression | EvalExpression |
-     * FunctionCallExpression | FunctionCallWithTypeArgumentsExpression |
-     * InclusionExpression | InstanceofExpression | IsExpression |
-     * IssetExpression | KeysetIntrinsicExpression | LambdaExpression |
-     * LiteralExpression | MemberSelectionExpression | NullableAsExpression |
-     * ObjectCreationExpression | ParenthesizedExpression | Php7AnonymousFunction
-     * | PipeVariableExpression | PostfixUnaryExpression | PrefixUnaryExpression
-     * | PrefixedStringExpression | QualifiedName | SafeMemberSelectionExpression
-     * | ScopeResolutionExpression | ShapeExpression | SubscriptExpression |
-     * SemicolonToken | QuestionToken | EndOfFileToken | NameToken |
-     * TupleExpression | VariableExpression | VarrayIntrinsicExpression |
-     * VectorIntrinsicExpression | XHPExpression | YieldExpression |
-     * YieldFromExpression
+     * DictionaryIntrinsicExpression | EvalExpression | FunctionCallExpression |
+     * InclusionExpression | IsExpression | IssetExpression |
+     * KeysetIntrinsicExpression | LambdaExpression | LiteralExpression |
+     * MemberSelectionExpression | NullableAsExpression |
+     * ObjectCreationExpression | ParenthesizedExpression |
+     * PipeVariableExpression | PostfixUnaryExpression | PrefixUnaryExpression |
+     * PrefixedStringExpression | QualifiedName | RecordCreationExpression |
+     * SafeMemberSelectionExpression | ScopeResolutionExpression |
+     * ShapeExpression | SubscriptExpression | NameToken | TupleExpression |
+     * VariableExpression | VarrayIntrinsicExpression | VectorIntrinsicExpression
+     * | XHPExpression | YieldExpression | YieldFromExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getRightOperandx()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_right_operand);
+        return $this->getRightOperand();
     }
 }
 

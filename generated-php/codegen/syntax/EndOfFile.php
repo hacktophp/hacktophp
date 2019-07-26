@@ -2,58 +2,69 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<f7c9d9ab6d269b1ca25ef4d051464d8c>>
+ * @generated SignedSource<<3462ef6cbb50c239582cdb4322561787>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class EndOfFile extends EditableNode
+use HH\Lib\Dict;
+final class EndOfFile extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'end_of_file';
+    /**
+     * @var EndOfFileToken
      */
     private $_token;
-    public function __construct(EditableNode $token)
+    public function __construct(EndOfFileToken $token, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('end_of_file');
         $this->_token = $token;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $token = EditableNode::fromJSON($json['end_of_file_token'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $token = Node::fromJSON($json['end_of_file_token'], $file, $offset, $source, 'EndOfFileToken');
+        $token = $token !== null ? $token : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $token->getWidth();
-        return new static($token);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($token, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['token' => $this->_token];
+        return Dict\filter_nulls(['token' => $this->_token]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $token = $this->_token->rewrite($rewriter, $parents);
+        $token = $rewriter($this->_token, $parents);
         if ($token === $this->_token) {
             return $this;
         }
         return new static($token);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTokenUNTYPED()
     {
@@ -62,7 +73,7 @@ final class EndOfFile extends EditableNode
     /**
      * @return static
      */
-    public function withToken(EditableNode $value)
+    public function withToken(EndOfFileToken $value)
     {
         if ($value === $this->_token) {
             return $this;
@@ -74,7 +85,7 @@ final class EndOfFile extends EditableNode
      */
     public function hasToken()
     {
-        return !$this->_token->isMissing();
+        return $this->_token !== null;
     }
     /**
      * @return EndOfFileToken

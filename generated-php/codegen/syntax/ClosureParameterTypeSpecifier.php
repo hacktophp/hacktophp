@@ -2,66 +2,77 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<6ec29544b823cff8da2fcf41b8d5f5cf>>
+ * @generated SignedSource<<af1ba4a413ae40871b0eb8d47f600bf7>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ClosureParameterTypeSpecifier extends EditableNode
+use HH\Lib\Dict;
+final class ClosureParameterTypeSpecifier extends Node implements ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'closure_parameter_type_specifier';
+    /**
+     * @var null|InoutToken
      */
     private $_call_convention;
     /**
-     * @var EditableNode
+     * @var ITypeSpecifier
      */
     private $_type;
-    public function __construct(EditableNode $call_convention, EditableNode $type)
+    public function __construct(?InoutToken $call_convention, ITypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('closure_parameter_type_specifier');
         $this->_call_convention = $call_convention;
         $this->_type = $type;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $call_convention = EditableNode::fromJSON($json['closure_parameter_call_convention'], $file, $offset, $source);
-        $offset += $call_convention->getWidth();
-        $type = EditableNode::fromJSON($json['closure_parameter_type'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $call_convention = Node::fromJSON($json['closure_parameter_call_convention'], $file, $offset, $source, 'InoutToken');
+        $offset += (($__tmp1__ = $call_convention) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $type = Node::fromJSON($json['closure_parameter_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $type = $type !== null ? $type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $type->getWidth();
-        return new static($call_convention, $type);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($call_convention, $type, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['call_convention' => $this->_call_convention, 'type' => $this->_type];
+        return Dict\filter_nulls(['call_convention' => $this->_call_convention, 'type' => $this->_type]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $call_convention = $this->_call_convention->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
+        $call_convention = $this->_call_convention === null ? null : $rewriter($this->_call_convention, $parents);
+        $type = $rewriter($this->_type, $parents);
         if ($call_convention === $this->_call_convention && $type === $this->_type) {
             return $this;
         }
         return new static($call_convention, $type);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getCallConventionUNTYPED()
     {
@@ -70,7 +81,7 @@ final class ClosureParameterTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withCallConvention(EditableNode $value)
+    public function withCallConvention(?InoutToken $value)
     {
         if ($value === $this->_call_convention) {
             return $this;
@@ -82,7 +93,7 @@ final class ClosureParameterTypeSpecifier extends EditableNode
      */
     public function hasCallConvention()
     {
-        return !$this->_call_convention->isMissing();
+        return $this->_call_convention !== null;
     }
     /**
      * @return null | InoutToken
@@ -92,10 +103,7 @@ final class ClosureParameterTypeSpecifier extends EditableNode
      */
     public function getCallConvention()
     {
-        if ($this->_call_convention->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(InoutToken::class, $this->_call_convention);
+        return $this->_call_convention;
     }
     /**
      * @return InoutToken
@@ -105,10 +113,10 @@ final class ClosureParameterTypeSpecifier extends EditableNode
      */
     public function getCallConventionx()
     {
-        return TypeAssert\instance_of(InoutToken::class, $this->_call_convention);
+        return TypeAssert\not_null($this->getCallConvention());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -117,7 +125,7 @@ final class ClosureParameterTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(ITypeSpecifier $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -129,25 +137,27 @@ final class ClosureParameterTypeSpecifier extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
-     * @return GenericTypeSpecifier | NullableTypeSpecifier | SimpleTypeSpecifier
-     * | SoftTypeSpecifier | TupleTypeSpecifier | TypeConstant
+     * @return ClosureTypeSpecifier | GenericTypeSpecifier |
+     * NullableTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
+     * TupleTypeSpecifier | TypeConstant
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getType()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return TypeAssert\instance_of(ITypeSpecifier::class, $this->_type);
     }
     /**
-     * @return GenericTypeSpecifier | NullableTypeSpecifier | SimpleTypeSpecifier
-     * | SoftTypeSpecifier | TupleTypeSpecifier | TypeConstant
+     * @return ClosureTypeSpecifier | GenericTypeSpecifier |
+     * NullableTypeSpecifier | SimpleTypeSpecifier | SoftTypeSpecifier |
+     * TupleTypeSpecifier | TypeConstant
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getTypex()
     {

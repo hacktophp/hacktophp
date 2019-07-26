@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<d6429e2d2e4ea340d943df67da267e02>>
+ * @generated SignedSource<<94c7aeea8f2eb41d2dcde94a6e9b6485>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class CaseLabel extends EditableNode
+use HH\Lib\Dict;
+final class CaseLabel extends Node implements ISwitchLabel
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'case_label';
+    /**
+     * @var CaseToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_expression;
     /**
-     * @var EditableNode
+     * @var ColonToken
      */
     private $_colon;
-    public function __construct(EditableNode $keyword, EditableNode $expression, EditableNode $colon)
+    public function __construct(CaseToken $keyword, IExpression $expression, ColonToken $colon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('case_label');
         $this->_keyword = $keyword;
         $this->_expression = $expression;
         $this->_colon = $colon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['case_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['case_keyword'], $file, $offset, $source, 'CaseToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $expression = EditableNode::fromJSON($json['case_expression'], $file, $offset, $source);
+        $expression = Node::fromJSON($json['case_expression'], $file, $offset, $source, 'IExpression');
+        $expression = $expression !== null ? $expression : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $expression->getWidth();
-        $colon = EditableNode::fromJSON($json['case_colon'], $file, $offset, $source);
+        $colon = Node::fromJSON($json['case_colon'], $file, $offset, $source, 'ColonToken');
+        $colon = $colon !== null ? $colon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $colon->getWidth();
-        return new static($keyword, $expression, $colon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $expression, $colon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'expression' => $this->_expression, 'colon' => $this->_colon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'expression' => $this->_expression, 'colon' => $this->_colon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $expression = $this->_expression->rewrite($rewriter, $parents);
-        $colon = $this->_colon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $expression = $rewriter($this->_expression, $parents);
+        $colon = $rewriter($this->_colon, $parents);
         if ($keyword === $this->_keyword && $expression === $this->_expression && $colon === $this->_colon) {
             return $this;
         }
         return new static($keyword, $expression, $colon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -78,7 +95,7 @@ final class CaseLabel extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(CaseToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -90,7 +107,7 @@ final class CaseLabel extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return CaseToken
@@ -113,7 +130,7 @@ final class CaseLabel extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getExpressionUNTYPED()
     {
@@ -122,7 +139,7 @@ final class CaseLabel extends EditableNode
     /**
      * @return static
      */
-    public function withExpression(EditableNode $value)
+    public function withExpression(IExpression $value)
     {
         if ($value === $this->_expression) {
             return $this;
@@ -134,34 +151,32 @@ final class CaseLabel extends EditableNode
      */
     public function hasExpression()
     {
-        return !$this->_expression->isMissing();
+        return $this->_expression !== null;
     }
     /**
-     * @return ArrayIntrinsicExpression | FunctionCallExpression |
-     * InstanceofExpression | LiteralExpression | PrefixUnaryExpression |
-     * ScopeResolutionExpression | NameToken | VariableExpression
+     * @return FunctionCallExpression | LiteralExpression | PrefixUnaryExpression
+     * | ScopeResolutionExpression | NameToken | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getExpression()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+        return TypeAssert\instance_of(IExpression::class, $this->_expression);
     }
     /**
-     * @return ArrayIntrinsicExpression | FunctionCallExpression |
-     * InstanceofExpression | LiteralExpression | PrefixUnaryExpression |
-     * ScopeResolutionExpression | NameToken | VariableExpression
+     * @return FunctionCallExpression | LiteralExpression | PrefixUnaryExpression
+     * | ScopeResolutionExpression | NameToken | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getExpressionx()
     {
         return $this->getExpression();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getColonUNTYPED()
     {
@@ -170,7 +185,7 @@ final class CaseLabel extends EditableNode
     /**
      * @return static
      */
-    public function withColon(EditableNode $value)
+    public function withColon(ColonToken $value)
     {
         if ($value === $this->_colon) {
             return $this;
@@ -182,23 +197,23 @@ final class CaseLabel extends EditableNode
      */
     public function hasColon()
     {
-        return !$this->_colon->isMissing();
+        return $this->_colon !== null;
     }
     /**
-     * @return ColonToken | SemicolonToken
+     * @return ColonToken
      */
     /**
-     * @return EditableToken
+     * @return ColonToken
      */
     public function getColon()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_colon);
+        return TypeAssert\instance_of(ColonToken::class, $this->_colon);
     }
     /**
-     * @return ColonToken | SemicolonToken
+     * @return ColonToken
      */
     /**
-     * @return EditableToken
+     * @return ColonToken
      */
     public function getColonx()
     {

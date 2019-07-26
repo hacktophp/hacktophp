@@ -2,83 +2,100 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<fdffbb6998a2b11732e17abeeb2ee85e>>
+ * @generated SignedSource<<cd1494994bc3159b277cbc3d79923467>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class SwitchSection extends EditableNode
+use HH\Lib\Dict;
+final class SwitchSection extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'switch_section';
+    /**
+     * @var NodeList<ISwitchLabel>
      */
     private $_labels;
     /**
-     * @var EditableNode
+     * @var NodeList<IStatement>|null
      */
     private $_statements;
     /**
-     * @var EditableNode
+     * @var null|SwitchFallthrough
      */
     private $_fallthrough;
-    public function __construct(EditableNode $labels, EditableNode $statements, EditableNode $fallthrough)
+    /**
+     * @param NodeList<ISwitchLabel> $labels
+     * @param NodeList<IStatement>|null $statements
+     */
+    public function __construct(NodeList $labels, ?NodeList $statements, ?SwitchFallthrough $fallthrough, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('switch_section');
         $this->_labels = $labels;
         $this->_statements = $statements;
         $this->_fallthrough = $fallthrough;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $labels = EditableNode::fromJSON($json['switch_section_labels'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $labels = Node::fromJSON($json['switch_section_labels'], $file, $offset, $source, 'NodeList<ISwitchLabel>');
+        $labels = $labels !== null ? $labels : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $labels->getWidth();
-        $statements = EditableNode::fromJSON($json['switch_section_statements'], $file, $offset, $source);
-        $offset += $statements->getWidth();
-        $fallthrough = EditableNode::fromJSON($json['switch_section_fallthrough'], $file, $offset, $source);
-        $offset += $fallthrough->getWidth();
-        return new static($labels, $statements, $fallthrough);
+        $statements = Node::fromJSON($json['switch_section_statements'], $file, $offset, $source, 'NodeList<IStatement>');
+        $offset += (($__tmp1__ = $statements) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $fallthrough = Node::fromJSON($json['switch_section_fallthrough'], $file, $offset, $source, 'SwitchFallthrough');
+        $offset += (($__tmp2__ = $fallthrough) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($labels, $statements, $fallthrough, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['labels' => $this->_labels, 'statements' => $this->_statements, 'fallthrough' => $this->_fallthrough];
+        return Dict\filter_nulls(['labels' => $this->_labels, 'statements' => $this->_statements, 'fallthrough' => $this->_fallthrough]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $labels = $this->_labels->rewrite($rewriter, $parents);
-        $statements = $this->_statements->rewrite($rewriter, $parents);
-        $fallthrough = $this->_fallthrough->rewrite($rewriter, $parents);
+        $labels = $rewriter($this->_labels, $parents);
+        $statements = $this->_statements === null ? null : $rewriter($this->_statements, $parents);
+        $fallthrough = $this->_fallthrough === null ? null : $rewriter($this->_fallthrough, $parents);
         if ($labels === $this->_labels && $statements === $this->_statements && $fallthrough === $this->_fallthrough) {
             return $this;
         }
         return new static($labels, $statements, $fallthrough);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLabelsUNTYPED()
     {
         return $this->_labels;
     }
     /**
+     * @param NodeList<ISwitchLabel> $value
+     *
      * @return static
      */
-    public function withLabels(EditableNode $value)
+    public function withLabels(NodeList $value)
     {
         if ($value === $this->_labels) {
             return $this;
@@ -90,39 +107,43 @@ final class SwitchSection extends EditableNode
      */
     public function hasLabels()
     {
-        return !$this->_labels->isMissing();
+        return $this->_labels !== null;
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<CaseLabel> | NodeList<ISwitchLabel> |
+     * NodeList<DefaultLabel>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ISwitchLabel>
      */
     public function getLabels()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_labels);
+        return TypeAssert\instance_of(NodeList::class, $this->_labels);
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<CaseLabel> | NodeList<ISwitchLabel> |
+     * NodeList<DefaultLabel>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ISwitchLabel>
      */
     public function getLabelsx()
     {
         return $this->getLabels();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getStatementsUNTYPED()
     {
         return $this->_statements;
     }
     /**
+     * @param NodeList<IStatement>|null $value
+     *
      * @return static
      */
-    public function withStatements(EditableNode $value)
+    public function withStatements(?NodeList $value)
     {
         if ($value === $this->_statements) {
             return $this;
@@ -134,33 +155,38 @@ final class SwitchSection extends EditableNode
      */
     public function hasStatements()
     {
-        return !$this->_statements->isMissing();
+        return $this->_statements !== null;
     }
     /**
-     * @return EditableList<EditableNode> | null
+     * @return NodeList<BreakStatement> | NodeList<IStatement> |
+     * NodeList<DoStatement> | NodeList<EchoStatement> |
+     * NodeList<ExpressionStatement> | NodeList<ForeachStatement> |
+     * NodeList<GotoStatement> | NodeList<IfStatement> |
+     * NodeList<ReturnStatement> | NodeList<ThrowStatement> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<IStatement>|null
      */
     public function getStatements()
     {
-        if ($this->_statements->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_statements);
+        return $this->_statements;
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<BreakStatement> | NodeList<IStatement> |
+     * NodeList<DoStatement> | NodeList<EchoStatement> |
+     * NodeList<ExpressionStatement> | NodeList<ForeachStatement> |
+     * NodeList<GotoStatement> | NodeList<IfStatement> |
+     * NodeList<ReturnStatement> | NodeList<ThrowStatement>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<IStatement>
      */
     public function getStatementsx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_statements);
+        return TypeAssert\not_null($this->getStatements());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getFallthroughUNTYPED()
     {
@@ -169,7 +195,7 @@ final class SwitchSection extends EditableNode
     /**
      * @return static
      */
-    public function withFallthrough(EditableNode $value)
+    public function withFallthrough(?SwitchFallthrough $value)
     {
         if ($value === $this->_fallthrough) {
             return $this;
@@ -181,7 +207,7 @@ final class SwitchSection extends EditableNode
      */
     public function hasFallthrough()
     {
-        return !$this->_fallthrough->isMissing();
+        return $this->_fallthrough !== null;
     }
     /**
      * @return null | SwitchFallthrough
@@ -191,10 +217,7 @@ final class SwitchSection extends EditableNode
      */
     public function getFallthrough()
     {
-        if ($this->_fallthrough->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(SwitchFallthrough::class, $this->_fallthrough);
+        return $this->_fallthrough;
     }
     /**
      * @return SwitchFallthrough
@@ -204,7 +227,7 @@ final class SwitchSection extends EditableNode
      */
     public function getFallthroughx()
     {
-        return TypeAssert\instance_of(SwitchFallthrough::class, $this->_fallthrough);
+        return TypeAssert\not_null($this->getFallthrough());
     }
 }
 

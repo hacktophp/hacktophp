@@ -2,90 +2,101 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<83303bc03f7ceb53bc99a3144833d0e1>>
+ * @generated SignedSource<<53f3c055afe65ba90126f4515b937b22>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ClassnameTypeSpecifier extends EditableNode
+use HH\Lib\Dict;
+final class ClassnameTypeSpecifier extends Node implements ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'classname_type_specifier';
+    /**
+     * @var ClassnameToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var null|LessThanToken
      */
     private $_left_angle;
     /**
-     * @var EditableNode
+     * @var null|ITypeSpecifier
      */
     private $_type;
     /**
-     * @var EditableNode
+     * @var null|Node
      */
     private $_trailing_comma;
     /**
-     * @var EditableNode
+     * @var null|GreaterThanToken
      */
     private $_right_angle;
-    public function __construct(EditableNode $keyword, EditableNode $left_angle, EditableNode $type, EditableNode $trailing_comma, EditableNode $right_angle)
+    public function __construct(ClassnameToken $keyword, ?LessThanToken $left_angle, ?ITypeSpecifier $type, ?Node $trailing_comma, ?GreaterThanToken $right_angle, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('classname_type_specifier');
         $this->_keyword = $keyword;
         $this->_left_angle = $left_angle;
         $this->_type = $type;
         $this->_trailing_comma = $trailing_comma;
         $this->_right_angle = $right_angle;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['classname_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['classname_keyword'], $file, $offset, $source, 'ClassnameToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_angle = EditableNode::fromJSON($json['classname_left_angle'], $file, $offset, $source);
-        $offset += $left_angle->getWidth();
-        $type = EditableNode::fromJSON($json['classname_type'], $file, $offset, $source);
-        $offset += $type->getWidth();
-        $trailing_comma = EditableNode::fromJSON($json['classname_trailing_comma'], $file, $offset, $source);
-        $offset += $trailing_comma->getWidth();
-        $right_angle = EditableNode::fromJSON($json['classname_right_angle'], $file, $offset, $source);
-        $offset += $right_angle->getWidth();
-        return new static($keyword, $left_angle, $type, $trailing_comma, $right_angle);
+        $left_angle = Node::fromJSON($json['classname_left_angle'], $file, $offset, $source, 'LessThanToken');
+        $offset += (($__tmp1__ = $left_angle) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $type = Node::fromJSON($json['classname_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $offset += (($__tmp2__ = $type) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $trailing_comma = Node::fromJSON($json['classname_trailing_comma'], $file, $offset, $source, 'Node');
+        $offset += (($__tmp3__ = $trailing_comma) !== null ? $__tmp3__->getWidth() : null) ?? 0;
+        $right_angle = Node::fromJSON($json['classname_right_angle'], $file, $offset, $source, 'GreaterThanToken');
+        $offset += (($__tmp4__ = $right_angle) !== null ? $__tmp4__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $left_angle, $type, $trailing_comma, $right_angle, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'left_angle' => $this->_left_angle, 'type' => $this->_type, 'trailing_comma' => $this->_trailing_comma, 'right_angle' => $this->_right_angle];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'left_angle' => $this->_left_angle, 'type' => $this->_type, 'trailing_comma' => $this->_trailing_comma, 'right_angle' => $this->_right_angle]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_angle = $this->_left_angle->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
-        $trailing_comma = $this->_trailing_comma->rewrite($rewriter, $parents);
-        $right_angle = $this->_right_angle->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_angle = $this->_left_angle === null ? null : $rewriter($this->_left_angle, $parents);
+        $type = $this->_type === null ? null : $rewriter($this->_type, $parents);
+        $trailing_comma = $this->_trailing_comma === null ? null : $rewriter($this->_trailing_comma, $parents);
+        $right_angle = $this->_right_angle === null ? null : $rewriter($this->_right_angle, $parents);
         if ($keyword === $this->_keyword && $left_angle === $this->_left_angle && $type === $this->_type && $trailing_comma === $this->_trailing_comma && $right_angle === $this->_right_angle) {
             return $this;
         }
         return new static($keyword, $left_angle, $type, $trailing_comma, $right_angle);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -94,7 +105,7 @@ final class ClassnameTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(ClassnameToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -106,7 +117,7 @@ final class ClassnameTypeSpecifier extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return ClassnameToken
@@ -129,7 +140,7 @@ final class ClassnameTypeSpecifier extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftAngleUNTYPED()
     {
@@ -138,7 +149,7 @@ final class ClassnameTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withLeftAngle(EditableNode $value)
+    public function withLeftAngle(?LessThanToken $value)
     {
         if ($value === $this->_left_angle) {
             return $this;
@@ -150,7 +161,7 @@ final class ClassnameTypeSpecifier extends EditableNode
      */
     public function hasLeftAngle()
     {
-        return !$this->_left_angle->isMissing();
+        return $this->_left_angle !== null;
     }
     /**
      * @return null | LessThanToken
@@ -160,10 +171,7 @@ final class ClassnameTypeSpecifier extends EditableNode
      */
     public function getLeftAngle()
     {
-        if ($this->_left_angle->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(LessThanToken::class, $this->_left_angle);
+        return $this->_left_angle;
     }
     /**
      * @return LessThanToken
@@ -173,10 +181,10 @@ final class ClassnameTypeSpecifier extends EditableNode
      */
     public function getLeftAnglex()
     {
-        return TypeAssert\instance_of(LessThanToken::class, $this->_left_angle);
+        return TypeAssert\not_null($this->getLeftAngle());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -185,7 +193,7 @@ final class ClassnameTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(?ITypeSpecifier $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -197,33 +205,30 @@ final class ClassnameTypeSpecifier extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
-     * @return null | SimpleTypeSpecifier | TypeConstant
+     * @return GenericTypeSpecifier | null | SimpleTypeSpecifier | TypeConstant
      */
     /**
-     * @return null|EditableNode
+     * @return null|ITypeSpecifier
      */
     public function getType()
     {
-        if ($this->_type->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return $this->_type;
     }
     /**
-     * @return SimpleTypeSpecifier | TypeConstant
+     * @return GenericTypeSpecifier | SimpleTypeSpecifier | TypeConstant
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getTypex()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return TypeAssert\not_null($this->getType());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTrailingCommaUNTYPED()
     {
@@ -232,7 +237,7 @@ final class ClassnameTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withTrailingComma(EditableNode $value)
+    public function withTrailingComma(?Node $value)
     {
         if ($value === $this->_trailing_comma) {
             return $this;
@@ -244,33 +249,30 @@ final class ClassnameTypeSpecifier extends EditableNode
      */
     public function hasTrailingComma()
     {
-        return !$this->_trailing_comma->isMissing();
+        return $this->_trailing_comma !== null;
     }
     /**
      * @return null
      */
     /**
-     * @return null|EditableNode
+     * @return null|Node
      */
     public function getTrailingComma()
     {
-        if ($this->_trailing_comma->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_trailing_comma);
+        return $this->_trailing_comma;
     }
     /**
      * @return
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getTrailingCommax()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_trailing_comma);
+        return TypeAssert\not_null($this->getTrailingComma());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightAngleUNTYPED()
     {
@@ -279,7 +281,7 @@ final class ClassnameTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withRightAngle(EditableNode $value)
+    public function withRightAngle(?GreaterThanToken $value)
     {
         if ($value === $this->_right_angle) {
             return $this;
@@ -291,7 +293,7 @@ final class ClassnameTypeSpecifier extends EditableNode
      */
     public function hasRightAngle()
     {
-        return !$this->_right_angle->isMissing();
+        return $this->_right_angle !== null;
     }
     /**
      * @return null | GreaterThanToken
@@ -301,10 +303,7 @@ final class ClassnameTypeSpecifier extends EditableNode
      */
     public function getRightAngle()
     {
-        if ($this->_right_angle->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+        return $this->_right_angle;
     }
     /**
      * @return GreaterThanToken
@@ -314,7 +313,7 @@ final class ClassnameTypeSpecifier extends EditableNode
      */
     public function getRightAnglex()
     {
-        return TypeAssert\instance_of(GreaterThanToken::class, $this->_right_angle);
+        return TypeAssert\not_null($this->getRightAngle());
     }
 }
 

@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<e95b5d63c2ac17dbedbee736c5c8b2d5>>
+ * @generated SignedSource<<ddf11979fa158bd15a171b7511f6c70c>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class GotoLabel extends EditableNode
+use HH\Lib\Dict;
+final class GotoLabel extends Node implements IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'goto_label';
+    /**
+     * @var NameToken
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var ColonToken
      */
     private $_colon;
-    public function __construct(EditableNode $name, EditableNode $colon)
+    public function __construct(NameToken $name, ColonToken $colon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('goto_label');
         $this->_name = $name;
         $this->_colon = $colon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $name = EditableNode::fromJSON($json['goto_label_name'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $name = Node::fromJSON($json['goto_label_name'], $file, $offset, $source, 'NameToken');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $colon = EditableNode::fromJSON($json['goto_label_colon'], $file, $offset, $source);
+        $colon = Node::fromJSON($json['goto_label_colon'], $file, $offset, $source, 'ColonToken');
+        $colon = $colon !== null ? $colon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $colon->getWidth();
-        return new static($name, $colon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($name, $colon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['name' => $this->_name, 'colon' => $this->_colon];
+        return Dict\filter_nulls(['name' => $this->_name, 'colon' => $this->_colon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $colon = $this->_colon->rewrite($rewriter, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $colon = $rewriter($this->_colon, $parents);
         if ($name === $this->_name && $colon === $this->_colon) {
             return $this;
         }
         return new static($name, $colon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -70,7 +84,7 @@ final class GotoLabel extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(NameToken $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -82,7 +96,7 @@ final class GotoLabel extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return NameToken
@@ -105,7 +119,7 @@ final class GotoLabel extends EditableNode
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getColonUNTYPED()
     {
@@ -114,7 +128,7 @@ final class GotoLabel extends EditableNode
     /**
      * @return static
      */
-    public function withColon(EditableNode $value)
+    public function withColon(ColonToken $value)
     {
         if ($value === $this->_colon) {
             return $this;
@@ -126,7 +140,7 @@ final class GotoLabel extends EditableNode
      */
     public function hasColon()
     {
-        return !$this->_colon->isMissing();
+        return $this->_colon !== null;
     }
     /**
      * @return ColonToken

@@ -2,44 +2,51 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<4794693eee03d927bf7edc8ff8cd284b>>
+ * @generated SignedSource<<1be278dbddc0cb2ab2747cb1d16fbc06>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class SwitchStatement extends EditableNode implements IControlFlowStatement
+use HH\Lib\Dict;
+final class SwitchStatement extends Node implements IControlFlowStatement, IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'switch_statement';
+    /**
+     * @var SwitchToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_expression;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
     /**
-     * @var EditableNode
+     * @var LeftBraceToken
      */
     private $_left_brace;
     /**
-     * @var EditableNode
+     * @var NodeList<SwitchSection>|null
      */
     private $_sections;
     /**
-     * @var EditableNode
+     * @var RightBraceToken
      */
     private $_right_brace;
-    public function __construct(EditableNode $keyword, EditableNode $left_paren, EditableNode $expression, EditableNode $right_paren, EditableNode $left_brace, EditableNode $sections, EditableNode $right_brace)
+    /**
+     * @param NodeList<SwitchSection>|null $sections
+     */
+    public function __construct(SwitchToken $keyword, LeftParenToken $left_paren, IExpression $expression, RightParenToken $right_paren, LeftBraceToken $left_brace, ?NodeList $sections, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('switch_statement');
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;
         $this->_expression = $expression;
@@ -47,61 +54,83 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
         $this->_left_brace = $left_brace;
         $this->_sections = $sections;
         $this->_right_brace = $right_brace;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['switch_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['switch_keyword'], $file, $offset, $source, 'SwitchToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_paren = EditableNode::fromJSON($json['switch_left_paren'], $file, $offset, $source);
+        $left_paren = Node::fromJSON($json['switch_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $expression = EditableNode::fromJSON($json['switch_expression'], $file, $offset, $source);
+        $expression = Node::fromJSON($json['switch_expression'], $file, $offset, $source, 'IExpression');
+        $expression = $expression !== null ? $expression : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $expression->getWidth();
-        $right_paren = EditableNode::fromJSON($json['switch_right_paren'], $file, $offset, $source);
+        $right_paren = Node::fromJSON($json['switch_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        $left_brace = EditableNode::fromJSON($json['switch_left_brace'], $file, $offset, $source);
+        $left_brace = Node::fromJSON($json['switch_left_brace'], $file, $offset, $source, 'LeftBraceToken');
+        $left_brace = $left_brace !== null ? $left_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_brace->getWidth();
-        $sections = EditableNode::fromJSON($json['switch_sections'], $file, $offset, $source);
-        $offset += $sections->getWidth();
-        $right_brace = EditableNode::fromJSON($json['switch_right_brace'], $file, $offset, $source);
+        $sections = Node::fromJSON($json['switch_sections'], $file, $offset, $source, 'NodeList<SwitchSection>');
+        $offset += (($__tmp1__ = $sections) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $right_brace = Node::fromJSON($json['switch_right_brace'], $file, $offset, $source, 'RightBraceToken');
+        $right_brace = $right_brace !== null ? $right_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_brace->getWidth();
-        return new static($keyword, $left_paren, $expression, $right_paren, $left_brace, $sections, $right_brace);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $left_paren, $expression, $right_paren, $left_brace, $sections, $right_brace, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'expression' => $this->_expression, 'right_paren' => $this->_right_paren, 'left_brace' => $this->_left_brace, 'sections' => $this->_sections, 'right_brace' => $this->_right_brace];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'expression' => $this->_expression, 'right_paren' => $this->_right_paren, 'left_brace' => $this->_left_brace, 'sections' => $this->_sections, 'right_brace' => $this->_right_brace]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $expression = $this->_expression->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
-        $left_brace = $this->_left_brace->rewrite($rewriter, $parents);
-        $sections = $this->_sections->rewrite($rewriter, $parents);
-        $right_brace = $this->_right_brace->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $expression = $rewriter($this->_expression, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
+        $left_brace = $rewriter($this->_left_brace, $parents);
+        $sections = $this->_sections === null ? null : $rewriter($this->_sections, $parents);
+        $right_brace = $rewriter($this->_right_brace, $parents);
         if ($keyword === $this->_keyword && $left_paren === $this->_left_paren && $expression === $this->_expression && $right_paren === $this->_right_paren && $left_brace === $this->_left_brace && $sections === $this->_sections && $right_brace === $this->_right_brace) {
             return $this;
         }
         return new static($keyword, $left_paren, $expression, $right_paren, $left_brace, $sections, $right_brace);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -110,7 +139,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(SwitchToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -122,7 +151,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return SwitchToken
@@ -145,7 +174,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -154,7 +183,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -166,7 +195,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -189,7 +218,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getExpressionUNTYPED()
     {
@@ -198,7 +227,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
     /**
      * @return static
      */
-    public function withExpression(EditableNode $value)
+    public function withExpression(IExpression $value)
     {
         if ($value === $this->_expression) {
             return $this;
@@ -210,34 +239,34 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
      */
     public function hasExpression()
     {
-        return !$this->_expression->isMissing();
+        return $this->_expression !== null;
     }
     /**
      * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
      * MemberSelectionExpression | ObjectCreationExpression |
-     * PrefixUnaryExpression | SubscriptExpression | VariableExpression
+     * ScopeResolutionExpression | SubscriptExpression | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getExpression()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+        return TypeAssert\instance_of(IExpression::class, $this->_expression);
     }
     /**
      * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
      * MemberSelectionExpression | ObjectCreationExpression |
-     * PrefixUnaryExpression | SubscriptExpression | VariableExpression
+     * ScopeResolutionExpression | SubscriptExpression | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getExpressionx()
     {
         return $this->getExpression();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -246,7 +275,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -258,7 +287,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
      * @return RightParenToken
@@ -281,7 +310,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
         return $this->getRightParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftBraceUNTYPED()
     {
@@ -290,7 +319,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
     /**
      * @return static
      */
-    public function withLeftBrace(EditableNode $value)
+    public function withLeftBrace(LeftBraceToken $value)
     {
         if ($value === $this->_left_brace) {
             return $this;
@@ -302,7 +331,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
      */
     public function hasLeftBrace()
     {
-        return !$this->_left_brace->isMissing();
+        return $this->_left_brace !== null;
     }
     /**
      * @return LeftBraceToken
@@ -325,16 +354,18 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
         return $this->getLeftBrace();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSectionsUNTYPED()
     {
         return $this->_sections;
     }
     /**
+     * @param NodeList<SwitchSection>|null $value
+     *
      * @return static
      */
-    public function withSections(EditableNode $value)
+    public function withSections(?NodeList $value)
     {
         if ($value === $this->_sections) {
             return $this;
@@ -346,33 +377,30 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
      */
     public function hasSections()
     {
-        return !$this->_sections->isMissing();
+        return $this->_sections !== null;
     }
     /**
-     * @return EditableList<EditableNode> | null
+     * @return NodeList<SwitchSection> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<SwitchSection>|null
      */
     public function getSections()
     {
-        if ($this->_sections->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_sections);
+        return $this->_sections;
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<SwitchSection>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<SwitchSection>
      */
     public function getSectionsx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_sections);
+        return TypeAssert\not_null($this->getSections());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightBraceUNTYPED()
     {
@@ -381,7 +409,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
     /**
      * @return static
      */
-    public function withRightBrace(EditableNode $value)
+    public function withRightBrace(RightBraceToken $value)
     {
         if ($value === $this->_right_brace) {
             return $this;
@@ -393,7 +421,7 @@ final class SwitchStatement extends EditableNode implements IControlFlowStatemen
      */
     public function hasRightBrace()
     {
-        return !$this->_right_brace->isMissing();
+        return $this->_right_brace !== null;
     }
     /**
      * @return RightBraceToken

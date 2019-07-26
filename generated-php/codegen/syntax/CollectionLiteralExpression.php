@@ -2,82 +2,102 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<94062507b53eb88fc5914b3afaa162a5>>
+ * @generated SignedSource<<ce64854ae86d2617d99ec06f44ddcdb3>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class CollectionLiteralExpression extends EditableNode
+use HH\Lib\Dict;
+final class CollectionLiteralExpression extends Node implements IContainer, ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'collection_literal_expression';
+    /**
+     * @var ISimpleCreationSpecifier
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var LeftBraceToken
      */
     private $_left_brace;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<Node>>|null
      */
     private $_initializers;
     /**
-     * @var EditableNode
+     * @var RightBraceToken
      */
     private $_right_brace;
-    public function __construct(EditableNode $name, EditableNode $left_brace, EditableNode $initializers, EditableNode $right_brace)
+    /**
+     * @param NodeList<ListItem<Node>>|null $initializers
+     */
+    public function __construct(ISimpleCreationSpecifier $name, LeftBraceToken $left_brace, ?NodeList $initializers, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('collection_literal_expression');
         $this->_name = $name;
         $this->_left_brace = $left_brace;
         $this->_initializers = $initializers;
         $this->_right_brace = $right_brace;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $name = EditableNode::fromJSON($json['collection_literal_name'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $name = Node::fromJSON($json['collection_literal_name'], $file, $offset, $source, 'ISimpleCreationSpecifier');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $left_brace = EditableNode::fromJSON($json['collection_literal_left_brace'], $file, $offset, $source);
+        $left_brace = Node::fromJSON($json['collection_literal_left_brace'], $file, $offset, $source, 'LeftBraceToken');
+        $left_brace = $left_brace !== null ? $left_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_brace->getWidth();
-        $initializers = EditableNode::fromJSON($json['collection_literal_initializers'], $file, $offset, $source);
-        $offset += $initializers->getWidth();
-        $right_brace = EditableNode::fromJSON($json['collection_literal_right_brace'], $file, $offset, $source);
+        $initializers = Node::fromJSON($json['collection_literal_initializers'], $file, $offset, $source, 'NodeList<ListItem<Node>>');
+        $offset += (($__tmp1__ = $initializers) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $right_brace = Node::fromJSON($json['collection_literal_right_brace'], $file, $offset, $source, 'RightBraceToken');
+        $right_brace = $right_brace !== null ? $right_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_brace->getWidth();
-        return new static($name, $left_brace, $initializers, $right_brace);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($name, $left_brace, $initializers, $right_brace, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['name' => $this->_name, 'left_brace' => $this->_left_brace, 'initializers' => $this->_initializers, 'right_brace' => $this->_right_brace];
+        return Dict\filter_nulls(['name' => $this->_name, 'left_brace' => $this->_left_brace, 'initializers' => $this->_initializers, 'right_brace' => $this->_right_brace]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $left_brace = $this->_left_brace->rewrite($rewriter, $parents);
-        $initializers = $this->_initializers->rewrite($rewriter, $parents);
-        $right_brace = $this->_right_brace->rewrite($rewriter, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $left_brace = $rewriter($this->_left_brace, $parents);
+        $initializers = $this->_initializers === null ? null : $rewriter($this->_initializers, $parents);
+        $right_brace = $rewriter($this->_right_brace, $parents);
         if ($name === $this->_name && $left_brace === $this->_left_brace && $initializers === $this->_initializers && $right_brace === $this->_right_brace) {
             return $this;
         }
         return new static($name, $left_brace, $initializers, $right_brace);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -86,7 +106,7 @@ final class CollectionLiteralExpression extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(ISimpleCreationSpecifier $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -98,30 +118,30 @@ final class CollectionLiteralExpression extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return GenericTypeSpecifier | SimpleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ISimpleCreationSpecifier
      */
     public function getName()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_name);
+        return TypeAssert\instance_of(ISimpleCreationSpecifier::class, $this->_name);
     }
     /**
      * @return GenericTypeSpecifier | SimpleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ISimpleCreationSpecifier
      */
     public function getNamex()
     {
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftBraceUNTYPED()
     {
@@ -130,7 +150,7 @@ final class CollectionLiteralExpression extends EditableNode
     /**
      * @return static
      */
-    public function withLeftBrace(EditableNode $value)
+    public function withLeftBrace(LeftBraceToken $value)
     {
         if ($value === $this->_left_brace) {
             return $this;
@@ -142,7 +162,7 @@ final class CollectionLiteralExpression extends EditableNode
      */
     public function hasLeftBrace()
     {
-        return !$this->_left_brace->isMissing();
+        return $this->_left_brace !== null;
     }
     /**
      * @return LeftBraceToken
@@ -165,16 +185,18 @@ final class CollectionLiteralExpression extends EditableNode
         return $this->getLeftBrace();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getInitializersUNTYPED()
     {
         return $this->_initializers;
     }
     /**
+     * @param NodeList<ListItem<Node>>|null $value
+     *
      * @return static
      */
-    public function withInitializers(EditableNode $value)
+    public function withInitializers(?NodeList $value)
     {
         if ($value === $this->_initializers) {
             return $this;
@@ -186,55 +208,62 @@ final class CollectionLiteralExpression extends EditableNode
      */
     public function hasInitializers()
     {
-        return !$this->_initializers->isMissing();
+        return $this->_initializers !== null;
     }
     /**
-     * @return EditableList<AnonymousFunction> |
-     * EditableList<ArrayCreationExpression> |
-     * EditableList<ArrayIntrinsicExpression> | EditableList<EditableNode> |
-     * EditableList<CastExpression> | EditableList<CollectionLiteralExpression> |
-     * EditableList<ElementInitializer> | EditableList<FunctionCallExpression> |
-     * EditableList<LambdaExpression> | EditableList<LiteralExpression> |
-     * EditableList<ObjectCreationExpression> |
-     * EditableList<ScopeResolutionExpression> |
-     * EditableList<SubscriptExpression> | EditableList<EditableToken> |
-     * EditableList<NameToken> | EditableList<ReturnToken> |
-     * EditableList<TupleExpression> | EditableList<VariableExpression> |
-     * EditableList<VarrayIntrinsicExpression> | null
+     * @return NodeList<ListItem<AnonymousFunction>> |
+     * NodeList<ListItem<ArrayCreationExpression>> |
+     * NodeList<ListItem<ArrayIntrinsicExpression>> |
+     * NodeList<ListItem<IContainer>> | NodeList<ListItem<IExpression>> |
+     * NodeList<ListItem<CastExpression>> |
+     * NodeList<ListItem<CollectionLiteralExpression>> |
+     * NodeList<ListItem<ElementInitializer>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<LambdaExpression>> |
+     * NodeList<ListItem<LiteralExpression>> |
+     * NodeList<ListItem<ObjectCreationExpression>> |
+     * NodeList<ListItem<ScopeResolutionExpression>> |
+     * NodeList<ListItem<ShapeExpression>> |
+     * NodeList<ListItem<SubscriptExpression>> | NodeList<ListItem<NameToken>> |
+     * NodeList<ListItem<TupleExpression>> |
+     * NodeList<ListItem<VariableExpression>> |
+     * NodeList<ListItem<VarrayIntrinsicExpression>> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<ListItem<Node>>|null
      */
     public function getInitializers()
     {
-        if ($this->_initializers->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_initializers);
+        return $this->_initializers;
     }
     /**
-     * @return EditableList<AnonymousFunction> |
-     * EditableList<ArrayCreationExpression> |
-     * EditableList<ArrayIntrinsicExpression> | EditableList<EditableNode> |
-     * EditableList<CastExpression> | EditableList<CollectionLiteralExpression> |
-     * EditableList<ElementInitializer> | EditableList<FunctionCallExpression> |
-     * EditableList<LambdaExpression> | EditableList<LiteralExpression> |
-     * EditableList<ObjectCreationExpression> |
-     * EditableList<ScopeResolutionExpression> |
-     * EditableList<SubscriptExpression> | EditableList<EditableToken> |
-     * EditableList<NameToken> | EditableList<ReturnToken> |
-     * EditableList<TupleExpression> | EditableList<VariableExpression> |
-     * EditableList<VarrayIntrinsicExpression>
+     * @return NodeList<ListItem<AnonymousFunction>> |
+     * NodeList<ListItem<ArrayCreationExpression>> |
+     * NodeList<ListItem<ArrayIntrinsicExpression>> |
+     * NodeList<ListItem<IContainer>> | NodeList<ListItem<IExpression>> |
+     * NodeList<ListItem<CastExpression>> |
+     * NodeList<ListItem<CollectionLiteralExpression>> |
+     * NodeList<ListItem<ElementInitializer>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<LambdaExpression>> |
+     * NodeList<ListItem<LiteralExpression>> |
+     * NodeList<ListItem<ObjectCreationExpression>> |
+     * NodeList<ListItem<ScopeResolutionExpression>> |
+     * NodeList<ListItem<ShapeExpression>> |
+     * NodeList<ListItem<SubscriptExpression>> | NodeList<ListItem<NameToken>> |
+     * NodeList<ListItem<TupleExpression>> |
+     * NodeList<ListItem<VariableExpression>> |
+     * NodeList<ListItem<VarrayIntrinsicExpression>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<Node>>
      */
     public function getInitializersx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_initializers);
+        return TypeAssert\not_null($this->getInitializers());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightBraceUNTYPED()
     {
@@ -243,7 +272,7 @@ final class CollectionLiteralExpression extends EditableNode
     /**
      * @return static
      */
-    public function withRightBrace(EditableNode $value)
+    public function withRightBrace(RightBraceToken $value)
     {
         if ($value === $this->_right_brace) {
             return $this;
@@ -255,19 +284,16 @@ final class CollectionLiteralExpression extends EditableNode
      */
     public function hasRightBrace()
     {
-        return !$this->_right_brace->isMissing();
+        return $this->_right_brace !== null;
     }
     /**
-     * @return null | RightBraceToken
+     * @return RightBraceToken
      */
     /**
-     * @return null|RightBraceToken
+     * @return RightBraceToken
      */
     public function getRightBrace()
     {
-        if ($this->_right_brace->isMissing()) {
-            return null;
-        }
         return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
     }
     /**
@@ -278,7 +304,7 @@ final class CollectionLiteralExpression extends EditableNode
      */
     public function getRightBracex()
     {
-        return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+        return $this->getRightBrace();
     }
 }
 

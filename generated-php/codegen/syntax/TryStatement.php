@@ -2,82 +2,99 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<1f1bd9b81b0d372c9919b802ceeee5c1>>
+ * @generated SignedSource<<4167f15b7586454763d7938e6c005742>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class TryStatement extends EditableNode
+use HH\Lib\Dict;
+final class TryStatement extends Node implements IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'try_statement';
+    /**
+     * @var TryToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var CompoundStatement
      */
     private $_compound_statement;
     /**
-     * @var EditableNode
+     * @var NodeList<CatchClause>|null
      */
     private $_catch_clauses;
     /**
-     * @var EditableNode
+     * @var null|FinallyClause
      */
     private $_finally_clause;
-    public function __construct(EditableNode $keyword, EditableNode $compound_statement, EditableNode $catch_clauses, EditableNode $finally_clause)
+    /**
+     * @param NodeList<CatchClause>|null $catch_clauses
+     */
+    public function __construct(TryToken $keyword, CompoundStatement $compound_statement, ?NodeList $catch_clauses, ?FinallyClause $finally_clause, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('try_statement');
         $this->_keyword = $keyword;
         $this->_compound_statement = $compound_statement;
         $this->_catch_clauses = $catch_clauses;
         $this->_finally_clause = $finally_clause;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['try_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['try_keyword'], $file, $offset, $source, 'TryToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $compound_statement = EditableNode::fromJSON($json['try_compound_statement'], $file, $offset, $source);
+        $compound_statement = Node::fromJSON($json['try_compound_statement'], $file, $offset, $source, 'CompoundStatement');
+        $compound_statement = $compound_statement !== null ? $compound_statement : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $compound_statement->getWidth();
-        $catch_clauses = EditableNode::fromJSON($json['try_catch_clauses'], $file, $offset, $source);
-        $offset += $catch_clauses->getWidth();
-        $finally_clause = EditableNode::fromJSON($json['try_finally_clause'], $file, $offset, $source);
-        $offset += $finally_clause->getWidth();
-        return new static($keyword, $compound_statement, $catch_clauses, $finally_clause);
+        $catch_clauses = Node::fromJSON($json['try_catch_clauses'], $file, $offset, $source, 'NodeList<CatchClause>');
+        $offset += (($__tmp1__ = $catch_clauses) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $finally_clause = Node::fromJSON($json['try_finally_clause'], $file, $offset, $source, 'FinallyClause');
+        $offset += (($__tmp2__ = $finally_clause) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $compound_statement, $catch_clauses, $finally_clause, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'compound_statement' => $this->_compound_statement, 'catch_clauses' => $this->_catch_clauses, 'finally_clause' => $this->_finally_clause];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'compound_statement' => $this->_compound_statement, 'catch_clauses' => $this->_catch_clauses, 'finally_clause' => $this->_finally_clause]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $compound_statement = $this->_compound_statement->rewrite($rewriter, $parents);
-        $catch_clauses = $this->_catch_clauses->rewrite($rewriter, $parents);
-        $finally_clause = $this->_finally_clause->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $compound_statement = $rewriter($this->_compound_statement, $parents);
+        $catch_clauses = $this->_catch_clauses === null ? null : $rewriter($this->_catch_clauses, $parents);
+        $finally_clause = $this->_finally_clause === null ? null : $rewriter($this->_finally_clause, $parents);
         if ($keyword === $this->_keyword && $compound_statement === $this->_compound_statement && $catch_clauses === $this->_catch_clauses && $finally_clause === $this->_finally_clause) {
             return $this;
         }
         return new static($keyword, $compound_statement, $catch_clauses, $finally_clause);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -86,7 +103,7 @@ final class TryStatement extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(TryToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -98,7 +115,7 @@ final class TryStatement extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return TryToken
@@ -121,7 +138,7 @@ final class TryStatement extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getCompoundStatementUNTYPED()
     {
@@ -130,7 +147,7 @@ final class TryStatement extends EditableNode
     /**
      * @return static
      */
-    public function withCompoundStatement(EditableNode $value)
+    public function withCompoundStatement(CompoundStatement $value)
     {
         if ($value === $this->_compound_statement) {
             return $this;
@@ -142,7 +159,7 @@ final class TryStatement extends EditableNode
      */
     public function hasCompoundStatement()
     {
-        return !$this->_compound_statement->isMissing();
+        return $this->_compound_statement !== null;
     }
     /**
      * @return CompoundStatement
@@ -165,16 +182,18 @@ final class TryStatement extends EditableNode
         return $this->getCompoundStatement();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getCatchClausesUNTYPED()
     {
         return $this->_catch_clauses;
     }
     /**
+     * @param NodeList<CatchClause>|null $value
+     *
      * @return static
      */
-    public function withCatchClauses(EditableNode $value)
+    public function withCatchClauses(?NodeList $value)
     {
         if ($value === $this->_catch_clauses) {
             return $this;
@@ -186,33 +205,30 @@ final class TryStatement extends EditableNode
      */
     public function hasCatchClauses()
     {
-        return !$this->_catch_clauses->isMissing();
+        return $this->_catch_clauses !== null;
     }
     /**
-     * @return EditableList<EditableNode> | null
+     * @return NodeList<CatchClause> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<CatchClause>|null
      */
     public function getCatchClauses()
     {
-        if ($this->_catch_clauses->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_catch_clauses);
+        return $this->_catch_clauses;
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<CatchClause>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<CatchClause>
      */
     public function getCatchClausesx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_catch_clauses);
+        return TypeAssert\not_null($this->getCatchClauses());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getFinallyClauseUNTYPED()
     {
@@ -221,7 +237,7 @@ final class TryStatement extends EditableNode
     /**
      * @return static
      */
-    public function withFinallyClause(EditableNode $value)
+    public function withFinallyClause(?FinallyClause $value)
     {
         if ($value === $this->_finally_clause) {
             return $this;
@@ -233,7 +249,7 @@ final class TryStatement extends EditableNode
      */
     public function hasFinallyClause()
     {
-        return !$this->_finally_clause->isMissing();
+        return $this->_finally_clause !== null;
     }
     /**
      * @return FinallyClause | null
@@ -243,10 +259,7 @@ final class TryStatement extends EditableNode
      */
     public function getFinallyClause()
     {
-        if ($this->_finally_clause->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(FinallyClause::class, $this->_finally_clause);
+        return $this->_finally_clause;
     }
     /**
      * @return FinallyClause
@@ -256,7 +269,7 @@ final class TryStatement extends EditableNode
      */
     public function getFinallyClausex()
     {
-        return TypeAssert\instance_of(FinallyClause::class, $this->_finally_clause);
+        return TypeAssert\not_null($this->getFinallyClause());
     }
 }
 

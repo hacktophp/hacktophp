@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<07c8633289b25022785c9f8bb54a459f>>
+ * @generated SignedSource<<5b95f2867843e864fd0ed3263c8cf034>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ConcurrentStatement extends EditableNode
+use HH\Lib\Dict;
+final class ConcurrentStatement extends Node implements IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'concurrent_statement';
+    /**
+     * @var ConcurrentToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var CompoundStatement
      */
     private $_statement;
-    public function __construct(EditableNode $keyword, EditableNode $statement)
+    public function __construct(ConcurrentToken $keyword, CompoundStatement $statement, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('concurrent_statement');
         $this->_keyword = $keyword;
         $this->_statement = $statement;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['concurrent_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['concurrent_keyword'], $file, $offset, $source, 'ConcurrentToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $statement = EditableNode::fromJSON($json['concurrent_statement'], $file, $offset, $source);
+        $statement = Node::fromJSON($json['concurrent_statement'], $file, $offset, $source, 'CompoundStatement');
+        $statement = $statement !== null ? $statement : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $statement->getWidth();
-        return new static($keyword, $statement);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $statement, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'statement' => $this->_statement];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'statement' => $this->_statement]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $statement = $this->_statement->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $statement = $rewriter($this->_statement, $parents);
         if ($keyword === $this->_keyword && $statement === $this->_statement) {
             return $this;
         }
         return new static($keyword, $statement);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -70,7 +84,7 @@ final class ConcurrentStatement extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(ConcurrentToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -82,7 +96,7 @@ final class ConcurrentStatement extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return ConcurrentToken
@@ -105,7 +119,7 @@ final class ConcurrentStatement extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getStatementUNTYPED()
     {
@@ -114,7 +128,7 @@ final class ConcurrentStatement extends EditableNode
     /**
      * @return static
      */
-    public function withStatement(EditableNode $value)
+    public function withStatement(CompoundStatement $value)
     {
         if ($value === $this->_statement) {
             return $this;
@@ -126,7 +140,7 @@ final class ConcurrentStatement extends EditableNode
      */
     public function hasStatement()
     {
-        return !$this->_statement->isMissing();
+        return $this->_statement !== null;
     }
     /**
      * @return CompoundStatement

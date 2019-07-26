@@ -2,82 +2,105 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<46b07d07c23f5fae6e98976311bc8773>>
+ * @generated SignedSource<<1ba699d566a8031021c1b4917141a89b>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class IssetExpression extends EditableNode
+use HH\Lib\Dict;
+final class IssetExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'isset_expression';
+    /**
+     * @var IssetToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<IExpression>>
      */
     private $_argument_list;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
-    public function __construct(EditableNode $keyword, EditableNode $left_paren, EditableNode $argument_list, EditableNode $right_paren)
+    /**
+     * @param NodeList<ListItem<IExpression>> $argument_list
+     */
+    public function __construct(IssetToken $keyword, LeftParenToken $left_paren, NodeList $argument_list, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('isset_expression');
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;
         $this->_argument_list = $argument_list;
         $this->_right_paren = $right_paren;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['isset_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['isset_keyword'], $file, $offset, $source, 'IssetToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_paren = EditableNode::fromJSON($json['isset_left_paren'], $file, $offset, $source);
+        $left_paren = Node::fromJSON($json['isset_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $argument_list = EditableNode::fromJSON($json['isset_argument_list'], $file, $offset, $source);
+        $argument_list = Node::fromJSON($json['isset_argument_list'], $file, $offset, $source, 'NodeList<ListItem<IExpression>>');
+        $argument_list = $argument_list !== null ? $argument_list : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $argument_list->getWidth();
-        $right_paren = EditableNode::fromJSON($json['isset_right_paren'], $file, $offset, $source);
+        $right_paren = Node::fromJSON($json['isset_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        return new static($keyword, $left_paren, $argument_list, $right_paren);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $left_paren, $argument_list, $right_paren, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'argument_list' => $this->_argument_list, 'right_paren' => $this->_right_paren];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'argument_list' => $this->_argument_list, 'right_paren' => $this->_right_paren]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $argument_list = $this->_argument_list->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $argument_list = $rewriter($this->_argument_list, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
         if ($keyword === $this->_keyword && $left_paren === $this->_left_paren && $argument_list === $this->_argument_list && $right_paren === $this->_right_paren) {
             return $this;
         }
         return new static($keyword, $left_paren, $argument_list, $right_paren);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -86,7 +109,7 @@ final class IssetExpression extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(IssetToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -98,7 +121,7 @@ final class IssetExpression extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return IssetToken
@@ -121,7 +144,7 @@ final class IssetExpression extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -130,7 +153,7 @@ final class IssetExpression extends EditableNode
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -142,7 +165,7 @@ final class IssetExpression extends EditableNode
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -165,16 +188,18 @@ final class IssetExpression extends EditableNode
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getArgumentListUNTYPED()
     {
         return $this->_argument_list;
     }
     /**
+     * @param NodeList<ListItem<IExpression>> $value
+     *
      * @return static
      */
-    public function withArgumentList(EditableNode $value)
+    public function withArgumentList(NodeList $value)
     {
         if ($value === $this->_argument_list) {
             return $this;
@@ -186,40 +211,40 @@ final class IssetExpression extends EditableNode
      */
     public function hasArgumentList()
     {
-        return !$this->_argument_list->isMissing();
+        return $this->_argument_list !== null;
     }
     /**
-     * @return EditableList<FunctionCallExpression> | EditableList<EditableNode>
-     * | EditableList<MemberSelectionExpression> |
-     * EditableList<PrefixUnaryExpression> |
-     * EditableList<SafeMemberSelectionExpression> |
-     * EditableList<ScopeResolutionExpression> |
-     * EditableList<SubscriptExpression> | EditableList<VariableExpression>
+     * @return NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<MemberSelectionExpression>> |
+     * NodeList<ListItem<IExpression>> |
+     * NodeList<ListItem<ScopeResolutionExpression>> |
+     * NodeList<ListItem<SubscriptExpression>> |
+     * NodeList<ListItem<VariableExpression>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<IExpression>>
      */
     public function getArgumentList()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_argument_list);
+        return TypeAssert\instance_of(NodeList::class, $this->_argument_list);
     }
     /**
-     * @return EditableList<FunctionCallExpression> | EditableList<EditableNode>
-     * | EditableList<MemberSelectionExpression> |
-     * EditableList<PrefixUnaryExpression> |
-     * EditableList<SafeMemberSelectionExpression> |
-     * EditableList<ScopeResolutionExpression> |
-     * EditableList<SubscriptExpression> | EditableList<VariableExpression>
+     * @return NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<MemberSelectionExpression>> |
+     * NodeList<ListItem<IExpression>> |
+     * NodeList<ListItem<ScopeResolutionExpression>> |
+     * NodeList<ListItem<SubscriptExpression>> |
+     * NodeList<ListItem<VariableExpression>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<IExpression>>
      */
     public function getArgumentListx()
     {
         return $this->getArgumentList();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -228,7 +253,7 @@ final class IssetExpression extends EditableNode
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -240,7 +265,7 @@ final class IssetExpression extends EditableNode
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
      * @return RightParenToken

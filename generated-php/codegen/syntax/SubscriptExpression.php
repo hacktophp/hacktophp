@@ -2,82 +2,99 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<797a99a4f0c850d130d7fc8ca0e82be5>>
+ * @generated SignedSource<<521fc2a89473f1214168e55b8972800c>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class SubscriptExpression extends EditableNode
+use HH\Lib\Dict;
+final class SubscriptExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'subscript_expression';
+    /**
+     * @var IExpression
      */
     private $_receiver;
     /**
-     * @var EditableNode
+     * @var LeftBracketToken
      */
     private $_left_bracket;
     /**
-     * @var EditableNode
+     * @var null|IExpression
      */
     private $_index;
     /**
-     * @var EditableNode
+     * @var RightBracketToken
      */
     private $_right_bracket;
-    public function __construct(EditableNode $receiver, EditableNode $left_bracket, EditableNode $index, EditableNode $right_bracket)
+    public function __construct(IExpression $receiver, LeftBracketToken $left_bracket, ?IExpression $index, RightBracketToken $right_bracket, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('subscript_expression');
         $this->_receiver = $receiver;
         $this->_left_bracket = $left_bracket;
         $this->_index = $index;
         $this->_right_bracket = $right_bracket;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $receiver = EditableNode::fromJSON($json['subscript_receiver'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $receiver = Node::fromJSON($json['subscript_receiver'], $file, $offset, $source, 'IExpression');
+        $receiver = $receiver !== null ? $receiver : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $receiver->getWidth();
-        $left_bracket = EditableNode::fromJSON($json['subscript_left_bracket'], $file, $offset, $source);
+        $left_bracket = Node::fromJSON($json['subscript_left_bracket'], $file, $offset, $source, 'LeftBracketToken');
+        $left_bracket = $left_bracket !== null ? $left_bracket : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_bracket->getWidth();
-        $index = EditableNode::fromJSON($json['subscript_index'], $file, $offset, $source);
-        $offset += $index->getWidth();
-        $right_bracket = EditableNode::fromJSON($json['subscript_right_bracket'], $file, $offset, $source);
+        $index = Node::fromJSON($json['subscript_index'], $file, $offset, $source, 'IExpression');
+        $offset += (($__tmp1__ = $index) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $right_bracket = Node::fromJSON($json['subscript_right_bracket'], $file, $offset, $source, 'RightBracketToken');
+        $right_bracket = $right_bracket !== null ? $right_bracket : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_bracket->getWidth();
-        return new static($receiver, $left_bracket, $index, $right_bracket);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($receiver, $left_bracket, $index, $right_bracket, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['receiver' => $this->_receiver, 'left_bracket' => $this->_left_bracket, 'index' => $this->_index, 'right_bracket' => $this->_right_bracket];
+        return Dict\filter_nulls(['receiver' => $this->_receiver, 'left_bracket' => $this->_left_bracket, 'index' => $this->_index, 'right_bracket' => $this->_right_bracket]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $receiver = $this->_receiver->rewrite($rewriter, $parents);
-        $left_bracket = $this->_left_bracket->rewrite($rewriter, $parents);
-        $index = $this->_index->rewrite($rewriter, $parents);
-        $right_bracket = $this->_right_bracket->rewrite($rewriter, $parents);
+        $receiver = $rewriter($this->_receiver, $parents);
+        $left_bracket = $rewriter($this->_left_bracket, $parents);
+        $index = $this->_index === null ? null : $rewriter($this->_index, $parents);
+        $right_bracket = $rewriter($this->_right_bracket, $parents);
         if ($receiver === $this->_receiver && $left_bracket === $this->_left_bracket && $index === $this->_index && $right_bracket === $this->_right_bracket) {
             return $this;
         }
         return new static($receiver, $left_bracket, $index, $right_bracket);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getReceiverUNTYPED()
     {
@@ -86,7 +103,7 @@ final class SubscriptExpression extends EditableNode
     /**
      * @return static
      */
-    public function withReceiver(EditableNode $value)
+    public function withReceiver(IExpression $value)
     {
         if ($value === $this->_receiver) {
             return $this;
@@ -98,40 +115,38 @@ final class SubscriptExpression extends EditableNode
      */
     public function hasReceiver()
     {
-        return !$this->_receiver->isMissing();
+        return $this->_receiver !== null;
     }
     /**
      * @return ArrayCreationExpression | ArrayIntrinsicExpression |
      * FunctionCallExpression | LiteralExpression | MemberSelectionExpression |
-     * ParenthesizedExpression | PrefixUnaryExpression |
-     * SafeMemberSelectionExpression | ScopeResolutionExpression |
-     * SubscriptExpression | RightParenToken | NameToken | TryToken |
+     * ParenthesizedExpression | SafeMemberSelectionExpression |
+     * ScopeResolutionExpression | SubscriptExpression | NameToken |
      * VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getReceiver()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_receiver);
+        return TypeAssert\instance_of(IExpression::class, $this->_receiver);
     }
     /**
      * @return ArrayCreationExpression | ArrayIntrinsicExpression |
      * FunctionCallExpression | LiteralExpression | MemberSelectionExpression |
-     * ParenthesizedExpression | PrefixUnaryExpression |
-     * SafeMemberSelectionExpression | ScopeResolutionExpression |
-     * SubscriptExpression | RightParenToken | NameToken | TryToken |
+     * ParenthesizedExpression | SafeMemberSelectionExpression |
+     * ScopeResolutionExpression | SubscriptExpression | NameToken |
      * VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getReceiverx()
     {
         return $this->getReceiver();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftBracketUNTYPED()
     {
@@ -140,7 +155,7 @@ final class SubscriptExpression extends EditableNode
     /**
      * @return static
      */
-    public function withLeftBracket(EditableNode $value)
+    public function withLeftBracket(LeftBracketToken $value)
     {
         if ($value === $this->_left_bracket) {
             return $this;
@@ -152,30 +167,30 @@ final class SubscriptExpression extends EditableNode
      */
     public function hasLeftBracket()
     {
-        return !$this->_left_bracket->isMissing();
+        return $this->_left_bracket !== null;
     }
     /**
-     * @return LeftBracketToken | LeftBraceToken
+     * @return LeftBracketToken
      */
     /**
-     * @return EditableToken
+     * @return LeftBracketToken
      */
     public function getLeftBracket()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_left_bracket);
+        return TypeAssert\instance_of(LeftBracketToken::class, $this->_left_bracket);
     }
     /**
-     * @return LeftBracketToken | LeftBraceToken
+     * @return LeftBracketToken
      */
     /**
-     * @return EditableToken
+     * @return LeftBracketToken
      */
     public function getLeftBracketx()
     {
         return $this->getLeftBracket();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getIndexUNTYPED()
     {
@@ -184,7 +199,7 @@ final class SubscriptExpression extends EditableNode
     /**
      * @return static
      */
-    public function withIndex(EditableNode $value)
+    public function withIndex(?IExpression $value)
     {
         if ($value === $this->_index) {
             return $this;
@@ -196,45 +211,37 @@ final class SubscriptExpression extends EditableNode
      */
     public function hasIndex()
     {
-        return !$this->_index->isMissing();
+        return $this->_index !== null;
     }
     /**
-     * @return AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
-     * CastExpression | FunctionCallExpression | LiteralExpression |
-     * MemberSelectionExpression | null | ObjectCreationExpression |
+     * @return BinaryExpression | CastExpression | FunctionCallExpression |
+     * LiteralExpression | MemberSelectionExpression | null |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
-     * SafeMemberSelectionExpression | ScopeResolutionExpression |
-     * SubscriptExpression | EchoToken | NameToken | ReturnToken | ThrowToken |
+     * ScopeResolutionExpression | SubscriptExpression | NameToken |
      * VariableExpression
      */
     /**
-     * @return null|EditableNode
+     * @return null|IExpression
      */
     public function getIndex()
     {
-        if ($this->_index->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_index);
+        return $this->_index;
     }
     /**
-     * @return AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
-     * CastExpression | FunctionCallExpression | LiteralExpression |
-     * MemberSelectionExpression | ObjectCreationExpression |
-     * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
-     * SafeMemberSelectionExpression | ScopeResolutionExpression |
-     * SubscriptExpression | EchoToken | NameToken | ReturnToken | ThrowToken |
-     * VariableExpression
+     * @return BinaryExpression | CastExpression | FunctionCallExpression |
+     * LiteralExpression | MemberSelectionExpression | ParenthesizedExpression |
+     * PostfixUnaryExpression | PrefixUnaryExpression | ScopeResolutionExpression
+     * | SubscriptExpression | NameToken | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getIndexx()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_index);
+        return TypeAssert\not_null($this->getIndex());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightBracketUNTYPED()
     {
@@ -243,7 +250,7 @@ final class SubscriptExpression extends EditableNode
     /**
      * @return static
      */
-    public function withRightBracket(EditableNode $value)
+    public function withRightBracket(RightBracketToken $value)
     {
         if ($value === $this->_right_bracket) {
             return $this;
@@ -255,30 +262,27 @@ final class SubscriptExpression extends EditableNode
      */
     public function hasRightBracket()
     {
-        return !$this->_right_bracket->isMissing();
+        return $this->_right_bracket !== null;
     }
     /**
-     * @return null | RightBracketToken | RightBraceToken
+     * @return RightBracketToken
      */
     /**
-     * @return null|EditableToken
+     * @return RightBracketToken
      */
     public function getRightBracket()
     {
-        if ($this->_right_bracket->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableToken::class, $this->_right_bracket);
+        return TypeAssert\instance_of(RightBracketToken::class, $this->_right_bracket);
     }
     /**
-     * @return RightBracketToken | RightBraceToken
+     * @return RightBracketToken
      */
     /**
-     * @return EditableToken
+     * @return RightBracketToken
      */
     public function getRightBracketx()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_right_bracket);
+        return $this->getRightBracket();
     }
 }
 

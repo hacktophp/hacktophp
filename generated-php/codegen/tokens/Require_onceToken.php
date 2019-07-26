@@ -2,70 +2,23 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<237663ded115f0a036265fb61aa07235>>
+ * @generated SignedSource<<9a30bc6d495efa83fd23b4679ce36370>>
  */
 namespace Facebook\HHAST;
 
-final class Require_onceToken extends EditableTokenWithVariableText
+final class Require_onceToken extends TokenWithVariableText
 {
     /**
      * @var string
      */
     const KIND = 'require_once';
-    public function __construct(EditableNode $leading, EditableNode $trailing, string $token_text = 'require_once')
-    {
-        parent::__construct($leading, $trailing, $token_text);
-    }
     /**
-     * @return bool
+     * @param NodeList<Trivia>|null $leading
+     * @param NodeList<Trivia>|null $trailing
      */
-    public function hasLeading()
+    public function __construct(?NodeList $leading, ?NodeList $trailing, string $token_text = 'require_once', ?__Private\SourceRef $source_ref = null)
     {
-        return !$this->getLeading()->isMissing();
-    }
-    /**
-     * @return static
-     */
-    public function withLeading(EditableNode $value)
-    {
-        if ($value === $this->getLeading()) {
-            return $this;
-        }
-        return new self($value, $this->getTrailing());
-    }
-    /**
-     * @return bool
-     */
-    public function hasTrailing()
-    {
-        return !$this->getTrailing()->isMissing();
-    }
-    /**
-     * @return static
-     */
-    public function withTrailing(EditableNode $value)
-    {
-        if ($value === $this->getTrailing()) {
-            return $this;
-        }
-        return new self($this->getLeading(), $value);
-    }
-    /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
-     *
-     * @return static
-     */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
-    {
-        $parents = $parents === null ? [] : (array) $parents;
-        $parents[] = $this;
-        $leading = $this->getLeading()->rewrite($rewriter, $parents);
-        $trailing = $this->getTrailing()->rewrite($rewriter, $parents);
-        if ($leading === $this->getLeading() && $trailing === $this->getTrailing()) {
-            return $this;
-        }
-        return new self($leading, $trailing);
+        parent::__construct($leading, $trailing, $token_text, $source_ref);
     }
 }
 

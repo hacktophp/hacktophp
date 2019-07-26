@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<f05935c41581199963b508c5419ed7fe>>
+ * @generated SignedSource<<50e1599f6152c2e73ef6a58dde2dc9bb>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ObjectCreationExpression extends EditableNode
+use HH\Lib\Dict;
+final class ObjectCreationExpression extends Node implements IFunctionCallishExpression, ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'object_creation_expression';
+    /**
+     * @var NewToken
      */
     private $_new_keyword;
     /**
-     * @var EditableNode
+     * @var ConstructorCall
      */
     private $_object;
-    public function __construct(EditableNode $new_keyword, EditableNode $object)
+    public function __construct(NewToken $new_keyword, ConstructorCall $object, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('object_creation_expression');
         $this->_new_keyword = $new_keyword;
         $this->_object = $object;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $new_keyword = EditableNode::fromJSON($json['object_creation_new_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $new_keyword = Node::fromJSON($json['object_creation_new_keyword'], $file, $offset, $source, 'NewToken');
+        $new_keyword = $new_keyword !== null ? $new_keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $new_keyword->getWidth();
-        $object = EditableNode::fromJSON($json['object_creation_object'], $file, $offset, $source);
+        $object = Node::fromJSON($json['object_creation_object'], $file, $offset, $source, 'ConstructorCall');
+        $object = $object !== null ? $object : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $object->getWidth();
-        return new static($new_keyword, $object);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($new_keyword, $object, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['new_keyword' => $this->_new_keyword, 'object' => $this->_object];
+        return Dict\filter_nulls(['new_keyword' => $this->_new_keyword, 'object' => $this->_object]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $new_keyword = $this->_new_keyword->rewrite($rewriter, $parents);
-        $object = $this->_object->rewrite($rewriter, $parents);
+        $new_keyword = $rewriter($this->_new_keyword, $parents);
+        $object = $rewriter($this->_object, $parents);
         if ($new_keyword === $this->_new_keyword && $object === $this->_object) {
             return $this;
         }
         return new static($new_keyword, $object);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNewKeywordUNTYPED()
     {
@@ -70,7 +84,7 @@ final class ObjectCreationExpression extends EditableNode
     /**
      * @return static
      */
-    public function withNewKeyword(EditableNode $value)
+    public function withNewKeyword(NewToken $value)
     {
         if ($value === $this->_new_keyword) {
             return $this;
@@ -82,7 +96,7 @@ final class ObjectCreationExpression extends EditableNode
      */
     public function hasNewKeyword()
     {
-        return !$this->_new_keyword->isMissing();
+        return $this->_new_keyword !== null;
     }
     /**
      * @return NewToken
@@ -105,7 +119,7 @@ final class ObjectCreationExpression extends EditableNode
         return $this->getNewKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getObjectUNTYPED()
     {
@@ -114,7 +128,7 @@ final class ObjectCreationExpression extends EditableNode
     /**
      * @return static
      */
-    public function withObject(EditableNode $value)
+    public function withObject(ConstructorCall $value)
     {
         if ($value === $this->_object) {
             return $this;
@@ -126,23 +140,23 @@ final class ObjectCreationExpression extends EditableNode
      */
     public function hasObject()
     {
-        return !$this->_object->isMissing();
+        return $this->_object !== null;
     }
     /**
-     * @return AnonymousClass | ConstructorCall
+     * @return ConstructorCall
      */
     /**
-     * @return EditableNode
+     * @return ConstructorCall
      */
     public function getObject()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_object);
+        return TypeAssert\instance_of(ConstructorCall::class, $this->_object);
     }
     /**
-     * @return AnonymousClass | ConstructorCall
+     * @return ConstructorCall
      */
     /**
-     * @return EditableNode
+     * @return ConstructorCall
      */
     public function getObjectx()
     {

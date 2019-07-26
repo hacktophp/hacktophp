@@ -2,44 +2,51 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<acfab585dccae805c4d30c8f92d2adff>>
+ * @generated SignedSource<<bbc5c99bba5f3075a5dd03c77a792ec4>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class NamespaceGroupUseDeclaration extends EditableNode implements INamespaceUseDeclaration
+use HH\Lib\Dict;
+final class NamespaceGroupUseDeclaration extends Node implements INamespaceUseDeclaration
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'namespace_group_use_declaration';
+    /**
+     * @var UseToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var null|Token
      */
     private $_kind;
     /**
-     * @var EditableNode
+     * @var QualifiedName
      */
     private $_prefix;
     /**
-     * @var EditableNode
+     * @var LeftBraceToken
      */
     private $_left_brace;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<NamespaceUseClause>>
      */
     private $_clauses;
     /**
-     * @var EditableNode
+     * @var RightBraceToken
      */
     private $_right_brace;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $kind, EditableNode $prefix, EditableNode $left_brace, EditableNode $clauses, EditableNode $right_brace, EditableNode $semicolon)
+    /**
+     * @param NodeList<ListItem<NamespaceUseClause>> $clauses
+     */
+    public function __construct(UseToken $keyword, ?Token $kind, QualifiedName $prefix, LeftBraceToken $left_brace, NodeList $clauses, RightBraceToken $right_brace, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('namespace_group_use_declaration');
         $this->_keyword = $keyword;
         $this->_kind = $kind;
         $this->_prefix = $prefix;
@@ -47,61 +54,83 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
         $this->_clauses = $clauses;
         $this->_right_brace = $right_brace;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['namespace_group_use_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['namespace_group_use_keyword'], $file, $offset, $source, 'UseToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $kind = EditableNode::fromJSON($json['namespace_group_use_kind'], $file, $offset, $source);
-        $offset += $kind->getWidth();
-        $prefix = EditableNode::fromJSON($json['namespace_group_use_prefix'], $file, $offset, $source);
+        $kind = Node::fromJSON($json['namespace_group_use_kind'], $file, $offset, $source, 'Token');
+        $offset += (($__tmp1__ = $kind) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $prefix = Node::fromJSON($json['namespace_group_use_prefix'], $file, $offset, $source, 'QualifiedName');
+        $prefix = $prefix !== null ? $prefix : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $prefix->getWidth();
-        $left_brace = EditableNode::fromJSON($json['namespace_group_use_left_brace'], $file, $offset, $source);
+        $left_brace = Node::fromJSON($json['namespace_group_use_left_brace'], $file, $offset, $source, 'LeftBraceToken');
+        $left_brace = $left_brace !== null ? $left_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_brace->getWidth();
-        $clauses = EditableNode::fromJSON($json['namespace_group_use_clauses'], $file, $offset, $source);
+        $clauses = Node::fromJSON($json['namespace_group_use_clauses'], $file, $offset, $source, 'NodeList<ListItem<NamespaceUseClause>>');
+        $clauses = $clauses !== null ? $clauses : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $clauses->getWidth();
-        $right_brace = EditableNode::fromJSON($json['namespace_group_use_right_brace'], $file, $offset, $source);
+        $right_brace = Node::fromJSON($json['namespace_group_use_right_brace'], $file, $offset, $source, 'RightBraceToken');
+        $right_brace = $right_brace !== null ? $right_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_brace->getWidth();
-        $semicolon = EditableNode::fromJSON($json['namespace_group_use_semicolon'], $file, $offset, $source);
+        $semicolon = Node::fromJSON($json['namespace_group_use_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($keyword, $kind, $prefix, $left_brace, $clauses, $right_brace, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $kind, $prefix, $left_brace, $clauses, $right_brace, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'kind' => $this->_kind, 'prefix' => $this->_prefix, 'left_brace' => $this->_left_brace, 'clauses' => $this->_clauses, 'right_brace' => $this->_right_brace, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'kind' => $this->_kind, 'prefix' => $this->_prefix, 'left_brace' => $this->_left_brace, 'clauses' => $this->_clauses, 'right_brace' => $this->_right_brace, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $kind = $this->_kind->rewrite($rewriter, $parents);
-        $prefix = $this->_prefix->rewrite($rewriter, $parents);
-        $left_brace = $this->_left_brace->rewrite($rewriter, $parents);
-        $clauses = $this->_clauses->rewrite($rewriter, $parents);
-        $right_brace = $this->_right_brace->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $kind = $this->_kind === null ? null : $rewriter($this->_kind, $parents);
+        $prefix = $rewriter($this->_prefix, $parents);
+        $left_brace = $rewriter($this->_left_brace, $parents);
+        $clauses = $rewriter($this->_clauses, $parents);
+        $right_brace = $rewriter($this->_right_brace, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $kind === $this->_kind && $prefix === $this->_prefix && $left_brace === $this->_left_brace && $clauses === $this->_clauses && $right_brace === $this->_right_brace && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $kind, $prefix, $left_brace, $clauses, $right_brace, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -110,7 +139,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(UseToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -122,7 +151,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return UseToken
@@ -145,7 +174,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKindUNTYPED()
     {
@@ -154,7 +183,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
     /**
      * @return static
      */
-    public function withKind(EditableNode $value)
+    public function withKind(?Token $value)
     {
         if ($value === $this->_kind) {
             return $this;
@@ -166,33 +195,30 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
      */
     public function hasKind()
     {
-        return !$this->_kind->isMissing();
+        return $this->_kind !== null;
     }
     /**
      * @return null | ConstToken | FunctionToken | NamespaceToken | TypeToken
      */
     /**
-     * @return null|EditableToken
+     * @return null|Token
      */
     public function getKind()
     {
-        if ($this->_kind->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableToken::class, $this->_kind);
+        return $this->_kind;
     }
     /**
      * @return ConstToken | FunctionToken | NamespaceToken | TypeToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getKindx()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_kind);
+        return TypeAssert\not_null($this->getKind());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getPrefixUNTYPED()
     {
@@ -201,7 +227,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
     /**
      * @return static
      */
-    public function withPrefix(EditableNode $value)
+    public function withPrefix(QualifiedName $value)
     {
         if ($value === $this->_prefix) {
             return $this;
@@ -213,7 +239,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
      */
     public function hasPrefix()
     {
-        return !$this->_prefix->isMissing();
+        return $this->_prefix !== null;
     }
     /**
      * @return QualifiedName
@@ -236,7 +262,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
         return $this->getPrefix();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftBraceUNTYPED()
     {
@@ -245,7 +271,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
     /**
      * @return static
      */
-    public function withLeftBrace(EditableNode $value)
+    public function withLeftBrace(LeftBraceToken $value)
     {
         if ($value === $this->_left_brace) {
             return $this;
@@ -257,7 +283,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
      */
     public function hasLeftBrace()
     {
-        return !$this->_left_brace->isMissing();
+        return $this->_left_brace !== null;
     }
     /**
      * @return LeftBraceToken
@@ -280,16 +306,18 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
         return $this->getLeftBrace();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getClausesUNTYPED()
     {
         return $this->_clauses;
     }
     /**
+     * @param NodeList<ListItem<NamespaceUseClause>> $value
+     *
      * @return static
      */
-    public function withClauses(EditableNode $value)
+    public function withClauses(NodeList $value)
     {
         if ($value === $this->_clauses) {
             return $this;
@@ -301,30 +329,30 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
      */
     public function hasClauses()
     {
-        return !$this->_clauses->isMissing();
+        return $this->_clauses !== null;
     }
     /**
-     * @return EditableList<NamespaceUseClause>
+     * @return NodeList<ListItem<NamespaceUseClause>>
      */
     /**
-     * @return EditableList<NamespaceUseClause>
+     * @return NodeList<ListItem<NamespaceUseClause>>
      */
     public function getClauses()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_clauses);
+        return TypeAssert\instance_of(NodeList::class, $this->_clauses);
     }
     /**
-     * @return EditableList<NamespaceUseClause>
+     * @return NodeList<ListItem<NamespaceUseClause>>
      */
     /**
-     * @return EditableList<NamespaceUseClause>
+     * @return NodeList<ListItem<NamespaceUseClause>>
      */
     public function getClausesx()
     {
         return $this->getClauses();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightBraceUNTYPED()
     {
@@ -333,7 +361,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
     /**
      * @return static
      */
-    public function withRightBrace(EditableNode $value)
+    public function withRightBrace(RightBraceToken $value)
     {
         if ($value === $this->_right_brace) {
             return $this;
@@ -345,19 +373,16 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
      */
     public function hasRightBrace()
     {
-        return !$this->_right_brace->isMissing();
+        return $this->_right_brace !== null;
     }
     /**
-     * @return null | RightBraceToken
+     * @return RightBraceToken
      */
     /**
-     * @return null|RightBraceToken
+     * @return RightBraceToken
      */
     public function getRightBrace()
     {
-        if ($this->_right_brace->isMissing()) {
-            return null;
-        }
         return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
     }
     /**
@@ -368,10 +393,10 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
      */
     public function getRightBracex()
     {
-        return TypeAssert\instance_of(RightBraceToken::class, $this->_right_brace);
+        return $this->getRightBrace();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -380,7 +405,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -392,19 +417,16 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
-     * @return null | SemicolonToken
+     * @return SemicolonToken
      */
     /**
-     * @return null|SemicolonToken
+     * @return SemicolonToken
      */
     public function getSemicolon()
     {
-        if ($this->_semicolon->isMissing()) {
-            return null;
-        }
         return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
     }
     /**
@@ -415,7 +437,7 @@ final class NamespaceGroupUseDeclaration extends EditableNode implements INamesp
      */
     public function getSemicolonx()
     {
-        return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+        return $this->getSemicolon();
     }
 }
 

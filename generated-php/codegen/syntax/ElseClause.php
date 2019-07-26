@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<b012cdc9ece422a269624cecf9ce9a05>>
+ * @generated SignedSource<<8d7f4902d1ce553ef85f5e5a7eaf7404>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ElseClause extends EditableNode implements IControlFlowStatement
+use HH\Lib\Dict;
+final class ElseClause extends Node implements IControlFlowStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'else_clause';
+    /**
+     * @var ElseToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var IStatement
      */
     private $_statement;
-    public function __construct(EditableNode $keyword, EditableNode $statement)
+    public function __construct(ElseToken $keyword, IStatement $statement, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('else_clause');
         $this->_keyword = $keyword;
         $this->_statement = $statement;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['else_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['else_keyword'], $file, $offset, $source, 'ElseToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $statement = EditableNode::fromJSON($json['else_statement'], $file, $offset, $source);
+        $statement = Node::fromJSON($json['else_statement'], $file, $offset, $source, 'IStatement');
+        $statement = $statement !== null ? $statement : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $statement->getWidth();
-        return new static($keyword, $statement);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $statement, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'statement' => $this->_statement];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'statement' => $this->_statement]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $statement = $this->_statement->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $statement = $rewriter($this->_statement, $parents);
         if ($keyword === $this->_keyword && $statement === $this->_statement) {
             return $this;
         }
         return new static($keyword, $statement);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -70,7 +84,7 @@ final class ElseClause extends EditableNode implements IControlFlowStatement
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(ElseToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -82,7 +96,7 @@ final class ElseClause extends EditableNode implements IControlFlowStatement
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return ElseToken
@@ -105,7 +119,7 @@ final class ElseClause extends EditableNode implements IControlFlowStatement
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getStatementUNTYPED()
     {
@@ -114,7 +128,7 @@ final class ElseClause extends EditableNode implements IControlFlowStatement
     /**
      * @return static
      */
-    public function withStatement(EditableNode $value)
+    public function withStatement(IStatement $value)
     {
         if ($value === $this->_statement) {
             return $this;
@@ -126,25 +140,25 @@ final class ElseClause extends EditableNode implements IControlFlowStatement
      */
     public function hasStatement()
     {
-        return !$this->_statement->isMissing();
+        return $this->_statement !== null;
     }
     /**
      * @return CompoundStatement | EchoStatement | ExpressionStatement |
      * IfStatement | ReturnStatement
      */
     /**
-     * @return EditableNode
+     * @return IStatement
      */
     public function getStatement()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_statement);
+        return TypeAssert\instance_of(IStatement::class, $this->_statement);
     }
     /**
      * @return CompoundStatement | EchoStatement | ExpressionStatement |
      * IfStatement | ReturnStatement
      */
     /**
-     * @return EditableNode
+     * @return IStatement
      */
     public function getStatementx()
     {

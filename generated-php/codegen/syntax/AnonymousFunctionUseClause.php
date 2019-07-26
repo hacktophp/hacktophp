@@ -2,82 +2,105 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<ba18fb829b459e0c5b2cd42c2aab4c35>>
+ * @generated SignedSource<<d8bb63a6d0a694e6fcbd572bb7f5e5f0>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class AnonymousFunctionUseClause extends EditableNode
+use HH\Lib\Dict;
+final class AnonymousFunctionUseClause extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'anonymous_function_use_clause';
+    /**
+     * @var UseToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<VariableToken>>
      */
     private $_variables;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
-    public function __construct(EditableNode $keyword, EditableNode $left_paren, EditableNode $variables, EditableNode $right_paren)
+    /**
+     * @param NodeList<ListItem<VariableToken>> $variables
+     */
+    public function __construct(UseToken $keyword, LeftParenToken $left_paren, NodeList $variables, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('anonymous_function_use_clause');
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;
         $this->_variables = $variables;
         $this->_right_paren = $right_paren;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['anonymous_use_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['anonymous_use_keyword'], $file, $offset, $source, 'UseToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_paren = EditableNode::fromJSON($json['anonymous_use_left_paren'], $file, $offset, $source);
+        $left_paren = Node::fromJSON($json['anonymous_use_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $variables = EditableNode::fromJSON($json['anonymous_use_variables'], $file, $offset, $source);
+        $variables = Node::fromJSON($json['anonymous_use_variables'], $file, $offset, $source, 'NodeList<ListItem<VariableToken>>');
+        $variables = $variables !== null ? $variables : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $variables->getWidth();
-        $right_paren = EditableNode::fromJSON($json['anonymous_use_right_paren'], $file, $offset, $source);
+        $right_paren = Node::fromJSON($json['anonymous_use_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        return new static($keyword, $left_paren, $variables, $right_paren);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $left_paren, $variables, $right_paren, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'variables' => $this->_variables, 'right_paren' => $this->_right_paren];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'variables' => $this->_variables, 'right_paren' => $this->_right_paren]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $variables = $this->_variables->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $variables = $rewriter($this->_variables, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
         if ($keyword === $this->_keyword && $left_paren === $this->_left_paren && $variables === $this->_variables && $right_paren === $this->_right_paren) {
             return $this;
         }
         return new static($keyword, $left_paren, $variables, $right_paren);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -86,7 +109,7 @@ final class AnonymousFunctionUseClause extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(UseToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -98,7 +121,7 @@ final class AnonymousFunctionUseClause extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return UseToken
@@ -121,7 +144,7 @@ final class AnonymousFunctionUseClause extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -130,7 +153,7 @@ final class AnonymousFunctionUseClause extends EditableNode
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -142,7 +165,7 @@ final class AnonymousFunctionUseClause extends EditableNode
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -165,16 +188,18 @@ final class AnonymousFunctionUseClause extends EditableNode
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getVariablesUNTYPED()
     {
         return $this->_variables;
     }
     /**
+     * @param NodeList<ListItem<VariableToken>> $value
+     *
      * @return static
      */
-    public function withVariables(EditableNode $value)
+    public function withVariables(NodeList $value)
     {
         if ($value === $this->_variables) {
             return $this;
@@ -186,32 +211,30 @@ final class AnonymousFunctionUseClause extends EditableNode
      */
     public function hasVariables()
     {
-        return !$this->_variables->isMissing();
+        return $this->_variables !== null;
     }
     /**
-     * @return EditableList<?VariableToken> | EditableList<PrefixUnaryExpression>
-     * | EditableList<EditableNode> | EditableList<VariableToken>
+     * @return NodeList<ListItem<VariableToken>>
      */
     /**
-     * @return EditableList<null|EditableNode>
+     * @return NodeList<ListItem<VariableToken>>
      */
     public function getVariables()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_variables);
+        return TypeAssert\instance_of(NodeList::class, $this->_variables);
     }
     /**
-     * @return EditableList<?VariableToken> | EditableList<PrefixUnaryExpression>
-     * | EditableList<EditableNode> | EditableList<VariableToken>
+     * @return NodeList<ListItem<VariableToken>>
      */
     /**
-     * @return EditableList<null|EditableNode>
+     * @return NodeList<ListItem<VariableToken>>
      */
     public function getVariablesx()
     {
         return $this->getVariables();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -220,7 +243,7 @@ final class AnonymousFunctionUseClause extends EditableNode
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -232,7 +255,7 @@ final class AnonymousFunctionUseClause extends EditableNode
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
      * @return RightParenToken

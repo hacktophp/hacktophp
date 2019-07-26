@@ -2,82 +2,96 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<fd033f8de6409e2ed7f6a5e807a1a164>>
+ * @generated SignedSource<<9da8795b1761ca14331658cb590da295>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class XHPClassAttribute extends EditableNode
+use HH\Lib\Dict;
+final class XHPClassAttribute extends Node implements IXHPAttribute
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'xhp_class_attribute';
+    /**
+     * @var ITypeSpecifier
      */
     private $_type;
     /**
-     * @var EditableNode
+     * @var XHPElementNameToken
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var null|SimpleInitializer
      */
     private $_initializer;
     /**
-     * @var EditableNode
+     * @var null|Node
      */
     private $_required;
-    public function __construct(EditableNode $type, EditableNode $name, EditableNode $initializer, EditableNode $required)
+    public function __construct(ITypeSpecifier $type, XHPElementNameToken $name, ?SimpleInitializer $initializer, ?Node $required, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('xhp_class_attribute');
         $this->_type = $type;
         $this->_name = $name;
         $this->_initializer = $initializer;
         $this->_required = $required;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $type = EditableNode::fromJSON($json['xhp_attribute_decl_type'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $type = Node::fromJSON($json['xhp_attribute_decl_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $type = $type !== null ? $type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $type->getWidth();
-        $name = EditableNode::fromJSON($json['xhp_attribute_decl_name'], $file, $offset, $source);
+        $name = Node::fromJSON($json['xhp_attribute_decl_name'], $file, $offset, $source, 'XHPElementNameToken');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $initializer = EditableNode::fromJSON($json['xhp_attribute_decl_initializer'], $file, $offset, $source);
-        $offset += $initializer->getWidth();
-        $required = EditableNode::fromJSON($json['xhp_attribute_decl_required'], $file, $offset, $source);
-        $offset += $required->getWidth();
-        return new static($type, $name, $initializer, $required);
+        $initializer = Node::fromJSON($json['xhp_attribute_decl_initializer'], $file, $offset, $source, 'SimpleInitializer');
+        $offset += (($__tmp1__ = $initializer) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $required = Node::fromJSON($json['xhp_attribute_decl_required'], $file, $offset, $source, 'Node');
+        $offset += (($__tmp2__ = $required) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($type, $name, $initializer, $required, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['type' => $this->_type, 'name' => $this->_name, 'initializer' => $this->_initializer, 'required' => $this->_required];
+        return Dict\filter_nulls(['type' => $this->_type, 'name' => $this->_name, 'initializer' => $this->_initializer, 'required' => $this->_required]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $type = $this->_type->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $initializer = $this->_initializer->rewrite($rewriter, $parents);
-        $required = $this->_required->rewrite($rewriter, $parents);
+        $type = $rewriter($this->_type, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $initializer = $this->_initializer === null ? null : $rewriter($this->_initializer, $parents);
+        $required = $this->_required === null ? null : $rewriter($this->_required, $parents);
         if ($type === $this->_type && $name === $this->_name && $initializer === $this->_initializer && $required === $this->_required) {
             return $this;
         }
         return new static($type, $name, $initializer, $required);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -86,7 +100,7 @@ final class XHPClassAttribute extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(ITypeSpecifier $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -98,7 +112,7 @@ final class XHPClassAttribute extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
      * @return GenericTypeSpecifier | MapArrayTypeSpecifier |
@@ -106,11 +120,11 @@ final class XHPClassAttribute extends EditableNode
      * XHPEnumType
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getType()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return TypeAssert\instance_of(ITypeSpecifier::class, $this->_type);
     }
     /**
      * @return GenericTypeSpecifier | MapArrayTypeSpecifier |
@@ -118,14 +132,14 @@ final class XHPClassAttribute extends EditableNode
      * XHPEnumType
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getTypex()
     {
         return $this->getType();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -134,7 +148,7 @@ final class XHPClassAttribute extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(XHPElementNameToken $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -146,7 +160,7 @@ final class XHPClassAttribute extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return XHPElementNameToken
@@ -169,7 +183,7 @@ final class XHPClassAttribute extends EditableNode
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getInitializerUNTYPED()
     {
@@ -178,7 +192,7 @@ final class XHPClassAttribute extends EditableNode
     /**
      * @return static
      */
-    public function withInitializer(EditableNode $value)
+    public function withInitializer(?SimpleInitializer $value)
     {
         if ($value === $this->_initializer) {
             return $this;
@@ -190,7 +204,7 @@ final class XHPClassAttribute extends EditableNode
      */
     public function hasInitializer()
     {
-        return !$this->_initializer->isMissing();
+        return $this->_initializer !== null;
     }
     /**
      * @return null | SimpleInitializer
@@ -200,10 +214,7 @@ final class XHPClassAttribute extends EditableNode
      */
     public function getInitializer()
     {
-        if ($this->_initializer->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(SimpleInitializer::class, $this->_initializer);
+        return $this->_initializer;
     }
     /**
      * @return SimpleInitializer
@@ -213,10 +224,10 @@ final class XHPClassAttribute extends EditableNode
      */
     public function getInitializerx()
     {
-        return TypeAssert\instance_of(SimpleInitializer::class, $this->_initializer);
+        return TypeAssert\not_null($this->getInitializer());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRequiredUNTYPED()
     {
@@ -225,7 +236,7 @@ final class XHPClassAttribute extends EditableNode
     /**
      * @return static
      */
-    public function withRequired(EditableNode $value)
+    public function withRequired(?Node $value)
     {
         if ($value === $this->_required) {
             return $this;
@@ -237,30 +248,27 @@ final class XHPClassAttribute extends EditableNode
      */
     public function hasRequired()
     {
-        return !$this->_required->isMissing();
+        return $this->_required !== null;
     }
     /**
-     * @return null | XHPRequired
+     * @return null | XHPLateinit | XHPRequired
      */
     /**
-     * @return null|XHPRequired
+     * @return null|Node
      */
     public function getRequired()
     {
-        if ($this->_required->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(XHPRequired::class, $this->_required);
+        return $this->_required;
     }
     /**
-     * @return XHPRequired
+     * @return XHPLateinit | XHPRequired
      */
     /**
-     * @return XHPRequired
+     * @return Node
      */
     public function getRequiredx()
     {
-        return TypeAssert\instance_of(XHPRequired::class, $this->_required);
+        return TypeAssert\not_null($this->getRequired());
     }
 }
 

@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<50b8d19fab38f862b35df1e1c35769ac>>
+ * @generated SignedSource<<29362d550571fffc19ae025baad52e8f>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class FinallyClause extends EditableNode
+use HH\Lib\Dict;
+final class FinallyClause extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'finally_clause';
+    /**
+     * @var FinallyToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var CompoundStatement
      */
     private $_body;
-    public function __construct(EditableNode $keyword, EditableNode $body)
+    public function __construct(FinallyToken $keyword, CompoundStatement $body, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('finally_clause');
         $this->_keyword = $keyword;
         $this->_body = $body;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['finally_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['finally_keyword'], $file, $offset, $source, 'FinallyToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $body = EditableNode::fromJSON($json['finally_body'], $file, $offset, $source);
+        $body = Node::fromJSON($json['finally_body'], $file, $offset, $source, 'CompoundStatement');
+        $body = $body !== null ? $body : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $body->getWidth();
-        return new static($keyword, $body);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $body, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'body' => $this->_body];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'body' => $this->_body]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $body = $this->_body->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $body = $rewriter($this->_body, $parents);
         if ($keyword === $this->_keyword && $body === $this->_body) {
             return $this;
         }
         return new static($keyword, $body);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -70,7 +84,7 @@ final class FinallyClause extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(FinallyToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -82,7 +96,7 @@ final class FinallyClause extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return FinallyToken
@@ -105,7 +119,7 @@ final class FinallyClause extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getBodyUNTYPED()
     {
@@ -114,7 +128,7 @@ final class FinallyClause extends EditableNode
     /**
      * @return static
      */
-    public function withBody(EditableNode $value)
+    public function withBody(CompoundStatement $value)
     {
         if ($value === $this->_body) {
             return $this;
@@ -126,7 +140,7 @@ final class FinallyClause extends EditableNode
      */
     public function hasBody()
     {
-        return !$this->_body->isMissing();
+        return $this->_body !== null;
     }
     /**
      * @return CompoundStatement

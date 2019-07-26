@@ -2,74 +2,88 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<e368d0ae1b8aed7b3e1f422098fd0fcc>>
+ * @generated SignedSource<<bc97003efe9c404c9f07953a54e55f13>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class FunctionDeclaration extends EditableNode implements IFunctionishDeclaration
+use HH\Lib\Dict;
+final class FunctionDeclaration extends Node implements IFunctionishDeclaration, IHasFunctionBody, IHasAttributeSpec
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'function_declaration';
+    /**
+     * @var null|OldAttributeSpecification
      */
     private $_attribute_spec;
     /**
-     * @var EditableNode
+     * @var FunctionDeclarationHeader
      */
     private $_declaration_header;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_body;
-    public function __construct(EditableNode $attribute_spec, EditableNode $declaration_header, EditableNode $body)
+    public function __construct(?OldAttributeSpecification $attribute_spec, FunctionDeclarationHeader $declaration_header, Node $body, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('function_declaration');
         $this->_attribute_spec = $attribute_spec;
         $this->_declaration_header = $declaration_header;
         $this->_body = $body;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $attribute_spec = EditableNode::fromJSON($json['function_attribute_spec'], $file, $offset, $source);
-        $offset += $attribute_spec->getWidth();
-        $declaration_header = EditableNode::fromJSON($json['function_declaration_header'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $attribute_spec = Node::fromJSON($json['function_attribute_spec'], $file, $offset, $source, 'OldAttributeSpecification');
+        $offset += (($__tmp1__ = $attribute_spec) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $declaration_header = Node::fromJSON($json['function_declaration_header'], $file, $offset, $source, 'FunctionDeclarationHeader');
+        $declaration_header = $declaration_header !== null ? $declaration_header : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $declaration_header->getWidth();
-        $body = EditableNode::fromJSON($json['function_body'], $file, $offset, $source);
+        $body = Node::fromJSON($json['function_body'], $file, $offset, $source, 'Node');
+        $body = $body !== null ? $body : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $body->getWidth();
-        return new static($attribute_spec, $declaration_header, $body);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($attribute_spec, $declaration_header, $body, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['attribute_spec' => $this->_attribute_spec, 'declaration_header' => $this->_declaration_header, 'body' => $this->_body];
+        return Dict\filter_nulls(['attribute_spec' => $this->_attribute_spec, 'declaration_header' => $this->_declaration_header, 'body' => $this->_body]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $attribute_spec = $this->_attribute_spec->rewrite($rewriter, $parents);
-        $declaration_header = $this->_declaration_header->rewrite($rewriter, $parents);
-        $body = $this->_body->rewrite($rewriter, $parents);
+        $attribute_spec = $this->_attribute_spec === null ? null : $rewriter($this->_attribute_spec, $parents);
+        $declaration_header = $rewriter($this->_declaration_header, $parents);
+        $body = $rewriter($this->_body, $parents);
         if ($attribute_spec === $this->_attribute_spec && $declaration_header === $this->_declaration_header && $body === $this->_body) {
             return $this;
         }
         return new static($attribute_spec, $declaration_header, $body);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAttributeSpecUNTYPED()
     {
@@ -78,7 +92,7 @@ final class FunctionDeclaration extends EditableNode implements IFunctionishDecl
     /**
      * @return static
      */
-    public function withAttributeSpec(EditableNode $value)
+    public function withAttributeSpec(?OldAttributeSpecification $value)
     {
         if ($value === $this->_attribute_spec) {
             return $this;
@@ -90,33 +104,30 @@ final class FunctionDeclaration extends EditableNode implements IFunctionishDecl
      */
     public function hasAttributeSpec()
     {
-        return !$this->_attribute_spec->isMissing();
+        return $this->_attribute_spec !== null;
     }
     /**
-     * @return AttributeSpecification | null
+     * @return null | OldAttributeSpecification
      */
     /**
-     * @return null|AttributeSpecification
+     * @return null|OldAttributeSpecification
      */
     public function getAttributeSpec()
     {
-        if ($this->_attribute_spec->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute_spec);
+        return $this->_attribute_spec;
     }
     /**
-     * @return AttributeSpecification
+     * @return OldAttributeSpecification
      */
     /**
-     * @return AttributeSpecification
+     * @return OldAttributeSpecification
      */
     public function getAttributeSpecx()
     {
-        return TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute_spec);
+        return TypeAssert\not_null($this->getAttributeSpec());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getDeclarationHeaderUNTYPED()
     {
@@ -125,7 +136,7 @@ final class FunctionDeclaration extends EditableNode implements IFunctionishDecl
     /**
      * @return static
      */
-    public function withDeclarationHeader(EditableNode $value)
+    public function withDeclarationHeader(FunctionDeclarationHeader $value)
     {
         if ($value === $this->_declaration_header) {
             return $this;
@@ -137,7 +148,7 @@ final class FunctionDeclaration extends EditableNode implements IFunctionishDecl
      */
     public function hasDeclarationHeader()
     {
-        return !$this->_declaration_header->isMissing();
+        return $this->_declaration_header !== null;
     }
     /**
      * @return FunctionDeclarationHeader
@@ -160,7 +171,7 @@ final class FunctionDeclaration extends EditableNode implements IFunctionishDecl
         return $this->getDeclarationHeader();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getBodyUNTYPED()
     {
@@ -169,7 +180,7 @@ final class FunctionDeclaration extends EditableNode implements IFunctionishDecl
     /**
      * @return static
      */
-    public function withBody(EditableNode $value)
+    public function withBody(Node $value)
     {
         if ($value === $this->_body) {
             return $this;
@@ -181,23 +192,23 @@ final class FunctionDeclaration extends EditableNode implements IFunctionishDecl
      */
     public function hasBody()
     {
-        return !$this->_body->isMissing();
+        return $this->_body !== null;
     }
     /**
      * @return CompoundStatement | SemicolonToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getBody()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_body);
+        return $this->_body;
     }
     /**
      * @return CompoundStatement | SemicolonToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getBodyx()
     {

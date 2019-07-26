@@ -2,74 +2,94 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<ca38f92190905ac87833cba3ec407d87>>
+ * @generated SignedSource<<c831d9f323d3b1bb38ba6c4c0403d4ef>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class TraitUsePrecedenceItem extends EditableNode
+use HH\Lib\Dict;
+final class TraitUsePrecedenceItem extends Node implements ITraitUseItem
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'trait_use_precedence_item';
+    /**
+     * @var ScopeResolutionExpression
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var InsteadofToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<SimpleTypeSpecifier>>
      */
     private $_removed_names;
-    public function __construct(EditableNode $name, EditableNode $keyword, EditableNode $removed_names)
+    /**
+     * @param NodeList<ListItem<SimpleTypeSpecifier>> $removed_names
+     */
+    public function __construct(ScopeResolutionExpression $name, InsteadofToken $keyword, NodeList $removed_names, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('trait_use_precedence_item');
         $this->_name = $name;
         $this->_keyword = $keyword;
         $this->_removed_names = $removed_names;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $name = EditableNode::fromJSON($json['trait_use_precedence_item_name'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $name = Node::fromJSON($json['trait_use_precedence_item_name'], $file, $offset, $source, 'ScopeResolutionExpression');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $keyword = EditableNode::fromJSON($json['trait_use_precedence_item_keyword'], $file, $offset, $source);
+        $keyword = Node::fromJSON($json['trait_use_precedence_item_keyword'], $file, $offset, $source, 'InsteadofToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $removed_names = EditableNode::fromJSON($json['trait_use_precedence_item_removed_names'], $file, $offset, $source);
+        $removed_names = Node::fromJSON($json['trait_use_precedence_item_removed_names'], $file, $offset, $source, 'NodeList<ListItem<SimpleTypeSpecifier>>');
+        $removed_names = $removed_names !== null ? $removed_names : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $removed_names->getWidth();
-        return new static($name, $keyword, $removed_names);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($name, $keyword, $removed_names, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['name' => $this->_name, 'keyword' => $this->_keyword, 'removed_names' => $this->_removed_names];
+        return Dict\filter_nulls(['name' => $this->_name, 'keyword' => $this->_keyword, 'removed_names' => $this->_removed_names]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $removed_names = $this->_removed_names->rewrite($rewriter, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $removed_names = $rewriter($this->_removed_names, $parents);
         if ($name === $this->_name && $keyword === $this->_keyword && $removed_names === $this->_removed_names) {
             return $this;
         }
         return new static($name, $keyword, $removed_names);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -78,7 +98,7 @@ final class TraitUsePrecedenceItem extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(ScopeResolutionExpression $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -90,7 +110,7 @@ final class TraitUsePrecedenceItem extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return ScopeResolutionExpression
@@ -113,7 +133,7 @@ final class TraitUsePrecedenceItem extends EditableNode
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -122,7 +142,7 @@ final class TraitUsePrecedenceItem extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(InsteadofToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -134,7 +154,7 @@ final class TraitUsePrecedenceItem extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return InsteadofToken
@@ -157,16 +177,18 @@ final class TraitUsePrecedenceItem extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRemovedNamesUNTYPED()
     {
         return $this->_removed_names;
     }
     /**
+     * @param NodeList<ListItem<SimpleTypeSpecifier>> $value
+     *
      * @return static
      */
-    public function withRemovedNames(EditableNode $value)
+    public function withRemovedNames(NodeList $value)
     {
         if ($value === $this->_removed_names) {
             return $this;
@@ -178,23 +200,23 @@ final class TraitUsePrecedenceItem extends EditableNode
      */
     public function hasRemovedNames()
     {
-        return !$this->_removed_names->isMissing();
+        return $this->_removed_names !== null;
     }
     /**
-     * @return EditableList<SimpleTypeSpecifier>
+     * @return NodeList<ListItem<SimpleTypeSpecifier>>
      */
     /**
-     * @return EditableList<SimpleTypeSpecifier>
+     * @return NodeList<ListItem<SimpleTypeSpecifier>>
      */
     public function getRemovedNames()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_removed_names);
+        return TypeAssert\instance_of(NodeList::class, $this->_removed_names);
     }
     /**
-     * @return EditableList<SimpleTypeSpecifier>
+     * @return NodeList<ListItem<SimpleTypeSpecifier>>
      */
     /**
-     * @return EditableList<SimpleTypeSpecifier>
+     * @return NodeList<ListItem<SimpleTypeSpecifier>>
      */
     public function getRemovedNamesx()
     {

@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<8a5328ddb2884528c7791b14d1d8912e>>
+ * @generated SignedSource<<6bdaf901d32fe9e92f75273983edb822>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class PrefixedStringExpression extends EditableNode
+use HH\Lib\Dict;
+final class PrefixedStringExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'prefixed_string_expression';
+    /**
+     * @var Node
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_str;
-    public function __construct(EditableNode $name, EditableNode $str)
+    public function __construct(Node $name, Node $str, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('prefixed_string_expression');
         $this->_name = $name;
         $this->_str = $str;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $name = EditableNode::fromJSON($json['prefixed_string_name'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $name = Node::fromJSON($json['prefixed_string_name'], $file, $offset, $source, 'Node');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $str = EditableNode::fromJSON($json['prefixed_string_str'], $file, $offset, $source);
+        $str = Node::fromJSON($json['prefixed_string_str'], $file, $offset, $source, 'Node');
+        $str = $str !== null ? $str : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $str->getWidth();
-        return new static($name, $str);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($name, $str, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['name' => $this->_name, 'str' => $this->_str];
+        return Dict\filter_nulls(['name' => $this->_name, 'str' => $this->_str]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $str = $this->_str->rewrite($rewriter, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $str = $rewriter($this->_str, $parents);
         if ($name === $this->_name && $str === $this->_str) {
             return $this;
         }
         return new static($name, $str);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -70,7 +84,7 @@ final class PrefixedStringExpression extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(Node $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -82,30 +96,30 @@ final class PrefixedStringExpression extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getName()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_name);
+        return $this->_name;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getNamex()
     {
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getStrUNTYPED()
     {
@@ -114,7 +128,7 @@ final class PrefixedStringExpression extends EditableNode
     /**
      * @return static
      */
-    public function withStr(EditableNode $value)
+    public function withStr(Node $value)
     {
         if ($value === $this->_str) {
             return $this;
@@ -126,23 +140,23 @@ final class PrefixedStringExpression extends EditableNode
      */
     public function hasStr()
     {
-        return !$this->_str->isMissing();
+        return $this->_str !== null;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getStr()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_str);
+        return $this->_str;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getStrx()
     {

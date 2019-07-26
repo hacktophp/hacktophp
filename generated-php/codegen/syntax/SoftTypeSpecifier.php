@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<d1cfee3afd819a945841c2ac9b1e77c3>>
+ * @generated SignedSource<<3ad0c323c15f82424947348cf76a65ca>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class SoftTypeSpecifier extends EditableNode
+use HH\Lib\Dict;
+final class SoftTypeSpecifier extends Node implements ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'soft_type_specifier';
+    /**
+     * @var AtToken
      */
     private $_at;
     /**
-     * @var EditableNode
+     * @var ITypeSpecifier
      */
     private $_type;
-    public function __construct(EditableNode $at, EditableNode $type)
+    public function __construct(AtToken $at, ITypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('soft_type_specifier');
         $this->_at = $at;
         $this->_type = $type;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $at = EditableNode::fromJSON($json['soft_at'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $at = Node::fromJSON($json['soft_at'], $file, $offset, $source, 'AtToken');
+        $at = $at !== null ? $at : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $at->getWidth();
-        $type = EditableNode::fromJSON($json['soft_type'], $file, $offset, $source);
+        $type = Node::fromJSON($json['soft_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $type = $type !== null ? $type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $type->getWidth();
-        return new static($at, $type);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($at, $type, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['at' => $this->_at, 'type' => $this->_type];
+        return Dict\filter_nulls(['at' => $this->_at, 'type' => $this->_type]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $at = $this->_at->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
+        $at = $rewriter($this->_at, $parents);
+        $type = $rewriter($this->_type, $parents);
         if ($at === $this->_at && $type === $this->_type) {
             return $this;
         }
         return new static($at, $type);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAtUNTYPED()
     {
@@ -70,7 +84,7 @@ final class SoftTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withAt(EditableNode $value)
+    public function withAt(AtToken $value)
     {
         if ($value === $this->_at) {
             return $this;
@@ -82,7 +96,7 @@ final class SoftTypeSpecifier extends EditableNode
      */
     public function hasAt()
     {
-        return !$this->_at->isMissing();
+        return $this->_at !== null;
     }
     /**
      * @return AtToken
@@ -105,7 +119,7 @@ final class SoftTypeSpecifier extends EditableNode
         return $this->getAt();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -114,7 +128,7 @@ final class SoftTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(ITypeSpecifier $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -126,7 +140,7 @@ final class SoftTypeSpecifier extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
      * @return ClosureTypeSpecifier | GenericTypeSpecifier |
@@ -134,11 +148,11 @@ final class SoftTypeSpecifier extends EditableNode
      * TupleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getType()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return TypeAssert\instance_of(ITypeSpecifier::class, $this->_type);
     }
     /**
      * @return ClosureTypeSpecifier | GenericTypeSpecifier |
@@ -146,7 +160,7 @@ final class SoftTypeSpecifier extends EditableNode
      * TupleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getTypex()
     {

@@ -2,66 +2,83 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<5f3d7404dfdaea70da39ffc1641c4a5a>>
+ * @generated SignedSource<<6a80d5adb0456d8f2ca7856311e8e804>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class WhereClause extends EditableNode
+use HH\Lib\Dict;
+final class WhereClause extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'where_clause';
+    /**
+     * @var WhereToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<WhereConstraint>>
      */
     private $_constraints;
-    public function __construct(EditableNode $keyword, EditableNode $constraints)
+    /**
+     * @param NodeList<ListItem<WhereConstraint>> $constraints
+     */
+    public function __construct(WhereToken $keyword, NodeList $constraints, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('where_clause');
         $this->_keyword = $keyword;
         $this->_constraints = $constraints;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['where_clause_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['where_clause_keyword'], $file, $offset, $source, 'WhereToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $constraints = EditableNode::fromJSON($json['where_clause_constraints'], $file, $offset, $source);
+        $constraints = Node::fromJSON($json['where_clause_constraints'], $file, $offset, $source, 'NodeList<ListItem<WhereConstraint>>');
+        $constraints = $constraints !== null ? $constraints : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $constraints->getWidth();
-        return new static($keyword, $constraints);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $constraints, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'constraints' => $this->_constraints];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'constraints' => $this->_constraints]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $constraints = $this->_constraints->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $constraints = $rewriter($this->_constraints, $parents);
         if ($keyword === $this->_keyword && $constraints === $this->_constraints) {
             return $this;
         }
         return new static($keyword, $constraints);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -70,7 +87,7 @@ final class WhereClause extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(WhereToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -82,7 +99,7 @@ final class WhereClause extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return WhereToken
@@ -105,16 +122,18 @@ final class WhereClause extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getConstraintsUNTYPED()
     {
         return $this->_constraints;
     }
     /**
+     * @param NodeList<ListItem<WhereConstraint>> $value
+     *
      * @return static
      */
-    public function withConstraints(EditableNode $value)
+    public function withConstraints(NodeList $value)
     {
         if ($value === $this->_constraints) {
             return $this;
@@ -126,23 +145,23 @@ final class WhereClause extends EditableNode
      */
     public function hasConstraints()
     {
-        return !$this->_constraints->isMissing();
+        return $this->_constraints !== null;
     }
     /**
-     * @return EditableList<WhereConstraint>
+     * @return NodeList<ListItem<WhereConstraint>>
      */
     /**
-     * @return EditableList<WhereConstraint>
+     * @return NodeList<ListItem<WhereConstraint>>
      */
     public function getConstraints()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_constraints);
+        return TypeAssert\instance_of(NodeList::class, $this->_constraints);
     }
     /**
-     * @return EditableList<WhereConstraint>
+     * @return NodeList<ListItem<WhereConstraint>>
      */
     /**
-     * @return EditableList<WhereConstraint>
+     * @return NodeList<ListItem<WhereConstraint>>
      */
     public function getConstraintsx()
     {

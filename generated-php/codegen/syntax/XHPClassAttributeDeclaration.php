@@ -2,74 +2,94 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<f1fdb0d4e9b3b659625b84e67a38e451>>
+ * @generated SignedSource<<4a260a532cad42ca00c96e1ee697c6d4>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class XHPClassAttributeDeclaration extends EditableNode
+use HH\Lib\Dict;
+final class XHPClassAttributeDeclaration extends Node implements IClassBodyDeclaration
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'xhp_class_attribute_declaration';
+    /**
+     * @var AttributeToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<Node>>
      */
     private $_attributes;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $attributes, EditableNode $semicolon)
+    /**
+     * @param NodeList<ListItem<Node>> $attributes
+     */
+    public function __construct(AttributeToken $keyword, NodeList $attributes, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('xhp_class_attribute_declaration');
         $this->_keyword = $keyword;
         $this->_attributes = $attributes;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['xhp_attribute_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['xhp_attribute_keyword'], $file, $offset, $source, 'AttributeToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $attributes = EditableNode::fromJSON($json['xhp_attribute_attributes'], $file, $offset, $source);
+        $attributes = Node::fromJSON($json['xhp_attribute_attributes'], $file, $offset, $source, 'NodeList<ListItem<Node>>');
+        $attributes = $attributes !== null ? $attributes : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $attributes->getWidth();
-        $semicolon = EditableNode::fromJSON($json['xhp_attribute_semicolon'], $file, $offset, $source);
+        $semicolon = Node::fromJSON($json['xhp_attribute_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($keyword, $attributes, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $attributes, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'attributes' => $this->_attributes, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'attributes' => $this->_attributes, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $attributes = $this->_attributes->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $attributes = $rewriter($this->_attributes, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $attributes === $this->_attributes && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $attributes, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -78,7 +98,7 @@ final class XHPClassAttributeDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(AttributeToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -90,7 +110,7 @@ final class XHPClassAttributeDeclaration extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return AttributeToken
@@ -113,16 +133,18 @@ final class XHPClassAttributeDeclaration extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAttributesUNTYPED()
     {
         return $this->_attributes;
     }
     /**
+     * @param NodeList<ListItem<Node>> $value
+     *
      * @return static
      */
-    public function withAttributes(EditableNode $value)
+    public function withAttributes(NodeList $value)
     {
         if ($value === $this->_attributes) {
             return $this;
@@ -134,32 +156,32 @@ final class XHPClassAttributeDeclaration extends EditableNode
      */
     public function hasAttributes()
     {
-        return !$this->_attributes->isMissing();
+        return $this->_attributes !== null;
     }
     /**
-     * @return EditableList<XHPClassAttribute> | EditableList<EditableNode> |
-     * EditableList<XHPSimpleClassAttribute>
+     * @return NodeList<ListItem<XHPClassAttribute>> | NodeList<ListItem<Node>> |
+     * NodeList<ListItem<XHPSimpleClassAttribute>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<Node>>
      */
     public function getAttributes()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_attributes);
+        return TypeAssert\instance_of(NodeList::class, $this->_attributes);
     }
     /**
-     * @return EditableList<XHPClassAttribute> | EditableList<EditableNode> |
-     * EditableList<XHPSimpleClassAttribute>
+     * @return NodeList<ListItem<XHPClassAttribute>> | NodeList<ListItem<Node>> |
+     * NodeList<ListItem<XHPSimpleClassAttribute>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<Node>>
      */
     public function getAttributesx()
     {
         return $this->getAttributes();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -168,7 +190,7 @@ final class XHPClassAttributeDeclaration extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -180,7 +202,7 @@ final class XHPClassAttributeDeclaration extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return SemicolonToken

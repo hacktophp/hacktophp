@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<dca35918dbba00ae98e75873ba3ee274>>
+ * @generated SignedSource<<42d277ac7e59a1c27b368cc62f7475f3>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class MemberSelectionExpression extends EditableNode
+use HH\Lib\Dict;
+final class MemberSelectionExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'member_selection_expression';
+    /**
+     * @var IExpression
      */
     private $_object;
     /**
-     * @var EditableNode
+     * @var MinusGreaterThanToken
      */
     private $_operator;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_name;
-    public function __construct(EditableNode $object, EditableNode $operator, EditableNode $name)
+    public function __construct(IExpression $object, MinusGreaterThanToken $operator, IExpression $name, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('member_selection_expression');
         $this->_object = $object;
         $this->_operator = $operator;
         $this->_name = $name;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $object = EditableNode::fromJSON($json['member_object'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $object = Node::fromJSON($json['member_object'], $file, $offset, $source, 'IExpression');
+        $object = $object !== null ? $object : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $object->getWidth();
-        $operator = EditableNode::fromJSON($json['member_operator'], $file, $offset, $source);
+        $operator = Node::fromJSON($json['member_operator'], $file, $offset, $source, 'MinusGreaterThanToken');
+        $operator = $operator !== null ? $operator : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $operator->getWidth();
-        $name = EditableNode::fromJSON($json['member_name'], $file, $offset, $source);
+        $name = Node::fromJSON($json['member_name'], $file, $offset, $source, 'IExpression');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        return new static($object, $operator, $name);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($object, $operator, $name, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['object' => $this->_object, 'operator' => $this->_operator, 'name' => $this->_name];
+        return Dict\filter_nulls(['object' => $this->_object, 'operator' => $this->_operator, 'name' => $this->_name]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $object = $this->_object->rewrite($rewriter, $parents);
-        $operator = $this->_operator->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
+        $object = $rewriter($this->_object, $parents);
+        $operator = $rewriter($this->_operator, $parents);
+        $name = $rewriter($this->_name, $parents);
         if ($object === $this->_object && $operator === $this->_operator && $name === $this->_name) {
             return $this;
         }
         return new static($object, $operator, $name);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getObjectUNTYPED()
     {
@@ -78,7 +95,7 @@ final class MemberSelectionExpression extends EditableNode
     /**
      * @return static
      */
-    public function withObject(EditableNode $value)
+    public function withObject(IExpression $value)
     {
         if ($value === $this->_object) {
             return $this;
@@ -90,36 +107,36 @@ final class MemberSelectionExpression extends EditableNode
      */
     public function hasObject()
     {
-        return !$this->_object->isMissing();
+        return $this->_object !== null;
     }
     /**
      * @return FunctionCallExpression | MemberSelectionExpression |
      * ObjectCreationExpression | ParenthesizedExpression |
-     * PipeVariableExpression | PrefixUnaryExpression | ScopeResolutionExpression
-     * | SubscriptExpression | NameToken | VariableExpression
+     * PipeVariableExpression | SafeMemberSelectionExpression |
+     * ScopeResolutionExpression | SubscriptExpression | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getObject()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_object);
+        return TypeAssert\instance_of(IExpression::class, $this->_object);
     }
     /**
      * @return FunctionCallExpression | MemberSelectionExpression |
      * ObjectCreationExpression | ParenthesizedExpression |
-     * PipeVariableExpression | PrefixUnaryExpression | ScopeResolutionExpression
-     * | SubscriptExpression | NameToken | VariableExpression
+     * PipeVariableExpression | SafeMemberSelectionExpression |
+     * ScopeResolutionExpression | SubscriptExpression | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getObjectx()
     {
         return $this->getObject();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOperatorUNTYPED()
     {
@@ -128,7 +145,7 @@ final class MemberSelectionExpression extends EditableNode
     /**
      * @return static
      */
-    public function withOperator(EditableNode $value)
+    public function withOperator(MinusGreaterThanToken $value)
     {
         if ($value === $this->_operator) {
             return $this;
@@ -140,7 +157,7 @@ final class MemberSelectionExpression extends EditableNode
      */
     public function hasOperator()
     {
-        return !$this->_operator->isMissing();
+        return $this->_operator !== null;
     }
     /**
      * @return MinusGreaterThanToken
@@ -163,7 +180,7 @@ final class MemberSelectionExpression extends EditableNode
         return $this->getOperator();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -172,7 +189,7 @@ final class MemberSelectionExpression extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(IExpression $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -184,25 +201,23 @@ final class MemberSelectionExpression extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
-     * @return BracedExpression | PrefixUnaryExpression | XHPClassNameToken |
-     * NameToken | VariableToken
+     * @return BracedExpression | XHPClassNameToken | NameToken | VariableToken
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getName()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_name);
+        return TypeAssert\instance_of(IExpression::class, $this->_name);
     }
     /**
-     * @return BracedExpression | PrefixUnaryExpression | XHPClassNameToken |
-     * NameToken | VariableToken
+     * @return BracedExpression | XHPClassNameToken | NameToken | VariableToken
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getNamex()
     {

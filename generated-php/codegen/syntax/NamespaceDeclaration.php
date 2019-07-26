@@ -2,74 +2,88 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<8a1fb20674d6644f8671275e37181d54>>
+ * @generated SignedSource<<b6339026e5946791e8cb51a9b88774a1>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-abstract class NamespaceDeclarationGeneratedBase extends EditableNode
+use HH\Lib\Dict;
+abstract class NamespaceDeclarationGeneratedBase extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'namespace_declaration';
+    /**
+     * @var NamespaceToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var null|INameishNode
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var INamespaceBody
      */
     private $_body;
-    public function __construct(EditableNode $keyword, EditableNode $name, EditableNode $body)
+    public function __construct(NamespaceToken $keyword, ?INameishNode $name, INamespaceBody $body, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('namespace_declaration');
         $this->_keyword = $keyword;
         $this->_name = $name;
         $this->_body = $body;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['namespace_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['namespace_keyword'], $file, $offset, $source, 'NamespaceToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $name = EditableNode::fromJSON($json['namespace_name'], $file, $offset, $source);
-        $offset += $name->getWidth();
-        $body = EditableNode::fromJSON($json['namespace_body'], $file, $offset, $source);
+        $name = Node::fromJSON($json['namespace_name'], $file, $offset, $source, 'INameishNode');
+        $offset += (($__tmp1__ = $name) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $body = Node::fromJSON($json['namespace_body'], $file, $offset, $source, 'INamespaceBody');
+        $body = $body !== null ? $body : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $body->getWidth();
-        return new static($keyword, $name, $body);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $name, $body, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'name' => $this->_name, 'body' => $this->_body];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'name' => $this->_name, 'body' => $this->_body]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $body = $this->_body->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $name = $this->_name === null ? null : $rewriter($this->_name, $parents);
+        $body = $rewriter($this->_body, $parents);
         if ($keyword === $this->_keyword && $name === $this->_name && $body === $this->_body) {
             return $this;
         }
         return new static($keyword, $name, $body);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -78,7 +92,7 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(NamespaceToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -90,7 +104,7 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return NamespaceToken
@@ -113,7 +127,7 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -122,7 +136,7 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(?INameishNode $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -134,33 +148,30 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return null | QualifiedName | NameToken
      */
     /**
-     * @return null|EditableNode
+     * @return null|INameishNode
      */
     public function getName()
     {
-        if ($this->_name->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_name);
+        return $this->_name;
     }
     /**
      * @return QualifiedName | NameToken
      */
     /**
-     * @return EditableNode
+     * @return INameishNode
      */
     public function getNamex()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_name);
+        return TypeAssert\not_null($this->getName());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getBodyUNTYPED()
     {
@@ -169,7 +180,7 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode
     /**
      * @return static
      */
-    public function withBody(EditableNode $value)
+    public function withBody(INamespaceBody $value)
     {
         if ($value === $this->_body) {
             return $this;
@@ -181,23 +192,23 @@ abstract class NamespaceDeclarationGeneratedBase extends EditableNode
      */
     public function hasBody()
     {
-        return !$this->_body->isMissing();
+        return $this->_body !== null;
     }
     /**
      * @return NamespaceBody | NamespaceEmptyBody
      */
     /**
-     * @return EditableNode
+     * @return INamespaceBody
      */
     public function getBody()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_body);
+        return TypeAssert\instance_of(INamespaceBody::class, $this->_body);
     }
     /**
      * @return NamespaceBody | NamespaceEmptyBody
      */
     /**
-     * @return EditableNode
+     * @return INamespaceBody
      */
     public function getBodyx()
     {

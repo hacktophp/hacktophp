@@ -2,81 +2,23 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<7e7207a73a02a87ef95a7d849408abf6>>
+ * @generated SignedSource<<69a8277fb9ff3a58957fbc7d73d7faa2>>
  */
 namespace Facebook\HHAST;
 
-final class SingleQuotedStringLiteralToken extends EditableTokenWithVariableText
+final class SingleQuotedStringLiteralToken extends TokenWithVariableText implements IStringLiteral
 {
     /**
      * @var string
      */
     const KIND = 'single_quoted_string_literal';
-    public function __construct(EditableNode $leading, EditableNode $trailing, string $text)
-    {
-        parent::__construct($leading, $trailing, $text);
-    }
     /**
-     * @return bool
+     * @param NodeList<Trivia>|null $leading
+     * @param NodeList<Trivia>|null $trailing
      */
-    public function hasLeading()
+    public function __construct(?NodeList $leading, ?NodeList $trailing, string $text, ?__Private\SourceRef $source_ref = null)
     {
-        return !$this->getLeading()->isMissing();
-    }
-    /**
-     * @return static
-     */
-    public function withLeading(EditableNode $value)
-    {
-        if ($value === $this->getLeading()) {
-            return $this;
-        }
-        return new self($value, $this->getTrailing(), $this->getText());
-    }
-    /**
-     * @return bool
-     */
-    public function hasTrailing()
-    {
-        return !$this->getTrailing()->isMissing();
-    }
-    /**
-     * @return static
-     */
-    public function withTrailing(EditableNode $value)
-    {
-        if ($value === $this->getTrailing()) {
-            return $this;
-        }
-        return new self($this->getLeading(), $value, $this->getText());
-    }
-    /**
-     * @return static
-     */
-    public function withText(string $value)
-    {
-        if ($value === $this->getText()) {
-            return $this;
-        }
-        return new self($this->getLeading(), $this->getTrailing(), $value);
-    }
-    /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
-     *
-     * @return static
-     */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
-    {
-        $parents = $parents === null ? [] : (array) $parents;
-        $parents[] = $this;
-        $leading = $this->getLeading()->rewrite($rewriter, $parents);
-        $trailing = $this->getTrailing()->rewrite($rewriter, $parents);
-        $text = $this->getText();
-        if ($leading === $this->getLeading() && $trailing === $this->getTrailing() && $text === $this->getText()) {
-            return $this;
-        }
-        return new self($leading, $trailing, $text);
+        parent::__construct($leading, $trailing, $text, $source_ref);
     }
 }
 

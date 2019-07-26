@@ -2,74 +2,94 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<37f5a29fe46c8102977f8d19c9556e1a>>
+ * @generated SignedSource<<dbeb7e58f875d8600056857af66d0c35>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class TraitUse extends EditableNode
+use HH\Lib\Dict;
+final class TraitUse extends Node implements IClassBodyDeclaration
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'trait_use';
+    /**
+     * @var UseToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<ISimpleCreationSpecifier>>
      */
     private $_names;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $names, EditableNode $semicolon)
+    /**
+     * @param NodeList<ListItem<ISimpleCreationSpecifier>> $names
+     */
+    public function __construct(UseToken $keyword, NodeList $names, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('trait_use');
         $this->_keyword = $keyword;
         $this->_names = $names;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['trait_use_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['trait_use_keyword'], $file, $offset, $source, 'UseToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $names = EditableNode::fromJSON($json['trait_use_names'], $file, $offset, $source);
+        $names = Node::fromJSON($json['trait_use_names'], $file, $offset, $source, 'NodeList<ListItem<ISimpleCreationSpecifier>>');
+        $names = $names !== null ? $names : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $names->getWidth();
-        $semicolon = EditableNode::fromJSON($json['trait_use_semicolon'], $file, $offset, $source);
+        $semicolon = Node::fromJSON($json['trait_use_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($keyword, $names, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $names, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'names' => $this->_names, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'names' => $this->_names, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $names = $this->_names->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $names = $rewriter($this->_names, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $names === $this->_names && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $names, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -78,7 +98,7 @@ final class TraitUse extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(UseToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -90,7 +110,7 @@ final class TraitUse extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return UseToken
@@ -113,16 +133,18 @@ final class TraitUse extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNamesUNTYPED()
     {
         return $this->_names;
     }
     /**
+     * @param NodeList<ListItem<ISimpleCreationSpecifier>> $value
+     *
      * @return static
      */
-    public function withNames(EditableNode $value)
+    public function withNames(NodeList $value)
     {
         if ($value === $this->_names) {
             return $this;
@@ -134,32 +156,34 @@ final class TraitUse extends EditableNode
      */
     public function hasNames()
     {
-        return !$this->_names->isMissing();
+        return $this->_names !== null;
     }
     /**
-     * @return EditableList<GenericTypeSpecifier> | EditableList<EditableNode> |
-     * EditableList<SimpleTypeSpecifier>
+     * @return NodeList<ListItem<GenericTypeSpecifier>> |
+     * NodeList<ListItem<ISimpleCreationSpecifier>> |
+     * NodeList<ListItem<SimpleTypeSpecifier>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<ISimpleCreationSpecifier>>
      */
     public function getNames()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_names);
+        return TypeAssert\instance_of(NodeList::class, $this->_names);
     }
     /**
-     * @return EditableList<GenericTypeSpecifier> | EditableList<EditableNode> |
-     * EditableList<SimpleTypeSpecifier>
+     * @return NodeList<ListItem<GenericTypeSpecifier>> |
+     * NodeList<ListItem<ISimpleCreationSpecifier>> |
+     * NodeList<ListItem<SimpleTypeSpecifier>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<ISimpleCreationSpecifier>>
      */
     public function getNamesx()
     {
         return $this->getNames();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -168,7 +192,7 @@ final class TraitUse extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -180,7 +204,7 @@ final class TraitUse extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return SemicolonToken

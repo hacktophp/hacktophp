@@ -2,16 +2,16 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<04b1034218a842324f31b1057868c076>>
+ * @generated SignedSource<<01c6f8b15b866b45990a8f17efe0c4f6>>
  */
 namespace Facebook\HHAST;
 
 /**
  * @var string
  */
-const SCHEMA_VERSION = '2018-10-30-0001';
+const SCHEMA_VERSION = '2019-05-20-0001';
 /**
  * @var int
  */
-const HHVM_VERSION_ID = 33001;
+const HHVM_VERSION_ID = 41500;
 

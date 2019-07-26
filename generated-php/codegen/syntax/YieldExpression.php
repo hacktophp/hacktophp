@@ -2,66 +2,77 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<f2a0865818f7fe893a1ad777c66e9c51>>
+ * @generated SignedSource<<f2c985d5905bd11bcf441f1601f2924d>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class YieldExpression extends EditableNode
+use HH\Lib\Dict;
+final class YieldExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'yield_expression';
+    /**
+     * @var YieldToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var null|Node
      */
     private $_operand;
-    public function __construct(EditableNode $keyword, EditableNode $operand)
+    public function __construct(YieldToken $keyword, ?Node $operand, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('yield_expression');
         $this->_keyword = $keyword;
         $this->_operand = $operand;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['yield_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['yield_keyword'], $file, $offset, $source, 'YieldToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $operand = EditableNode::fromJSON($json['yield_operand'], $file, $offset, $source);
-        $offset += $operand->getWidth();
-        return new static($keyword, $operand);
+        $operand = Node::fromJSON($json['yield_operand'], $file, $offset, $source, 'Node');
+        $offset += (($__tmp1__ = $operand) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $operand, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'operand' => $this->_operand];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'operand' => $this->_operand]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $operand = $this->_operand->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $operand = $this->_operand === null ? null : $rewriter($this->_operand, $parents);
         if ($keyword === $this->_keyword && $operand === $this->_operand) {
             return $this;
         }
         return new static($keyword, $operand);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -70,7 +81,7 @@ final class YieldExpression extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(YieldToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -82,7 +93,7 @@ final class YieldExpression extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return YieldToken
@@ -105,7 +116,7 @@ final class YieldExpression extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOperandUNTYPED()
     {
@@ -114,7 +125,7 @@ final class YieldExpression extends EditableNode
     /**
      * @return static
      */
-    public function withOperand(EditableNode $value)
+    public function withOperand(?Node $value)
     {
         if ($value === $this->_operand) {
             return $this;
@@ -126,40 +137,37 @@ final class YieldExpression extends EditableNode
      */
     public function hasOperand()
     {
-        return !$this->_operand->isMissing();
+        return $this->_operand !== null;
     }
     /**
      * @return AnonymousFunction | BinaryExpression | ElementInitializer |
      * FunctionCallExpression | LambdaExpression | LiteralExpression |
      * MemberSelectionExpression | null | ObjectCreationExpression |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
-     * SubscriptExpression | BreakToken | NameToken | TupleExpression |
-     * VariableExpression
+     * ScopeResolutionExpression | SubscriptExpression | BreakToken | NameToken |
+     * TupleExpression | VariableExpression
      */
     /**
-     * @return null|EditableNode
+     * @return null|Node
      */
     public function getOperand()
     {
-        if ($this->_operand->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_operand);
+        return $this->_operand;
     }
     /**
      * @return AnonymousFunction | BinaryExpression | ElementInitializer |
      * FunctionCallExpression | LambdaExpression | LiteralExpression |
      * MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
-     * SubscriptExpression | BreakToken | NameToken | TupleExpression |
-     * VariableExpression
+     * ScopeResolutionExpression | SubscriptExpression | BreakToken | NameToken |
+     * TupleExpression | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getOperandx()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_operand);
+        return TypeAssert\not_null($this->getOperand());
     }
 }
 

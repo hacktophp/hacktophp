@@ -2,58 +2,69 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<2e9c7ea3792ff3bcc7d8955a6d35c51f>>
+ * @generated SignedSource<<5b17cf12fe82fbdcb29e763cb0dd228f>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class XHPSimpleClassAttribute extends EditableNode
+use HH\Lib\Dict;
+final class XHPSimpleClassAttribute extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'xhp_simple_class_attribute';
+    /**
+     * @var SimpleTypeSpecifier
      */
     private $_type;
-    public function __construct(EditableNode $type)
+    public function __construct(SimpleTypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('xhp_simple_class_attribute');
         $this->_type = $type;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $type = EditableNode::fromJSON($json['xhp_simple_class_attribute_type'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $type = Node::fromJSON($json['xhp_simple_class_attribute_type'], $file, $offset, $source, 'SimpleTypeSpecifier');
+        $type = $type !== null ? $type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $type->getWidth();
-        return new static($type);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($type, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['type' => $this->_type];
+        return Dict\filter_nulls(['type' => $this->_type]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $type = $this->_type->rewrite($rewriter, $parents);
+        $type = $rewriter($this->_type, $parents);
         if ($type === $this->_type) {
             return $this;
         }
         return new static($type);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -62,7 +73,7 @@ final class XHPSimpleClassAttribute extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(SimpleTypeSpecifier $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -74,7 +85,7 @@ final class XHPSimpleClassAttribute extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
      * @return SimpleTypeSpecifier

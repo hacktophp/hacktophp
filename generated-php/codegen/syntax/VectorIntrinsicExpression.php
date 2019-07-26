@@ -2,90 +2,110 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<b0092395297b162c6edc0601deb51c34>>
+ * @generated SignedSource<<a77ab2fe2106171d44fd94ca36874f15>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class VectorIntrinsicExpression extends EditableNode
+use HH\Lib\Dict;
+final class VectorIntrinsicExpression extends Node implements IHackArray, IContainer, ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'vector_intrinsic_expression';
+    /**
+     * @var VecToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var null|TypeArguments
      */
     private $_explicit_type;
     /**
-     * @var EditableNode
+     * @var LeftBracketToken
      */
     private $_left_bracket;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<IExpression>>|null
      */
     private $_members;
     /**
-     * @var EditableNode
+     * @var RightBracketToken
      */
     private $_right_bracket;
-    public function __construct(EditableNode $keyword, EditableNode $explicit_type, EditableNode $left_bracket, EditableNode $members, EditableNode $right_bracket)
+    /**
+     * @param NodeList<ListItem<IExpression>>|null $members
+     */
+    public function __construct(VecToken $keyword, ?TypeArguments $explicit_type, LeftBracketToken $left_bracket, ?NodeList $members, RightBracketToken $right_bracket, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('vector_intrinsic_expression');
         $this->_keyword = $keyword;
         $this->_explicit_type = $explicit_type;
         $this->_left_bracket = $left_bracket;
         $this->_members = $members;
         $this->_right_bracket = $right_bracket;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['vector_intrinsic_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['vector_intrinsic_keyword'], $file, $offset, $source, 'VecToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $explicit_type = EditableNode::fromJSON($json['vector_intrinsic_explicit_type'], $file, $offset, $source);
-        $offset += $explicit_type->getWidth();
-        $left_bracket = EditableNode::fromJSON($json['vector_intrinsic_left_bracket'], $file, $offset, $source);
+        $explicit_type = Node::fromJSON($json['vector_intrinsic_explicit_type'], $file, $offset, $source, 'TypeArguments');
+        $offset += (($__tmp1__ = $explicit_type) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $left_bracket = Node::fromJSON($json['vector_intrinsic_left_bracket'], $file, $offset, $source, 'LeftBracketToken');
+        $left_bracket = $left_bracket !== null ? $left_bracket : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_bracket->getWidth();
-        $members = EditableNode::fromJSON($json['vector_intrinsic_members'], $file, $offset, $source);
-        $offset += $members->getWidth();
-        $right_bracket = EditableNode::fromJSON($json['vector_intrinsic_right_bracket'], $file, $offset, $source);
+        $members = Node::fromJSON($json['vector_intrinsic_members'], $file, $offset, $source, 'NodeList<ListItem<IExpression>>');
+        $offset += (($__tmp2__ = $members) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $right_bracket = Node::fromJSON($json['vector_intrinsic_right_bracket'], $file, $offset, $source, 'RightBracketToken');
+        $right_bracket = $right_bracket !== null ? $right_bracket : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_bracket->getWidth();
-        return new static($keyword, $explicit_type, $left_bracket, $members, $right_bracket);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $explicit_type, $left_bracket, $members, $right_bracket, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'explicit_type' => $this->_explicit_type, 'left_bracket' => $this->_left_bracket, 'members' => $this->_members, 'right_bracket' => $this->_right_bracket];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'explicit_type' => $this->_explicit_type, 'left_bracket' => $this->_left_bracket, 'members' => $this->_members, 'right_bracket' => $this->_right_bracket]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $explicit_type = $this->_explicit_type->rewrite($rewriter, $parents);
-        $left_bracket = $this->_left_bracket->rewrite($rewriter, $parents);
-        $members = $this->_members->rewrite($rewriter, $parents);
-        $right_bracket = $this->_right_bracket->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $explicit_type = $this->_explicit_type === null ? null : $rewriter($this->_explicit_type, $parents);
+        $left_bracket = $rewriter($this->_left_bracket, $parents);
+        $members = $this->_members === null ? null : $rewriter($this->_members, $parents);
+        $right_bracket = $rewriter($this->_right_bracket, $parents);
         if ($keyword === $this->_keyword && $explicit_type === $this->_explicit_type && $left_bracket === $this->_left_bracket && $members === $this->_members && $right_bracket === $this->_right_bracket) {
             return $this;
         }
         return new static($keyword, $explicit_type, $left_bracket, $members, $right_bracket);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -94,7 +114,7 @@ final class VectorIntrinsicExpression extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(VecToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -106,7 +126,7 @@ final class VectorIntrinsicExpression extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return VecToken
@@ -129,7 +149,7 @@ final class VectorIntrinsicExpression extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getExplicitTypeUNTYPED()
     {
@@ -138,7 +158,7 @@ final class VectorIntrinsicExpression extends EditableNode
     /**
      * @return static
      */
-    public function withExplicitType(EditableNode $value)
+    public function withExplicitType(?TypeArguments $value)
     {
         if ($value === $this->_explicit_type) {
             return $this;
@@ -150,33 +170,30 @@ final class VectorIntrinsicExpression extends EditableNode
      */
     public function hasExplicitType()
     {
-        return !$this->_explicit_type->isMissing();
+        return $this->_explicit_type !== null;
     }
     /**
-     * @return null
+     * @return null | TypeArguments
      */
     /**
-     * @return null|EditableNode
+     * @return null|TypeArguments
      */
     public function getExplicitType()
     {
-        if ($this->_explicit_type->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_explicit_type);
+        return $this->_explicit_type;
     }
     /**
-     * @return
+     * @return TypeArguments
      */
     /**
-     * @return EditableNode
+     * @return TypeArguments
      */
     public function getExplicitTypex()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_explicit_type);
+        return TypeAssert\not_null($this->getExplicitType());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftBracketUNTYPED()
     {
@@ -185,7 +202,7 @@ final class VectorIntrinsicExpression extends EditableNode
     /**
      * @return static
      */
-    public function withLeftBracket(EditableNode $value)
+    public function withLeftBracket(LeftBracketToken $value)
     {
         if ($value === $this->_left_bracket) {
             return $this;
@@ -197,7 +214,7 @@ final class VectorIntrinsicExpression extends EditableNode
      */
     public function hasLeftBracket()
     {
-        return !$this->_left_bracket->isMissing();
+        return $this->_left_bracket !== null;
     }
     /**
      * @return LeftBracketToken
@@ -220,16 +237,18 @@ final class VectorIntrinsicExpression extends EditableNode
         return $this->getLeftBracket();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getMembersUNTYPED()
     {
         return $this->_members;
     }
     /**
+     * @param NodeList<ListItem<IExpression>>|null $value
+     *
      * @return static
      */
-    public function withMembers(EditableNode $value)
+    public function withMembers(?NodeList $value)
     {
         if ($value === $this->_members) {
             return $this;
@@ -241,55 +260,60 @@ final class VectorIntrinsicExpression extends EditableNode
      */
     public function hasMembers()
     {
-        return !$this->_members->isMissing();
+        return $this->_members !== null;
     }
     /**
-     * @return EditableList<EditableNode> |
-     * EditableList<ArrayIntrinsicExpression> | EditableList<BinaryExpression> |
-     * EditableList<CollectionLiteralExpression> |
-     * EditableList<ConditionalExpression> |
-     * EditableList<DictionaryIntrinsicExpression> |
-     * EditableList<FunctionCallExpression> |
-     * EditableList<KeysetIntrinsicExpression> | EditableList<LiteralExpression>
-     * | EditableList<ObjectCreationExpression> |
-     * EditableList<ScopeResolutionExpression> | EditableList<ShapeExpression> |
-     * EditableList<NameToken> | EditableList<TupleExpression> |
-     * EditableList<VariableExpression> | EditableList<VectorIntrinsicExpression>
-     * | EditableList<XHPExpression> | null
+     * @return NodeList<ListItem<IExpression>> | NodeList<ListItem<IContainer>> |
+     * NodeList<ListItem<BinaryExpression>> |
+     * NodeList<ListItem<CollectionLiteralExpression>> |
+     * NodeList<ListItem<ConditionalExpression>> |
+     * NodeList<ListItem<DictionaryIntrinsicExpression>> |
+     * NodeList<ListItem<IHackArray>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<KeysetIntrinsicExpression>> |
+     * NodeList<ListItem<LiteralExpression>> |
+     * NodeList<ListItem<ObjectCreationExpression>> |
+     * NodeList<ListItem<ScopeResolutionExpression>> |
+     * NodeList<ListItem<ShapeExpression>> | NodeList<ListItem<NameToken>> |
+     * NodeList<ListItem<TupleExpression>> |
+     * NodeList<ListItem<VariableExpression>> |
+     * NodeList<ListItem<VectorIntrinsicExpression>> |
+     * NodeList<ListItem<XHPExpression>> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<ListItem<IExpression>>|null
      */
     public function getMembers()
     {
-        if ($this->_members->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_members);
+        return $this->_members;
     }
     /**
-     * @return EditableList<EditableNode> |
-     * EditableList<ArrayIntrinsicExpression> | EditableList<BinaryExpression> |
-     * EditableList<CollectionLiteralExpression> |
-     * EditableList<ConditionalExpression> |
-     * EditableList<DictionaryIntrinsicExpression> |
-     * EditableList<FunctionCallExpression> |
-     * EditableList<KeysetIntrinsicExpression> | EditableList<LiteralExpression>
-     * | EditableList<ObjectCreationExpression> |
-     * EditableList<ScopeResolutionExpression> | EditableList<ShapeExpression> |
-     * EditableList<NameToken> | EditableList<TupleExpression> |
-     * EditableList<VariableExpression> | EditableList<VectorIntrinsicExpression>
-     * | EditableList<XHPExpression>
+     * @return NodeList<ListItem<IExpression>> | NodeList<ListItem<IContainer>> |
+     * NodeList<ListItem<BinaryExpression>> |
+     * NodeList<ListItem<CollectionLiteralExpression>> |
+     * NodeList<ListItem<ConditionalExpression>> |
+     * NodeList<ListItem<DictionaryIntrinsicExpression>> |
+     * NodeList<ListItem<IHackArray>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<KeysetIntrinsicExpression>> |
+     * NodeList<ListItem<LiteralExpression>> |
+     * NodeList<ListItem<ObjectCreationExpression>> |
+     * NodeList<ListItem<ScopeResolutionExpression>> |
+     * NodeList<ListItem<ShapeExpression>> | NodeList<ListItem<NameToken>> |
+     * NodeList<ListItem<TupleExpression>> |
+     * NodeList<ListItem<VariableExpression>> |
+     * NodeList<ListItem<VectorIntrinsicExpression>> |
+     * NodeList<ListItem<XHPExpression>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<IExpression>>
      */
     public function getMembersx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_members);
+        return TypeAssert\not_null($this->getMembers());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightBracketUNTYPED()
     {
@@ -298,7 +322,7 @@ final class VectorIntrinsicExpression extends EditableNode
     /**
      * @return static
      */
-    public function withRightBracket(EditableNode $value)
+    public function withRightBracket(RightBracketToken $value)
     {
         if ($value === $this->_right_bracket) {
             return $this;
@@ -310,7 +334,7 @@ final class VectorIntrinsicExpression extends EditableNode
      */
     public function hasRightBracket()
     {
-        return !$this->_right_bracket->isMissing();
+        return $this->_right_bracket !== null;
     }
     /**
      * @return RightBracketToken

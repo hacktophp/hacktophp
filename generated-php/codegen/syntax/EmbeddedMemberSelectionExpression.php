@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<3364589efdbe86c48ae7d56d4e274ae3>>
+ * @generated SignedSource<<21ff3924ff4f71f85a21c63513a66b9b>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class EmbeddedMemberSelectionExpression extends EditableNode
+use HH\Lib\Dict;
+final class EmbeddedMemberSelectionExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'embedded_member_selection_expression';
+    /**
+     * @var Node
      */
     private $_object;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_operator;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_name;
-    public function __construct(EditableNode $object, EditableNode $operator, EditableNode $name)
+    public function __construct(Node $object, Node $operator, Node $name, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('embedded_member_selection_expression');
         $this->_object = $object;
         $this->_operator = $operator;
         $this->_name = $name;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $object = EditableNode::fromJSON($json['embedded_member_object'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $object = Node::fromJSON($json['embedded_member_object'], $file, $offset, $source, 'Node');
+        $object = $object !== null ? $object : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $object->getWidth();
-        $operator = EditableNode::fromJSON($json['embedded_member_operator'], $file, $offset, $source);
+        $operator = Node::fromJSON($json['embedded_member_operator'], $file, $offset, $source, 'Node');
+        $operator = $operator !== null ? $operator : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $operator->getWidth();
-        $name = EditableNode::fromJSON($json['embedded_member_name'], $file, $offset, $source);
+        $name = Node::fromJSON($json['embedded_member_name'], $file, $offset, $source, 'Node');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        return new static($object, $operator, $name);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($object, $operator, $name, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['object' => $this->_object, 'operator' => $this->_operator, 'name' => $this->_name];
+        return Dict\filter_nulls(['object' => $this->_object, 'operator' => $this->_operator, 'name' => $this->_name]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $object = $this->_object->rewrite($rewriter, $parents);
-        $operator = $this->_operator->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
+        $object = $rewriter($this->_object, $parents);
+        $operator = $rewriter($this->_operator, $parents);
+        $name = $rewriter($this->_name, $parents);
         if ($object === $this->_object && $operator === $this->_operator && $name === $this->_name) {
             return $this;
         }
         return new static($object, $operator, $name);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getObjectUNTYPED()
     {
@@ -78,7 +95,7 @@ final class EmbeddedMemberSelectionExpression extends EditableNode
     /**
      * @return static
      */
-    public function withObject(EditableNode $value)
+    public function withObject(Node $value)
     {
         if ($value === $this->_object) {
             return $this;
@@ -90,30 +107,30 @@ final class EmbeddedMemberSelectionExpression extends EditableNode
      */
     public function hasObject()
     {
-        return !$this->_object->isMissing();
+        return $this->_object !== null;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getObject()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_object);
+        return $this->_object;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getObjectx()
     {
         return $this->getObject();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOperatorUNTYPED()
     {
@@ -122,7 +139,7 @@ final class EmbeddedMemberSelectionExpression extends EditableNode
     /**
      * @return static
      */
-    public function withOperator(EditableNode $value)
+    public function withOperator(Node $value)
     {
         if ($value === $this->_operator) {
             return $this;
@@ -134,30 +151,30 @@ final class EmbeddedMemberSelectionExpression extends EditableNode
      */
     public function hasOperator()
     {
-        return !$this->_operator->isMissing();
+        return $this->_operator !== null;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getOperator()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_operator);
+        return $this->_operator;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getOperatorx()
     {
         return $this->getOperator();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -166,7 +183,7 @@ final class EmbeddedMemberSelectionExpression extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(Node $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -178,23 +195,23 @@ final class EmbeddedMemberSelectionExpression extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getName()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_name);
+        return $this->_name;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getNamex()
     {

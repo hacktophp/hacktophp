@@ -2,82 +2,102 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<b65d38f96f5f58f4a966ec6880c5085d>>
+ * @generated SignedSource<<d50b36297f1fce73049e532add08fbda>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class RequireClause extends EditableNode
+use HH\Lib\Dict;
+final class RequireClause extends Node implements IClassBodyDeclaration
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'require_clause';
+    /**
+     * @var RequireToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var Token
      */
     private $_kind;
     /**
-     * @var EditableNode
+     * @var ISimpleCreationSpecifier
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $kind, EditableNode $name, EditableNode $semicolon)
+    public function __construct(RequireToken $keyword, Token $kind, ISimpleCreationSpecifier $name, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('require_clause');
         $this->_keyword = $keyword;
         $this->_kind = $kind;
         $this->_name = $name;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['require_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['require_keyword'], $file, $offset, $source, 'RequireToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $kind = EditableNode::fromJSON($json['require_kind'], $file, $offset, $source);
+        $kind = Node::fromJSON($json['require_kind'], $file, $offset, $source, 'Token');
+        $kind = $kind !== null ? $kind : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $kind->getWidth();
-        $name = EditableNode::fromJSON($json['require_name'], $file, $offset, $source);
+        $name = Node::fromJSON($json['require_name'], $file, $offset, $source, 'ISimpleCreationSpecifier');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $semicolon = EditableNode::fromJSON($json['require_semicolon'], $file, $offset, $source);
+        $semicolon = Node::fromJSON($json['require_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($keyword, $kind, $name, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $kind, $name, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'kind' => $this->_kind, 'name' => $this->_name, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'kind' => $this->_kind, 'name' => $this->_name, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $kind = $this->_kind->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $kind = $rewriter($this->_kind, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $kind === $this->_kind && $name === $this->_name && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $kind, $name, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -86,7 +106,7 @@ final class RequireClause extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(RequireToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -98,7 +118,7 @@ final class RequireClause extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return RequireToken
@@ -121,7 +141,7 @@ final class RequireClause extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKindUNTYPED()
     {
@@ -130,7 +150,7 @@ final class RequireClause extends EditableNode
     /**
      * @return static
      */
-    public function withKind(EditableNode $value)
+    public function withKind(Token $value)
     {
         if ($value === $this->_kind) {
             return $this;
@@ -142,30 +162,30 @@ final class RequireClause extends EditableNode
      */
     public function hasKind()
     {
-        return !$this->_kind->isMissing();
+        return $this->_kind !== null;
     }
     /**
      * @return ExtendsToken | ImplementsToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getKind()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_kind);
+        return TypeAssert\instance_of(Token::class, $this->_kind);
     }
     /**
      * @return ExtendsToken | ImplementsToken
      */
     /**
-     * @return EditableToken
+     * @return Token
      */
     public function getKindx()
     {
         return $this->getKind();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -174,7 +194,7 @@ final class RequireClause extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(ISimpleCreationSpecifier $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -186,30 +206,30 @@ final class RequireClause extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return GenericTypeSpecifier | SimpleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ISimpleCreationSpecifier
      */
     public function getName()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_name);
+        return TypeAssert\instance_of(ISimpleCreationSpecifier::class, $this->_name);
     }
     /**
      * @return GenericTypeSpecifier | SimpleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ISimpleCreationSpecifier
      */
     public function getNamex()
     {
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -218,7 +238,7 @@ final class RequireClause extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -230,7 +250,7 @@ final class RequireClause extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return SemicolonToken

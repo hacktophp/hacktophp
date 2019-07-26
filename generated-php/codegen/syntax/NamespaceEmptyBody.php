@@ -2,58 +2,69 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<5a4d1b0d87fec8ca12a2f6f81a2d7606>>
+ * @generated SignedSource<<2372d482aa5df13aef09653f4b5acfc2>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class NamespaceEmptyBody extends EditableNode
+use HH\Lib\Dict;
+final class NamespaceEmptyBody extends Node implements INamespaceBody
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'namespace_empty_body';
+    /**
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $semicolon)
+    public function __construct(SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('namespace_empty_body');
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $semicolon = EditableNode::fromJSON($json['namespace_semicolon'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $semicolon = Node::fromJSON($json['namespace_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -62,7 +73,7 @@ final class NamespaceEmptyBody extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -74,7 +85,7 @@ final class NamespaceEmptyBody extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return SemicolonToken

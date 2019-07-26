@@ -2,90 +2,116 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<c407cf717680a6576a74d2d64a7744bc>>
+ * @generated SignedSource<<1b7a46747b4e718e1f59f558ce30067d>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class UnsetStatement extends EditableNode
+use HH\Lib\Dict;
+final class UnsetStatement extends Node implements IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'unset_statement';
+    /**
+     * @var UnsetToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<IExpression>>
      */
     private $_variables;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $left_paren, EditableNode $variables, EditableNode $right_paren, EditableNode $semicolon)
+    /**
+     * @param NodeList<ListItem<IExpression>> $variables
+     */
+    public function __construct(UnsetToken $keyword, LeftParenToken $left_paren, NodeList $variables, RightParenToken $right_paren, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('unset_statement');
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;
         $this->_variables = $variables;
         $this->_right_paren = $right_paren;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['unset_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['unset_keyword'], $file, $offset, $source, 'UnsetToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_paren = EditableNode::fromJSON($json['unset_left_paren'], $file, $offset, $source);
+        $left_paren = Node::fromJSON($json['unset_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $variables = EditableNode::fromJSON($json['unset_variables'], $file, $offset, $source);
+        $variables = Node::fromJSON($json['unset_variables'], $file, $offset, $source, 'NodeList<ListItem<IExpression>>');
+        $variables = $variables !== null ? $variables : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $variables->getWidth();
-        $right_paren = EditableNode::fromJSON($json['unset_right_paren'], $file, $offset, $source);
+        $right_paren = Node::fromJSON($json['unset_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        $semicolon = EditableNode::fromJSON($json['unset_semicolon'], $file, $offset, $source);
+        $semicolon = Node::fromJSON($json['unset_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($keyword, $left_paren, $variables, $right_paren, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $left_paren, $variables, $right_paren, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'variables' => $this->_variables, 'right_paren' => $this->_right_paren, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'variables' => $this->_variables, 'right_paren' => $this->_right_paren, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $variables = $this->_variables->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $variables = $rewriter($this->_variables, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $left_paren === $this->_left_paren && $variables === $this->_variables && $right_paren === $this->_right_paren && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $left_paren, $variables, $right_paren, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -94,7 +120,7 @@ final class UnsetStatement extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(UnsetToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -106,7 +132,7 @@ final class UnsetStatement extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return UnsetToken
@@ -129,7 +155,7 @@ final class UnsetStatement extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -138,7 +164,7 @@ final class UnsetStatement extends EditableNode
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -150,7 +176,7 @@ final class UnsetStatement extends EditableNode
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -173,16 +199,18 @@ final class UnsetStatement extends EditableNode
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getVariablesUNTYPED()
     {
         return $this->_variables;
     }
     /**
+     * @param NodeList<ListItem<IExpression>> $value
+     *
      * @return static
      */
-    public function withVariables(EditableNode $value)
+    public function withVariables(NodeList $value)
     {
         if ($value === $this->_variables) {
             return $this;
@@ -194,38 +222,36 @@ final class UnsetStatement extends EditableNode
      */
     public function hasVariables()
     {
-        return !$this->_variables->isMissing();
+        return $this->_variables !== null;
     }
     /**
-     * @return EditableList<MemberSelectionExpression> |
-     * EditableList<EditableNode> | EditableList<PrefixUnaryExpression> |
-     * EditableList<SafeMemberSelectionExpression> |
-     * EditableList<ScopeResolutionExpression> |
-     * EditableList<SubscriptExpression> | EditableList<VariableExpression>
+     * @return NodeList<ListItem<MemberSelectionExpression>> |
+     * NodeList<ListItem<ScopeResolutionExpression>> |
+     * NodeList<ListItem<SubscriptExpression>> |
+     * NodeList<ListItem<VariableExpression>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<IExpression>>
      */
     public function getVariables()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_variables);
+        return TypeAssert\instance_of(NodeList::class, $this->_variables);
     }
     /**
-     * @return EditableList<MemberSelectionExpression> |
-     * EditableList<EditableNode> | EditableList<PrefixUnaryExpression> |
-     * EditableList<SafeMemberSelectionExpression> |
-     * EditableList<ScopeResolutionExpression> |
-     * EditableList<SubscriptExpression> | EditableList<VariableExpression>
+     * @return NodeList<ListItem<MemberSelectionExpression>> |
+     * NodeList<ListItem<ScopeResolutionExpression>> |
+     * NodeList<ListItem<SubscriptExpression>> |
+     * NodeList<ListItem<VariableExpression>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<IExpression>>
      */
     public function getVariablesx()
     {
         return $this->getVariables();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -234,7 +260,7 @@ final class UnsetStatement extends EditableNode
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -246,7 +272,7 @@ final class UnsetStatement extends EditableNode
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
      * @return RightParenToken
@@ -269,7 +295,7 @@ final class UnsetStatement extends EditableNode
         return $this->getRightParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -278,7 +304,7 @@ final class UnsetStatement extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -290,7 +316,7 @@ final class UnsetStatement extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return SemicolonToken

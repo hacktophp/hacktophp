@@ -2,82 +2,99 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<b820c0bbfaa01d1a99e9c55f1f0852aa>>
+ * @generated SignedSource<<b8bf390826e5e47eb26e7ce511955922>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class FieldSpecifier extends EditableNode
+use HH\Lib\Dict;
+final class FieldSpecifier extends Node implements ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'field_specifier';
+    /**
+     * @var null|QuestionToken
      */
     private $_question;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_name;
     /**
-     * @var EditableNode
+     * @var EqualGreaterThanToken
      */
     private $_arrow;
     /**
-     * @var EditableNode
+     * @var ITypeSpecifier
      */
     private $_type;
-    public function __construct(EditableNode $question, EditableNode $name, EditableNode $arrow, EditableNode $type)
+    public function __construct(?QuestionToken $question, IExpression $name, EqualGreaterThanToken $arrow, ITypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('field_specifier');
         $this->_question = $question;
         $this->_name = $name;
         $this->_arrow = $arrow;
         $this->_type = $type;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $question = EditableNode::fromJSON($json['field_question'], $file, $offset, $source);
-        $offset += $question->getWidth();
-        $name = EditableNode::fromJSON($json['field_name'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $question = Node::fromJSON($json['field_question'], $file, $offset, $source, 'QuestionToken');
+        $offset += (($__tmp1__ = $question) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $name = Node::fromJSON($json['field_name'], $file, $offset, $source, 'IExpression');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        $arrow = EditableNode::fromJSON($json['field_arrow'], $file, $offset, $source);
+        $arrow = Node::fromJSON($json['field_arrow'], $file, $offset, $source, 'EqualGreaterThanToken');
+        $arrow = $arrow !== null ? $arrow : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $arrow->getWidth();
-        $type = EditableNode::fromJSON($json['field_type'], $file, $offset, $source);
+        $type = Node::fromJSON($json['field_type'], $file, $offset, $source, 'ITypeSpecifier');
+        $type = $type !== null ? $type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $type->getWidth();
-        return new static($question, $name, $arrow, $type);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($question, $name, $arrow, $type, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['question' => $this->_question, 'name' => $this->_name, 'arrow' => $this->_arrow, 'type' => $this->_type];
+        return Dict\filter_nulls(['question' => $this->_question, 'name' => $this->_name, 'arrow' => $this->_arrow, 'type' => $this->_type]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $question = $this->_question->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
-        $arrow = $this->_arrow->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
+        $question = $this->_question === null ? null : $rewriter($this->_question, $parents);
+        $name = $rewriter($this->_name, $parents);
+        $arrow = $rewriter($this->_arrow, $parents);
+        $type = $rewriter($this->_type, $parents);
         if ($question === $this->_question && $name === $this->_name && $arrow === $this->_arrow && $type === $this->_type) {
             return $this;
         }
         return new static($question, $name, $arrow, $type);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getQuestionUNTYPED()
     {
@@ -86,7 +103,7 @@ final class FieldSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withQuestion(EditableNode $value)
+    public function withQuestion(?QuestionToken $value)
     {
         if ($value === $this->_question) {
             return $this;
@@ -98,7 +115,7 @@ final class FieldSpecifier extends EditableNode
      */
     public function hasQuestion()
     {
-        return !$this->_question->isMissing();
+        return $this->_question !== null;
     }
     /**
      * @return null | QuestionToken
@@ -108,10 +125,7 @@ final class FieldSpecifier extends EditableNode
      */
     public function getQuestion()
     {
-        if ($this->_question->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(QuestionToken::class, $this->_question);
+        return $this->_question;
     }
     /**
      * @return QuestionToken
@@ -121,10 +135,10 @@ final class FieldSpecifier extends EditableNode
      */
     public function getQuestionx()
     {
-        return TypeAssert\instance_of(QuestionToken::class, $this->_question);
+        return TypeAssert\not_null($this->getQuestion());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -133,7 +147,7 @@ final class FieldSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(IExpression $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -145,30 +159,30 @@ final class FieldSpecifier extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
      * @return LiteralExpression | ScopeResolutionExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getName()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_name);
+        return TypeAssert\instance_of(IExpression::class, $this->_name);
     }
     /**
      * @return LiteralExpression | ScopeResolutionExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getNamex()
     {
         return $this->getName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getArrowUNTYPED()
     {
@@ -177,7 +191,7 @@ final class FieldSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withArrow(EditableNode $value)
+    public function withArrow(EqualGreaterThanToken $value)
     {
         if ($value === $this->_arrow) {
             return $this;
@@ -189,7 +203,7 @@ final class FieldSpecifier extends EditableNode
      */
     public function hasArrow()
     {
-        return !$this->_arrow->isMissing();
+        return $this->_arrow !== null;
     }
     /**
      * @return EqualGreaterThanToken
@@ -212,7 +226,7 @@ final class FieldSpecifier extends EditableNode
         return $this->getArrow();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -221,7 +235,7 @@ final class FieldSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(ITypeSpecifier $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -233,27 +247,27 @@ final class FieldSpecifier extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
      * @return ClosureTypeSpecifier | GenericTypeSpecifier |
      * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
-     * TypeConstant | VectorTypeSpecifier
+     * SoftTypeSpecifier | TupleTypeSpecifier | TypeConstant | VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getType()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_type);
+        return TypeAssert\instance_of(ITypeSpecifier::class, $this->_type);
     }
     /**
      * @return ClosureTypeSpecifier | GenericTypeSpecifier |
      * NullableTypeSpecifier | ShapeTypeSpecifier | SimpleTypeSpecifier |
-     * TypeConstant | VectorTypeSpecifier
+     * SoftTypeSpecifier | TupleTypeSpecifier | TypeConstant | VectorTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return ITypeSpecifier
      */
     public function getTypex()
     {

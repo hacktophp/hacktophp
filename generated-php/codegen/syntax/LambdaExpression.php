@@ -2,98 +2,115 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<9826a40568e0e1142b152c84b1a7faee>>
+ * @generated SignedSource<<324c86c324f7cd11c19bd6aaa000cff3>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class LambdaExpression extends EditableNode
+use HH\Lib\Dict;
+final class LambdaExpression extends Node implements IHasFunctionBody, ILambdaBody, IHasAttributeSpec, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'lambda_expression';
+    /**
+     * @var null|OldAttributeSpecification
      */
     private $_attribute_spec;
     /**
-     * @var EditableNode
+     * @var null|AsyncToken
      */
     private $_async;
     /**
-     * @var EditableNode
+     * @var null|Node
      */
     private $_coroutine;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_signature;
     /**
-     * @var EditableNode
+     * @var EqualEqualGreaterThanToken
      */
     private $_arrow;
     /**
-     * @var EditableNode
+     * @var ILambdaBody
      */
     private $_body;
-    public function __construct(EditableNode $attribute_spec, EditableNode $async, EditableNode $coroutine, EditableNode $signature, EditableNode $arrow, EditableNode $body)
+    public function __construct(?OldAttributeSpecification $attribute_spec, ?AsyncToken $async, ?Node $coroutine, Node $signature, EqualEqualGreaterThanToken $arrow, ILambdaBody $body, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('lambda_expression');
         $this->_attribute_spec = $attribute_spec;
         $this->_async = $async;
         $this->_coroutine = $coroutine;
         $this->_signature = $signature;
         $this->_arrow = $arrow;
         $this->_body = $body;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $attribute_spec = EditableNode::fromJSON($json['lambda_attribute_spec'], $file, $offset, $source);
-        $offset += $attribute_spec->getWidth();
-        $async = EditableNode::fromJSON($json['lambda_async'], $file, $offset, $source);
-        $offset += $async->getWidth();
-        $coroutine = EditableNode::fromJSON($json['lambda_coroutine'], $file, $offset, $source);
-        $offset += $coroutine->getWidth();
-        $signature = EditableNode::fromJSON($json['lambda_signature'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $attribute_spec = Node::fromJSON($json['lambda_attribute_spec'], $file, $offset, $source, 'OldAttributeSpecification');
+        $offset += (($__tmp1__ = $attribute_spec) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $async = Node::fromJSON($json['lambda_async'], $file, $offset, $source, 'AsyncToken');
+        $offset += (($__tmp2__ = $async) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $coroutine = Node::fromJSON($json['lambda_coroutine'], $file, $offset, $source, 'Node');
+        $offset += (($__tmp3__ = $coroutine) !== null ? $__tmp3__->getWidth() : null) ?? 0;
+        $signature = Node::fromJSON($json['lambda_signature'], $file, $offset, $source, 'Node');
+        $signature = $signature !== null ? $signature : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $signature->getWidth();
-        $arrow = EditableNode::fromJSON($json['lambda_arrow'], $file, $offset, $source);
+        $arrow = Node::fromJSON($json['lambda_arrow'], $file, $offset, $source, 'EqualEqualGreaterThanToken');
+        $arrow = $arrow !== null ? $arrow : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $arrow->getWidth();
-        $body = EditableNode::fromJSON($json['lambda_body'], $file, $offset, $source);
+        $body = Node::fromJSON($json['lambda_body'], $file, $offset, $source, 'ILambdaBody');
+        $body = $body !== null ? $body : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $body->getWidth();
-        return new static($attribute_spec, $async, $coroutine, $signature, $arrow, $body);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($attribute_spec, $async, $coroutine, $signature, $arrow, $body, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['attribute_spec' => $this->_attribute_spec, 'async' => $this->_async, 'coroutine' => $this->_coroutine, 'signature' => $this->_signature, 'arrow' => $this->_arrow, 'body' => $this->_body];
+        return Dict\filter_nulls(['attribute_spec' => $this->_attribute_spec, 'async' => $this->_async, 'coroutine' => $this->_coroutine, 'signature' => $this->_signature, 'arrow' => $this->_arrow, 'body' => $this->_body]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $attribute_spec = $this->_attribute_spec->rewrite($rewriter, $parents);
-        $async = $this->_async->rewrite($rewriter, $parents);
-        $coroutine = $this->_coroutine->rewrite($rewriter, $parents);
-        $signature = $this->_signature->rewrite($rewriter, $parents);
-        $arrow = $this->_arrow->rewrite($rewriter, $parents);
-        $body = $this->_body->rewrite($rewriter, $parents);
+        $attribute_spec = $this->_attribute_spec === null ? null : $rewriter($this->_attribute_spec, $parents);
+        $async = $this->_async === null ? null : $rewriter($this->_async, $parents);
+        $coroutine = $this->_coroutine === null ? null : $rewriter($this->_coroutine, $parents);
+        $signature = $rewriter($this->_signature, $parents);
+        $arrow = $rewriter($this->_arrow, $parents);
+        $body = $rewriter($this->_body, $parents);
         if ($attribute_spec === $this->_attribute_spec && $async === $this->_async && $coroutine === $this->_coroutine && $signature === $this->_signature && $arrow === $this->_arrow && $body === $this->_body) {
             return $this;
         }
         return new static($attribute_spec, $async, $coroutine, $signature, $arrow, $body);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAttributeSpecUNTYPED()
     {
@@ -102,7 +119,7 @@ final class LambdaExpression extends EditableNode
     /**
      * @return static
      */
-    public function withAttributeSpec(EditableNode $value)
+    public function withAttributeSpec(?OldAttributeSpecification $value)
     {
         if ($value === $this->_attribute_spec) {
             return $this;
@@ -114,33 +131,30 @@ final class LambdaExpression extends EditableNode
      */
     public function hasAttributeSpec()
     {
-        return !$this->_attribute_spec->isMissing();
+        return $this->_attribute_spec !== null;
     }
     /**
-     * @return AttributeSpecification | null
+     * @return null | OldAttributeSpecification
      */
     /**
-     * @return null|AttributeSpecification
+     * @return null|OldAttributeSpecification
      */
     public function getAttributeSpec()
     {
-        if ($this->_attribute_spec->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute_spec);
+        return $this->_attribute_spec;
     }
     /**
-     * @return AttributeSpecification
+     * @return OldAttributeSpecification
      */
     /**
-     * @return AttributeSpecification
+     * @return OldAttributeSpecification
      */
     public function getAttributeSpecx()
     {
-        return TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute_spec);
+        return TypeAssert\not_null($this->getAttributeSpec());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAsyncUNTYPED()
     {
@@ -149,7 +163,7 @@ final class LambdaExpression extends EditableNode
     /**
      * @return static
      */
-    public function withAsync(EditableNode $value)
+    public function withAsync(?AsyncToken $value)
     {
         if ($value === $this->_async) {
             return $this;
@@ -161,7 +175,7 @@ final class LambdaExpression extends EditableNode
      */
     public function hasAsync()
     {
-        return !$this->_async->isMissing();
+        return $this->_async !== null;
     }
     /**
      * @return null | AsyncToken
@@ -171,10 +185,7 @@ final class LambdaExpression extends EditableNode
      */
     public function getAsync()
     {
-        if ($this->_async->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(AsyncToken::class, $this->_async);
+        return $this->_async;
     }
     /**
      * @return AsyncToken
@@ -184,10 +195,10 @@ final class LambdaExpression extends EditableNode
      */
     public function getAsyncx()
     {
-        return TypeAssert\instance_of(AsyncToken::class, $this->_async);
+        return TypeAssert\not_null($this->getAsync());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getCoroutineUNTYPED()
     {
@@ -196,7 +207,7 @@ final class LambdaExpression extends EditableNode
     /**
      * @return static
      */
-    public function withCoroutine(EditableNode $value)
+    public function withCoroutine(?Node $value)
     {
         if ($value === $this->_coroutine) {
             return $this;
@@ -208,33 +219,30 @@ final class LambdaExpression extends EditableNode
      */
     public function hasCoroutine()
     {
-        return !$this->_coroutine->isMissing();
+        return $this->_coroutine !== null;
     }
     /**
-     * @return null | CoroutineToken
+     * @return null
      */
     /**
-     * @return null|CoroutineToken
+     * @return null|Node
      */
     public function getCoroutine()
     {
-        if ($this->_coroutine->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(CoroutineToken::class, $this->_coroutine);
+        return $this->_coroutine;
     }
     /**
-     * @return CoroutineToken
+     * @return
      */
     /**
-     * @return CoroutineToken
+     * @return Node
      */
     public function getCoroutinex()
     {
-        return TypeAssert\instance_of(CoroutineToken::class, $this->_coroutine);
+        return TypeAssert\not_null($this->getCoroutine());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSignatureUNTYPED()
     {
@@ -243,7 +251,7 @@ final class LambdaExpression extends EditableNode
     /**
      * @return static
      */
-    public function withSignature(EditableNode $value)
+    public function withSignature(Node $value)
     {
         if ($value === $this->_signature) {
             return $this;
@@ -255,30 +263,30 @@ final class LambdaExpression extends EditableNode
      */
     public function hasSignature()
     {
-        return !$this->_signature->isMissing();
+        return $this->_signature !== null;
     }
     /**
      * @return LambdaSignature | VariableToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getSignature()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_signature);
+        return $this->_signature;
     }
     /**
      * @return LambdaSignature | VariableToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getSignaturex()
     {
         return $this->getSignature();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getArrowUNTYPED()
     {
@@ -287,7 +295,7 @@ final class LambdaExpression extends EditableNode
     /**
      * @return static
      */
-    public function withArrow(EditableNode $value)
+    public function withArrow(EqualEqualGreaterThanToken $value)
     {
         if ($value === $this->_arrow) {
             return $this;
@@ -299,7 +307,7 @@ final class LambdaExpression extends EditableNode
      */
     public function hasArrow()
     {
-        return !$this->_arrow->isMissing();
+        return $this->_arrow !== null;
     }
     /**
      * @return EqualEqualGreaterThanToken
@@ -322,7 +330,7 @@ final class LambdaExpression extends EditableNode
         return $this->getArrow();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getBodyUNTYPED()
     {
@@ -331,7 +339,7 @@ final class LambdaExpression extends EditableNode
     /**
      * @return static
      */
-    public function withBody(EditableNode $value)
+    public function withBody(ILambdaBody $value)
     {
         if ($value === $this->_body) {
             return $this;
@@ -343,33 +351,35 @@ final class LambdaExpression extends EditableNode
      */
     public function hasBody()
     {
-        return !$this->_body->isMissing();
+        return $this->_body !== null;
     }
     /**
-     * @return ArrayIntrinsicExpression | AsExpression | BinaryExpression |
-     * CastExpression | CompoundStatement | ConditionalExpression |
-     * FunctionCallExpression | IsExpression | KeysetIntrinsicExpression |
-     * LambdaExpression | LiteralExpression | MemberSelectionExpression |
-     * NullableAsExpression | ObjectCreationExpression | ParenthesizedExpression
-     * | PrefixUnaryExpression | SubscriptExpression | VariableExpression
+     * @return AnonymousFunction | ArrayIntrinsicExpression | AsExpression |
+     * BinaryExpression | CastExpression | CollectionLiteralExpression |
+     * CompoundStatement | ConditionalExpression | FunctionCallExpression |
+     * IsExpression | KeysetIntrinsicExpression | LambdaExpression |
+     * LiteralExpression | MemberSelectionExpression | NullableAsExpression |
+     * ObjectCreationExpression | ParenthesizedExpression | PrefixUnaryExpression
+     * | SubscriptExpression | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return ILambdaBody
      */
     public function getBody()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_body);
+        return TypeAssert\instance_of(ILambdaBody::class, $this->_body);
     }
     /**
-     * @return ArrayIntrinsicExpression | AsExpression | BinaryExpression |
-     * CastExpression | CompoundStatement | ConditionalExpression |
-     * FunctionCallExpression | IsExpression | KeysetIntrinsicExpression |
-     * LambdaExpression | LiteralExpression | MemberSelectionExpression |
-     * NullableAsExpression | ObjectCreationExpression | ParenthesizedExpression
-     * | PrefixUnaryExpression | SubscriptExpression | VariableExpression
+     * @return AnonymousFunction | ArrayIntrinsicExpression | AsExpression |
+     * BinaryExpression | CastExpression | CollectionLiteralExpression |
+     * CompoundStatement | ConditionalExpression | FunctionCallExpression |
+     * IsExpression | KeysetIntrinsicExpression | LambdaExpression |
+     * LiteralExpression | MemberSelectionExpression | NullableAsExpression |
+     * ObjectCreationExpression | ParenthesizedExpression | PrefixUnaryExpression
+     * | SubscriptExpression | VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return ILambdaBody
      */
     public function getBodyx()
     {

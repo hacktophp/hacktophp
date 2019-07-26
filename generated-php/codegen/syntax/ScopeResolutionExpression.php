@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<36978fae04a6ea600d577d5f37bc66c9>>
+ * @generated SignedSource<<b79f7688191d4e2c8d2bb992f7fbf99e>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ScopeResolutionExpression extends EditableNode
+use HH\Lib\Dict;
+final class ScopeResolutionExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'scope_resolution_expression';
+    /**
+     * @var Node
      */
     private $_qualifier;
     /**
-     * @var EditableNode
+     * @var ColonColonToken
      */
     private $_operator;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_name;
-    public function __construct(EditableNode $qualifier, EditableNode $operator, EditableNode $name)
+    public function __construct(Node $qualifier, ColonColonToken $operator, Node $name, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('scope_resolution_expression');
         $this->_qualifier = $qualifier;
         $this->_operator = $operator;
         $this->_name = $name;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $qualifier = EditableNode::fromJSON($json['scope_resolution_qualifier'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $qualifier = Node::fromJSON($json['scope_resolution_qualifier'], $file, $offset, $source, 'Node');
+        $qualifier = $qualifier !== null ? $qualifier : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $qualifier->getWidth();
-        $operator = EditableNode::fromJSON($json['scope_resolution_operator'], $file, $offset, $source);
+        $operator = Node::fromJSON($json['scope_resolution_operator'], $file, $offset, $source, 'ColonColonToken');
+        $operator = $operator !== null ? $operator : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $operator->getWidth();
-        $name = EditableNode::fromJSON($json['scope_resolution_name'], $file, $offset, $source);
+        $name = Node::fromJSON($json['scope_resolution_name'], $file, $offset, $source, 'Node');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        return new static($qualifier, $operator, $name);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($qualifier, $operator, $name, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['qualifier' => $this->_qualifier, 'operator' => $this->_operator, 'name' => $this->_name];
+        return Dict\filter_nulls(['qualifier' => $this->_qualifier, 'operator' => $this->_operator, 'name' => $this->_name]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $qualifier = $this->_qualifier->rewrite($rewriter, $parents);
-        $operator = $this->_operator->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
+        $qualifier = $rewriter($this->_qualifier, $parents);
+        $operator = $rewriter($this->_operator, $parents);
+        $name = $rewriter($this->_name, $parents);
         if ($qualifier === $this->_qualifier && $operator === $this->_operator && $name === $this->_name) {
             return $this;
         }
         return new static($qualifier, $operator, $name);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getQualifierUNTYPED()
     {
@@ -78,7 +95,7 @@ final class ScopeResolutionExpression extends EditableNode
     /**
      * @return static
      */
-    public function withQualifier(EditableNode $value)
+    public function withQualifier(Node $value)
     {
         if ($value === $this->_qualifier) {
             return $this;
@@ -90,38 +107,34 @@ final class ScopeResolutionExpression extends EditableNode
      */
     public function hasQualifier()
     {
-        return !$this->_qualifier->isMissing();
+        return $this->_qualifier !== null;
     }
     /**
-     * @return FunctionCallExpression | GenericTypeSpecifier | LiteralExpression
-     * | ParenthesizedExpression | PipeVariableExpression | PrefixUnaryExpression
-     * | QualifiedName | ScopeResolutionExpression | SimpleTypeSpecifier |
+     * @return PipeVariableExpression | QualifiedName | SimpleTypeSpecifier |
      * XHPClassNameToken | NameToken | ParentToken | SelfToken | StaticToken |
      * VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getQualifier()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_qualifier);
+        return $this->_qualifier;
     }
     /**
-     * @return FunctionCallExpression | GenericTypeSpecifier | LiteralExpression
-     * | ParenthesizedExpression | PipeVariableExpression | PrefixUnaryExpression
-     * | QualifiedName | ScopeResolutionExpression | SimpleTypeSpecifier |
+     * @return PipeVariableExpression | QualifiedName | SimpleTypeSpecifier |
      * XHPClassNameToken | NameToken | ParentToken | SelfToken | StaticToken |
      * VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getQualifierx()
     {
         return $this->getQualifier();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOperatorUNTYPED()
     {
@@ -130,7 +143,7 @@ final class ScopeResolutionExpression extends EditableNode
     /**
      * @return static
      */
-    public function withOperator(EditableNode $value)
+    public function withOperator(ColonColonToken $value)
     {
         if ($value === $this->_operator) {
             return $this;
@@ -142,7 +155,7 @@ final class ScopeResolutionExpression extends EditableNode
      */
     public function hasOperator()
     {
-        return !$this->_operator->isMissing();
+        return $this->_operator !== null;
     }
     /**
      * @return ColonColonToken
@@ -165,7 +178,7 @@ final class ScopeResolutionExpression extends EditableNode
         return $this->getOperator();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -174,7 +187,7 @@ final class ScopeResolutionExpression extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(Node $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -186,25 +199,23 @@ final class ScopeResolutionExpression extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
-     * @return BracedExpression | PrefixUnaryExpression | ClassToken | NameToken
-     * | VariableToken
+     * @return BracedExpression | ClassToken | NameToken | VariableToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getName()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_name);
+        return $this->_name;
     }
     /**
-     * @return BracedExpression | PrefixUnaryExpression | ClassToken | NameToken
-     * | VariableToken
+     * @return BracedExpression | ClassToken | NameToken | VariableToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getNamex()
     {

@@ -2,52 +2,61 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<c90703af80def230422c602bc1703fb0>>
+ * @generated SignedSource<<4f96a63da6d5134c940a814cc2424fef>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ForStatement extends EditableNode implements IControlFlowStatement, ILoopStatement
+use HH\Lib\Dict;
+final class ForStatement extends Node implements IControlFlowStatement, ILoopStatement, IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'for_statement';
+    /**
+     * @var ForToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<IExpression>>|null
      */
     private $_initializer;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_first_semicolon;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<IExpression>>|null
      */
     private $_control;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_second_semicolon;
     /**
-     * @var EditableNode
+     * @var NodeList<ListItem<IExpression>>|null
      */
     private $_end_of_loop;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
     /**
-     * @var EditableNode
+     * @var IStatement
      */
     private $_body;
-    public function __construct(EditableNode $keyword, EditableNode $left_paren, EditableNode $initializer, EditableNode $first_semicolon, EditableNode $control, EditableNode $second_semicolon, EditableNode $end_of_loop, EditableNode $right_paren, EditableNode $body)
+    /**
+     * @param NodeList<ListItem<IExpression>>|null $initializer
+     * @param NodeList<ListItem<IExpression>>|null $control
+     * @param NodeList<ListItem<IExpression>>|null $end_of_loop
+     */
+    public function __construct(ForToken $keyword, LeftParenToken $left_paren, ?NodeList $initializer, SemicolonToken $first_semicolon, ?NodeList $control, SemicolonToken $second_semicolon, ?NodeList $end_of_loop, RightParenToken $right_paren, IStatement $body, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('for_statement');
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;
         $this->_initializer = $initializer;
@@ -57,67 +66,89 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
         $this->_end_of_loop = $end_of_loop;
         $this->_right_paren = $right_paren;
         $this->_body = $body;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['for_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['for_keyword'], $file, $offset, $source, 'ForToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_paren = EditableNode::fromJSON($json['for_left_paren'], $file, $offset, $source);
+        $left_paren = Node::fromJSON($json['for_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $initializer = EditableNode::fromJSON($json['for_initializer'], $file, $offset, $source);
-        $offset += $initializer->getWidth();
-        $first_semicolon = EditableNode::fromJSON($json['for_first_semicolon'], $file, $offset, $source);
+        $initializer = Node::fromJSON($json['for_initializer'], $file, $offset, $source, 'NodeList<ListItem<IExpression>>');
+        $offset += (($__tmp1__ = $initializer) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $first_semicolon = Node::fromJSON($json['for_first_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $first_semicolon = $first_semicolon !== null ? $first_semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $first_semicolon->getWidth();
-        $control = EditableNode::fromJSON($json['for_control'], $file, $offset, $source);
-        $offset += $control->getWidth();
-        $second_semicolon = EditableNode::fromJSON($json['for_second_semicolon'], $file, $offset, $source);
+        $control = Node::fromJSON($json['for_control'], $file, $offset, $source, 'NodeList<ListItem<IExpression>>');
+        $offset += (($__tmp2__ = $control) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $second_semicolon = Node::fromJSON($json['for_second_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $second_semicolon = $second_semicolon !== null ? $second_semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $second_semicolon->getWidth();
-        $end_of_loop = EditableNode::fromJSON($json['for_end_of_loop'], $file, $offset, $source);
-        $offset += $end_of_loop->getWidth();
-        $right_paren = EditableNode::fromJSON($json['for_right_paren'], $file, $offset, $source);
+        $end_of_loop = Node::fromJSON($json['for_end_of_loop'], $file, $offset, $source, 'NodeList<ListItem<IExpression>>');
+        $offset += (($__tmp3__ = $end_of_loop) !== null ? $__tmp3__->getWidth() : null) ?? 0;
+        $right_paren = Node::fromJSON($json['for_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        $body = EditableNode::fromJSON($json['for_body'], $file, $offset, $source);
+        $body = Node::fromJSON($json['for_body'], $file, $offset, $source, 'IStatement');
+        $body = $body !== null ? $body : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $body->getWidth();
-        return new static($keyword, $left_paren, $initializer, $first_semicolon, $control, $second_semicolon, $end_of_loop, $right_paren, $body);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $left_paren, $initializer, $first_semicolon, $control, $second_semicolon, $end_of_loop, $right_paren, $body, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'initializer' => $this->_initializer, 'first_semicolon' => $this->_first_semicolon, 'control' => $this->_control, 'second_semicolon' => $this->_second_semicolon, 'end_of_loop' => $this->_end_of_loop, 'right_paren' => $this->_right_paren, 'body' => $this->_body];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'initializer' => $this->_initializer, 'first_semicolon' => $this->_first_semicolon, 'control' => $this->_control, 'second_semicolon' => $this->_second_semicolon, 'end_of_loop' => $this->_end_of_loop, 'right_paren' => $this->_right_paren, 'body' => $this->_body]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $initializer = $this->_initializer->rewrite($rewriter, $parents);
-        $first_semicolon = $this->_first_semicolon->rewrite($rewriter, $parents);
-        $control = $this->_control->rewrite($rewriter, $parents);
-        $second_semicolon = $this->_second_semicolon->rewrite($rewriter, $parents);
-        $end_of_loop = $this->_end_of_loop->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
-        $body = $this->_body->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $initializer = $this->_initializer === null ? null : $rewriter($this->_initializer, $parents);
+        $first_semicolon = $rewriter($this->_first_semicolon, $parents);
+        $control = $this->_control === null ? null : $rewriter($this->_control, $parents);
+        $second_semicolon = $rewriter($this->_second_semicolon, $parents);
+        $end_of_loop = $this->_end_of_loop === null ? null : $rewriter($this->_end_of_loop, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
+        $body = $rewriter($this->_body, $parents);
         if ($keyword === $this->_keyword && $left_paren === $this->_left_paren && $initializer === $this->_initializer && $first_semicolon === $this->_first_semicolon && $control === $this->_control && $second_semicolon === $this->_second_semicolon && $end_of_loop === $this->_end_of_loop && $right_paren === $this->_right_paren && $body === $this->_body) {
             return $this;
         }
         return new static($keyword, $left_paren, $initializer, $first_semicolon, $control, $second_semicolon, $end_of_loop, $right_paren, $body);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -126,7 +157,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(ForToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -138,7 +169,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return ForToken
@@ -161,7 +192,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -170,7 +201,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -182,7 +213,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -205,16 +236,18 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getInitializerUNTYPED()
     {
         return $this->_initializer;
     }
     /**
+     * @param NodeList<ListItem<IExpression>>|null $value
+     *
      * @return static
      */
-    public function withInitializer(EditableNode $value)
+    public function withInitializer(?NodeList $value)
     {
         if ($value === $this->_initializer) {
             return $this;
@@ -226,36 +259,36 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
      */
     public function hasInitializer()
     {
-        return !$this->_initializer->isMissing();
+        return $this->_initializer !== null;
     }
     /**
-     * @return EditableList<BinaryExpression> |
-     * EditableList<FunctionCallExpression> | EditableList<LiteralExpression> |
-     * null
+     * @return NodeList<ListItem<BinaryExpression>> |
+     * NodeList<ListItem<IExpression>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<LiteralExpression>> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<ListItem<IExpression>>|null
      */
     public function getInitializer()
     {
-        if ($this->_initializer->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_initializer);
+        return $this->_initializer;
     }
     /**
-     * @return EditableList<BinaryExpression> |
-     * EditableList<FunctionCallExpression> | EditableList<LiteralExpression>
+     * @return NodeList<ListItem<BinaryExpression>> |
+     * NodeList<ListItem<IExpression>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<LiteralExpression>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<IExpression>>
      */
     public function getInitializerx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_initializer);
+        return TypeAssert\not_null($this->getInitializer());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getFirstSemicolonUNTYPED()
     {
@@ -264,7 +297,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
     /**
      * @return static
      */
-    public function withFirstSemicolon(EditableNode $value)
+    public function withFirstSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_first_semicolon) {
             return $this;
@@ -276,7 +309,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
      */
     public function hasFirstSemicolon()
     {
-        return !$this->_first_semicolon->isMissing();
+        return $this->_first_semicolon !== null;
     }
     /**
      * @return SemicolonToken
@@ -299,16 +332,18 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
         return $this->getFirstSemicolon();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getControlUNTYPED()
     {
         return $this->_control;
     }
     /**
+     * @param NodeList<ListItem<IExpression>>|null $value
+     *
      * @return static
      */
-    public function withControl(EditableNode $value)
+    public function withControl(?NodeList $value)
     {
         if ($value === $this->_control) {
             return $this;
@@ -320,38 +355,40 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
      */
     public function hasControl()
     {
-        return !$this->_control->isMissing();
+        return $this->_control !== null;
     }
     /**
-     * @return EditableList<BinaryExpression> | EditableList<EditableNode> |
-     * EditableList<ConditionalExpression> | EditableList<FunctionCallExpression>
-     * | EditableList<PrefixUnaryExpression> | EditableList<VariableExpression> |
-     * null
+     * @return NodeList<ListItem<BinaryExpression>> |
+     * NodeList<ListItem<IHasOperator>> |
+     * NodeList<ListItem<ConditionalExpression>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<PrefixUnaryExpression>> |
+     * NodeList<ListItem<VariableExpression>> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<ListItem<IExpression>>|null
      */
     public function getControl()
     {
-        if ($this->_control->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_control);
+        return $this->_control;
     }
     /**
-     * @return EditableList<BinaryExpression> | EditableList<EditableNode> |
-     * EditableList<ConditionalExpression> | EditableList<FunctionCallExpression>
-     * | EditableList<PrefixUnaryExpression> | EditableList<VariableExpression>
+     * @return NodeList<ListItem<BinaryExpression>> |
+     * NodeList<ListItem<IHasOperator>> |
+     * NodeList<ListItem<ConditionalExpression>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<PrefixUnaryExpression>> |
+     * NodeList<ListItem<VariableExpression>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<IExpression>>
      */
     public function getControlx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_control);
+        return TypeAssert\not_null($this->getControl());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSecondSemicolonUNTYPED()
     {
@@ -360,7 +397,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
     /**
      * @return static
      */
-    public function withSecondSemicolon(EditableNode $value)
+    public function withSecondSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_second_semicolon) {
             return $this;
@@ -372,7 +409,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
      */
     public function hasSecondSemicolon()
     {
-        return !$this->_second_semicolon->isMissing();
+        return $this->_second_semicolon !== null;
     }
     /**
      * @return SemicolonToken
@@ -395,16 +432,18 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
         return $this->getSecondSemicolon();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getEndOfLoopUNTYPED()
     {
         return $this->_end_of_loop;
     }
     /**
+     * @param NodeList<ListItem<IExpression>>|null $value
+     *
      * @return static
      */
-    public function withEndOfLoop(EditableNode $value)
+    public function withEndOfLoop(?NodeList $value)
     {
         if ($value === $this->_end_of_loop) {
             return $this;
@@ -416,38 +455,38 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
      */
     public function hasEndOfLoop()
     {
-        return !$this->_end_of_loop->isMissing();
+        return $this->_end_of_loop !== null;
     }
     /**
-     * @return EditableList<BinaryExpression> |
-     * EditableList<FunctionCallExpression> |
-     * EditableList<PostfixUnaryExpression> | EditableList<PrefixUnaryExpression>
-     * | null
+     * @return NodeList<ListItem<BinaryExpression>> |
+     * NodeList<ListItem<IHasOperator>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<PostfixUnaryExpression>> |
+     * NodeList<ListItem<PrefixUnaryExpression>> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<ListItem<IExpression>>|null
      */
     public function getEndOfLoop()
     {
-        if ($this->_end_of_loop->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_end_of_loop);
+        return $this->_end_of_loop;
     }
     /**
-     * @return EditableList<BinaryExpression> |
-     * EditableList<FunctionCallExpression> |
-     * EditableList<PostfixUnaryExpression> | EditableList<PrefixUnaryExpression>
+     * @return NodeList<ListItem<BinaryExpression>> |
+     * NodeList<ListItem<IHasOperator>> |
+     * NodeList<ListItem<FunctionCallExpression>> |
+     * NodeList<ListItem<PostfixUnaryExpression>> |
+     * NodeList<ListItem<PrefixUnaryExpression>>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<ListItem<IExpression>>
      */
     public function getEndOfLoopx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_end_of_loop);
+        return TypeAssert\not_null($this->getEndOfLoop());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -456,7 +495,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -468,7 +507,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
      * @return RightParenToken
@@ -491,7 +530,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
         return $this->getRightParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getBodyUNTYPED()
     {
@@ -500,7 +539,7 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
     /**
      * @return static
      */
-    public function withBody(EditableNode $value)
+    public function withBody(IStatement $value)
     {
         if ($value === $this->_body) {
             return $this;
@@ -512,25 +551,25 @@ final class ForStatement extends EditableNode implements IControlFlowStatement, 
      */
     public function hasBody()
     {
-        return !$this->_body->isMissing();
+        return $this->_body !== null;
     }
     /**
-     * @return AlternateLoopStatement | CompoundStatement | EchoStatement |
-     * ExpressionStatement | ForStatement | UnsetStatement
+     * @return CompoundStatement | EchoStatement | ExpressionStatement |
+     * ForStatement | UnsetStatement
      */
     /**
-     * @return EditableNode
+     * @return IStatement
      */
     public function getBody()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_body);
+        return TypeAssert\instance_of(IStatement::class, $this->_body);
     }
     /**
-     * @return AlternateLoopStatement | CompoundStatement | EchoStatement |
-     * ExpressionStatement | ForStatement | UnsetStatement
+     * @return CompoundStatement | EchoStatement | ExpressionStatement |
+     * ForStatement | UnsetStatement
      */
     /**
-     * @return EditableNode
+     * @return IStatement
      */
     public function getBodyx()
     {

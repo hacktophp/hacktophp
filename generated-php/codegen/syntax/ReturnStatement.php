@@ -2,74 +2,88 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<49be2543c18ffec790beb1bc0cea2225>>
+ * @generated SignedSource<<a73db0f3d64b121081a477af04e10556>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ReturnStatement extends EditableNode
+use HH\Lib\Dict;
+final class ReturnStatement extends Node implements IStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'return_statement';
+    /**
+     * @var ReturnToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var null|IExpression
      */
     private $_expression;
     /**
-     * @var EditableNode
+     * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $keyword, EditableNode $expression, EditableNode $semicolon)
+    public function __construct(ReturnToken $keyword, ?IExpression $expression, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('return_statement');
         $this->_keyword = $keyword;
         $this->_expression = $expression;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['return_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['return_keyword'], $file, $offset, $source, 'ReturnToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $expression = EditableNode::fromJSON($json['return_expression'], $file, $offset, $source);
-        $offset += $expression->getWidth();
-        $semicolon = EditableNode::fromJSON($json['return_semicolon'], $file, $offset, $source);
+        $expression = Node::fromJSON($json['return_expression'], $file, $offset, $source, 'IExpression');
+        $offset += (($__tmp1__ = $expression) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $semicolon = Node::fromJSON($json['return_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $semicolon = $semicolon !== null ? $semicolon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $semicolon->getWidth();
-        return new static($keyword, $expression, $semicolon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $expression, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'expression' => $this->_expression, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'expression' => $this->_expression, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $expression = $this->_expression->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $expression = $this->_expression === null ? null : $rewriter($this->_expression, $parents);
+        $semicolon = $rewriter($this->_semicolon, $parents);
         if ($keyword === $this->_keyword && $expression === $this->_expression && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($keyword, $expression, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -78,7 +92,7 @@ final class ReturnStatement extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(ReturnToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -90,7 +104,7 @@ final class ReturnStatement extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return ReturnToken
@@ -113,7 +127,7 @@ final class ReturnStatement extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getExpressionUNTYPED()
     {
@@ -122,7 +136,7 @@ final class ReturnStatement extends EditableNode
     /**
      * @return static
      */
-    public function withExpression(EditableNode $value)
+    public function withExpression(?IExpression $value)
     {
         if ($value === $this->_expression) {
             return $this;
@@ -134,44 +148,38 @@ final class ReturnStatement extends EditableNode
      */
     public function hasExpression()
     {
-        return !$this->_expression->isMissing();
+        return $this->_expression !== null;
     }
     /**
      * @return AnonymousFunction | ArrayCreationExpression |
      * ArrayIntrinsicExpression | AsExpression | AwaitableCreationExpression |
      * BinaryExpression | CastExpression | CollectionLiteralExpression |
      * ConditionalExpression | DarrayIntrinsicExpression |
-     * DictionaryIntrinsicExpression | EmptyExpression | EvalExpression |
-     * FunctionCallExpression | FunctionCallWithTypeArgumentsExpression |
-     * InstanceofExpression | IsExpression | IssetExpression |
-     * KeysetIntrinsicExpression | LambdaExpression | LiteralExpression |
-     * MemberSelectionExpression | null | ObjectCreationExpression |
-     * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
-     * QualifiedName | SafeMemberSelectionExpression | ScopeResolutionExpression
-     * | ShapeExpression | SubscriptExpression | NameToken | TupleExpression |
+     * DictionaryIntrinsicExpression | FunctionCallExpression | IsExpression |
+     * IssetExpression | KeysetIntrinsicExpression | LambdaExpression |
+     * LiteralExpression | MemberSelectionExpression | null |
+     * ObjectCreationExpression | ParenthesizedExpression |
+     * PostfixUnaryExpression | PrefixUnaryExpression | QualifiedName |
+     * SafeMemberSelectionExpression | ScopeResolutionExpression |
+     * ShapeExpression | SubscriptExpression | NameToken | TupleExpression |
      * VariableExpression | VarrayIntrinsicExpression | VectorIntrinsicExpression
      * | XHPExpression | YieldFromExpression
      */
     /**
-     * @return null|EditableNode
+     * @return null|IExpression
      */
     public function getExpression()
     {
-        if ($this->_expression->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+        return $this->_expression;
     }
     /**
      * @return AnonymousFunction | ArrayCreationExpression |
      * ArrayIntrinsicExpression | AsExpression | AwaitableCreationExpression |
      * BinaryExpression | CastExpression | CollectionLiteralExpression |
      * ConditionalExpression | DarrayIntrinsicExpression |
-     * DictionaryIntrinsicExpression | EmptyExpression | EvalExpression |
-     * FunctionCallExpression | FunctionCallWithTypeArgumentsExpression |
-     * InstanceofExpression | IsExpression | IssetExpression |
-     * KeysetIntrinsicExpression | LambdaExpression | LiteralExpression |
-     * MemberSelectionExpression | ObjectCreationExpression |
+     * DictionaryIntrinsicExpression | FunctionCallExpression | IsExpression |
+     * IssetExpression | KeysetIntrinsicExpression | LambdaExpression |
+     * LiteralExpression | MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
      * QualifiedName | SafeMemberSelectionExpression | ScopeResolutionExpression
      * | ShapeExpression | SubscriptExpression | NameToken | TupleExpression |
@@ -179,14 +187,14 @@ final class ReturnStatement extends EditableNode
      * | XHPExpression | YieldFromExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getExpressionx()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+        return TypeAssert\not_null($this->getExpression());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -195,7 +203,7 @@ final class ReturnStatement extends EditableNode
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -207,19 +215,16 @@ final class ReturnStatement extends EditableNode
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
-     * @return null | SemicolonToken
+     * @return SemicolonToken
      */
     /**
-     * @return null|SemicolonToken
+     * @return SemicolonToken
      */
     public function getSemicolon()
     {
-        if ($this->_semicolon->isMissing()) {
-            return null;
-        }
         return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
     }
     /**
@@ -230,7 +235,7 @@ final class ReturnStatement extends EditableNode
      */
     public function getSemicolonx()
     {
-        return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+        return $this->getSemicolon();
     }
 }
 

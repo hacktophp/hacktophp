@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<380fb05bed3d8a4d3a1c8d6ff3d01c5b>>
+ * @generated SignedSource<<4e3899ccecc0b87eb43c86aa29206487>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class MarkupSuffix extends EditableNode
+use HH\Lib\Dict;
+final class MarkupSuffix extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'markup_suffix';
+    /**
+     * @var LessThanQuestionToken
      */
     private $_less_than_question;
     /**
-     * @var EditableNode
+     * @var NameToken
      */
     private $_name;
-    public function __construct(EditableNode $less_than_question, EditableNode $name)
+    public function __construct(LessThanQuestionToken $less_than_question, NameToken $name, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('markup_suffix');
         $this->_less_than_question = $less_than_question;
         $this->_name = $name;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $less_than_question = EditableNode::fromJSON($json['markup_suffix_less_than_question'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $less_than_question = Node::fromJSON($json['markup_suffix_less_than_question'], $file, $offset, $source, 'LessThanQuestionToken');
+        $less_than_question = $less_than_question !== null ? $less_than_question : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $less_than_question->getWidth();
-        $name = EditableNode::fromJSON($json['markup_suffix_name'], $file, $offset, $source);
+        $name = Node::fromJSON($json['markup_suffix_name'], $file, $offset, $source, 'NameToken');
+        $name = $name !== null ? $name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $name->getWidth();
-        return new static($less_than_question, $name);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($less_than_question, $name, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['less_than_question' => $this->_less_than_question, 'name' => $this->_name];
+        return Dict\filter_nulls(['less_than_question' => $this->_less_than_question, 'name' => $this->_name]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $less_than_question = $this->_less_than_question->rewrite($rewriter, $parents);
-        $name = $this->_name->rewrite($rewriter, $parents);
+        $less_than_question = $rewriter($this->_less_than_question, $parents);
+        $name = $rewriter($this->_name, $parents);
         if ($less_than_question === $this->_less_than_question && $name === $this->_name) {
             return $this;
         }
         return new static($less_than_question, $name);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLessThanQuestionUNTYPED()
     {
@@ -70,7 +84,7 @@ final class MarkupSuffix extends EditableNode
     /**
      * @return static
      */
-    public function withLessThanQuestion(EditableNode $value)
+    public function withLessThanQuestion(LessThanQuestionToken $value)
     {
         if ($value === $this->_less_than_question) {
             return $this;
@@ -82,7 +96,7 @@ final class MarkupSuffix extends EditableNode
      */
     public function hasLessThanQuestion()
     {
-        return !$this->_less_than_question->isMissing();
+        return $this->_less_than_question !== null;
     }
     /**
      * @return LessThanQuestionToken
@@ -105,7 +119,7 @@ final class MarkupSuffix extends EditableNode
         return $this->getLessThanQuestion();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getNameUNTYPED()
     {
@@ -114,7 +128,7 @@ final class MarkupSuffix extends EditableNode
     /**
      * @return static
      */
-    public function withName(EditableNode $value)
+    public function withName(NameToken $value)
     {
         if ($value === $this->_name) {
             return $this;
@@ -126,30 +140,27 @@ final class MarkupSuffix extends EditableNode
      */
     public function hasName()
     {
-        return !$this->_name->isMissing();
+        return $this->_name !== null;
     }
     /**
-     * @return null | EqualToken | NameToken
+     * @return NameToken
      */
     /**
-     * @return null|EditableToken
+     * @return NameToken
      */
     public function getName()
     {
-        if ($this->_name->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableToken::class, $this->_name);
+        return TypeAssert\instance_of(NameToken::class, $this->_name);
     }
     /**
-     * @return EqualToken | NameToken
+     * @return NameToken
      */
     /**
-     * @return EditableToken
+     * @return NameToken
      */
     public function getNamex()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_name);
+        return $this->getName();
     }
 }
 

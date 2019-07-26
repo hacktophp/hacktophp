@@ -2,98 +2,124 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<d8b43da312eac551c768266e1e7f94f0>>
+ * @generated SignedSource<<a932a1f84f2d68fc4702aa770b3277a8>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class CatchClause extends EditableNode
+use HH\Lib\Dict;
+final class CatchClause extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'catch_clause';
+    /**
+     * @var CatchToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var SimpleTypeSpecifier
      */
     private $_type;
     /**
-     * @var EditableNode
+     * @var VariableToken
      */
     private $_variable;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
     /**
-     * @var EditableNode
+     * @var CompoundStatement
      */
     private $_body;
-    public function __construct(EditableNode $keyword, EditableNode $left_paren, EditableNode $type, EditableNode $variable, EditableNode $right_paren, EditableNode $body)
+    public function __construct(CatchToken $keyword, LeftParenToken $left_paren, SimpleTypeSpecifier $type, VariableToken $variable, RightParenToken $right_paren, CompoundStatement $body, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('catch_clause');
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;
         $this->_type = $type;
         $this->_variable = $variable;
         $this->_right_paren = $right_paren;
         $this->_body = $body;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['catch_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['catch_keyword'], $file, $offset, $source, 'CatchToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_paren = EditableNode::fromJSON($json['catch_left_paren'], $file, $offset, $source);
+        $left_paren = Node::fromJSON($json['catch_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $type = EditableNode::fromJSON($json['catch_type'], $file, $offset, $source);
+        $type = Node::fromJSON($json['catch_type'], $file, $offset, $source, 'SimpleTypeSpecifier');
+        $type = $type !== null ? $type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $type->getWidth();
-        $variable = EditableNode::fromJSON($json['catch_variable'], $file, $offset, $source);
+        $variable = Node::fromJSON($json['catch_variable'], $file, $offset, $source, 'VariableToken');
+        $variable = $variable !== null ? $variable : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $variable->getWidth();
-        $right_paren = EditableNode::fromJSON($json['catch_right_paren'], $file, $offset, $source);
+        $right_paren = Node::fromJSON($json['catch_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        $body = EditableNode::fromJSON($json['catch_body'], $file, $offset, $source);
+        $body = Node::fromJSON($json['catch_body'], $file, $offset, $source, 'CompoundStatement');
+        $body = $body !== null ? $body : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $body->getWidth();
-        return new static($keyword, $left_paren, $type, $variable, $right_paren, $body);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $left_paren, $type, $variable, $right_paren, $body, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'type' => $this->_type, 'variable' => $this->_variable, 'right_paren' => $this->_right_paren, 'body' => $this->_body];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'type' => $this->_type, 'variable' => $this->_variable, 'right_paren' => $this->_right_paren, 'body' => $this->_body]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $type = $this->_type->rewrite($rewriter, $parents);
-        $variable = $this->_variable->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
-        $body = $this->_body->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $type = $rewriter($this->_type, $parents);
+        $variable = $rewriter($this->_variable, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
+        $body = $rewriter($this->_body, $parents);
         if ($keyword === $this->_keyword && $left_paren === $this->_left_paren && $type === $this->_type && $variable === $this->_variable && $right_paren === $this->_right_paren && $body === $this->_body) {
             return $this;
         }
         return new static($keyword, $left_paren, $type, $variable, $right_paren, $body);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -102,7 +128,7 @@ final class CatchClause extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(CatchToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -114,7 +140,7 @@ final class CatchClause extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return CatchToken
@@ -137,7 +163,7 @@ final class CatchClause extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -146,7 +172,7 @@ final class CatchClause extends EditableNode
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -158,7 +184,7 @@ final class CatchClause extends EditableNode
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -181,7 +207,7 @@ final class CatchClause extends EditableNode
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getTypeUNTYPED()
     {
@@ -190,7 +216,7 @@ final class CatchClause extends EditableNode
     /**
      * @return static
      */
-    public function withType(EditableNode $value)
+    public function withType(SimpleTypeSpecifier $value)
     {
         if ($value === $this->_type) {
             return $this;
@@ -202,7 +228,7 @@ final class CatchClause extends EditableNode
      */
     public function hasType()
     {
-        return !$this->_type->isMissing();
+        return $this->_type !== null;
     }
     /**
      * @return SimpleTypeSpecifier
@@ -225,7 +251,7 @@ final class CatchClause extends EditableNode
         return $this->getType();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getVariableUNTYPED()
     {
@@ -234,7 +260,7 @@ final class CatchClause extends EditableNode
     /**
      * @return static
      */
-    public function withVariable(EditableNode $value)
+    public function withVariable(VariableToken $value)
     {
         if ($value === $this->_variable) {
             return $this;
@@ -246,30 +272,30 @@ final class CatchClause extends EditableNode
      */
     public function hasVariable()
     {
-        return !$this->_variable->isMissing();
+        return $this->_variable !== null;
     }
     /**
-     * @return NameToken | VariableToken
+     * @return VariableToken
      */
     /**
-     * @return EditableToken
+     * @return VariableToken
      */
     public function getVariable()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_variable);
+        return TypeAssert\instance_of(VariableToken::class, $this->_variable);
     }
     /**
-     * @return NameToken | VariableToken
+     * @return VariableToken
      */
     /**
-     * @return EditableToken
+     * @return VariableToken
      */
     public function getVariablex()
     {
         return $this->getVariable();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -278,7 +304,7 @@ final class CatchClause extends EditableNode
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -290,7 +316,7 @@ final class CatchClause extends EditableNode
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
      * @return RightParenToken
@@ -313,7 +339,7 @@ final class CatchClause extends EditableNode
         return $this->getRightParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getBodyUNTYPED()
     {
@@ -322,7 +348,7 @@ final class CatchClause extends EditableNode
     /**
      * @return static
      */
-    public function withBody(EditableNode $value)
+    public function withBody(CompoundStatement $value)
     {
         if ($value === $this->_body) {
             return $this;
@@ -334,7 +360,7 @@ final class CatchClause extends EditableNode
      */
     public function hasBody()
     {
-        return !$this->_body->isMissing();
+        return $this->_body !== null;
     }
     /**
      * @return CompoundStatement

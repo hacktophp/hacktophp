@@ -2,74 +2,88 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<5029007fc66dc195883cb200b72807db>>
+ * @generated SignedSource<<ab2e2563506717419b4bc32cde94a27c>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class XHPExpression extends EditableNode
+use HH\Lib\Dict;
+final class XHPExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'xhp_expression';
+    /**
+     * @var XHPOpen
      */
     private $_open;
     /**
-     * @var EditableNode
+     * @var NodeList<Node>|null
      */
     private $_body;
     /**
-     * @var EditableNode
+     * @var null|XHPClose
      */
     private $_close;
-    public function __construct(EditableNode $open, EditableNode $body, EditableNode $close)
+    /**
+     * @param NodeList<Node>|null $body
+     */
+    public function __construct(XHPOpen $open, ?NodeList $body, ?XHPClose $close, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('xhp_expression');
         $this->_open = $open;
         $this->_body = $body;
         $this->_close = $close;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $open = EditableNode::fromJSON($json['xhp_open'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $open = Node::fromJSON($json['xhp_open'], $file, $offset, $source, 'XHPOpen');
+        $open = $open !== null ? $open : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $open->getWidth();
-        $body = EditableNode::fromJSON($json['xhp_body'], $file, $offset, $source);
-        $offset += $body->getWidth();
-        $close = EditableNode::fromJSON($json['xhp_close'], $file, $offset, $source);
-        $offset += $close->getWidth();
-        return new static($open, $body, $close);
+        $body = Node::fromJSON($json['xhp_body'], $file, $offset, $source, 'NodeList<Node>');
+        $offset += (($__tmp1__ = $body) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $close = Node::fromJSON($json['xhp_close'], $file, $offset, $source, 'XHPClose');
+        $offset += (($__tmp2__ = $close) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($open, $body, $close, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['open' => $this->_open, 'body' => $this->_body, 'close' => $this->_close];
+        return Dict\filter_nulls(['open' => $this->_open, 'body' => $this->_body, 'close' => $this->_close]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $open = $this->_open->rewrite($rewriter, $parents);
-        $body = $this->_body->rewrite($rewriter, $parents);
-        $close = $this->_close->rewrite($rewriter, $parents);
+        $open = $rewriter($this->_open, $parents);
+        $body = $this->_body === null ? null : $rewriter($this->_body, $parents);
+        $close = $this->_close === null ? null : $rewriter($this->_close, $parents);
         if ($open === $this->_open && $body === $this->_body && $close === $this->_close) {
             return $this;
         }
         return new static($open, $body, $close);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getOpenUNTYPED()
     {
@@ -78,7 +92,7 @@ final class XHPExpression extends EditableNode
     /**
      * @return static
      */
-    public function withOpen(EditableNode $value)
+    public function withOpen(XHPOpen $value)
     {
         if ($value === $this->_open) {
             return $this;
@@ -90,7 +104,7 @@ final class XHPExpression extends EditableNode
      */
     public function hasOpen()
     {
-        return !$this->_open->isMissing();
+        return $this->_open !== null;
     }
     /**
      * @return XHPOpen
@@ -113,16 +127,18 @@ final class XHPExpression extends EditableNode
         return $this->getOpen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getBodyUNTYPED()
     {
         return $this->_body;
     }
     /**
+     * @param NodeList<Node>|null $value
+     *
      * @return static
      */
-    public function withBody(EditableNode $value)
+    public function withBody(?NodeList $value)
     {
         if ($value === $this->_body) {
             return $this;
@@ -134,33 +150,34 @@ final class XHPExpression extends EditableNode
      */
     public function hasBody()
     {
-        return !$this->_body->isMissing();
+        return $this->_body !== null;
     }
     /**
-     * @return EditableList<EditableNode> | null
+     * @return NodeList<BracedExpression> | NodeList<Node> |
+     * NodeList<XHPBodyToken> | NodeList<XHPCommentToken> |
+     * NodeList<XHPExpression> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<Node>|null
      */
     public function getBody()
     {
-        if ($this->_body->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_body);
+        return $this->_body;
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<BracedExpression> | NodeList<Node> |
+     * NodeList<XHPBodyToken> | NodeList<XHPCommentToken> |
+     * NodeList<XHPExpression>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<Node>
      */
     public function getBodyx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_body);
+        return TypeAssert\not_null($this->getBody());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getCloseUNTYPED()
     {
@@ -169,7 +186,7 @@ final class XHPExpression extends EditableNode
     /**
      * @return static
      */
-    public function withClose(EditableNode $value)
+    public function withClose(?XHPClose $value)
     {
         if ($value === $this->_close) {
             return $this;
@@ -181,7 +198,7 @@ final class XHPExpression extends EditableNode
      */
     public function hasClose()
     {
-        return !$this->_close->isMissing();
+        return $this->_close !== null;
     }
     /**
      * @return null | XHPClose
@@ -191,10 +208,7 @@ final class XHPExpression extends EditableNode
      */
     public function getClose()
     {
-        if ($this->_close->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(XHPClose::class, $this->_close);
+        return $this->_close;
     }
     /**
      * @return XHPClose
@@ -204,7 +218,7 @@ final class XHPExpression extends EditableNode
      */
     public function getClosex()
     {
-        return TypeAssert\instance_of(XHPClose::class, $this->_close);
+        return TypeAssert\not_null($this->getClose());
     }
 }
 

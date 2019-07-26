@@ -2,58 +2,69 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<3b1fb55e377beede792366c055521dbc>>
+ * @generated SignedSource<<f945387e8548862b11069db3cb7994be>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class LiteralExpression extends EditableNode
+use HH\Lib\Dict;
+final class LiteralExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'literal_expression';
+    /**
+     * @var Node
      */
     private $_expression;
-    public function __construct(EditableNode $expression)
+    public function __construct(Node $expression, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('literal_expression');
         $this->_expression = $expression;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $expression = EditableNode::fromJSON($json['literal_expression'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $expression = Node::fromJSON($json['literal_expression'], $file, $offset, $source, 'Node');
+        $expression = $expression !== null ? $expression : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $expression->getWidth();
-        return new static($expression);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($expression, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['expression' => $this->_expression];
+        return Dict\filter_nulls(['expression' => $this->_expression]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $expression = $this->_expression->rewrite($rewriter, $parents);
+        $expression = $rewriter($this->_expression, $parents);
         if ($expression === $this->_expression) {
             return $this;
         }
         return new static($expression);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getExpressionUNTYPED()
     {
@@ -62,7 +73,7 @@ final class LiteralExpression extends EditableNode
     /**
      * @return static
      */
-    public function withExpression(EditableNode $value)
+    public function withExpression(Node $value)
     {
         if ($value === $this->_expression) {
             return $this;
@@ -74,23 +85,23 @@ final class LiteralExpression extends EditableNode
      */
     public function hasExpression()
     {
-        return !$this->_expression->isMissing();
+        return $this->_expression !== null;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getExpression()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+        return $this->_expression;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getExpressionx()
     {

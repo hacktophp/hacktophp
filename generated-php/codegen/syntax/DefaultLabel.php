@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<26b10d3d5da8efae924119e0164209f7>>
+ * @generated SignedSource<<debe6bcf1ec67c1dc3497f2a7cdcb67f>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class DefaultLabel extends EditableNode
+use HH\Lib\Dict;
+final class DefaultLabel extends Node implements ISwitchLabel
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'default_label';
+    /**
+     * @var DefaultToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var ColonToken
      */
     private $_colon;
-    public function __construct(EditableNode $keyword, EditableNode $colon)
+    public function __construct(DefaultToken $keyword, ColonToken $colon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('default_label');
         $this->_keyword = $keyword;
         $this->_colon = $colon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['default_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['default_keyword'], $file, $offset, $source, 'DefaultToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $colon = EditableNode::fromJSON($json['default_colon'], $file, $offset, $source);
+        $colon = Node::fromJSON($json['default_colon'], $file, $offset, $source, 'ColonToken');
+        $colon = $colon !== null ? $colon : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $colon->getWidth();
-        return new static($keyword, $colon);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $colon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'colon' => $this->_colon];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'colon' => $this->_colon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $colon = $this->_colon->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $colon = $rewriter($this->_colon, $parents);
         if ($keyword === $this->_keyword && $colon === $this->_colon) {
             return $this;
         }
         return new static($keyword, $colon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -70,7 +84,7 @@ final class DefaultLabel extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(DefaultToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -82,7 +96,7 @@ final class DefaultLabel extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return DefaultToken
@@ -105,7 +119,7 @@ final class DefaultLabel extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getColonUNTYPED()
     {
@@ -114,7 +128,7 @@ final class DefaultLabel extends EditableNode
     /**
      * @return static
      */
-    public function withColon(EditableNode $value)
+    public function withColon(ColonToken $value)
     {
         if ($value === $this->_colon) {
             return $this;
@@ -126,23 +140,23 @@ final class DefaultLabel extends EditableNode
      */
     public function hasColon()
     {
-        return !$this->_colon->isMissing();
+        return $this->_colon !== null;
     }
     /**
-     * @return ColonToken | SemicolonToken
+     * @return ColonToken
      */
     /**
-     * @return EditableToken
+     * @return ColonToken
      */
     public function getColon()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_colon);
+        return TypeAssert\instance_of(ColonToken::class, $this->_colon);
     }
     /**
-     * @return ColonToken | SemicolonToken
+     * @return ColonToken
      */
     /**
-     * @return EditableToken
+     * @return ColonToken
      */
     public function getColonx()
     {

@@ -2,82 +2,99 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<00837caa9775cfa0da396c49bf9318fa>>
+ * @generated SignedSource<<0fa0ac359f180e86bef42d9c6fe8e320>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class TraitUseAliasItem extends EditableNode
+use HH\Lib\Dict;
+final class TraitUseAliasItem extends Node implements ITraitUseItem
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'trait_use_alias_item';
+    /**
+     * @var Node
      */
     private $_aliasing_name;
     /**
-     * @var EditableNode
+     * @var AsToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var NodeList<Token>|null
      */
     private $_modifiers;
     /**
-     * @var EditableNode
+     * @var null|SimpleTypeSpecifier
      */
     private $_aliased_name;
-    public function __construct(EditableNode $aliasing_name, EditableNode $keyword, EditableNode $modifiers, EditableNode $aliased_name)
+    /**
+     * @param NodeList<Token>|null $modifiers
+     */
+    public function __construct(Node $aliasing_name, AsToken $keyword, ?NodeList $modifiers, ?SimpleTypeSpecifier $aliased_name, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('trait_use_alias_item');
         $this->_aliasing_name = $aliasing_name;
         $this->_keyword = $keyword;
         $this->_modifiers = $modifiers;
         $this->_aliased_name = $aliased_name;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $aliasing_name = EditableNode::fromJSON($json['trait_use_alias_item_aliasing_name'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $aliasing_name = Node::fromJSON($json['trait_use_alias_item_aliasing_name'], $file, $offset, $source, 'Node');
+        $aliasing_name = $aliasing_name !== null ? $aliasing_name : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $aliasing_name->getWidth();
-        $keyword = EditableNode::fromJSON($json['trait_use_alias_item_keyword'], $file, $offset, $source);
+        $keyword = Node::fromJSON($json['trait_use_alias_item_keyword'], $file, $offset, $source, 'AsToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $modifiers = EditableNode::fromJSON($json['trait_use_alias_item_modifiers'], $file, $offset, $source);
-        $offset += $modifiers->getWidth();
-        $aliased_name = EditableNode::fromJSON($json['trait_use_alias_item_aliased_name'], $file, $offset, $source);
-        $offset += $aliased_name->getWidth();
-        return new static($aliasing_name, $keyword, $modifiers, $aliased_name);
+        $modifiers = Node::fromJSON($json['trait_use_alias_item_modifiers'], $file, $offset, $source, 'NodeList<Token>');
+        $offset += (($__tmp1__ = $modifiers) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $aliased_name = Node::fromJSON($json['trait_use_alias_item_aliased_name'], $file, $offset, $source, 'SimpleTypeSpecifier');
+        $offset += (($__tmp2__ = $aliased_name) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($aliasing_name, $keyword, $modifiers, $aliased_name, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['aliasing_name' => $this->_aliasing_name, 'keyword' => $this->_keyword, 'modifiers' => $this->_modifiers, 'aliased_name' => $this->_aliased_name];
+        return Dict\filter_nulls(['aliasing_name' => $this->_aliasing_name, 'keyword' => $this->_keyword, 'modifiers' => $this->_modifiers, 'aliased_name' => $this->_aliased_name]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $aliasing_name = $this->_aliasing_name->rewrite($rewriter, $parents);
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $modifiers = $this->_modifiers->rewrite($rewriter, $parents);
-        $aliased_name = $this->_aliased_name->rewrite($rewriter, $parents);
+        $aliasing_name = $rewriter($this->_aliasing_name, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $modifiers = $this->_modifiers === null ? null : $rewriter($this->_modifiers, $parents);
+        $aliased_name = $this->_aliased_name === null ? null : $rewriter($this->_aliased_name, $parents);
         if ($aliasing_name === $this->_aliasing_name && $keyword === $this->_keyword && $modifiers === $this->_modifiers && $aliased_name === $this->_aliased_name) {
             return $this;
         }
         return new static($aliasing_name, $keyword, $modifiers, $aliased_name);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAliasingNameUNTYPED()
     {
@@ -86,7 +103,7 @@ final class TraitUseAliasItem extends EditableNode
     /**
      * @return static
      */
-    public function withAliasingName(EditableNode $value)
+    public function withAliasingName(Node $value)
     {
         if ($value === $this->_aliasing_name) {
             return $this;
@@ -98,30 +115,30 @@ final class TraitUseAliasItem extends EditableNode
      */
     public function hasAliasingName()
     {
-        return !$this->_aliasing_name->isMissing();
+        return $this->_aliasing_name !== null;
     }
     /**
      * @return ScopeResolutionExpression | SimpleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getAliasingName()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_aliasing_name);
+        return $this->_aliasing_name;
     }
     /**
      * @return ScopeResolutionExpression | SimpleTypeSpecifier
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getAliasingNamex()
     {
         return $this->getAliasingName();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -130,7 +147,7 @@ final class TraitUseAliasItem extends EditableNode
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(AsToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -142,7 +159,7 @@ final class TraitUseAliasItem extends EditableNode
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return AsToken
@@ -165,16 +182,18 @@ final class TraitUseAliasItem extends EditableNode
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getModifiersUNTYPED()
     {
         return $this->_modifiers;
     }
     /**
+     * @param NodeList<Token>|null $value
+     *
      * @return static
      */
-    public function withModifiers(EditableNode $value)
+    public function withModifiers(?NodeList $value)
     {
         if ($value === $this->_modifiers) {
             return $this;
@@ -186,33 +205,32 @@ final class TraitUseAliasItem extends EditableNode
      */
     public function hasModifiers()
     {
-        return !$this->_modifiers->isMissing();
+        return $this->_modifiers !== null;
     }
     /**
-     * @return EditableList<EditableNode> | null
+     * @return NodeList<PrivateToken> | NodeList<ProtectedToken> |
+     * NodeList<PublicToken> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<Token>|null
      */
     public function getModifiers()
     {
-        if ($this->_modifiers->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(EditableList::class, $this->_modifiers);
+        return $this->_modifiers;
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<PrivateToken> | NodeList<ProtectedToken> |
+     * NodeList<PublicToken>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<Token>
      */
     public function getModifiersx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_modifiers);
+        return TypeAssert\not_null($this->getModifiers());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAliasedNameUNTYPED()
     {
@@ -221,7 +239,7 @@ final class TraitUseAliasItem extends EditableNode
     /**
      * @return static
      */
-    public function withAliasedName(EditableNode $value)
+    public function withAliasedName(?SimpleTypeSpecifier $value)
     {
         if ($value === $this->_aliased_name) {
             return $this;
@@ -233,7 +251,7 @@ final class TraitUseAliasItem extends EditableNode
      */
     public function hasAliasedName()
     {
-        return !$this->_aliased_name->isMissing();
+        return $this->_aliased_name !== null;
     }
     /**
      * @return null | SimpleTypeSpecifier
@@ -243,10 +261,7 @@ final class TraitUseAliasItem extends EditableNode
      */
     public function getAliasedName()
     {
-        if ($this->_aliased_name->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(SimpleTypeSpecifier::class, $this->_aliased_name);
+        return $this->_aliased_name;
     }
     /**
      * @return SimpleTypeSpecifier
@@ -256,7 +271,7 @@ final class TraitUseAliasItem extends EditableNode
      */
     public function getAliasedNamex()
     {
-        return TypeAssert\instance_of(SimpleTypeSpecifier::class, $this->_aliased_name);
+        return TypeAssert\not_null($this->getAliasedName());
     }
 }
 

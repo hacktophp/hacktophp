@@ -2,58 +2,69 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<2fe31ec5e096ff30d74231212781c0cf>>
+ * @generated SignedSource<<f52d0a8b1e9e2c31a9b0b67ed0ece675>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ErrorSyntax extends EditableNode
+use HH\Lib\Dict;
+final class ErrorSyntax extends Node
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'error';
+    /**
+     * @var Node
      */
     private $_error;
-    public function __construct(EditableNode $error)
+    public function __construct(Node $error, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('error');
         $this->_error = $error;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $error = EditableNode::fromJSON($json['error_error'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $error = Node::fromJSON($json['error_error'], $file, $offset, $source, 'Node');
+        $error = $error !== null ? $error : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $error->getWidth();
-        return new static($error);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($error, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['error' => $this->_error];
+        return Dict\filter_nulls(['error' => $this->_error]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $error = $this->_error->rewrite($rewriter, $parents);
+        $error = $rewriter($this->_error, $parents);
         if ($error === $this->_error) {
             return $this;
         }
         return new static($error);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getErrorUNTYPED()
     {
@@ -62,7 +73,7 @@ final class ErrorSyntax extends EditableNode
     /**
      * @return static
      */
-    public function withError(EditableNode $value)
+    public function withError(Node $value)
     {
         if ($value === $this->_error) {
             return $this;
@@ -74,31 +85,23 @@ final class ErrorSyntax extends EditableNode
      */
     public function hasError()
     {
-        return !$this->_error->isMissing();
+        return $this->_error !== null;
     }
     /**
-     * @return LeftParenToken | RightParenToken | PlusToken | CommaToken |
-     * SemicolonToken | LessThanToken | EqualToken | GreaterThanToken |
-     * DecimalLiteralToken | ExtendsToken | IntToken | NameToken |
-     * SingleQuotedStringLiteralToken | StringToken | VariableToken |
-     * LeftBraceToken | RightBraceToken
+     * @return unknown
      */
     /**
-     * @return EditableToken
+     * @return Node
      */
     public function getError()
     {
-        return TypeAssert\instance_of(EditableToken::class, $this->_error);
+        return $this->_error;
     }
     /**
-     * @return LeftParenToken | RightParenToken | PlusToken | CommaToken |
-     * SemicolonToken | LessThanToken | EqualToken | GreaterThanToken |
-     * DecimalLiteralToken | ExtendsToken | IntToken | NameToken |
-     * SingleQuotedStringLiteralToken | StringToken | VariableToken |
-     * LeftBraceToken | RightBraceToken
+     * @return unknown
      */
     /**
-     * @return EditableToken
+     * @return Node
      */
     public function getErrorx()
     {

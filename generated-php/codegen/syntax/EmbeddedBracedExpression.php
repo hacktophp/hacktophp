@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<a4d6dbd92c4ad63db081be9180667b28>>
+ * @generated SignedSource<<24ce63d134866c05f283218dff54d486>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class EmbeddedBracedExpression extends EditableNode
+use HH\Lib\Dict;
+final class EmbeddedBracedExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'embedded_braced_expression';
+    /**
+     * @var Node
      */
     private $_left_brace;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_expression;
     /**
-     * @var EditableNode
+     * @var Node
      */
     private $_right_brace;
-    public function __construct(EditableNode $left_brace, EditableNode $expression, EditableNode $right_brace)
+    public function __construct(Node $left_brace, Node $expression, Node $right_brace, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('embedded_braced_expression');
         $this->_left_brace = $left_brace;
         $this->_expression = $expression;
         $this->_right_brace = $right_brace;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $left_brace = EditableNode::fromJSON($json['embedded_braced_expression_left_brace'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $left_brace = Node::fromJSON($json['embedded_braced_expression_left_brace'], $file, $offset, $source, 'Node');
+        $left_brace = $left_brace !== null ? $left_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_brace->getWidth();
-        $expression = EditableNode::fromJSON($json['embedded_braced_expression_expression'], $file, $offset, $source);
+        $expression = Node::fromJSON($json['embedded_braced_expression_expression'], $file, $offset, $source, 'Node');
+        $expression = $expression !== null ? $expression : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $expression->getWidth();
-        $right_brace = EditableNode::fromJSON($json['embedded_braced_expression_right_brace'], $file, $offset, $source);
+        $right_brace = Node::fromJSON($json['embedded_braced_expression_right_brace'], $file, $offset, $source, 'Node');
+        $right_brace = $right_brace !== null ? $right_brace : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_brace->getWidth();
-        return new static($left_brace, $expression, $right_brace);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($left_brace, $expression, $right_brace, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['left_brace' => $this->_left_brace, 'expression' => $this->_expression, 'right_brace' => $this->_right_brace];
+        return Dict\filter_nulls(['left_brace' => $this->_left_brace, 'expression' => $this->_expression, 'right_brace' => $this->_right_brace]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $left_brace = $this->_left_brace->rewrite($rewriter, $parents);
-        $expression = $this->_expression->rewrite($rewriter, $parents);
-        $right_brace = $this->_right_brace->rewrite($rewriter, $parents);
+        $left_brace = $rewriter($this->_left_brace, $parents);
+        $expression = $rewriter($this->_expression, $parents);
+        $right_brace = $rewriter($this->_right_brace, $parents);
         if ($left_brace === $this->_left_brace && $expression === $this->_expression && $right_brace === $this->_right_brace) {
             return $this;
         }
         return new static($left_brace, $expression, $right_brace);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftBraceUNTYPED()
     {
@@ -78,7 +95,7 @@ final class EmbeddedBracedExpression extends EditableNode
     /**
      * @return static
      */
-    public function withLeftBrace(EditableNode $value)
+    public function withLeftBrace(Node $value)
     {
         if ($value === $this->_left_brace) {
             return $this;
@@ -90,30 +107,30 @@ final class EmbeddedBracedExpression extends EditableNode
      */
     public function hasLeftBrace()
     {
-        return !$this->_left_brace->isMissing();
+        return $this->_left_brace !== null;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getLeftBrace()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_left_brace);
+        return $this->_left_brace;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getLeftBracex()
     {
         return $this->getLeftBrace();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getExpressionUNTYPED()
     {
@@ -122,7 +139,7 @@ final class EmbeddedBracedExpression extends EditableNode
     /**
      * @return static
      */
-    public function withExpression(EditableNode $value)
+    public function withExpression(Node $value)
     {
         if ($value === $this->_expression) {
             return $this;
@@ -134,30 +151,30 @@ final class EmbeddedBracedExpression extends EditableNode
      */
     public function hasExpression()
     {
-        return !$this->_expression->isMissing();
+        return $this->_expression !== null;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getExpression()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+        return $this->_expression;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getExpressionx()
     {
         return $this->getExpression();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightBraceUNTYPED()
     {
@@ -166,7 +183,7 @@ final class EmbeddedBracedExpression extends EditableNode
     /**
      * @return static
      */
-    public function withRightBrace(EditableNode $value)
+    public function withRightBrace(Node $value)
     {
         if ($value === $this->_right_brace) {
             return $this;
@@ -178,23 +195,23 @@ final class EmbeddedBracedExpression extends EditableNode
      */
     public function hasRightBrace()
     {
-        return !$this->_right_brace->isMissing();
+        return $this->_right_brace !== null;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getRightBrace()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_right_brace);
+        return $this->_right_brace;
     }
     /**
      * @return unknown
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getRightBracex()
     {

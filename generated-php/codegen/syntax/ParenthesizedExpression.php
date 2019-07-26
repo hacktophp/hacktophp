@@ -2,74 +2,91 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<45d5817de78fbb7e5dad129bed9ef60c>>
+ * @generated SignedSource<<99ed6ac7ce06bd029ce229a8f91ea8ff>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ParenthesizedExpression extends EditableNode
+use HH\Lib\Dict;
+final class ParenthesizedExpression extends Node implements ILambdaBody, IExpression
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'parenthesized_expression';
+    /**
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_expression;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
-    public function __construct(EditableNode $left_paren, EditableNode $expression, EditableNode $right_paren)
+    public function __construct(LeftParenToken $left_paren, IExpression $expression, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('parenthesized_expression');
         $this->_left_paren = $left_paren;
         $this->_expression = $expression;
         $this->_right_paren = $right_paren;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $left_paren = EditableNode::fromJSON($json['parenthesized_expression_left_paren'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $left_paren = Node::fromJSON($json['parenthesized_expression_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $expression = EditableNode::fromJSON($json['parenthesized_expression_expression'], $file, $offset, $source);
+        $expression = Node::fromJSON($json['parenthesized_expression_expression'], $file, $offset, $source, 'IExpression');
+        $expression = $expression !== null ? $expression : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $expression->getWidth();
-        $right_paren = EditableNode::fromJSON($json['parenthesized_expression_right_paren'], $file, $offset, $source);
+        $right_paren = Node::fromJSON($json['parenthesized_expression_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        return new static($left_paren, $expression, $right_paren);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($left_paren, $expression, $right_paren, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['left_paren' => $this->_left_paren, 'expression' => $this->_expression, 'right_paren' => $this->_right_paren];
+        return Dict\filter_nulls(['left_paren' => $this->_left_paren, 'expression' => $this->_expression, 'right_paren' => $this->_right_paren]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $expression = $this->_expression->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $expression = $rewriter($this->_expression, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
         if ($left_paren === $this->_left_paren && $expression === $this->_expression && $right_paren === $this->_right_paren) {
             return $this;
         }
         return new static($left_paren, $expression, $right_paren);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -78,7 +95,7 @@ final class ParenthesizedExpression extends EditableNode
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -90,7 +107,7 @@ final class ParenthesizedExpression extends EditableNode
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -113,7 +130,7 @@ final class ParenthesizedExpression extends EditableNode
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getExpressionUNTYPED()
     {
@@ -122,7 +139,7 @@ final class ParenthesizedExpression extends EditableNode
     /**
      * @return static
      */
-    public function withExpression(EditableNode $value)
+    public function withExpression(IExpression $value)
     {
         if ($value === $this->_expression) {
             return $this;
@@ -134,48 +151,46 @@ final class ParenthesizedExpression extends EditableNode
      */
     public function hasExpression()
     {
-        return !$this->_expression->isMissing();
+        return $this->_expression !== null;
     }
     /**
      * @return AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
      * CastExpression | CollectionLiteralExpression | ConditionalExpression |
-     * EmptyExpression | FunctionCallExpression | InclusionExpression |
-     * InstanceofExpression | IsExpression | IssetExpression | LambdaExpression |
-     * LiteralExpression | MemberSelectionExpression | ObjectCreationExpression |
+     * FunctionCallExpression | InclusionExpression | IsExpression |
+     * IssetExpression | LambdaExpression | LiteralExpression |
+     * MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
      * QualifiedName | ScopeResolutionExpression | SubscriptExpression |
-     * RightParenToken | QuestionToken | NameToken | TupleExpression |
-     * VariableExpression | VectorIntrinsicExpression | XHPExpression |
-     * YieldExpression
+     * NameToken | VariableExpression | VectorIntrinsicExpression | XHPExpression
+     * | YieldExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getExpression()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_expression);
+        return TypeAssert\instance_of(IExpression::class, $this->_expression);
     }
     /**
      * @return AnonymousFunction | ArrayIntrinsicExpression | BinaryExpression |
      * CastExpression | CollectionLiteralExpression | ConditionalExpression |
-     * EmptyExpression | FunctionCallExpression | InclusionExpression |
-     * InstanceofExpression | IsExpression | IssetExpression | LambdaExpression |
-     * LiteralExpression | MemberSelectionExpression | ObjectCreationExpression |
+     * FunctionCallExpression | InclusionExpression | IsExpression |
+     * IssetExpression | LambdaExpression | LiteralExpression |
+     * MemberSelectionExpression | ObjectCreationExpression |
      * ParenthesizedExpression | PostfixUnaryExpression | PrefixUnaryExpression |
      * QualifiedName | ScopeResolutionExpression | SubscriptExpression |
-     * RightParenToken | QuestionToken | NameToken | TupleExpression |
-     * VariableExpression | VectorIntrinsicExpression | XHPExpression |
-     * YieldExpression
+     * NameToken | VariableExpression | VectorIntrinsicExpression | XHPExpression
+     * | YieldExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getExpressionx()
     {
         return $this->getExpression();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -184,7 +199,7 @@ final class ParenthesizedExpression extends EditableNode
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -196,19 +211,16 @@ final class ParenthesizedExpression extends EditableNode
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
-     * @return null | RightParenToken
+     * @return RightParenToken
      */
     /**
-     * @return null|RightParenToken
+     * @return RightParenToken
      */
     public function getRightParen()
     {
-        if ($this->_right_paren->isMissing()) {
-            return null;
-        }
         return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
     }
     /**
@@ -219,7 +231,7 @@ final class ParenthesizedExpression extends EditableNode
      */
     public function getRightParenx()
     {
-        return TypeAssert\instance_of(RightParenToken::class, $this->_right_paren);
+        return $this->getRightParen();
     }
 }
 

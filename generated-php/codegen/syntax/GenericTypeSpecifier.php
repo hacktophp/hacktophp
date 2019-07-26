@@ -2,66 +2,80 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<6de5ec36e6e08b97e4cbd4d3f8e0c86c>>
+ * @generated SignedSource<<498bbf8a7694f59cbba5d0abe623a1b1>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class GenericTypeSpecifier extends EditableNode
+use HH\Lib\Dict;
+final class GenericTypeSpecifier extends Node implements ISimpleCreationSpecifier, ITypeSpecifier
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'generic_type_specifier';
+    /**
+     * @var Node
      */
     private $_class_type;
     /**
-     * @var EditableNode
+     * @var TypeArguments
      */
     private $_argument_list;
-    public function __construct(EditableNode $class_type, EditableNode $argument_list)
+    public function __construct(Node $class_type, TypeArguments $argument_list, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('generic_type_specifier');
         $this->_class_type = $class_type;
         $this->_argument_list = $argument_list;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $class_type = EditableNode::fromJSON($json['generic_class_type'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $class_type = Node::fromJSON($json['generic_class_type'], $file, $offset, $source, 'Node');
+        $class_type = $class_type !== null ? $class_type : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $class_type->getWidth();
-        $argument_list = EditableNode::fromJSON($json['generic_argument_list'], $file, $offset, $source);
+        $argument_list = Node::fromJSON($json['generic_argument_list'], $file, $offset, $source, 'TypeArguments');
+        $argument_list = $argument_list !== null ? $argument_list : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $argument_list->getWidth();
-        return new static($class_type, $argument_list);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($class_type, $argument_list, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['class_type' => $this->_class_type, 'argument_list' => $this->_argument_list];
+        return Dict\filter_nulls(['class_type' => $this->_class_type, 'argument_list' => $this->_argument_list]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $class_type = $this->_class_type->rewrite($rewriter, $parents);
-        $argument_list = $this->_argument_list->rewrite($rewriter, $parents);
+        $class_type = $rewriter($this->_class_type, $parents);
+        $argument_list = $rewriter($this->_argument_list, $parents);
         if ($class_type === $this->_class_type && $argument_list === $this->_argument_list) {
             return $this;
         }
         return new static($class_type, $argument_list);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getClassTypeUNTYPED()
     {
@@ -70,7 +84,7 @@ final class GenericTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withClassType(EditableNode $value)
+    public function withClassType(Node $value)
     {
         if ($value === $this->_class_type) {
             return $this;
@@ -82,30 +96,30 @@ final class GenericTypeSpecifier extends EditableNode
      */
     public function hasClassType()
     {
-        return !$this->_class_type->isMissing();
+        return $this->_class_type !== null;
     }
     /**
      * @return QualifiedName | XHPClassNameToken | NameToken | StringToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getClassType()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_class_type);
+        return $this->_class_type;
     }
     /**
      * @return QualifiedName | XHPClassNameToken | NameToken | StringToken
      */
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getClassTypex()
     {
         return $this->getClassType();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getArgumentListUNTYPED()
     {
@@ -114,7 +128,7 @@ final class GenericTypeSpecifier extends EditableNode
     /**
      * @return static
      */
-    public function withArgumentList(EditableNode $value)
+    public function withArgumentList(TypeArguments $value)
     {
         if ($value === $this->_argument_list) {
             return $this;
@@ -126,7 +140,7 @@ final class GenericTypeSpecifier extends EditableNode
      */
     public function hasArgumentList()
     {
-        return !$this->_argument_list->isMissing();
+        return $this->_argument_list !== null;
     }
     /**
      * @return TypeArguments

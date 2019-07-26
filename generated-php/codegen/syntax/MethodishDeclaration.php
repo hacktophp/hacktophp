@@ -2,82 +2,93 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<05b8ff9e39856c1f8bd4e6b807d8e13c>>
+ * @generated SignedSource<<8dbdcf9db4b5900b0efbc630d1a378e8>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class MethodishDeclaration extends EditableNode implements IFunctionishDeclaration
+use HH\Lib\Dict;
+abstract class MethodishDeclarationGeneratedBase extends Node implements IClassBodyDeclaration, IFunctionishDeclaration, IHasFunctionBody, IHasAttributeSpec
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'methodish_declaration';
+    /**
+     * @var null|OldAttributeSpecification
      */
     private $_attribute;
     /**
-     * @var EditableNode
+     * @var FunctionDeclarationHeader
      */
     private $_function_decl_header;
     /**
-     * @var EditableNode
+     * @var null|CompoundStatement
      */
     private $_function_body;
     /**
-     * @var EditableNode
+     * @var null|SemicolonToken
      */
     private $_semicolon;
-    public function __construct(EditableNode $attribute, EditableNode $function_decl_header, EditableNode $function_body, EditableNode $semicolon)
+    public function __construct(?OldAttributeSpecification $attribute, FunctionDeclarationHeader $function_decl_header, ?CompoundStatement $function_body, ?SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('methodish_declaration');
         $this->_attribute = $attribute;
         $this->_function_decl_header = $function_decl_header;
         $this->_function_body = $function_body;
         $this->_semicolon = $semicolon;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $attribute = EditableNode::fromJSON($json['methodish_attribute'], $file, $offset, $source);
-        $offset += $attribute->getWidth();
-        $function_decl_header = EditableNode::fromJSON($json['methodish_function_decl_header'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $attribute = Node::fromJSON($json['methodish_attribute'], $file, $offset, $source, 'OldAttributeSpecification');
+        $offset += (($__tmp1__ = $attribute) !== null ? $__tmp1__->getWidth() : null) ?? 0;
+        $function_decl_header = Node::fromJSON($json['methodish_function_decl_header'], $file, $offset, $source, 'FunctionDeclarationHeader');
+        $function_decl_header = $function_decl_header !== null ? $function_decl_header : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $function_decl_header->getWidth();
-        $function_body = EditableNode::fromJSON($json['methodish_function_body'], $file, $offset, $source);
-        $offset += $function_body->getWidth();
-        $semicolon = EditableNode::fromJSON($json['methodish_semicolon'], $file, $offset, $source);
-        $offset += $semicolon->getWidth();
-        return new static($attribute, $function_decl_header, $function_body, $semicolon);
+        $function_body = Node::fromJSON($json['methodish_function_body'], $file, $offset, $source, 'CompoundStatement');
+        $offset += (($__tmp2__ = $function_body) !== null ? $__tmp2__->getWidth() : null) ?? 0;
+        $semicolon = Node::fromJSON($json['methodish_semicolon'], $file, $offset, $source, 'SemicolonToken');
+        $offset += (($__tmp3__ = $semicolon) !== null ? $__tmp3__->getWidth() : null) ?? 0;
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($attribute, $function_decl_header, $function_body, $semicolon, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['attribute' => $this->_attribute, 'function_decl_header' => $this->_function_decl_header, 'function_body' => $this->_function_body, 'semicolon' => $this->_semicolon];
+        return Dict\filter_nulls(['attribute' => $this->_attribute, 'function_decl_header' => $this->_function_decl_header, 'function_body' => $this->_function_body, 'semicolon' => $this->_semicolon]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $attribute = $this->_attribute->rewrite($rewriter, $parents);
-        $function_decl_header = $this->_function_decl_header->rewrite($rewriter, $parents);
-        $function_body = $this->_function_body->rewrite($rewriter, $parents);
-        $semicolon = $this->_semicolon->rewrite($rewriter, $parents);
+        $attribute = $this->_attribute === null ? null : $rewriter($this->_attribute, $parents);
+        $function_decl_header = $rewriter($this->_function_decl_header, $parents);
+        $function_body = $this->_function_body === null ? null : $rewriter($this->_function_body, $parents);
+        $semicolon = $this->_semicolon === null ? null : $rewriter($this->_semicolon, $parents);
         if ($attribute === $this->_attribute && $function_decl_header === $this->_function_decl_header && $function_body === $this->_function_body && $semicolon === $this->_semicolon) {
             return $this;
         }
         return new static($attribute, $function_decl_header, $function_body, $semicolon);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getAttributeUNTYPED()
     {
@@ -86,7 +97,7 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
     /**
      * @return static
      */
-    public function withAttribute(EditableNode $value)
+    public function withAttribute(?OldAttributeSpecification $value)
     {
         if ($value === $this->_attribute) {
             return $this;
@@ -98,33 +109,30 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
      */
     public function hasAttribute()
     {
-        return !$this->_attribute->isMissing();
+        return $this->_attribute !== null;
     }
     /**
-     * @return AttributeSpecification | null
+     * @return null | OldAttributeSpecification
      */
     /**
-     * @return null|AttributeSpecification
+     * @return null|OldAttributeSpecification
      */
     public function getAttribute()
     {
-        if ($this->_attribute->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute);
+        return $this->_attribute;
     }
     /**
-     * @return AttributeSpecification
+     * @return OldAttributeSpecification
      */
     /**
-     * @return AttributeSpecification
+     * @return OldAttributeSpecification
      */
     public function getAttributex()
     {
-        return TypeAssert\instance_of(AttributeSpecification::class, $this->_attribute);
+        return TypeAssert\not_null($this->getAttribute());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getFunctionDeclHeaderUNTYPED()
     {
@@ -133,7 +141,7 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
     /**
      * @return static
      */
-    public function withFunctionDeclHeader(EditableNode $value)
+    public function withFunctionDeclHeader(FunctionDeclarationHeader $value)
     {
         if ($value === $this->_function_decl_header) {
             return $this;
@@ -145,7 +153,7 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
      */
     public function hasFunctionDeclHeader()
     {
-        return !$this->_function_decl_header->isMissing();
+        return $this->_function_decl_header !== null;
     }
     /**
      * @return FunctionDeclarationHeader
@@ -168,7 +176,7 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
         return $this->getFunctionDeclHeader();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getFunctionBodyUNTYPED()
     {
@@ -177,7 +185,7 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
     /**
      * @return static
      */
-    public function withFunctionBody(EditableNode $value)
+    public function withFunctionBody(?CompoundStatement $value)
     {
         if ($value === $this->_function_body) {
             return $this;
@@ -189,7 +197,7 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
      */
     public function hasFunctionBody()
     {
-        return !$this->_function_body->isMissing();
+        return $this->_function_body !== null;
     }
     /**
      * @return CompoundStatement | null
@@ -199,10 +207,7 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
      */
     public function getFunctionBody()
     {
-        if ($this->_function_body->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(CompoundStatement::class, $this->_function_body);
+        return $this->_function_body;
     }
     /**
      * @return CompoundStatement
@@ -212,10 +217,10 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
      */
     public function getFunctionBodyx()
     {
-        return TypeAssert\instance_of(CompoundStatement::class, $this->_function_body);
+        return TypeAssert\not_null($this->getFunctionBody());
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getSemicolonUNTYPED()
     {
@@ -224,7 +229,7 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
     /**
      * @return static
      */
-    public function withSemicolon(EditableNode $value)
+    public function withSemicolon(?SemicolonToken $value)
     {
         if ($value === $this->_semicolon) {
             return $this;
@@ -236,7 +241,7 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
      */
     public function hasSemicolon()
     {
-        return !$this->_semicolon->isMissing();
+        return $this->_semicolon !== null;
     }
     /**
      * @return null | SemicolonToken
@@ -246,10 +251,7 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
      */
     public function getSemicolon()
     {
-        if ($this->_semicolon->isMissing()) {
-            return null;
-        }
-        return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+        return $this->_semicolon;
     }
     /**
      * @return SemicolonToken
@@ -259,7 +261,7 @@ final class MethodishDeclaration extends EditableNode implements IFunctionishDec
      */
     public function getSemicolonx()
     {
-        return TypeAssert\instance_of(SemicolonToken::class, $this->_semicolon);
+        return TypeAssert\not_null($this->getSemicolon());
     }
 }
 

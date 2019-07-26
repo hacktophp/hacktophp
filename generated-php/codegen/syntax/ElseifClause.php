@@ -2,90 +2,113 @@
 /**
  * This file is generated. Do not modify it manually!
  *
- * @generated SignedSource<<7db95e738d564f2922fe62010e7b66a4>>
+ * @generated SignedSource<<70e1af07db5479b8347c1b04cbd42f99>>
  */
 namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
-final class ElseifClause extends EditableNode implements IControlFlowStatement
+use HH\Lib\Dict;
+final class ElseifClause extends Node implements IControlFlowStatement
 {
     /**
-     * @var EditableNode
+     * @var string
+     */
+    const SYNTAX_KIND = 'elseif_clause';
+    /**
+     * @var ElseifToken
      */
     private $_keyword;
     /**
-     * @var EditableNode
+     * @var LeftParenToken
      */
     private $_left_paren;
     /**
-     * @var EditableNode
+     * @var IExpression
      */
     private $_condition;
     /**
-     * @var EditableNode
+     * @var RightParenToken
      */
     private $_right_paren;
     /**
-     * @var EditableNode
+     * @var IStatement
      */
     private $_statement;
-    public function __construct(EditableNode $keyword, EditableNode $left_paren, EditableNode $condition, EditableNode $right_paren, EditableNode $statement)
+    public function __construct(ElseifToken $keyword, LeftParenToken $left_paren, IExpression $condition, RightParenToken $right_paren, IStatement $statement, ?__Private\SourceRef $source_ref = null)
     {
-        parent::__construct('elseif_clause');
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;
         $this->_condition = $condition;
         $this->_right_paren = $right_paren;
         $this->_statement = $statement;
+        parent::__construct($source_ref);
     }
     /**
      * @param array<string, mixed> $json
      *
      * @return static
      */
-    public static function fromJSON(array $json, string $file, int $offset, string $source)
+    public static function fromJSON(array $json, string $file, int $initial_offset, string $source, string $_type_hint)
     {
-        $keyword = EditableNode::fromJSON($json['elseif_keyword'], $file, $offset, $source);
+        $offset = $initial_offset;
+        $keyword = Node::fromJSON($json['elseif_keyword'], $file, $offset, $source, 'ElseifToken');
+        $keyword = $keyword !== null ? $keyword : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $keyword->getWidth();
-        $left_paren = EditableNode::fromJSON($json['elseif_left_paren'], $file, $offset, $source);
+        $left_paren = Node::fromJSON($json['elseif_left_paren'], $file, $offset, $source, 'LeftParenToken');
+        $left_paren = $left_paren !== null ? $left_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $left_paren->getWidth();
-        $condition = EditableNode::fromJSON($json['elseif_condition'], $file, $offset, $source);
+        $condition = Node::fromJSON($json['elseif_condition'], $file, $offset, $source, 'IExpression');
+        $condition = $condition !== null ? $condition : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $condition->getWidth();
-        $right_paren = EditableNode::fromJSON($json['elseif_right_paren'], $file, $offset, $source);
+        $right_paren = Node::fromJSON($json['elseif_right_paren'], $file, $offset, $source, 'RightParenToken');
+        $right_paren = $right_paren !== null ? $right_paren : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $right_paren->getWidth();
-        $statement = EditableNode::fromJSON($json['elseif_statement'], $file, $offset, $source);
+        $statement = Node::fromJSON($json['elseif_statement'], $file, $offset, $source, 'IStatement');
+        $statement = $statement !== null ? $statement : (function () {
+            throw new \TypeError('Failed assertion');
+        })();
         $offset += $statement->getWidth();
-        return new static($keyword, $left_paren, $condition, $right_paren, $statement);
+        $source_ref = ['file' => $file, 'source' => $source, 'offset' => $initial_offset, 'width' => $offset - $initial_offset];
+        return new static($keyword, $left_paren, $condition, $right_paren, $statement, $source_ref);
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
-        return ['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'condition' => $this->_condition, 'right_paren' => $this->_right_paren, 'statement' => $this->_statement];
+        return Dict\filter_nulls(['keyword' => $this->_keyword, 'left_paren' => $this->_left_paren, 'condition' => $this->_condition, 'right_paren' => $this->_right_paren, 'statement' => $this->_statement]);
     }
     /**
-     * @param mixed $rewriter
-     * @param array<int, EditableNode>|null $parents
+     * @template Tret as null|Node
+     *
+     * @param \Closure(Node, array<int, Node>):Tret $rewriter
+     * @param array<int, Node> $parents
      *
      * @return static
      */
-    public function rewriteDescendants($rewriter, ?array $parents = null)
+    public function rewriteChildren(\Closure $rewriter, array $parents = [])
     {
-        $parents = $parents === null ? [] : (array) $parents;
         $parents[] = $this;
-        $keyword = $this->_keyword->rewrite($rewriter, $parents);
-        $left_paren = $this->_left_paren->rewrite($rewriter, $parents);
-        $condition = $this->_condition->rewrite($rewriter, $parents);
-        $right_paren = $this->_right_paren->rewrite($rewriter, $parents);
-        $statement = $this->_statement->rewrite($rewriter, $parents);
+        $keyword = $rewriter($this->_keyword, $parents);
+        $left_paren = $rewriter($this->_left_paren, $parents);
+        $condition = $rewriter($this->_condition, $parents);
+        $right_paren = $rewriter($this->_right_paren, $parents);
+        $statement = $rewriter($this->_statement, $parents);
         if ($keyword === $this->_keyword && $left_paren === $this->_left_paren && $condition === $this->_condition && $right_paren === $this->_right_paren && $statement === $this->_statement) {
             return $this;
         }
         return new static($keyword, $left_paren, $condition, $right_paren, $statement);
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getKeywordUNTYPED()
     {
@@ -94,7 +117,7 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
     /**
      * @return static
      */
-    public function withKeyword(EditableNode $value)
+    public function withKeyword(ElseifToken $value)
     {
         if ($value === $this->_keyword) {
             return $this;
@@ -106,7 +129,7 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
      */
     public function hasKeyword()
     {
-        return !$this->_keyword->isMissing();
+        return $this->_keyword !== null;
     }
     /**
      * @return ElseifToken
@@ -129,7 +152,7 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
         return $this->getKeyword();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getLeftParenUNTYPED()
     {
@@ -138,7 +161,7 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
     /**
      * @return static
      */
-    public function withLeftParen(EditableNode $value)
+    public function withLeftParen(LeftParenToken $value)
     {
         if ($value === $this->_left_paren) {
             return $this;
@@ -150,7 +173,7 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
      */
     public function hasLeftParen()
     {
-        return !$this->_left_paren->isMissing();
+        return $this->_left_paren !== null;
     }
     /**
      * @return LeftParenToken
@@ -173,7 +196,7 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
         return $this->getLeftParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getConditionUNTYPED()
     {
@@ -182,7 +205,7 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
     /**
      * @return static
      */
-    public function withCondition(EditableNode $value)
+    public function withCondition(IExpression $value)
     {
         if ($value === $this->_condition) {
             return $this;
@@ -194,32 +217,32 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
      */
     public function hasCondition()
     {
-        return !$this->_condition->isMissing();
+        return $this->_condition !== null;
     }
     /**
      * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
      * VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getCondition()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_condition);
+        return TypeAssert\instance_of(IExpression::class, $this->_condition);
     }
     /**
      * @return BinaryExpression | FunctionCallExpression | LiteralExpression |
      * VariableExpression
      */
     /**
-     * @return EditableNode
+     * @return IExpression
      */
     public function getConditionx()
     {
         return $this->getCondition();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getRightParenUNTYPED()
     {
@@ -228,7 +251,7 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
     /**
      * @return static
      */
-    public function withRightParen(EditableNode $value)
+    public function withRightParen(RightParenToken $value)
     {
         if ($value === $this->_right_paren) {
             return $this;
@@ -240,7 +263,7 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
      */
     public function hasRightParen()
     {
-        return !$this->_right_paren->isMissing();
+        return $this->_right_paren !== null;
     }
     /**
      * @return RightParenToken
@@ -263,7 +286,7 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
         return $this->getRightParen();
     }
     /**
-     * @return EditableNode
+     * @return null|Node
      */
     public function getStatementUNTYPED()
     {
@@ -272,7 +295,7 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
     /**
      * @return static
      */
-    public function withStatement(EditableNode $value)
+    public function withStatement(IStatement $value)
     {
         if ($value === $this->_statement) {
             return $this;
@@ -284,23 +307,23 @@ final class ElseifClause extends EditableNode implements IControlFlowStatement
      */
     public function hasStatement()
     {
-        return !$this->_statement->isMissing();
+        return $this->_statement !== null;
     }
     /**
      * @return CompoundStatement | ExpressionStatement
      */
     /**
-     * @return EditableNode
+     * @return IStatement
      */
     public function getStatement()
     {
-        return TypeAssert\instance_of(EditableNode::class, $this->_statement);
+        return TypeAssert\instance_of(IStatement::class, $this->_statement);
     }
     /**
      * @return CompoundStatement | ExpressionStatement
      */
     /**
-     * @return EditableNode
+     * @return IStatement
      */
     public function getStatementx()
     {
