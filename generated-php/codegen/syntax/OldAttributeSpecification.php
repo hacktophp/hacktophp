@@ -29,7 +29,7 @@ final class OldAttributeSpecification extends Node
     /**
      * @param NodeList<ListItem<ConstructorCall>> $attributes
      */
-    public function __construct(LessThanLessThanToken $left_double_angle, NodeList $attributes, GreaterThanGreaterThanToken $right_double_angle, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LessThanLessThanToken $left_double_angle, NodeList $attributes, GreaterThanGreaterThanToken $right_double_angle, ?array $source_ref = null)
     {
         $this->_left_double_angle = $left_double_angle;
         $this->_attributes = $attributes;

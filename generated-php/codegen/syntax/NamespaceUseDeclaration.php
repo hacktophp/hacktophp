@@ -33,7 +33,7 @@ final class NamespaceUseDeclaration extends Node implements INamespaceUseDeclara
     /**
      * @param NodeList<ListItem<NamespaceUseClause>> $clauses
      */
-    public function __construct(UseToken $keyword, ?Token $kind, NodeList $clauses, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(UseToken $keyword, ?Token $kind, NodeList $clauses, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_kind = $kind;

@@ -37,7 +37,7 @@ abstract class Token extends Node
      * @param NodeList<Trivia>|null $leading
      * @param NodeList<Trivia>|null $trailing
      */
-    public function __construct(string $token_kind, ?NodeList $leading, ?NodeList $trailing, string $text, ?__Private\SourceRef $ref)
+    public function __construct(string $token_kind, ?NodeList $leading, ?NodeList $trailing, string $text, ?array $ref)
     {
         $this->_token_kind = $token_kind;
         $this->_leading = $leading ?? new NodeList([]);

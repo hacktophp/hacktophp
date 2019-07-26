@@ -30,7 +30,7 @@ final class NamespaceUseClause extends Node
      * @var null|NameToken
      */
     private $_alias;
-    public function __construct(?Token $clause_kind, INameishNode $name, ?AsToken $as, ?NameToken $alias, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?Token $clause_kind, INameishNode $name, ?AsToken $as, ?NameToken $alias, ?array $source_ref = null)
     {
         $this->_clause_kind = $clause_kind;
         $this->_name = $name;

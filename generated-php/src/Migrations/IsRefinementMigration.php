@@ -14,9 +14,9 @@ use HH\Lib\{C, Str, Vec};
 final class IsRefinementMigration extends BaseMigration
 {
     /**
-     * @return HHAST\EditableNode
+     * @return HHAST\Node
      */
-    public function migrateFile(string $_path, HHAST\EditableNode $ast)
+    public function migrateFile(string $_path, HHAST\Node $ast)
     {
         $m = HHAST\Missing();
         $map = ['is_string' => function () use($m) {

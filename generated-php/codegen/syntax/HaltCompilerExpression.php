@@ -30,7 +30,7 @@ final class HaltCompilerExpression extends Node implements ILambdaBody, IExpress
      * @var RightParenToken
      */
     private $_right_paren;
-    public function __construct(HaltCompilerToken $keyword, LeftParenToken $left_paren, ?Node $argument_list, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(HaltCompilerToken $keyword, LeftParenToken $left_paren, ?Node $argument_list, RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

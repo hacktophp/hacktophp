@@ -22,7 +22,7 @@ final class GenericTypeSpecifier extends Node implements ISimpleCreationSpecifie
      * @var TypeArguments
      */
     private $_argument_list;
-    public function __construct(Node $class_type, TypeArguments $argument_list, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $class_type, TypeArguments $argument_list, ?array $source_ref = null)
     {
         $this->_class_type = $class_type;
         $this->_argument_list = $argument_list;

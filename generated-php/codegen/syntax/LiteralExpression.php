@@ -18,7 +18,7 @@ final class LiteralExpression extends Node implements ILambdaBody, IExpression
      * @var Node
      */
     private $_expression;
-    public function __construct(Node $expression, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $expression, ?array $source_ref = null)
     {
         $this->_expression = $expression;
         parent::__construct($source_ref);

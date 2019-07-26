@@ -50,7 +50,7 @@ final class RecordDeclaration extends Node
      * @var Node
      */
     private $_right_brace;
-    public function __construct(Node $attribute_spec, Node $modifier, Node $keyword, Node $name, Node $extends_keyword, Node $extends_list, Node $left_brace, Node $fields, Node $right_brace, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $attribute_spec, Node $modifier, Node $keyword, Node $name, Node $extends_keyword, Node $extends_list, Node $left_brace, Node $fields, Node $right_brace, ?array $source_ref = null)
     {
         $this->_attribute_spec = $attribute_spec;
         $this->_modifier = $modifier;

@@ -59,7 +59,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         return $in->withReceiver($receiver->withObject(new HHAST\StaticToken($obj->getFirstTokenx()->getLeading(), $m))->withOperator(new HHAST\ColonColonToken($m, $m)));
     }
     /**
-     * @template T as HHAST\EditableNode
+     * @template T as HHAST\Node
      *
      * @param T $in
      *
@@ -142,7 +142,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         $decl = $decl->withAttribute($attrs);
         $first = $decl->getFunctionDeclHeader()->getFirstTokenx();
         $leading = \array_map(function ($n) {
-            return $n instanceof HHAST\EditableNode ? $n : (function () {
+            return $n instanceof HHAST\Node ? $n : (function () {
                 throw new \TypeError('Failed assertion');
             })();
         }, (($__tmp5__ = $first->getLeading()) instanceof HHAST\EditableList ? $__tmp5__ : (function () {
@@ -151,9 +151,9 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         return $decl->replace($first, $first->withLeading(HHAST\EditableList::createNonEmptyListOrMissing($this->trimWhitespace($leading))));
     }
     /**
-     * @param array<int, HHAST\EditableNode> $leading
+     * @param array<int, HHAST\Node> $leading
      *
-     * @return array<int, HHAST\EditableNode>
+     * @return array<int, HHAST\Node>
      */
     private function trimWhitespace(array $leading)
     {
@@ -309,7 +309,7 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         $first = $node->getFirstTokenx();
         $leading = $first->getLeading();
         $items = $leading instanceof HHAST\EditableList ? \array_map(function ($it) {
-            return $it instanceof HHAST\EditableNode ? $it : (function () {
+            return $it instanceof HHAST\Node ? $it : (function () {
                 throw new \TypeError('Failed assertion');
             })();
         }, $leading->getItems()) : [$leading];
@@ -341,9 +341,9 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         return $ret;
     }
     /**
-     * @param array<int, HHAST\EditableNode> $statements
+     * @param array<int, HHAST\Node> $statements
      *
-     * @return array<int, HHAST\EditableNode>
+     * @return array<int, HHAST\Node>
      */
     private final function migrateExpectExceptionInStatements(array $statements, string $indent)
     {
@@ -391,11 +391,11 @@ final class PHPUnitToHackTestMigration extends StepBasedMigration
         return $new;
     }
     /**
-     * @param array<int, HHAST\EditableNode> $statements
+     * @param array<int, HHAST\Node> $statements
      *
      * @return HHAST\FunctionCallExpression
      */
-    private function wrapStatementsInExpectException(array $statements, HHAST\EditableNode $exception, string $indent)
+    private function wrapStatementsInExpectException(array $statements, HHAST\Node $exception, string $indent)
     {
         $inner = $this->migrateExpectExceptionInStatements(\array_map(function ($statement) use($t, $indent) {
             $t = $statement->getFirstTokenx();

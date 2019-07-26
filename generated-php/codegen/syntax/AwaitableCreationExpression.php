@@ -30,7 +30,7 @@ abstract class AwaitableCreationExpressionGeneratedBase extends Node implements 
      * @var CompoundStatement
      */
     private $_compound_statement;
-    public function __construct(?OldAttributeSpecification $attribute_spec, AsyncToken $async, ?Node $coroutine, CompoundStatement $compound_statement, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute_spec, AsyncToken $async, ?Node $coroutine, CompoundStatement $compound_statement, ?array $source_ref = null)
     {
         $this->_attribute_spec = $attribute_spec;
         $this->_async = $async;

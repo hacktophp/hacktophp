@@ -26,7 +26,7 @@ final class BinaryExpression extends Node implements IHasOperator, ILambdaBody, 
      * @var IExpression
      */
     private $_right_operand;
-    public function __construct(IExpression $left_operand, Token $operator, IExpression $right_operand, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IExpression $left_operand, Token $operator, IExpression $right_operand, ?array $source_ref = null)
     {
         $this->_left_operand = $left_operand;
         $this->_operator = $operator;

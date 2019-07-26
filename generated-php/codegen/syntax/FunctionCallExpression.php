@@ -8,7 +8,7 @@ namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
 use HH\Lib\Dict;
-final class FunctionCallExpression extends Node implements IFunctionCallishExpression, ILambdaBody, IExpression
+final class FunctionCallExpression extends Node implements IFunctionCallishExpression, ILambdaBody
 {
     /**
      * @var string
@@ -37,7 +37,7 @@ final class FunctionCallExpression extends Node implements IFunctionCallishExpre
     /**
      * @param NodeList<ListItem<IExpression>>|null $argument_list
      */
-    public function __construct(Node $receiver, ?TypeArguments $type_args, LeftParenToken $left_paren, ?NodeList $argument_list, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $receiver, ?TypeArguments $type_args, LeftParenToken $left_paren, ?NodeList $argument_list, RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_receiver = $receiver;
         $this->_type_args = $type_args;

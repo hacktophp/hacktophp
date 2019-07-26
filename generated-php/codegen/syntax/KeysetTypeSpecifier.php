@@ -34,7 +34,7 @@ final class KeysetTypeSpecifier extends Node implements ITypeSpecifier
      * @var GreaterThanToken
      */
     private $_right_angle;
-    public function __construct(KeysetToken $keyword, LessThanToken $left_angle, ITypeSpecifier $type, ?Node $trailing_comma, GreaterThanToken $right_angle, ?__Private\SourceRef $source_ref = null)
+    public function __construct(KeysetToken $keyword, LessThanToken $left_angle, ITypeSpecifier $type, ?Node $trailing_comma, GreaterThanToken $right_angle, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_angle = $left_angle;

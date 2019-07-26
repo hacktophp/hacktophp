@@ -26,7 +26,7 @@ final class CaseLabel extends Node implements ISwitchLabel
      * @var ColonToken
      */
     private $_colon;
-    public function __construct(CaseToken $keyword, IExpression $expression, ColonToken $colon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(CaseToken $keyword, IExpression $expression, ColonToken $colon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_expression = $expression;

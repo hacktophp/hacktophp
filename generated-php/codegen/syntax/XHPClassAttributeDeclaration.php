@@ -29,7 +29,7 @@ final class XHPClassAttributeDeclaration extends Node implements IClassBodyDecla
     /**
      * @param NodeList<ListItem<Node>> $attributes
      */
-    public function __construct(AttributeToken $keyword, NodeList $attributes, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(AttributeToken $keyword, NodeList $attributes, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_attributes = $attributes;

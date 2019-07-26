@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\EditableNode;
+use Facebook\HHAST\Node;
 /**
  * @template Tnode as EditableNode
  *

@@ -11,7 +11,7 @@ namespace Facebook\HHAST\__Private;
 
 use Facebook\HHAST\File;
 use HH\Lib\PseudoRandom;
-final class OnDiskFile implements \IDisposable
+final class OnDiskFile
 {
     /**
      * @var bool

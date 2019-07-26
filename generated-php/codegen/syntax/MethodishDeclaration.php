@@ -8,7 +8,7 @@ namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
 use HH\Lib\Dict;
-abstract class MethodishDeclarationGeneratedBase extends Node implements IClassBodyDeclaration, IFunctionishDeclaration, IHasFunctionBody, IHasAttributeSpec
+abstract class MethodishDeclarationGeneratedBase extends Node implements IClassBodyDeclaration, IFunctionishDeclaration, IHasAttributeSpec
 {
     /**
      * @var string
@@ -30,7 +30,7 @@ abstract class MethodishDeclarationGeneratedBase extends Node implements IClassB
      * @var null|SemicolonToken
      */
     private $_semicolon;
-    public function __construct(?OldAttributeSpecification $attribute, FunctionDeclarationHeader $function_decl_header, ?CompoundStatement $function_body, ?SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute, FunctionDeclarationHeader $function_decl_header, ?CompoundStatement $function_body, ?SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_attribute = $attribute;
         $this->_function_decl_header = $function_decl_header;

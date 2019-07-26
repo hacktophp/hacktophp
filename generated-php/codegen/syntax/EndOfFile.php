@@ -18,7 +18,7 @@ final class EndOfFile extends Node
      * @var EndOfFileToken
      */
     private $_token;
-    public function __construct(EndOfFileToken $token, ?__Private\SourceRef $source_ref = null)
+    public function __construct(EndOfFileToken $token, ?array $source_ref = null)
     {
         $this->_token = $token;
         parent::__construct($source_ref);

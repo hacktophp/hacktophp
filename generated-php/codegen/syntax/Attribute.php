@@ -22,7 +22,7 @@ final class Attribute extends Node
      * @var Node
      */
     private $_attribute_name;
-    public function __construct(Node $at, Node $attribute_name, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $at, Node $attribute_name, ?array $source_ref = null)
     {
         $this->_at = $at;
         $this->_attribute_name = $attribute_name;

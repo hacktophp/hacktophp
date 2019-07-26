@@ -33,7 +33,7 @@ final class DictionaryTypeSpecifier extends Node implements ITypeSpecifier
     /**
      * @param NodeList<ListItem<ITypeSpecifier>> $members
      */
-    public function __construct(DictToken $keyword, LessThanToken $left_angle, NodeList $members, GreaterThanToken $right_angle, ?__Private\SourceRef $source_ref = null)
+    public function __construct(DictToken $keyword, LessThanToken $left_angle, NodeList $members, GreaterThanToken $right_angle, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_angle = $left_angle;

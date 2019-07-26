@@ -29,7 +29,7 @@ final class EchoStatement extends Node implements IStatement
     /**
      * @param NodeList<ListItem<IExpression>> $expressions
      */
-    public function __construct(EchoToken $keyword, NodeList $expressions, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(EchoToken $keyword, NodeList $expressions, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_expressions = $expressions;

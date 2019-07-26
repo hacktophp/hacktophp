@@ -38,7 +38,7 @@ final class PocketEnumDeclaration extends Node
      * @var Node
      */
     private $_right_brace;
-    public function __construct(Node $modifiers, Node $enum, Node $name, Node $left_brace, Node $fields, Node $right_brace, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $modifiers, Node $enum, Node $name, Node $left_brace, Node $fields, Node $right_brace, ?array $source_ref = null)
     {
         $this->_modifiers = $modifiers;
         $this->_enum = $enum;

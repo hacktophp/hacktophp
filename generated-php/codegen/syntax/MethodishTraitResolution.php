@@ -34,7 +34,7 @@ final class MethodishTraitResolution extends Node implements IClassBodyDeclarati
      * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(?Node $attribute, FunctionDeclarationHeader $function_decl_header, EqualToken $equal, ScopeResolutionExpression $name, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?Node $attribute, FunctionDeclarationHeader $function_decl_header, EqualToken $equal, ScopeResolutionExpression $name, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_attribute = $attribute;
         $this->_function_decl_header = $function_decl_header;

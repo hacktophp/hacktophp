@@ -26,7 +26,7 @@ final class WhereConstraint extends Node
      * @var ITypeSpecifier
      */
     private $_right_type;
-    public function __construct(ITypeSpecifier $left_type, Token $operator, ITypeSpecifier $right_type, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ITypeSpecifier $left_type, Token $operator, ITypeSpecifier $right_type, ?array $source_ref = null)
     {
         $this->_left_type = $left_type;
         $this->_operator = $operator;

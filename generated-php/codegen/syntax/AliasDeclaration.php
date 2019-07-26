@@ -46,7 +46,7 @@ final class AliasDeclaration extends Node implements IHasAttributeSpec
      * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(?OldAttributeSpecification $attribute_spec, Token $keyword, NameToken $name, ?TypeParameters $generic_parameter, ?TypeConstraint $constraint, EqualToken $equal, ITypeSpecifier $type, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute_spec, Token $keyword, NameToken $name, ?TypeParameters $generic_parameter, ?TypeConstraint $constraint, EqualToken $equal, ITypeSpecifier $type, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_attribute_spec = $attribute_spec;
         $this->_keyword = $keyword;

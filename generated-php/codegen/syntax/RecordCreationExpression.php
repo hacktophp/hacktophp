@@ -37,7 +37,7 @@ final class RecordCreationExpression extends Node implements ILambdaBody, IExpre
     /**
      * @param NodeList<ListItem<ElementInitializer>> $members
      */
-    public function __construct(NameToken $type, ?Node $array_token, LeftBracketToken $left_bracket, NodeList $members, RightBracketToken $right_bracket, ?__Private\SourceRef $source_ref = null)
+    public function __construct(NameToken $type, ?Node $array_token, LeftBracketToken $left_bracket, NodeList $members, RightBracketToken $right_bracket, ?array $source_ref = null)
     {
         $this->_type = $type;
         $this->_array_token = $array_token;

@@ -30,7 +30,7 @@ final class SwitchSection extends Node
      * @param NodeList<ISwitchLabel> $labels
      * @param NodeList<IStatement>|null $statements
      */
-    public function __construct(NodeList $labels, ?NodeList $statements, ?SwitchFallthrough $fallthrough, ?__Private\SourceRef $source_ref = null)
+    public function __construct(NodeList $labels, ?NodeList $statements, ?SwitchFallthrough $fallthrough, ?array $source_ref = null)
     {
         $this->_labels = $labels;
         $this->_statements = $statements;

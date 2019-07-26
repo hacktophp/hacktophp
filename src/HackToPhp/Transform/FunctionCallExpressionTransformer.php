@@ -227,7 +227,7 @@ class FunctionCallExpressionTransformer
 		}
 
 		return array_map(
-			function (HHAST\EditableNode $node) use ($project, $file, $scope) {
+			function (HHAST\Node $node) use ($project, $file, $scope) {
 				$item = $node->getItem();
 
 				$by_ref = false;

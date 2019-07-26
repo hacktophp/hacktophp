@@ -29,7 +29,7 @@ final class XHPChildrenParenthesizedList extends Node implements ILambdaBody, IE
     /**
      * @param NodeList<ListItem<IExpression>> $xhp_children
      */
-    public function __construct(LeftParenToken $left_paren, NodeList $xhp_children, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LeftParenToken $left_paren, NodeList $xhp_children, RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_left_paren = $left_paren;
         $this->_xhp_children = $xhp_children;

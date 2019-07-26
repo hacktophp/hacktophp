@@ -30,7 +30,7 @@ final class VectorArrayTypeSpecifier extends Node implements ITypeSpecifier
      * @var GreaterThanToken
      */
     private $_right_angle;
-    public function __construct(ArrayToken $keyword, LessThanToken $left_angle, ITypeSpecifier $type, GreaterThanToken $right_angle, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ArrayToken $keyword, LessThanToken $left_angle, ITypeSpecifier $type, GreaterThanToken $right_angle, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_angle = $left_angle;

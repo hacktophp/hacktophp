@@ -26,7 +26,7 @@ final class BreakStatement extends Node implements IStatement
      * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(BreakToken $keyword, ?LiteralExpression $level, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(BreakToken $keyword, ?LiteralExpression $level, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_level = $level;

@@ -30,7 +30,7 @@ final class DefineExpression extends Node implements ILambdaBody, IExpression
      * @var Node
      */
     private $_right_paren;
-    public function __construct(Node $keyword, Node $left_paren, Node $argument_list, Node $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $keyword, Node $left_paren, Node $argument_list, Node $right_paren, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

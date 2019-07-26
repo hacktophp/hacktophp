@@ -26,7 +26,7 @@ final class NullableAsExpression extends Node implements ILambdaBody, IExpressio
      * @var SimpleTypeSpecifier
      */
     private $_right_operand;
-    public function __construct(IExpression $left_operand, QuestionAsToken $operator, SimpleTypeSpecifier $right_operand, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IExpression $left_operand, QuestionAsToken $operator, SimpleTypeSpecifier $right_operand, ?array $source_ref = null)
     {
         $this->_left_operand = $left_operand;
         $this->_operator = $operator;

@@ -26,7 +26,7 @@ final class TypeConstant extends Node implements ITypeSpecifier
      * @var NameToken
      */
     private $_right_type;
-    public function __construct(ITypeSpecifier $left_type, ColonColonToken $separator, NameToken $right_type, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ITypeSpecifier $left_type, ColonColonToken $separator, NameToken $right_type, ?array $source_ref = null)
     {
         $this->_left_type = $left_type;
         $this->_separator = $separator;

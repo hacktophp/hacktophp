@@ -26,7 +26,7 @@ final class ScopeResolutionExpression extends Node implements ILambdaBody, IExpr
      * @var Node
      */
     private $_name;
-    public function __construct(Node $qualifier, ColonColonToken $operator, Node $name, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $qualifier, ColonColonToken $operator, Node $name, ?array $source_ref = null)
     {
         $this->_qualifier = $qualifier;
         $this->_operator = $operator;

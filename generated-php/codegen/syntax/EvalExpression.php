@@ -30,7 +30,7 @@ final class EvalExpression extends Node implements ILambdaBody, IExpression
      * @var RightParenToken
      */
     private $_right_paren;
-    public function __construct(EvalToken $keyword, LeftParenToken $left_paren, IExpression $argument, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(EvalToken $keyword, LeftParenToken $left_paren, IExpression $argument, RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

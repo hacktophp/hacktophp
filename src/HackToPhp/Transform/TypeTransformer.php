@@ -8,7 +8,7 @@ use Psalm;
 
 class TypeTransformer
 {
-	public static function transform(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope, array $template_map = []) : string
+	public static function transform(HHAST\Node $node, Project $project, HackFile $file, Scope $scope, array $template_map = []) : string
 	{
 		if ($node instanceof HHAST\ShapeTypeSpecifier) {
 			return self::transformShape($node, $project, $file, $scope, $template_map);

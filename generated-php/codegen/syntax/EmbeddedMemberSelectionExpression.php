@@ -26,7 +26,7 @@ final class EmbeddedMemberSelectionExpression extends Node implements ILambdaBod
      * @var Node
      */
     private $_name;
-    public function __construct(Node $object, Node $operator, Node $name, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $object, Node $operator, Node $name, ?array $source_ref = null)
     {
         $this->_object = $object;
         $this->_operator = $operator;

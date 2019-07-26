@@ -30,7 +30,7 @@ final class EmbeddedSubscriptExpression extends Node implements ILambdaBody, IEx
      * @var Node
      */
     private $_right_bracket;
-    public function __construct(Node $receiver, Node $left_bracket, Node $index, Node $right_bracket, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $receiver, Node $left_bracket, Node $index, Node $right_bracket, ?array $source_ref = null)
     {
         $this->_receiver = $receiver;
         $this->_left_bracket = $left_bracket;

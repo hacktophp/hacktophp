@@ -22,7 +22,7 @@ final class ReifiedTypeArgument extends Node implements ITypeSpecifier
      * @var Node
      */
     private $_type;
-    public function __construct(Node $reified, Node $type, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $reified, Node $type, ?array $source_ref = null)
     {
         $this->_reified = $reified;
         $this->_type = $type;

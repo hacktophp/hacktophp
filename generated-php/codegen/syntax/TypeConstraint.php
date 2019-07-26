@@ -22,7 +22,7 @@ final class TypeConstraint extends Node
      * @var ITypeSpecifier
      */
     private $_type;
-    public function __construct(Token $keyword, ITypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Token $keyword, ITypeSpecifier $type, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_type = $type;

@@ -22,7 +22,7 @@ final class AttributizedSpecifier extends Node implements ITypeSpecifier
      * @var ISimpleCreationSpecifier
      */
     private $_type;
-    public function __construct(OldAttributeSpecification $attribute_spec, ISimpleCreationSpecifier $type, ?__Private\SourceRef $source_ref = null)
+    public function __construct(OldAttributeSpecification $attribute_spec, ISimpleCreationSpecifier $type, ?array $source_ref = null)
     {
         $this->_attribute_spec = $attribute_spec;
         $this->_type = $type;

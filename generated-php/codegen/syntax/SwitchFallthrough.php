@@ -22,7 +22,7 @@ final class SwitchFallthrough extends Node implements IStatement
      * @var null|Node
      */
     private $_semicolon;
-    public function __construct(?Node $keyword, ?Node $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?Node $keyword, ?Node $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_semicolon = $semicolon;

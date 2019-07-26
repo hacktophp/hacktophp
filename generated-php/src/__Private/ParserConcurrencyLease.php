@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\__Private;
 
 use HH\Lib\Tuple;
-final class ParserConcurrencyLease implements \IDisposable
+final class ParserConcurrencyLease
 {
     /**
      * @var int

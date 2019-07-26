@@ -38,7 +38,7 @@ final class ConstDeclaration extends Node implements IClassBodyDeclaration
      * @param NodeList<AbstractToken>|null $modifiers
      * @param NodeList<ListItem<ConstantDeclarator>> $declarators
      */
-    public function __construct(?NodeList $modifiers, ConstToken $keyword, ?ITypeSpecifier $type_specifier, NodeList $declarators, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?NodeList $modifiers, ConstToken $keyword, ?ITypeSpecifier $type_specifier, NodeList $declarators, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_modifiers = $modifiers;
         $this->_keyword = $keyword;

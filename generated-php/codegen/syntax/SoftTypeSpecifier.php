@@ -22,7 +22,7 @@ final class SoftTypeSpecifier extends Node implements ITypeSpecifier
      * @var ITypeSpecifier
      */
     private $_type;
-    public function __construct(AtToken $at, ITypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
+    public function __construct(AtToken $at, ITypeSpecifier $type, ?array $source_ref = null)
     {
         $this->_at = $at;
         $this->_type = $type;

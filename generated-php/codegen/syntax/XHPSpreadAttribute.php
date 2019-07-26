@@ -30,7 +30,7 @@ final class XHPSpreadAttribute extends Node
      * @var RightBraceToken
      */
     private $_right_brace;
-    public function __construct(LeftBraceToken $left_brace, DotDotDotToken $spread_operator, IExpression $expression, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LeftBraceToken $left_brace, DotDotDotToken $spread_operator, IExpression $expression, RightBraceToken $right_brace, ?array $source_ref = null)
     {
         $this->_left_brace = $left_brace;
         $this->_spread_operator = $spread_operator;

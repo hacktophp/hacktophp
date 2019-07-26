@@ -45,7 +45,7 @@ final class SwitchStatement extends Node implements IControlFlowStatement, IStat
     /**
      * @param NodeList<SwitchSection>|null $sections
      */
-    public function __construct(SwitchToken $keyword, LeftParenToken $left_paren, IExpression $expression, RightParenToken $right_paren, LeftBraceToken $left_brace, ?NodeList $sections, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
+    public function __construct(SwitchToken $keyword, LeftParenToken $left_paren, IExpression $expression, RightParenToken $right_paren, LeftBraceToken $left_brace, ?NodeList $sections, RightBraceToken $right_brace, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

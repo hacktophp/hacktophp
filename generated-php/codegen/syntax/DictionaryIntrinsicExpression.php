@@ -8,7 +8,7 @@ namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
 use HH\Lib\Dict;
-final class DictionaryIntrinsicExpression extends Node implements IHackArray, IContainer, ILambdaBody, IExpression
+final class DictionaryIntrinsicExpression extends Node implements IHackArray, ILambdaBody
 {
     /**
      * @var string
@@ -37,7 +37,7 @@ final class DictionaryIntrinsicExpression extends Node implements IHackArray, IC
     /**
      * @param NodeList<ListItem<ElementInitializer>>|null $members
      */
-    public function __construct(DictToken $keyword, ?TypeArguments $explicit_type, LeftBracketToken $left_bracket, ?NodeList $members, RightBracketToken $right_bracket, ?__Private\SourceRef $source_ref = null)
+    public function __construct(DictToken $keyword, ?TypeArguments $explicit_type, LeftBracketToken $left_bracket, ?NodeList $members, RightBracketToken $right_bracket, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_explicit_type = $explicit_type;

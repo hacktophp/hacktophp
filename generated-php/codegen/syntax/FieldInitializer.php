@@ -26,7 +26,7 @@ final class FieldInitializer extends Node
      * @var IExpression
      */
     private $_value;
-    public function __construct(IExpression $name, EqualGreaterThanToken $arrow, IExpression $value, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IExpression $name, EqualGreaterThanToken $arrow, IExpression $value, ?array $source_ref = null)
     {
         $this->_name = $name;
         $this->_arrow = $arrow;

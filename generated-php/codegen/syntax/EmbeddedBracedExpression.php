@@ -26,7 +26,7 @@ final class EmbeddedBracedExpression extends Node implements ILambdaBody, IExpre
      * @var Node
      */
     private $_right_brace;
-    public function __construct(Node $left_brace, Node $expression, Node $right_brace, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $left_brace, Node $expression, Node $right_brace, ?array $source_ref = null)
     {
         $this->_left_brace = $left_brace;
         $this->_expression = $expression;

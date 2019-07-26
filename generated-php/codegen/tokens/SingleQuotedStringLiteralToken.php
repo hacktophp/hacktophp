@@ -16,7 +16,7 @@ final class SingleQuotedStringLiteralToken extends TokenWithVariableText impleme
      * @param NodeList<Trivia>|null $leading
      * @param NodeList<Trivia>|null $trailing
      */
-    public function __construct(?NodeList $leading, ?NodeList $trailing, string $text, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?NodeList $leading, ?NodeList $trailing, string $text, ?array $source_ref = null)
     {
         parent::__construct($leading, $trailing, $text, $source_ref);
     }

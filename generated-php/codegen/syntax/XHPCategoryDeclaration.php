@@ -26,7 +26,7 @@ final class XHPCategoryDeclaration extends Node implements IClassBodyDeclaration
      * @var Node
      */
     private $_semicolon;
-    public function __construct(Node $keyword, Node $categories, Node $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $keyword, Node $categories, Node $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_categories = $categories;

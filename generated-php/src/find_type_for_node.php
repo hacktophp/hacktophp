@@ -11,7 +11,7 @@ namespace Facebook\HHAST\__Private;
 
 use Facebook\TypeAssert;
 use Facebook\HHAST;
-use Facebook\HHAST\EditableNode;
+use Facebook\HHAST\Node;
 
 /**
  * @return \Amp\Promise<null|string>

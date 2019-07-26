@@ -8,7 +8,7 @@ namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
 use HH\Lib\Dict;
-final class ObjectCreationExpression extends Node implements IFunctionCallishExpression, ILambdaBody, IExpression
+final class ObjectCreationExpression extends Node implements IFunctionCallishExpression, ILambdaBody
 {
     /**
      * @var string
@@ -22,7 +22,7 @@ final class ObjectCreationExpression extends Node implements IFunctionCallishExp
      * @var ConstructorCall
      */
     private $_object;
-    public function __construct(NewToken $new_keyword, ConstructorCall $object, ?__Private\SourceRef $source_ref = null)
+    public function __construct(NewToken $new_keyword, ConstructorCall $object, ?array $source_ref = null)
     {
         $this->_new_keyword = $new_keyword;
         $this->_object = $object;

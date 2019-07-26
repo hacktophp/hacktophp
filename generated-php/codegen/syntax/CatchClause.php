@@ -38,7 +38,7 @@ final class CatchClause extends Node
      * @var CompoundStatement
      */
     private $_body;
-    public function __construct(CatchToken $keyword, LeftParenToken $left_paren, SimpleTypeSpecifier $type, VariableToken $variable, RightParenToken $right_paren, CompoundStatement $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(CatchToken $keyword, LeftParenToken $left_paren, SimpleTypeSpecifier $type, VariableToken $variable, RightParenToken $right_paren, CompoundStatement $body, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

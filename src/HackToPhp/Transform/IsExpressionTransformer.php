@@ -10,6 +10,8 @@ class IsExpressionTransformer
 	public static function transform(HHAST\IsExpression $node, Project $project, HackFile $file, Scope $scope)
 	{
 		$right_operand = $node->getRightOperand();
+
+		$left = ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope);
 		
 		if ($right_operand instanceof HHAST\GenericTypeSpecifier) {
 			$specifier = $right_operand->getClassType();
@@ -20,10 +22,16 @@ class IsExpressionTransformer
 		} elseif ($right_operand instanceof HHAST\KeysetTypeSpecifier) {
 			$specifier = $right_operand->getKeyword();
 		} else {
+			if ($right_operand instanceof HHAST\ErrorSyntax) {
+				return new PhpParser\Node\Expr\FuncCall(
+					new PhpParser\Node\Name\FullyQualified('is_null'),
+					[$left]
+				);
+			}
 			$specifier = $right_operand->getSpecifier();
 		}
 
-		$left = ExpressionTransformer::transform($node->getLeftOperandUNTYPED(), $project, $file, $scope);
+		
 
 		switch (get_class($specifier)) {
 			case HHAST\StringToken::class:

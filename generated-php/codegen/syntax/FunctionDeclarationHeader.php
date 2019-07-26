@@ -58,7 +58,7 @@ final class FunctionDeclarationHeader extends Node
      * @param NodeList<Token>|null $modifiers
      * @param NodeList<ListItem<IParameter>>|null $parameter_list
      */
-    public function __construct(?NodeList $modifiers, FunctionToken $keyword, Token $name, ?TypeParameters $type_parameter_list, LeftParenToken $left_paren, ?NodeList $parameter_list, RightParenToken $right_paren, ?ColonToken $colon, ?ITypeSpecifier $type, ?WhereClause $where_clause, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?NodeList $modifiers, FunctionToken $keyword, Token $name, ?TypeParameters $type_parameter_list, LeftParenToken $left_paren, ?NodeList $parameter_list, RightParenToken $right_paren, ?ColonToken $colon, ?ITypeSpecifier $type, ?WhereClause $where_clause, ?array $source_ref = null)
     {
         $this->_modifiers = $modifiers;
         $this->_keyword = $keyword;

@@ -22,7 +22,7 @@ final class YieldExpression extends Node implements ILambdaBody, IExpression
      * @var null|Node
      */
     private $_operand;
-    public function __construct(YieldToken $keyword, ?Node $operand, ?__Private\SourceRef $source_ref = null)
+    public function __construct(YieldToken $keyword, ?Node $operand, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_operand = $operand;

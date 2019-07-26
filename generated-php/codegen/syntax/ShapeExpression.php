@@ -33,7 +33,7 @@ final class ShapeExpression extends Node implements ILambdaBody, IExpression
     /**
      * @param NodeList<ListItem<FieldInitializer>>|null $fields
      */
-    public function __construct(ShapeToken $keyword, LeftParenToken $left_paren, ?NodeList $fields, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ShapeToken $keyword, LeftParenToken $left_paren, ?NodeList $fields, RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

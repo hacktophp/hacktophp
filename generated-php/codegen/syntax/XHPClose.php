@@ -26,7 +26,7 @@ final class XHPClose extends Node
      * @var GreaterThanToken
      */
     private $_right_angle;
-    public function __construct(LessThanSlashToken $left_angle, XHPElementNameToken $name, GreaterThanToken $right_angle, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LessThanSlashToken $left_angle, XHPElementNameToken $name, GreaterThanToken $right_angle, ?array $source_ref = null)
     {
         $this->_left_angle = $left_angle;
         $this->_name = $name;

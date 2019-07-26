@@ -33,7 +33,7 @@ final class AnonymousFunctionUseClause extends Node
     /**
      * @param NodeList<ListItem<VariableToken>> $variables
      */
-    public function __construct(UseToken $keyword, LeftParenToken $left_paren, NodeList $variables, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(UseToken $keyword, LeftParenToken $left_paren, NodeList $variables, RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

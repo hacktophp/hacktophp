@@ -30,7 +30,7 @@ final class RequireClause extends Node implements IClassBodyDeclaration
      * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(RequireToken $keyword, Token $kind, ISimpleCreationSpecifier $name, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(RequireToken $keyword, Token $kind, ISimpleCreationSpecifier $name, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_kind = $kind;

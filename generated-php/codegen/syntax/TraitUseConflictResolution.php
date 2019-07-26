@@ -38,7 +38,7 @@ final class TraitUseConflictResolution extends Node implements IClassBodyDeclara
      * @param NodeList<ListItem<SimpleTypeSpecifier>> $names
      * @param NodeList<ListItem<ITraitUseItem>>|null $clauses
      */
-    public function __construct(UseToken $keyword, NodeList $names, LeftBraceToken $left_brace, ?NodeList $clauses, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
+    public function __construct(UseToken $keyword, NodeList $names, LeftBraceToken $left_brace, ?NodeList $clauses, RightBraceToken $right_brace, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_names = $names;

@@ -34,7 +34,7 @@ final class WhileStatement extends Node implements IControlFlowStatement, ILoopS
      * @var IStatement
      */
     private $_body;
-    public function __construct(WhileToken $keyword, LeftParenToken $left_paren, IExpression $condition, RightParenToken $right_paren, IStatement $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(WhileToken $keyword, LeftParenToken $left_paren, IExpression $condition, RightParenToken $right_paren, IStatement $body, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

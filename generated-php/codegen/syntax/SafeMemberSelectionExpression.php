@@ -26,7 +26,7 @@ final class SafeMemberSelectionExpression extends Node implements ILambdaBody, I
      * @var NameToken
      */
     private $_name;
-    public function __construct(IExpression $object, QuestionMinusGreaterThanToken $operator, NameToken $name, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IExpression $object, QuestionMinusGreaterThanToken $operator, NameToken $name, ?array $source_ref = null)
     {
         $this->_object = $object;
         $this->_operator = $operator;

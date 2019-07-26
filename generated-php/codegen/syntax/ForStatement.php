@@ -55,7 +55,7 @@ final class ForStatement extends Node implements IControlFlowStatement, ILoopSta
      * @param NodeList<ListItem<IExpression>>|null $control
      * @param NodeList<ListItem<IExpression>>|null $end_of_loop
      */
-    public function __construct(ForToken $keyword, LeftParenToken $left_paren, ?NodeList $initializer, SemicolonToken $first_semicolon, ?NodeList $control, SemicolonToken $second_semicolon, ?NodeList $end_of_loop, RightParenToken $right_paren, IStatement $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ForToken $keyword, LeftParenToken $left_paren, ?NodeList $initializer, SemicolonToken $first_semicolon, ?NodeList $control, SemicolonToken $second_semicolon, ?NodeList $end_of_loop, RightParenToken $right_paren, IStatement $body, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

@@ -22,7 +22,7 @@ final class SimpleInitializer extends Node
      * @var IExpression
      */
     private $_value;
-    public function __construct(EqualToken $equal, IExpression $value, ?__Private\SourceRef $source_ref = null)
+    public function __construct(EqualToken $equal, IExpression $value, ?array $source_ref = null)
     {
         $this->_equal = $equal;
         $this->_value = $value;

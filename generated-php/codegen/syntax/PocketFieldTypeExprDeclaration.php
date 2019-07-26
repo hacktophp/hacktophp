@@ -30,7 +30,7 @@ final class PocketFieldTypeExprDeclaration extends Node
      * @var Node
      */
     private $_semicolon;
-    public function __construct(Node $case, Node $type, Node $name, Node $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $case, Node $type, Node $name, Node $semicolon, ?array $source_ref = null)
     {
         $this->_case = $case;
         $this->_type = $type;

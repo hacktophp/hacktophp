@@ -18,7 +18,7 @@ final class ErrorSyntax extends Node
      * @var Node
      */
     private $_error;
-    public function __construct(Node $error, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $error, ?array $source_ref = null)
     {
         $this->_error = $error;
         parent::__construct($source_ref);

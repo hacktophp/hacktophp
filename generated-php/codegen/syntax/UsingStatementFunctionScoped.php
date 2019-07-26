@@ -30,7 +30,7 @@ final class UsingStatementFunctionScoped extends Node implements IStatement
      * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(?AwaitToken $await_keyword, UsingToken $using_keyword, IExpression $expression, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?AwaitToken $await_keyword, UsingToken $using_keyword, IExpression $expression, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_await_keyword = $await_keyword;
         $this->_using_keyword = $using_keyword;

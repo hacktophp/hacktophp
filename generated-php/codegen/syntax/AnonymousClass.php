@@ -50,7 +50,7 @@ final class AnonymousClass extends Node
      * @var Node
      */
     private $_body;
-    public function __construct(Node $class_keyword, Node $left_paren, Node $argument_list, Node $right_paren, Node $extends_keyword, Node $extends_list, Node $implements_keyword, Node $implements_list, Node $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $class_keyword, Node $left_paren, Node $argument_list, Node $right_paren, Node $extends_keyword, Node $extends_list, Node $implements_keyword, Node $implements_list, Node $body, ?array $source_ref = null)
     {
         $this->_class_keyword = $class_keyword;
         $this->_left_paren = $left_paren;

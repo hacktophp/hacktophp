@@ -65,7 +65,7 @@ final class AnonymousFunction extends Node implements IHasFunctionBody, ILambdaB
     /**
      * @param NodeList<ListItem<IParameter>>|null $parameters
      */
-    public function __construct(?OldAttributeSpecification $attribute_spec, ?StaticToken $static_keyword, ?AsyncToken $async_keyword, ?Node $coroutine_keyword, FunctionToken $function_keyword, LeftParenToken $left_paren, ?NodeList $parameters, RightParenToken $right_paren, ?ColonToken $colon, ?ITypeSpecifier $type, ?AnonymousFunctionUseClause $use, CompoundStatement $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute_spec, ?StaticToken $static_keyword, ?AsyncToken $async_keyword, ?Node $coroutine_keyword, FunctionToken $function_keyword, LeftParenToken $left_paren, ?NodeList $parameters, RightParenToken $right_paren, ?ColonToken $colon, ?ITypeSpecifier $type, ?AnonymousFunctionUseClause $use, CompoundStatement $body, ?array $source_ref = null)
     {
         $this->_attribute_spec = $attribute_spec;
         $this->_static_keyword = $static_keyword;

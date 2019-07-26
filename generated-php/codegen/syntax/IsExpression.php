@@ -26,7 +26,7 @@ final class IsExpression extends Node implements ILambdaBody, IExpression
      * @var ITypeSpecifier
      */
     private $_right_operand;
-    public function __construct(IExpression $left_operand, IsToken $operator, ITypeSpecifier $right_operand, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IExpression $left_operand, IsToken $operator, ITypeSpecifier $right_operand, ?array $source_ref = null)
     {
         $this->_left_operand = $left_operand;
         $this->_operator = $operator;

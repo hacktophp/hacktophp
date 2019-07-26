@@ -25,7 +25,7 @@ final class WhereClause extends Node
     /**
      * @param NodeList<ListItem<WhereConstraint>> $constraints
      */
-    public function __construct(WhereToken $keyword, NodeList $constraints, ?__Private\SourceRef $source_ref = null)
+    public function __construct(WhereToken $keyword, NodeList $constraints, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_constraints = $constraints;

@@ -22,7 +22,7 @@ final class DefaultLabel extends Node implements ISwitchLabel
      * @var ColonToken
      */
     private $_colon;
-    public function __construct(DefaultToken $keyword, ColonToken $colon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(DefaultToken $keyword, ColonToken $colon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_colon = $colon;

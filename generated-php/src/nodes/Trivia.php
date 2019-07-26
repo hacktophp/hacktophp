@@ -16,7 +16,7 @@ abstract class Trivia extends Node
      * @var string
      */
     private $_text;
-    public function __construct(string $text, ?__Private\SourceRef $ref)
+    public function __construct(string $text, ?array $ref)
     {
         $this->_text = $text;
         parent::__construct($ref);

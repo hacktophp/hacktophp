@@ -37,7 +37,7 @@ final class UnsetStatement extends Node implements IStatement
     /**
      * @param NodeList<ListItem<IExpression>> $variables
      */
-    public function __construct(UnsetToken $keyword, LeftParenToken $left_paren, NodeList $variables, RightParenToken $right_paren, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(UnsetToken $keyword, LeftParenToken $left_paren, NodeList $variables, RightParenToken $right_paren, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

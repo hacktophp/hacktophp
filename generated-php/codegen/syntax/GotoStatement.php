@@ -26,7 +26,7 @@ final class GotoStatement extends Node implements IStatement
      * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(GotoToken $keyword, NameToken $label_name, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(GotoToken $keyword, NameToken $label_name, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_label_name = $label_name;

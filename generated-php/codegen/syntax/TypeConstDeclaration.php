@@ -57,7 +57,7 @@ final class TypeConstDeclaration extends Node implements IClassBodyDeclaration
     /**
      * @param NodeList<Token>|null $modifiers
      */
-    public function __construct(?OldAttributeSpecification $attribute_spec, ?NodeList $modifiers, ConstToken $keyword, TypeToken $type_keyword, NameToken $name, ?Node $type_parameters, ?TypeConstraint $type_constraint, ?EqualToken $equal, ?ITypeSpecifier $type_specifier, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute_spec, ?NodeList $modifiers, ConstToken $keyword, TypeToken $type_keyword, NameToken $name, ?Node $type_parameters, ?TypeConstraint $type_constraint, ?EqualToken $equal, ?ITypeSpecifier $type_specifier, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_attribute_spec = $attribute_spec;
         $this->_modifiers = $modifiers;

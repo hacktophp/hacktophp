@@ -7,7 +7,7 @@
 namespace Facebook\HHAST\__Private;
 
 use Facebook\HHAST;
-function token_from_data(SourceRef $source_ref, string $token_kind, HHAST\NodeList $leading, HHAST\NodeList $trailing, string $token_text) : HHAST\Token
+function token_from_data(array $source_ref, string $token_kind, HHAST\NodeList $leading, HHAST\NodeList $trailing, string $token_text) : HHAST\Token
 {
     $cls = TokenClassMap::WITHOUT_TEXT[$token_kind] ?? null;
     if ($cls !== null) {

@@ -16,7 +16,7 @@ final class AbstractToken extends TokenWithVariableText
      * @param NodeList<Trivia>|null $leading
      * @param NodeList<Trivia>|null $trailing
      */
-    public function __construct(?NodeList $leading, ?NodeList $trailing, string $token_text = 'abstract', ?__Private\SourceRef $source_ref = null)
+    public function __construct(?NodeList $leading, ?NodeList $trailing, string $token_text = 'abstract', ?array $source_ref = null)
     {
         parent::__construct($leading, $trailing, $token_text, $source_ref);
     }

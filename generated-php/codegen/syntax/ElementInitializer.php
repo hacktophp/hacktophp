@@ -26,7 +26,7 @@ final class ElementInitializer extends Node
      * @var IExpression
      */
     private $_value;
-    public function __construct(IExpression $key, EqualGreaterThanToken $arrow, IExpression $value, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IExpression $key, EqualGreaterThanToken $arrow, IExpression $value, ?array $source_ref = null)
     {
         $this->_key = $key;
         $this->_arrow = $arrow;

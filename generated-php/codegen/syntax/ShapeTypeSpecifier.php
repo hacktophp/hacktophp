@@ -37,7 +37,7 @@ final class ShapeTypeSpecifier extends Node implements ITypeSpecifier
     /**
      * @param NodeList<ListItem<FieldSpecifier>>|null $fields
      */
-    public function __construct(ShapeToken $keyword, LeftParenToken $left_paren, ?NodeList $fields, ?DotDotDotToken $ellipsis, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ShapeToken $keyword, LeftParenToken $left_paren, ?NodeList $fields, ?DotDotDotToken $ellipsis, RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

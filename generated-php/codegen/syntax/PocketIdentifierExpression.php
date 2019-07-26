@@ -34,7 +34,7 @@ final class PocketIdentifierExpression extends Node implements ILambdaBody, IExp
      * @var Node
      */
     private $_name;
-    public function __construct(Node $qualifier, Node $pu_operator, Node $field, Node $operator, Node $name, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $qualifier, Node $pu_operator, Node $field, Node $operator, Node $name, ?array $source_ref = null)
     {
         $this->_qualifier = $qualifier;
         $this->_pu_operator = $pu_operator;

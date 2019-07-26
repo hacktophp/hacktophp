@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST;
 
-use Facebook\HHAST\EditableNode;
+use Facebook\HHAST\Node;
 use HH\Lib\{C, Str, Vec};
 use Facebook\HHAST\__Private\Resolution;
 /**

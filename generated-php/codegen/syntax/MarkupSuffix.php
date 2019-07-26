@@ -22,7 +22,7 @@ final class MarkupSuffix extends Node
      * @var NameToken
      */
     private $_name;
-    public function __construct(LessThanQuestionToken $less_than_question, NameToken $name, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LessThanQuestionToken $less_than_question, NameToken $name, ?array $source_ref = null)
     {
         $this->_less_than_question = $less_than_question;
         $this->_name = $name;

@@ -45,7 +45,7 @@ final class IfStatement extends Node implements IControlFlowStatement, IStatemen
     /**
      * @param NodeList<ElseifClause>|null $elseif_clauses
      */
-    public function __construct(IfToken $keyword, LeftParenToken $left_paren, IExpression $condition, RightParenToken $right_paren, IStatement $statement, ?NodeList $elseif_clauses, ?ElseClause $else_clause, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IfToken $keyword, LeftParenToken $left_paren, IExpression $condition, RightParenToken $right_paren, IStatement $statement, ?NodeList $elseif_clauses, ?ElseClause $else_clause, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

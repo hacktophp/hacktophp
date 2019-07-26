@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\EditableNode;
+use Facebook\HHAST\Node;
 use function Facebook\HHAST\find_position;
 use HH\Lib\Str;
 /**

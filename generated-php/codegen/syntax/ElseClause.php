@@ -22,7 +22,7 @@ final class ElseClause extends Node implements IControlFlowStatement
      * @var IStatement
      */
     private $_statement;
-    public function __construct(ElseToken $keyword, IStatement $statement, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ElseToken $keyword, IStatement $statement, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_statement = $statement;

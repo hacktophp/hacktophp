@@ -26,7 +26,7 @@ final class ReturnStatement extends Node implements IStatement
      * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(ReturnToken $keyword, ?IExpression $expression, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ReturnToken $keyword, ?IExpression $expression, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_expression = $expression;

@@ -18,7 +18,7 @@ final class AttributeSpecification extends Node
      * @var Node
      */
     private $_attributes;
-    public function __construct(Node $attributes, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $attributes, ?array $source_ref = null)
     {
         $this->_attributes = $attributes;
         parent::__construct($source_ref);

@@ -30,7 +30,7 @@ final class XHPClassAttribute extends Node implements IXHPAttribute
      * @var null|Node
      */
     private $_required;
-    public function __construct(ITypeSpecifier $type, XHPElementNameToken $name, ?SimpleInitializer $initializer, ?Node $required, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ITypeSpecifier $type, XHPElementNameToken $name, ?SimpleInitializer $initializer, ?Node $required, ?array $source_ref = null)
     {
         $this->_type = $type;
         $this->_name = $name;

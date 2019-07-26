@@ -30,7 +30,7 @@ final class SubscriptExpression extends Node implements ILambdaBody, IExpression
      * @var RightBracketToken
      */
     private $_right_bracket;
-    public function __construct(IExpression $receiver, LeftBracketToken $left_bracket, ?IExpression $index, RightBracketToken $right_bracket, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IExpression $receiver, LeftBracketToken $left_bracket, ?IExpression $index, RightBracketToken $right_bracket, ?array $source_ref = null)
     {
         $this->_receiver = $receiver;
         $this->_left_bracket = $left_bracket;

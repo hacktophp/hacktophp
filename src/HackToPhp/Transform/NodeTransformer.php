@@ -12,7 +12,7 @@ class NodeTransformer
 		return
 			array_filter(
 				array_map(
-					function(HHAST\EditableNode $node) use ($project, $file, $scope) { return self::transform($node, $project, $file, $scope); },
+					function(HHAST\Node $node) use ($project, $file, $scope) { return self::transform($node, $project, $file, $scope); },
 					$list->getChildren()
 				),
 				function (PhpParser\Node\Stmt $node) {
@@ -21,7 +21,7 @@ class NodeTransformer
 			);
 	}
 
-	public static function transform(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope)
+	public static function transform(HHAST\Node $node, Project $project, HackFile $file, Scope $scope)
 	{
 		if ($node instanceof HHAST\EditableList) {
 			return self::transformList($node, $project, $file, $scope);

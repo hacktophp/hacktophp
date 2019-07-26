@@ -29,7 +29,7 @@ final class ArrayCreationExpression extends Node implements IPHPArray, IContaine
     /**
      * @param NodeList<ListItem<Node>>|null $members
      */
-    public function __construct(LeftBracketToken $left_bracket, ?NodeList $members, RightBracketToken $right_bracket, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LeftBracketToken $left_bracket, ?NodeList $members, RightBracketToken $right_bracket, ?array $source_ref = null)
     {
         $this->_left_bracket = $left_bracket;
         $this->_members = $members;

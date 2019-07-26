@@ -53,7 +53,7 @@ final class ClosureTypeSpecifier extends Node implements ITypeSpecifier
     /**
      * @param NodeList<ListItem<ITypeSpecifier>>|null $parameter_list
      */
-    public function __construct(LeftParenToken $outer_left_paren, ?Node $coroutine, FunctionToken $function_keyword, LeftParenToken $inner_left_paren, ?NodeList $parameter_list, RightParenToken $inner_right_paren, ColonToken $colon, ITypeSpecifier $return_type, RightParenToken $outer_right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LeftParenToken $outer_left_paren, ?Node $coroutine, FunctionToken $function_keyword, LeftParenToken $inner_left_paren, ?NodeList $parameter_list, RightParenToken $inner_right_paren, ColonToken $colon, ITypeSpecifier $return_type, RightParenToken $outer_right_paren, ?array $source_ref = null)
     {
         $this->_outer_left_paren = $outer_left_paren;
         $this->_coroutine = $coroutine;

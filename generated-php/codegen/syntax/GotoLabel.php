@@ -22,7 +22,7 @@ final class GotoLabel extends Node implements IStatement
      * @var ColonToken
      */
     private $_colon;
-    public function __construct(NameToken $name, ColonToken $colon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(NameToken $name, ColonToken $colon, ?array $source_ref = null)
     {
         $this->_name = $name;
         $this->_colon = $colon;

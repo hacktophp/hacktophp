@@ -22,7 +22,7 @@ final class PocketAtomExpression extends Node implements ILambdaBody, IExpressio
      * @var Node
      */
     private $_expression;
-    public function __construct(Node $glyph, Node $expression, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $glyph, Node $expression, ?array $source_ref = null)
     {
         $this->_glyph = $glyph;
         $this->_expression = $expression;

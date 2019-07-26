@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Migrations;
 
-use Facebook\HHAST\EditableNode;
+use Facebook\HHAST\Node;
 interface IMigrationStep
 {
     /**

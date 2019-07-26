@@ -8,7 +8,7 @@ use Psalm;
 
 class TypeCollector
 {
-	public static function collect(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope)
+	public static function collect(HHAST\Node $node, Project $project, HackFile $file, Scope $scope)
 	{
 		if ($node instanceof HHAST\EditableList) {
 			foreach ($node->getChildren() as $child) {

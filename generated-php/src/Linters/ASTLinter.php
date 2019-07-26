@@ -9,25 +9,25 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\EditableNode;
+use Facebook\HHAST\Node;
 use Facebook\HHAST;
 use Facebook\HHAST\Linters\SuppressASTLinter;
 /**
- * @template Tnode as HHAST\EditableNode
+ * @template Tnode as HHAST\Node
  */
 abstract class ASTLinter extends BaseLinter
 {
     /**
-     * @var null|HHAST\EditableNode
+     * @var null|HHAST\Node
      */
     private $ast;
     /**
-     * @return \Amp\Promise<HHAST\EditableNode>
+     * @return \Amp\Promise<HHAST\Node>
      */
     private static function getASTFromFileAsync(File $file)
     {
         return \Amp\call(
-            /** @return \Generator<int, mixed, void, HHAST\EditableNode> */
+            /** @return \Generator<int, mixed, void, HHAST\Node> */
             function () use($file) : \Generator {
                 static $cache = null;
                 $hash = \sha1($file->getContents(), true);
@@ -120,7 +120,7 @@ abstract class ASTLinter extends BaseLinter
         );
     }
     /**
-     * @return HHAST\EditableNode
+     * @return HHAST\Node
      */
     public final function getAST()
     {

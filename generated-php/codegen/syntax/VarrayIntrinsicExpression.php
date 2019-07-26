@@ -37,7 +37,7 @@ final class VarrayIntrinsicExpression extends Node implements ILambdaBody, IExpr
     /**
      * @param NodeList<ListItem<IExpression>>|null $members
      */
-    public function __construct(VarrayToken $keyword, ?TypeArguments $explicit_type, LeftBracketToken $left_bracket, ?NodeList $members, RightBracketToken $right_bracket, ?__Private\SourceRef $source_ref = null)
+    public function __construct(VarrayToken $keyword, ?TypeArguments $explicit_type, LeftBracketToken $left_bracket, ?NodeList $members, RightBracketToken $right_bracket, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_explicit_type = $explicit_type;

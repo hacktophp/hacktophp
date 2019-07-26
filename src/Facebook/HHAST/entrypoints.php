@@ -2,14 +2,18 @@
 
 namespace Facebook\HHAST;
 
-use Facebook\HHAST\EditableNode;
+use Facebook\HHAST\Node;
+
+
 
 /**
  * @param array<string, mixed> $json
  */
-function from_json(array $json, ?string $file) : EditableNode
+function from_json(array $json, ?string $file) : Node
 {
-    return EditableNode::fromJSON($json['parse_tree'], $file ?? '! no file !', 0, $json['program_text']);
+    $version = $json['version'] ?? null;
+    
+    return Script::fromJSON($json['parse_tree'], $file ?? '! no file !', 0, $json['program_text'], 'Script');
 }
 /**
  * @return \Amp\Promise<array<string, mixed>>
@@ -56,19 +60,19 @@ function json_from_file(string $file) : array
     return \Amp\Promise\wait(json_from_file_async($file));
 }
 /**
- * @return \Amp\Promise<EditableNode>
+ * @return \Amp\Promise<Node>
  */
 function from_file_async(string $file) : \Amp\Promise
 {
     return \Amp\call(
-        /** @return \Generator<int, mixed, void, EditableNode> */
+        /** @return \Generator<int, mixed, void, Node> */
         function () use($file) : \Generator {
             $json = (yield json_from_file_async($file));
             return from_json($json, $file);
         }
     );
 }
-function from_file(string $file) : EditableNode
+function from_file(string $file) : Node
 {
     return \Amp\Promise\wait(from_file_async($file));
 }
@@ -98,19 +102,19 @@ function json_from_text(string $text) : array
     return \Amp\Promise\wait(json_from_text_async($text));
 }
 /**
- * @return \Amp\Promise<EditableNode>
+ * @return \Amp\Promise<Node>
  */
 function from_code_async(string $text) : \Amp\Promise
 {
     return \Amp\call(
-        /** @return \Generator<int, mixed, void, EditableNode> */
+        /** @return \Generator<int, mixed, void, Node> */
         function () use($text) : \Generator {
             $json = (yield json_from_text_async($text));
             return from_json($json);
         }
     );
 }
-function from_code(string $text) : EditableNode
+function from_code(string $text) : Node
 {
     return \Amp\Promise\wait(from_code_async($text));
 }

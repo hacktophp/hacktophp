@@ -22,7 +22,7 @@ final class ConstantDeclarator extends Node
      * @var null|SimpleInitializer
      */
     private $_initializer;
-    public function __construct(NameToken $name, ?SimpleInitializer $initializer, ?__Private\SourceRef $source_ref = null)
+    public function __construct(NameToken $name, ?SimpleInitializer $initializer, ?array $source_ref = null)
     {
         $this->_name = $name;
         $this->_initializer = $initializer;

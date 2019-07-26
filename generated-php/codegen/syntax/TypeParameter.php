@@ -37,7 +37,7 @@ final class TypeParameter extends Node
     /**
      * @param NodeList<TypeConstraint>|null $constraints
      */
-    public function __construct(?OldAttributeSpecification $attribute_spec, ?ReifyToken $reified, ?Token $variance, NameToken $name, ?NodeList $constraints, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute_spec, ?ReifyToken $reified, ?Token $variance, NameToken $name, ?NodeList $constraints, ?array $source_ref = null)
     {
         $this->_attribute_spec = $attribute_spec;
         $this->_reified = $reified;

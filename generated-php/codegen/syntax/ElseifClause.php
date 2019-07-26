@@ -34,7 +34,7 @@ final class ElseifClause extends Node implements IControlFlowStatement
      * @var IStatement
      */
     private $_statement;
-    public function __construct(ElseifToken $keyword, LeftParenToken $left_paren, IExpression $condition, RightParenToken $right_paren, IStatement $statement, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ElseifToken $keyword, LeftParenToken $left_paren, IExpression $condition, RightParenToken $right_paren, IStatement $statement, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

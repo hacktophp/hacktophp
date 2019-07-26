@@ -41,7 +41,7 @@ final class UsingStatementBlockScoped extends Node implements IStatement
     /**
      * @param NodeList<ListItem<IExpression>> $expressions
      */
-    public function __construct(?AwaitToken $await_keyword, UsingToken $using_keyword, LeftParenToken $left_paren, NodeList $expressions, RightParenToken $right_paren, CompoundStatement $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?AwaitToken $await_keyword, UsingToken $using_keyword, LeftParenToken $left_paren, NodeList $expressions, RightParenToken $right_paren, CompoundStatement $body, ?array $source_ref = null)
     {
         $this->_await_keyword = $await_keyword;
         $this->_using_keyword = $using_keyword;

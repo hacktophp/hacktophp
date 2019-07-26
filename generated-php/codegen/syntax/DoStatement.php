@@ -42,7 +42,7 @@ final class DoStatement extends Node implements IControlFlowStatement, ILoopStat
      * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(DoToken $keyword, IStatement $body, WhileToken $while_keyword, LeftParenToken $left_paren, IExpression $condition, RightParenToken $right_paren, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(DoToken $keyword, IStatement $body, WhileToken $while_keyword, LeftParenToken $left_paren, IExpression $condition, RightParenToken $right_paren, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_body = $body;

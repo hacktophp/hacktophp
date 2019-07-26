@@ -30,7 +30,7 @@ final class TupleTypeExplicitSpecifier extends Node implements ITypeSpecifier
      * @var Node
      */
     private $_right_angle;
-    public function __construct(Node $keyword, Node $left_angle, Node $types, Node $right_angle, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $keyword, Node $left_angle, Node $types, Node $right_angle, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_angle = $left_angle;

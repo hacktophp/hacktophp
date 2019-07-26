@@ -29,7 +29,7 @@ final class TraitUsePrecedenceItem extends Node implements ITraitUseItem
     /**
      * @param NodeList<ListItem<SimpleTypeSpecifier>> $removed_names
      */
-    public function __construct(ScopeResolutionExpression $name, InsteadofToken $keyword, NodeList $removed_names, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ScopeResolutionExpression $name, InsteadofToken $keyword, NodeList $removed_names, ?array $source_ref = null)
     {
         $this->_name = $name;
         $this->_keyword = $keyword;

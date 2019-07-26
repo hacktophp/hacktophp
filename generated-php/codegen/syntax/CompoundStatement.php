@@ -29,7 +29,7 @@ final class CompoundStatement extends Node implements ILambdaBody, IStatement
     /**
      * @param NodeList<IStatement>|null $statements
      */
-    public function __construct(LeftBraceToken $left_brace, ?NodeList $statements, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LeftBraceToken $left_brace, ?NodeList $statements, RightBraceToken $right_brace, ?array $source_ref = null)
     {
         $this->_left_brace = $left_brace;
         $this->_statements = $statements;

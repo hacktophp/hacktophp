@@ -8,7 +8,7 @@ namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
 use HH\Lib\Dict;
-final class FunctionDeclaration extends Node implements IFunctionishDeclaration, IHasFunctionBody, IHasAttributeSpec
+final class FunctionDeclaration extends Node implements IFunctionishDeclaration, IHasAttributeSpec
 {
     /**
      * @var string
@@ -26,7 +26,7 @@ final class FunctionDeclaration extends Node implements IFunctionishDeclaration,
      * @var Node
      */
     private $_body;
-    public function __construct(?OldAttributeSpecification $attribute_spec, FunctionDeclarationHeader $declaration_header, Node $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute_spec, FunctionDeclarationHeader $declaration_header, Node $body, ?array $source_ref = null)
     {
         $this->_attribute_spec = $attribute_spec;
         $this->_declaration_header = $declaration_header;

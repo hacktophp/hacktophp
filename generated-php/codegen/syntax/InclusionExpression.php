@@ -22,7 +22,7 @@ final class InclusionExpression extends Node implements ILambdaBody, IExpression
      * @var IExpression
      */
     private $_filename;
-    public function __construct(Token $require, IExpression $filename, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Token $require, IExpression $filename, ?array $source_ref = null)
     {
         $this->_require = $require;
         $this->_filename = $filename;

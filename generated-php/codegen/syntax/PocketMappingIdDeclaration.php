@@ -22,7 +22,7 @@ final class PocketMappingIdDeclaration extends Node
      * @var Node
      */
     private $_initializer;
-    public function __construct(Node $name, Node $initializer, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $name, Node $initializer, ?array $source_ref = null)
     {
         $this->_name = $name;
         $this->_initializer = $initializer;

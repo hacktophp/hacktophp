@@ -26,7 +26,7 @@ final class XHPSimpleAttribute extends Node implements IXHPAttribute
      * @var Node
      */
     private $_expression;
-    public function __construct(XHPElementNameToken $name, EqualToken $equal, Node $expression, ?__Private\SourceRef $source_ref = null)
+    public function __construct(XHPElementNameToken $name, EqualToken $equal, Node $expression, ?array $source_ref = null)
     {
         $this->_name = $name;
         $this->_equal = $equal;

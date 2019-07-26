@@ -15,8 +15,7 @@ use Facebook\HHAST\Node;
  */
 function node_from_json(array $json, string $file, int $offset, string $source, string $type_hint) : ?Node
 {
-    try {
-        $node = node_from_json_unwrapped($json, $file, $offset, $source, $type_hint);
+    $node = node_from_json_unwrapped($json, $file, $offset, $source, $type_hint);
         if ($node === null) {
             return $node;
         }
@@ -27,10 +26,5 @@ function node_from_json(array $json, string $file, int $offset, string $source, 
             return Wrap\wrap_ITypeSpecifier($node);
         }
         return $node;
-    } catch (\Facebook\HHAST\ASTError $e) {
-        throw $e;
-    } catch (\Throwable $t) {
-        throw new \Facebook\HHAST\ASTDeserializationError($file, $offset, $source, $t);
-    }
 }
 

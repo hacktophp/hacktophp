@@ -26,7 +26,7 @@ abstract class NamespaceDeclarationGeneratedBase extends Node
      * @var INamespaceBody
      */
     private $_body;
-    public function __construct(NamespaceToken $keyword, ?INameishNode $name, INamespaceBody $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(NamespaceToken $keyword, ?INameishNode $name, INamespaceBody $body, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_name = $name;

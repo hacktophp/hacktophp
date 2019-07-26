@@ -42,7 +42,7 @@ final class DarrayTypeSpecifier extends Node implements ITypeSpecifier
      * @var GreaterThanToken
      */
     private $_right_angle;
-    public function __construct(DarrayToken $keyword, LessThanToken $left_angle, SimpleTypeSpecifier $key, CommaToken $comma, ITypeSpecifier $value, ?Node $trailing_comma, GreaterThanToken $right_angle, ?__Private\SourceRef $source_ref = null)
+    public function __construct(DarrayToken $keyword, LessThanToken $left_angle, SimpleTypeSpecifier $key, CommaToken $comma, ITypeSpecifier $value, ?Node $trailing_comma, GreaterThanToken $right_angle, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_angle = $left_angle;

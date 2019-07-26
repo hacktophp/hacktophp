@@ -22,7 +22,7 @@ final class FinallyClause extends Node
      * @var CompoundStatement
      */
     private $_body;
-    public function __construct(FinallyToken $keyword, CompoundStatement $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(FinallyToken $keyword, CompoundStatement $body, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_body = $body;

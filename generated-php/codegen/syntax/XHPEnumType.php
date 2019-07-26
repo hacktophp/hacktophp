@@ -37,7 +37,7 @@ final class XHPEnumType extends Node implements ITypeSpecifier
     /**
      * @param NodeList<ListItem<LiteralExpression>> $values
      */
-    public function __construct(?Node $optional, EnumToken $keyword, LeftBraceToken $left_brace, NodeList $values, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?Node $optional, EnumToken $keyword, LeftBraceToken $left_brace, NodeList $values, RightBraceToken $right_brace, ?array $source_ref = null)
     {
         $this->_optional = $optional;
         $this->_keyword = $keyword;

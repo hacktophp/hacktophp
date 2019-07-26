@@ -26,7 +26,7 @@ final class MemberSelectionExpression extends Node implements ILambdaBody, IExpr
      * @var IExpression
      */
     private $_name;
-    public function __construct(IExpression $object, MinusGreaterThanToken $operator, IExpression $name, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IExpression $object, MinusGreaterThanToken $operator, IExpression $name, ?array $source_ref = null)
     {
         $this->_object = $object;
         $this->_operator = $operator;

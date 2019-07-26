@@ -18,7 +18,7 @@ final class NamespaceEmptyBody extends Node implements INamespaceBody
      * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_semicolon = $semicolon;
         parent::__construct($source_ref);

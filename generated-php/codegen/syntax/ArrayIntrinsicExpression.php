@@ -33,7 +33,7 @@ final class ArrayIntrinsicExpression extends Node implements IPHPArray, IContain
     /**
      * @param NodeList<ListItem<Node>>|null $members
      */
-    public function __construct(ArrayToken $keyword, LeftParenToken $left_paren, ?NodeList $members, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ArrayToken $keyword, LeftParenToken $left_paren, ?NodeList $members, RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

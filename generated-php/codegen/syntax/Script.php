@@ -21,7 +21,7 @@ abstract class ScriptGeneratedBase extends Node
     /**
      * @param NodeList<Node> $declarations
      */
-    public function __construct(NodeList $declarations, ?__Private\SourceRef $source_ref = null)
+    public function __construct(NodeList $declarations, ?array $source_ref = null)
     {
         $this->_declarations = $declarations;
         parent::__construct($source_ref);

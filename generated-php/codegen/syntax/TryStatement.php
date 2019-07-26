@@ -33,7 +33,7 @@ final class TryStatement extends Node implements IStatement
     /**
      * @param NodeList<CatchClause>|null $catch_clauses
      */
-    public function __construct(TryToken $keyword, CompoundStatement $compound_statement, ?NodeList $catch_clauses, ?FinallyClause $finally_clause, ?__Private\SourceRef $source_ref = null)
+    public function __construct(TryToken $keyword, CompoundStatement $compound_statement, ?NodeList $catch_clauses, ?FinallyClause $finally_clause, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_compound_statement = $compound_statement;

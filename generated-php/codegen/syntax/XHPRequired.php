@@ -22,7 +22,7 @@ final class XHPRequired extends Node
      * @var RequiredToken
      */
     private $_keyword;
-    public function __construct(AtToken $at, RequiredToken $keyword, ?__Private\SourceRef $source_ref = null)
+    public function __construct(AtToken $at, RequiredToken $keyword, ?array $source_ref = null)
     {
         $this->_at = $at;
         $this->_keyword = $keyword;

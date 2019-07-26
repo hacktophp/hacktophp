@@ -26,7 +26,7 @@ final class InstanceofExpression extends Node implements ILambdaBody, IExpressio
      * @var Node
      */
     private $_right_operand;
-    public function __construct(Node $left_operand, Node $operator, Node $right_operand, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $left_operand, Node $operator, Node $right_operand, ?array $source_ref = null)
     {
         $this->_left_operand = $left_operand;
         $this->_operator = $operator;

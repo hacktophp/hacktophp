@@ -22,7 +22,7 @@ final class DecoratedExpression extends Node implements ILambdaBody, IExpression
      * @var IExpression
      */
     private $_expression;
-    public function __construct(Token $decorator, IExpression $expression, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Token $decorator, IExpression $expression, ?array $source_ref = null)
     {
         $this->_decorator = $decorator;
         $this->_expression = $expression;

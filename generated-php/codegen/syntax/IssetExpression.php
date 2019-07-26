@@ -33,7 +33,7 @@ final class IssetExpression extends Node implements ILambdaBody, IExpression
     /**
      * @param NodeList<ListItem<IExpression>> $argument_list
      */
-    public function __construct(IssetToken $keyword, LeftParenToken $left_paren, NodeList $argument_list, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IssetToken $keyword, LeftParenToken $left_paren, NodeList $argument_list, RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

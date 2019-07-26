@@ -38,7 +38,7 @@ final class PocketAtomMappingDeclaration extends Node
      * @var Node
      */
     private $_semicolon;
-    public function __construct(Node $glyph, Node $name, Node $left_paren, Node $mappings, Node $right_paren, Node $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $glyph, Node $name, Node $left_paren, Node $mappings, Node $right_paren, Node $semicolon, ?array $source_ref = null)
     {
         $this->_glyph = $glyph;
         $this->_name = $name;

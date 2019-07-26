@@ -25,12 +25,12 @@ abstract class Node
      * @var null|__Private\SourceRef
      */
     protected $sourceRef;
-    public function __construct(?__Private\SourceRef $sourceRef)
+    public function __construct(?array $sourceRef)
     {
         $this->sourceRef = $sourceRef;
-        $this->_descendants = Dict\merge([$this->getUniqueID() => $this], ...\array_map(function ($c) {
+        $this->_descendants = Dict\merge([$this->getUniqueID() => $this], ...\array_values(\array_map(function ($c) {
             return $c->_descendants;
-        }, $this->getChildren()));
+        }, $this->getChildren())));
     }
     /**
      * @var int

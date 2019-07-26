@@ -26,7 +26,7 @@ final class VariadicParameter extends Node implements IHasTypeHint, IParameter, 
      * @var DotDotDotToken
      */
     private $_ellipsis;
-    public function __construct(?Node $call_convention, ?ITypeSpecifier $type, DotDotDotToken $ellipsis, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?Node $call_convention, ?ITypeSpecifier $type, DotDotDotToken $ellipsis, ?array $source_ref = null)
     {
         $this->_call_convention = $call_convention;
         $this->_type = $type;

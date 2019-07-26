@@ -30,7 +30,7 @@ final class CastExpression extends Node implements ILambdaBody, IExpression
      * @var IExpression
      */
     private $_operand;
-    public function __construct(LeftParenToken $left_paren, Token $type, RightParenToken $right_paren, IExpression $operand, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LeftParenToken $left_paren, Token $type, RightParenToken $right_paren, IExpression $operand, ?array $source_ref = null)
     {
         $this->_left_paren = $left_paren;
         $this->_type = $type;

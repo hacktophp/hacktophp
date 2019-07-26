@@ -34,7 +34,7 @@ final class ConditionalExpression extends Node implements ILambdaBody, IExpressi
      * @var IExpression
      */
     private $_alternative;
-    public function __construct(IExpression $test, QuestionToken $question, IExpression $consequence, ColonToken $colon, IExpression $alternative, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IExpression $test, QuestionToken $question, IExpression $consequence, ColonToken $colon, IExpression $alternative, ?array $source_ref = null)
     {
         $this->_test = $test;
         $this->_question = $question;

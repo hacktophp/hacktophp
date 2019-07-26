@@ -21,7 +21,7 @@ final class QualifiedName extends Node implements INameishNode, __Private\IWrapp
     /**
      * @param NodeList<ListItem<null|NameToken>> $parts
      */
-    public function __construct(NodeList $parts, ?__Private\SourceRef $source_ref = null)
+    public function __construct(NodeList $parts, ?array $source_ref = null)
     {
         $this->_parts = $parts;
         parent::__construct($source_ref);

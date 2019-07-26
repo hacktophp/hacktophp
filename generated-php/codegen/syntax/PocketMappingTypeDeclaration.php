@@ -30,7 +30,7 @@ final class PocketMappingTypeDeclaration extends Node
      * @var Node
      */
     private $_type;
-    public function __construct(Node $keyword, Node $name, Node $equal, Node $type, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $keyword, Node $name, Node $equal, Node $type, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_name = $name;

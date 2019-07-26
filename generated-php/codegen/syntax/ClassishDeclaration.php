@@ -63,7 +63,7 @@ abstract class ClassishDeclarationGeneratedBase extends Node implements IHasAttr
      * @param NodeList<ListItem<ISimpleCreationSpecifier>>|null $extends_list
      * @param NodeList<ListItem<ISimpleCreationSpecifier>>|null $implements_list
      */
-    public function __construct(?OldAttributeSpecification $attribute, ?NodeList $modifiers, Token $keyword, Token $name, ?TypeParameters $type_parameters, ?ExtendsToken $extends_keyword, ?NodeList $extends_list, ?ImplementsToken $implements_keyword, ?NodeList $implements_list, ?Node $where_clause, ClassishBody $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute, ?NodeList $modifiers, Token $keyword, Token $name, ?TypeParameters $type_parameters, ?ExtendsToken $extends_keyword, ?NodeList $extends_list, ?ImplementsToken $implements_keyword, ?NodeList $implements_list, ?Node $where_clause, ClassishBody $body, ?array $source_ref = null)
     {
         $this->_attribute = $attribute;
         $this->_modifiers = $modifiers;

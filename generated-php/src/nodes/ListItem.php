@@ -31,7 +31,7 @@ final class ListItem extends Node
     /**
      * @param T $item
      */
-    public function __construct($item, ?Token $separator, ?__Private\SourceRef $source_ref = null)
+    public function __construct($item, ?Token $separator, ?array $source_ref = null)
     {
         $this->_item = $item;
         $this->_separator = $separator;

@@ -34,7 +34,7 @@ final class RecordField extends Node
      * @var Node
      */
     private $_comma;
-    public function __construct(Node $name, Node $colon, Node $type, Node $init, Node $comma, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $name, Node $colon, Node $type, Node $init, Node $comma, ?array $source_ref = null)
     {
         $this->_name = $name;
         $this->_colon = $colon;

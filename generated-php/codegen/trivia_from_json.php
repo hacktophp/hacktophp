@@ -10,7 +10,7 @@ use Facebook\HHAST;
 /**
  * @param array<string, mixed> $json
  */
-function trivia_from_json(array $json, SourceRef $source_ref) : HHAST\Trivia
+function trivia_from_json(array $json, array $source_ref) : HHAST\Trivia
 {
     $trivia_text = \substr($source_ref['source'], $source_ref['offset'], $source_ref['width']);
     switch ((string) $json['kind']) {

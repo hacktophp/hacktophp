@@ -22,7 +22,7 @@ final class PostfixUnaryExpression extends Node implements IHasOperator, ILambda
      * @var Token
      */
     private $_operator;
-    public function __construct(IExpression $operand, Token $operator, ?__Private\SourceRef $source_ref = null)
+    public function __construct(IExpression $operand, Token $operator, ?array $source_ref = null)
     {
         $this->_operand = $operand;
         $this->_operator = $operator;

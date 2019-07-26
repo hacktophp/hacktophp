@@ -26,7 +26,7 @@ final class YieldFromExpression extends Node implements ILambdaBody, IExpression
      * @var IExpression
      */
     private $_operand;
-    public function __construct(YieldToken $yield_keyword, FromToken $from_keyword, IExpression $operand, ?__Private\SourceRef $source_ref = null)
+    public function __construct(YieldToken $yield_keyword, FromToken $from_keyword, IExpression $operand, ?array $source_ref = null)
     {
         $this->_yield_keyword = $yield_keyword;
         $this->_from_keyword = $from_keyword;

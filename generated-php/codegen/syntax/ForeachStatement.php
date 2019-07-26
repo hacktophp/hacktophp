@@ -54,7 +54,7 @@ final class ForeachStatement extends Node implements IControlFlowStatement, ILoo
      * @var IStatement
      */
     private $_body;
-    public function __construct(ForeachToken $keyword, LeftParenToken $left_paren, IExpression $collection, ?AwaitToken $await_keyword, AsToken $as, ?IExpression $key, ?EqualGreaterThanToken $arrow, IExpression $value, RightParenToken $right_paren, IStatement $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ForeachToken $keyword, LeftParenToken $left_paren, IExpression $collection, ?AwaitToken $await_keyword, AsToken $as, ?IExpression $key, ?EqualGreaterThanToken $arrow, IExpression $value, RightParenToken $right_paren, IStatement $body, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

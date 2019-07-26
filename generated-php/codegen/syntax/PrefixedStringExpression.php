@@ -22,7 +22,7 @@ final class PrefixedStringExpression extends Node implements ILambdaBody, IExpre
      * @var Node
      */
     private $_str;
-    public function __construct(Node $name, Node $str, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $name, Node $str, ?array $source_ref = null)
     {
         $this->_name = $name;
         $this->_str = $str;

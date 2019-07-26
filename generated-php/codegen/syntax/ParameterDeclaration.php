@@ -38,7 +38,7 @@ abstract class ParameterDeclarationGeneratedBase extends Node implements IHasTyp
      * @var null|SimpleInitializer
      */
     private $_default_value;
-    public function __construct(?OldAttributeSpecification $attribute, ?Token $visibility, ?InoutToken $call_convention, ?ITypeSpecifier $type, IExpression $name, ?SimpleInitializer $default_value, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute, ?Token $visibility, ?InoutToken $call_convention, ?ITypeSpecifier $type, IExpression $name, ?SimpleInitializer $default_value, ?array $source_ref = null)
     {
         $this->_attribute = $attribute;
         $this->_visibility = $visibility;

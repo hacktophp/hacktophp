@@ -29,7 +29,7 @@ final class XHPExpression extends Node implements ILambdaBody, IExpression
     /**
      * @param NodeList<Node>|null $body
      */
-    public function __construct(XHPOpen $open, ?NodeList $body, ?XHPClose $close, ?__Private\SourceRef $source_ref = null)
+    public function __construct(XHPOpen $open, ?NodeList $body, ?XHPClose $close, ?array $source_ref = null)
     {
         $this->_open = $open;
         $this->_body = $body;

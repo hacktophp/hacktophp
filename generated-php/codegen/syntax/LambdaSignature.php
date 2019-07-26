@@ -37,7 +37,7 @@ final class LambdaSignature extends Node implements ILambdaSignature
     /**
      * @param NodeList<ListItem<IParameter>>|null $parameters
      */
-    public function __construct(LeftParenToken $left_paren, ?NodeList $parameters, RightParenToken $right_paren, ?ColonToken $colon, ?ITypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LeftParenToken $left_paren, ?NodeList $parameters, RightParenToken $right_paren, ?ColonToken $colon, ?ITypeSpecifier $type, ?array $source_ref = null)
     {
         $this->_left_paren = $left_paren;
         $this->_parameters = $parameters;

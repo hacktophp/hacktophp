@@ -29,7 +29,7 @@ final class NamespaceBody extends Node implements INamespaceBody
     /**
      * @param NodeList<Node>|null $declarations
      */
-    public function __construct(LeftBraceToken $left_brace, ?NodeList $declarations, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LeftBraceToken $left_brace, ?NodeList $declarations, RightBraceToken $right_brace, ?array $source_ref = null)
     {
         $this->_left_brace = $left_brace;
         $this->_declarations = $declarations;

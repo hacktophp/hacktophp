@@ -53,7 +53,7 @@ final class EnumDeclaration extends Node implements IHasAttributeSpec
     /**
      * @param NodeList<Enumerator>|null $enumerators
      */
-    public function __construct(?OldAttributeSpecification $attribute_spec, EnumToken $keyword, NameToken $name, ColonToken $colon, ITypeSpecifier $base, ?TypeConstraint $type, LeftBraceToken $left_brace, ?NodeList $enumerators, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute_spec, EnumToken $keyword, NameToken $name, ColonToken $colon, ITypeSpecifier $base, ?TypeConstraint $type, LeftBraceToken $left_brace, ?NodeList $enumerators, RightBraceToken $right_brace, ?array $source_ref = null)
     {
         $this->_attribute_spec = $attribute_spec;
         $this->_keyword = $keyword;

@@ -16,7 +16,7 @@ final class UsingToken extends TokenWithVariableText
      * @param NodeList<Trivia>|null $leading
      * @param NodeList<Trivia>|null $trailing
      */
-    public function __construct(?NodeList $leading, ?NodeList $trailing, string $token_text = 'using', ?__Private\SourceRef $source_ref = null)
+    public function __construct(?NodeList $leading, ?NodeList $trailing, string $token_text = 'using', ?array $source_ref = null)
     {
         parent::__construct($leading, $trailing, $token_text, $source_ref);
     }

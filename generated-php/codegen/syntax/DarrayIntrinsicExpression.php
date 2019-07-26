@@ -37,7 +37,7 @@ final class DarrayIntrinsicExpression extends Node implements ILambdaBody, IExpr
     /**
      * @param NodeList<ListItem<ElementInitializer>>|null $members
      */
-    public function __construct(DarrayToken $keyword, ?TypeArguments $explicit_type, LeftBracketToken $left_bracket, ?NodeList $members, RightBracketToken $right_bracket, ?__Private\SourceRef $source_ref = null)
+    public function __construct(DarrayToken $keyword, ?TypeArguments $explicit_type, LeftBracketToken $left_bracket, ?NodeList $members, RightBracketToken $right_bracket, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_explicit_type = $explicit_type;

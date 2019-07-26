@@ -33,7 +33,7 @@ final class TraitUseAliasItem extends Node implements ITraitUseItem
     /**
      * @param NodeList<Token>|null $modifiers
      */
-    public function __construct(Node $aliasing_name, AsToken $keyword, ?NodeList $modifiers, ?SimpleTypeSpecifier $aliased_name, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $aliasing_name, AsToken $keyword, ?NodeList $modifiers, ?SimpleTypeSpecifier $aliased_name, ?array $source_ref = null)
     {
         $this->_aliasing_name = $aliasing_name;
         $this->_keyword = $keyword;

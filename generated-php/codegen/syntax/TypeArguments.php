@@ -29,7 +29,7 @@ final class TypeArguments extends Node
     /**
      * @param NodeList<ListItem<ITypeSpecifier>> $types
      */
-    public function __construct(LessThanToken $left_angle, NodeList $types, GreaterThanToken $right_angle, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LessThanToken $left_angle, NodeList $types, GreaterThanToken $right_angle, ?array $source_ref = null)
     {
         $this->_left_angle = $left_angle;
         $this->_types = $types;

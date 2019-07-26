@@ -40,5 +40,8 @@ abstract class ParseError extends \Exception
     {
         return $this->rawMessage;
     }
-}
 
+    public function setPrevious(\Throwable $e) {
+
+    }
+}

@@ -18,7 +18,7 @@ final class SimpleTypeSpecifier extends Node implements ISimpleCreationSpecifier
      * @var Node
      */
     private $_specifier;
-    public function __construct(Node $specifier, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $specifier, ?array $source_ref = null)
     {
         $this->_specifier = $specifier;
         parent::__construct($source_ref);

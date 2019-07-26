@@ -18,7 +18,7 @@ final class XHPSimpleClassAttribute extends Node
      * @var SimpleTypeSpecifier
      */
     private $_type;
-    public function __construct(SimpleTypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
+    public function __construct(SimpleTypeSpecifier $type, ?array $source_ref = null)
     {
         $this->_type = $type;
         parent::__construct($source_ref);

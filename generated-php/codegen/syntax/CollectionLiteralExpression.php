@@ -33,7 +33,7 @@ final class CollectionLiteralExpression extends Node implements IContainer, ILam
     /**
      * @param NodeList<ListItem<Node>>|null $initializers
      */
-    public function __construct(ISimpleCreationSpecifier $name, LeftBraceToken $left_brace, ?NodeList $initializers, RightBraceToken $right_brace, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ISimpleCreationSpecifier $name, LeftBraceToken $left_brace, ?NodeList $initializers, RightBraceToken $right_brace, ?array $source_ref = null)
     {
         $this->_name = $name;
         $this->_left_brace = $left_brace;

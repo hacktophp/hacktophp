@@ -22,7 +22,7 @@ final class ConcurrentStatement extends Node implements IStatement
      * @var CompoundStatement
      */
     private $_statement;
-    public function __construct(ConcurrentToken $keyword, CompoundStatement $statement, ?__Private\SourceRef $source_ref = null)
+    public function __construct(ConcurrentToken $keyword, CompoundStatement $statement, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_statement = $statement;

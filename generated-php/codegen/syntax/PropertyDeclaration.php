@@ -37,7 +37,7 @@ final class PropertyDeclaration extends Node implements IClassBodyDeclaration, I
     /**
      * @param NodeList<ListItem<PropertyDeclarator>> $declarators
      */
-    public function __construct(?OldAttributeSpecification $attribute_spec, Node $modifiers, ?ITypeSpecifier $type, NodeList $declarators, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute_spec, Node $modifiers, ?ITypeSpecifier $type, NodeList $declarators, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_attribute_spec = $attribute_spec;
         $this->_modifiers = $modifiers;

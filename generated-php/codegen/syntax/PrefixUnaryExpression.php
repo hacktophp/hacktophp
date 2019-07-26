@@ -22,7 +22,7 @@ final class PrefixUnaryExpression extends Node implements IHasOperator, ILambdaB
      * @var IExpression
      */
     private $_operand;
-    public function __construct(Token $operator, IExpression $operand, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Token $operator, IExpression $operand, ?array $source_ref = null)
     {
         $this->_operator = $operator;
         $this->_operand = $operand;

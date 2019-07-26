@@ -30,7 +30,7 @@ final class FieldSpecifier extends Node implements ITypeSpecifier
      * @var ITypeSpecifier
      */
     private $_type;
-    public function __construct(?QuestionToken $question, IExpression $name, EqualGreaterThanToken $arrow, ITypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?QuestionToken $question, IExpression $name, EqualGreaterThanToken $arrow, ITypeSpecifier $type, ?array $source_ref = null)
     {
         $this->_question = $question;
         $this->_name = $name;

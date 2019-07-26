@@ -38,7 +38,7 @@ final class LetStatement extends Node implements IStatement
      * @var Node
      */
     private $_semicolon;
-    public function __construct(Node $keyword, Node $name, Node $colon, Node $type, Node $initializer, Node $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $keyword, Node $name, Node $colon, Node $type, Node $initializer, Node $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_name = $name;

@@ -33,7 +33,7 @@ final class TupleExpression extends Node implements ILambdaBody, IExpression
     /**
      * @param NodeList<ListItem<IExpression>>|null $items
      */
-    public function __construct(TupleToken $keyword, LeftParenToken $left_paren, ?NodeList $items, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(TupleToken $keyword, LeftParenToken $left_paren, ?NodeList $items, RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_left_paren = $left_paren;

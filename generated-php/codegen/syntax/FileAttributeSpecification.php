@@ -37,7 +37,7 @@ final class FileAttributeSpecification extends Node
     /**
      * @param NodeList<ListItem<ConstructorCall>> $attributes
      */
-    public function __construct(LessThanLessThanToken $left_double_angle, FileToken $keyword, ColonToken $colon, NodeList $attributes, GreaterThanGreaterThanToken $right_double_angle, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LessThanLessThanToken $left_double_angle, FileToken $keyword, ColonToken $colon, NodeList $attributes, GreaterThanGreaterThanToken $right_double_angle, ?array $source_ref = null)
     {
         $this->_left_double_angle = $left_double_angle;
         $this->_keyword = $keyword;

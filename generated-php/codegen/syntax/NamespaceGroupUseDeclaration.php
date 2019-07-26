@@ -45,7 +45,7 @@ final class NamespaceGroupUseDeclaration extends Node implements INamespaceUseDe
     /**
      * @param NodeList<ListItem<NamespaceUseClause>> $clauses
      */
-    public function __construct(UseToken $keyword, ?Token $kind, QualifiedName $prefix, LeftBraceToken $left_brace, NodeList $clauses, RightBraceToken $right_brace, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(UseToken $keyword, ?Token $kind, QualifiedName $prefix, LeftBraceToken $left_brace, NodeList $clauses, RightBraceToken $right_brace, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_kind = $kind;

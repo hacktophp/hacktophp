@@ -30,7 +30,7 @@ final class Enumerator extends Node
      * @var SemicolonToken
      */
     private $_semicolon;
-    public function __construct(NameToken $name, EqualToken $equal, IExpression $value, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(NameToken $name, EqualToken $equal, IExpression $value, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_name = $name;
         $this->_equal = $equal;

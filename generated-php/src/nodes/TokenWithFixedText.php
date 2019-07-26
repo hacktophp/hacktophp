@@ -15,7 +15,7 @@ abstract class TokenWithFixedText extends Token
      * @param NodeList<Trivia>|null $leading
      * @param NodeList<Trivia>|null $trailing
      */
-    public function __construct(?NodeList $leading, ?NodeList $trailing, ?__Private\SourceRef $ref)
+    public function __construct(?NodeList $leading, ?NodeList $trailing, ?array $ref)
     {
         parent::__construct(static::KIND, $leading, $trailing, static::TEXT, $ref);
     }

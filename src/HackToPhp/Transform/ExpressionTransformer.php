@@ -82,7 +82,7 @@ class ExpressionTransformer
 	 * VarrayIntrinsicExpression | XHPExpression | YieldExpression |
 	 * YieldFromExpression $node 
 	 */
-	public static function transform(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
+	public static function transform(HHAST\Node $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		if ($node instanceof ParenthesizedExpression) {
 			return ExpressionTransformer::transform($node->getExpression(), $project, $file, $scope);
@@ -497,7 +497,7 @@ class ExpressionTransformer
 		throw new \UnexpectedValueException('Unknown expression type ' . get_class($node));
 	}
 
-	public static function transformVariableName(HHAST\EditableNode $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
+	public static function transformVariableName(HHAST\Node $node, Project $project, HackFile $file, Scope $scope) : PhpParser\Node
 	{
 		if ($node instanceof NameToken) {
 			return new PhpParser\Node\Identifier($node->getText());
@@ -530,7 +530,7 @@ class ExpressionTransformer
 		throw new \UnexpectedValueException('Cannot transform variable name of type ' . get_class($node));
 	}
 
-	public static function getTokenCommentsRecursively(HHAST\EditableNode $token) : array
+	public static function getTokenCommentsRecursively(HHAST\Node $token) : array
 	{
 		$children = $token->getChildren();
 

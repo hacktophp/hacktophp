@@ -26,7 +26,7 @@ final class ParenthesizedExpression extends Node implements ILambdaBody, IExpres
      * @var RightParenToken
      */
     private $_right_paren;
-    public function __construct(LeftParenToken $left_paren, IExpression $expression, RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(LeftParenToken $left_paren, IExpression $expression, RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_left_paren = $left_paren;
         $this->_expression = $expression;

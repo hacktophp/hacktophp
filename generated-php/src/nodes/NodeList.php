@@ -26,7 +26,7 @@ final class NodeList extends Node
     /**
      * @param array<int, Titem> $_children
      */
-    public function __construct(array $_children = [], ?__Private\SourceRef $ref = null)
+    public function __construct(array $_children = [], ?array $ref = null)
     {
         $this->_children = $_children;
         parent::__construct($ref);

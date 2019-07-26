@@ -30,7 +30,7 @@ final class MarkupSection extends Node
      * @var null|Node
      */
     private $_expression;
-    public function __construct(?Node $prefix, MarkupToken $text, MarkupSuffix $suffix, ?Node $expression, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?Node $prefix, MarkupToken $text, MarkupSuffix $suffix, ?Node $expression, ?array $source_ref = null)
     {
         $this->_prefix = $prefix;
         $this->_text = $text;

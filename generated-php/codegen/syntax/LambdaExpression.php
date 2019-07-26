@@ -38,7 +38,7 @@ final class LambdaExpression extends Node implements IHasFunctionBody, ILambdaBo
      * @var ILambdaBody
      */
     private $_body;
-    public function __construct(?OldAttributeSpecification $attribute_spec, ?AsyncToken $async, ?Node $coroutine, Node $signature, EqualEqualGreaterThanToken $arrow, ILambdaBody $body, ?__Private\SourceRef $source_ref = null)
+    public function __construct(?OldAttributeSpecification $attribute_spec, ?AsyncToken $async, ?Node $coroutine, Node $signature, EqualEqualGreaterThanToken $arrow, ILambdaBody $body, ?array $source_ref = null)
     {
         $this->_attribute_spec = $attribute_spec;
         $this->_async = $async;

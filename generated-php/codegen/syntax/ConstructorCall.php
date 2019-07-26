@@ -33,7 +33,7 @@ final class ConstructorCall extends Node
     /**
      * @param NodeList<ListItem<IExpression>>|null $argument_list
      */
-    public function __construct(Node $type, ?LeftParenToken $left_paren, ?NodeList $argument_list, ?RightParenToken $right_paren, ?__Private\SourceRef $source_ref = null)
+    public function __construct(Node $type, ?LeftParenToken $left_paren, ?NodeList $argument_list, ?RightParenToken $right_paren, ?array $source_ref = null)
     {
         $this->_type = $type;
         $this->_left_paren = $left_paren;

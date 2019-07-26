@@ -22,7 +22,7 @@ final class LikeTypeSpecifier extends Node implements ITypeSpecifier
      * @var ITypeSpecifier
      */
     private $_type;
-    public function __construct(TildeToken $tilde, ITypeSpecifier $type, ?__Private\SourceRef $source_ref = null)
+    public function __construct(TildeToken $tilde, ITypeSpecifier $type, ?array $source_ref = null)
     {
         $this->_tilde = $tilde;
         $this->_type = $type;

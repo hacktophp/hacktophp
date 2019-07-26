@@ -29,7 +29,7 @@ final class TraitUse extends Node implements IClassBodyDeclaration
     /**
      * @param NodeList<ListItem<ISimpleCreationSpecifier>> $names
      */
-    public function __construct(UseToken $keyword, NodeList $names, SemicolonToken $semicolon, ?__Private\SourceRef $source_ref = null)
+    public function __construct(UseToken $keyword, NodeList $names, SemicolonToken $semicolon, ?array $source_ref = null)
     {
         $this->_keyword = $keyword;
         $this->_names = $names;
