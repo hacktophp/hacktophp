@@ -41,7 +41,7 @@ abstract class ASTLinter extends BaseLinter
         );
     }
     /**
-     * @return array<int, array{0:EditableNode, 1:array<int, EditableNode>}>
+     * @return array<int, array{0:Node, 1:array<int, Node>}>
      */
     private function getASTWithParents()
     {
@@ -59,7 +59,7 @@ abstract class ASTLinter extends BaseLinter
     protected static abstract function getTargetType();
     /**
      * @param Tnode $node
-     * @param array<int, EditableNode> $parents
+     * @param array<int, Node> $parents
      *
      * @return ASTLintError<Tnode>|null
      */

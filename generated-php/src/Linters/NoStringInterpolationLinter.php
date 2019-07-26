@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{DollarToken, DotToken, DoubleQuotedStringLiteralToken, DoubleQuotedStringLiteralHeadToken, DoubleQuotedStringLiteralTailToken, NodeList, EditableNode, EmbeddedBracedExpression, HeredocStringLiteralHeadToken, LiteralExpression, NameToken, StringLiteralBodyToken, VariableToken};
+use Facebook\HHAST\{DollarToken, DotToken, DoubleQuotedStringLiteralToken, DoubleQuotedStringLiteralHeadToken, DoubleQuotedStringLiteralTailToken, NodeList, Node, EmbeddedBracedExpression, HeredocStringLiteralHeadToken, LiteralExpression, NameToken, StringLiteralBodyToken, VariableToken};
 use function Facebook\HHAST\Missing;
 use HH\Lib\{C, Vec};
 /**
@@ -25,7 +25,7 @@ final class NoStringInterpolationLinter extends AutoFixingASTLinter
         return LiteralExpression::class;
     }
     /**
-     * @param array<int, EditableNode> $_parents
+     * @param array<int, Node> $_parents
      *
      * @return ASTLintError<LiteralExpression>|null
      */
@@ -46,7 +46,7 @@ final class NoStringInterpolationLinter extends AutoFixingASTLinter
         return 'Replace interpolation with concatenation';
     }
     /**
-     * @return null|EditableNode
+     * @return null|Node
      */
     public function getFixedNode(LiteralExpression $root_expr)
     {

@@ -17,9 +17,9 @@ abstract class StepBasedMigration extends BaseMigration
      */
     public abstract function getSteps();
     /**
-     * @return EditableNode
+     * @return Node
      */
-    public final function migrateFile(string $_path, EditableNode $ast)
+    public final function migrateFile(string $_path, Node $ast)
     {
         foreach ($this->getSteps() as $step) {
             $ast = $ast->rewrite(function ($node, $_1) use($step) {

@@ -11,7 +11,7 @@ namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\{find_node_at_position, Missing};
 
-use Facebook\HHAST\{BackslashToken, NodeList, EditableNode};
+use Facebook\HHAST\{BackslashToken, NodeList, Node};
 use function Facebook\HHAST\__Private\execute_async;
 use Facebook\TypeAssert;
 use HH\Lib\{C, Str, Vec};
@@ -32,9 +32,9 @@ final class NamespaceFallbackMigration extends BaseMigration
         return C\contains(self::ERROR_CODES, C\firstx($error['message'])['code']);
     }
     /**
-     * @return EditableNode
+     * @return Node
      */
-    public function migrateFile(string $path, EditableNode $root)
+    public function migrateFile(string $path, Node $root)
     {
         $nodes = \array_map(function ($error) use($root) {
             return find_node_at_position($root, $error['line'], $error['start']);

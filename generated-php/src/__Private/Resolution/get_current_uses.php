@@ -9,15 +9,15 @@
  */
 namespace Facebook\HHAST\__Private\Resolution;
 
-use Facebook\HHAST\{EditableNode, NamespaceBody, Script};
+use Facebook\HHAST\{Node, NamespaceBody, Script};
 use Facebook\TypeAssert;
 use HH\Lib\{C, Dict, Vec};
 /**
- * @param array<int, EditableNode> $parents
+ * @param array<int, Node> $parents
  *
  * @return array{namespaces:array<string, string>, types:array<string, string>}
  */
-function get_current_uses(EditableNode $_node, array $parents) : array
+function get_current_uses(Node $_node, array $parents) : array
 {
     $root = $parents[0];
     invariant($root instanceof Script, 'Expected first parent to be a Script, got %s', \get_class($root));

@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{BinaryExpression, EditableNode, EqualEqualToken, EqualEqualEqualToken, ExclamationEqualToken, ExclamationEqualEqualToken, LessThanGreaterThanToken};
+use Facebook\HHAST\{BinaryExpression, Node, EqualEqualToken, EqualEqualEqualToken, ExclamationEqualToken, ExclamationEqualEqualToken, LessThanGreaterThanToken};
 use HH\Lib\Str;
 /**
  * @template-extends AutoFixingASTLinter<BinaryExpression>
@@ -35,7 +35,7 @@ final class NoPHPEqualityLinter extends AutoFixingASTLinter
         return Str\format('Replace `%s` with `%s`', $blame->getOperator()->getText(), $fixed->getOperator()->getText());
     }
     /**
-     * @param array<int, EditableNode> $_parents
+     * @param array<int, Node> $_parents
      *
      * @return ASTLintError<BinaryExpression>|null
      */

@@ -9,12 +9,12 @@
  */
 namespace Facebook\HHAST\__Private\Resolution;
 
-use Facebook\HHAST\{EditableNode, NamespaceGroupUseDeclaration, NamespaceToken, NamespaceUseClause, NamespaceUseDeclaration, TypeToken};
+use Facebook\HHAST\{Node, NamespaceGroupUseDeclaration, NamespaceToken, NamespaceUseClause, NamespaceUseDeclaration, TypeToken};
 use HH\Lib\{C, Str};
 /**
  * @return array{namespaces:array<string, string>, types:array<string, string>}
  */
-function get_uses_directly_in_scope(EditableNode $scope) : array
+function get_uses_directly_in_scope(Node $scope) : array
 {
     $uses = [];
     // use [kind] Foo, [kind] Bar;

@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{EditableNode, LeftParenToken, MemberSelectionExpression, RightParenToken, ObjectCreationExpression, ParenthesizedExpression};
+use Facebook\HHAST\{Node, LeftParenToken, MemberSelectionExpression, RightParenToken, ObjectCreationExpression, ParenthesizedExpression};
 use function Facebook\HHAST\Missing;
 /**
  * @template-extends AutoFixingASTLinter<MemberSelectionExpression>
@@ -24,7 +24,7 @@ final class MethodCallOnConstructorLinter extends AutoFixingASTLinter
         return MemberSelectionExpression::class;
     }
     /**
-     * @param array<int, EditableNode> $_1
+     * @param array<int, Node> $_1
      *
      * @return ASTLintError<MemberSelectionExpression>|null
      */

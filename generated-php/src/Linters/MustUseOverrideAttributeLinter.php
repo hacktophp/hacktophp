@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{AttributeSpecification, ClassishDeclaration, ClassToken, EditableNode, GenericTypeSpecifier, ListItem, MethodishDeclaration, NameToken, PrivateToken};
+use Facebook\HHAST\{AttributeSpecification, ClassishDeclaration, ClassToken, Node, GenericTypeSpecifier, ListItem, MethodishDeclaration, NameToken, PrivateToken};
 use Facebook\TypeAssert;
 use function Facebook\HHAST\resolve_type;
 use Facebook\HHAST;
@@ -34,7 +34,7 @@ final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
         return 'Add __Override attribute';
     }
     /**
-     * @param array<int, EditableNode> $parents
+     * @param array<int, Node> $parents
      *
      * @return ASTLintError<MethodishDeclaration>|null
      */
@@ -57,7 +57,7 @@ final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
         }
     }
     /**
-     * @param array<int, EditableNode> $parents
+     * @param array<int, Node> $parents
      *
      * @return string
      */

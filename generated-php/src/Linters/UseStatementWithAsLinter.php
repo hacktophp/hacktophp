@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{EditableNode, NamespaceUseClause};
+use Facebook\HHAST\{Node, NamespaceUseClause};
 /**
  * @template-extends ASTLinter<NamespaceUseClause>
  */
@@ -23,7 +23,7 @@ class UseStatementWithAsLinter extends ASTLinter
         return NamespaceUseClause::class;
     }
     /**
-     * @param array<int, EditableNode> $_parents
+     * @param array<int, Node> $_parents
      *
      * @return ASTLintError<NamespaceUseClause>|null
      */

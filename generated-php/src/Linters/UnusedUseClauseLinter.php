@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ConstToken, NodeList, EditableNode, Token, FunctionToken, INamespaceUseDeclaration, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, NamespaceUseClause, NamespaceToken, NameToken, TypeToken, QualifiedName};
+use Facebook\HHAST\{ConstToken, NodeList, Node, Token, FunctionToken, INamespaceUseDeclaration, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, NamespaceUseClause, NamespaceToken, NameToken, TypeToken, QualifiedName};
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec};
 /**
@@ -25,7 +25,7 @@ final class UnusedUseClauseLinter extends AutoFixingASTLinter
         return INamespaceUseDeclaration::class;
     }
     /**
-     * @param array<int, EditableNode> $_context
+     * @param array<int, Node> $_context
      *
      * @return ASTLintError<INamespaceUseDeclaration>|null
      */
@@ -112,7 +112,7 @@ final class UnusedUseClauseLinter extends AutoFixingASTLinter
         }, $this->getUnusedClauses($node->getKind(), $clauses)));
     }
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getFixedNode(INamespaceUseDeclaration $node)
     {

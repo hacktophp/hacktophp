@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{NodeList, EditableNode, EndOfLine, MarkupSuffix, SingleLineComment, WhiteSpace};
+use Facebook\HHAST\{NodeList, Node, EndOfLine, MarkupSuffix, SingleLineComment, WhiteSpace};
 /**
  * @template-extends AutoFixingASTLinter<MarkupSuffix>
  */
@@ -23,7 +23,7 @@ class StrictModeOnlyLinter extends AutoFixingASTLinter
         return MarkupSuffix::class;
     }
     /**
-     * @param array<int, EditableNode> $_1
+     * @param array<int, Node> $_1
      *
      * @return ASTLintError<MarkupSuffix>|null
      */

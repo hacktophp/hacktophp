@@ -12,7 +12,7 @@ namespace Facebook\HHAST;
 final class AlternateLoopStatement extends AlternateLoopStatementGeneratedBase
 {
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getBody()
     {
@@ -21,7 +21,7 @@ final class AlternateLoopStatement extends AlternateLoopStatementGeneratedBase
     /**
      * @return static
      */
-    public function withBody(EditableNode $body)
+    public function withBody(Node $body)
     {
         return $this->withStatements($body);
     }

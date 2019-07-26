@@ -11,7 +11,7 @@ namespace Facebook\HHAST\__Private;
 
 use HH\Lib\C;
 use Facebook\HackCodegen\HackBuilderValues;
-final class CodegenEditableNodeFromJSON extends CodegenBase
+final class CodegenNodeFromJSON extends CodegenBase
 {
     /**
      * @return void
@@ -19,7 +19,7 @@ final class CodegenEditableNodeFromJSON extends CodegenBase
     public function generate()
     {
         $cg = $this->getCodegenFactory();
-        $cg->codegenFile($this->getOutputDirectory() . '/editable_node_from_json.php')->setNamespace('Facebook\\HHAST\\__Private')->useNamespace('Facebook\\HHAST')->addFunction($cg->codegenFunction('editable_node_from_json')->setReturnType('HHAST\\EditableNode')->addParameter('dict<string, mixed> $json')->addParameter('string $file')->addParameter('int $offset')->addParameter('string $source')->setBody($cg->codegenHackBuilder()->startSwitch('(string) $json[\'kind\']')->addCase('token', HackBuilderValues::export())->add('return ')->addMultilineCall('HHAST\\Token::fromJSON', ['/* HH_IGNORE_ERROR[4110] */ $json[\'token\']', '$file', '$offset', '$source'])->unindent()->addCase('list', HackBuilderValues::export())->returnCasef('HHAST\\NodeList::fromJSON($json, $file, $offset, $source)')->addCase('missing', HackBuilderValues::export())->addReturnf('HHAST\\Missing()')->unindent()->addCaseBlocks($this->getSchema()['trivia'], function ($trivia, $body) {
+        $cg->codegenFile($this->getOutputDirectory() . '/editable_node_from_json.php')->setNamespace('Facebook\\HHAST\\__Private')->useNamespace('Facebook\\HHAST')->addFunction($cg->codegenFunction('editable_node_from_json')->setReturnType('HHAST\\Node')->addParameter('dict<string, mixed> $json')->addParameter('string $file')->addParameter('int $offset')->addParameter('string $source')->setBody($cg->codegenHackBuilder()->startSwitch('(string) $json[\'kind\']')->addCase('token', HackBuilderValues::export())->add('return ')->addMultilineCall('HHAST\\Token::fromJSON', ['/* HH_IGNORE_ERROR[4110] */ $json[\'token\']', '$file', '$offset', '$source'])->unindent()->addCase('list', HackBuilderValues::export())->returnCasef('HHAST\\NodeList::fromJSON($json, $file, $offset, $source)')->addCase('missing', HackBuilderValues::export())->addReturnf('HHAST\\Missing()')->unindent()->addCaseBlocks($this->getSchema()['trivia'], function ($trivia, $body) {
             $body->addCase($trivia['trivia_type_name'], HackBuilderValues::export())->addReturnf('HHAST\\%s::fromJSON($json, $file, $offset, $source)', $trivia['trivia_kind_name'])->unindent();
         })->addCaseBlocks((new Vector($this->getSchema()['AST']))->filter(function ($ast) {
             return !C\contains_key(self::getHandWrittenSyntaxKinds(), $ast['kind_name']);

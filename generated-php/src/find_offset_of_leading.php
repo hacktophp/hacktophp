@@ -11,9 +11,9 @@ namespace Facebook\HHAST;
 
 use HH\Lib\{C, Vec};
 /**
- * @param array<int, EditableNode>|null $stack
+ * @param array<int, Node>|null $stack
  */
-function find_offset_of_leading(EditableNode $root, EditableNode $node, ?array $stack = null) : int
+function find_offset_of_leading(Node $root, Node $node, ?array $stack = null) : int
 {
     if ($root === $node) {
         return 0;

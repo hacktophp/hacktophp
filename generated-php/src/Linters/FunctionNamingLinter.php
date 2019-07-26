@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ClassishDeclaration, ConstructToken, DestructToken, NodeList, EditableNode, Token, EndOfLine, FunctionDeclaration, IFunctionishDeclaration, MethodishDeclaration, StaticToken};
+use Facebook\HHAST\{ClassishDeclaration, ConstructToken, DestructToken, NodeList, Node, Token, EndOfLine, FunctionDeclaration, IFunctionishDeclaration, MethodishDeclaration, StaticToken};
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec};
 /**
@@ -49,7 +49,7 @@ abstract class FunctionNamingLinter extends ASTLinter
     /**
      * @return null|Token
      */
-    private function getCurrentNameNodeForFunctionOrMethod(EditableNode $node)
+    private function getCurrentNameNodeForFunctionOrMethod(Node $node)
     {
         if ($node instanceof FunctionDeclaration) {
             return $node->getDeclarationHeader()->getName();
@@ -60,7 +60,7 @@ abstract class FunctionNamingLinter extends ASTLinter
         return null;
     }
     /**
-     * @param array<int, EditableNode> $parents
+     * @param array<int, Node> $parents
      *
      * @return null|FunctionNamingLintError
      */

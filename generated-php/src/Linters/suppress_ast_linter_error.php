@@ -9,16 +9,16 @@
  */
 namespace Facebook\HHAST\Linters\SuppressASTLinter;
 
-use Facebook\HHAST\{BreakStatement, ContinueStatement, EchoStatement, EditableNode, Token, GotoStatement, IControlFlowStatement, ReturnStatement, ThrowStatement, TryStatement, UnsetStatement};
+use Facebook\HHAST\{BreakStatement, ContinueStatement, EchoStatement, Node, Token, GotoStatement, IControlFlowStatement, ReturnStatement, ThrowStatement, TryStatement, UnsetStatement};
 use Facebook\HHAST\Linters\{BaseLinter, LintError};
 use HH\Lib\{C, Str, Vec};
 /**
  * Allow users to suppress specific cases where a linter is used.
  **/
 /**
- * @param array<int, EditableNode> $parents
+ * @param array<int, Node> $parents
  */
-function is_linter_error_suppressed(BaseLinter $linter, EditableNode $node, array $parents, LintError $_error) : bool
+function is_linter_error_suppressed(BaseLinter $linter, Node $node, array $parents, LintError $_error) : bool
 {
     $token = $node->getFirstToken();
     $fixme = $linter->getFixmeMarker();
@@ -36,7 +36,7 @@ function is_linter_suppressed_in_current_node(?Token $token, string $fixme, stri
 }
 // Check sibling node as the comment might be attached there instead of on the current node
 /**
- * @param array<int, EditableNode> $parents
+ * @param array<int, Node> $parents
  */
 function is_linter_suppressed_in_sibling_node(array $parents, string $fixme, string $ignore) : bool
 {
@@ -63,7 +63,7 @@ function is_linter_suppressed_in_sibling_node(array $parents, string $fixme, str
 }
 // Walk up the parents and check the leading trivia until we hit a Statement type node.
 /**
- * @param array<int, EditableNode> $parents
+ * @param array<int, Node> $parents
  */
 function is_linter_suppressed_up_to_statement(array $parents, string $fixme, string $ignore) : bool
 {

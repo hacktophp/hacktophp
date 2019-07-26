@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{EditableNode, NodeList, FunctionCallExpression, BinaryExpression, EqualToken, DelimitedComment, ListItem, CommaToken, WhiteSpace};
+use Facebook\HHAST\{Node, NodeList, FunctionCallExpression, BinaryExpression, EqualToken, DelimitedComment, ListItem, CommaToken, WhiteSpace};
 use HH\Lib\C;
 /**
  * @template-extends AutoFixingASTLinter<FunctionCallExpression>
@@ -24,7 +24,7 @@ class NoBasicAssignmentFunctionParameterLinter extends AutoFixingASTLinter
         return FunctionCallExpression::class;
     }
     /**
-     * @param array<int, EditableNode> $_parents
+     * @param array<int, Node> $_parents
      *
      * @return ASTLintError<FunctionCallExpression>|null
      */

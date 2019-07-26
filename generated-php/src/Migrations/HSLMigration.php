@@ -11,7 +11,7 @@ namespace Facebook\HHAST\Migrations;
 
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec, Math, Keyset};
-use Facebook\HHAST\{EditableNode, FunctionCallExpression, NameToken, NodeList, BinaryExpression, LiteralExpression, BooleanLiteralToken, NullLiteralToken, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, QualifiedName, Script, INamespaceUseDeclaration, NamespaceUseClause, NamespaceToken, ListItem, PrefixUnaryExpression, MinusToken, DecimalLiteralToken, LiteralExpression, ExpressionStatement, OctalLiteralToken, CommaToken, WhiteSpace, BackslashToken, MarkupSection, NamespaceDeclaration, NamespaceEmptyBody, NamespaceBody};
+use Facebook\HHAST\{Node, FunctionCallExpression, NameToken, NodeList, BinaryExpression, LiteralExpression, BooleanLiteralToken, NullLiteralToken, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, QualifiedName, Script, INamespaceUseDeclaration, NamespaceUseClause, NamespaceToken, ListItem, PrefixUnaryExpression, MinusToken, DecimalLiteralToken, LiteralExpression, ExpressionStatement, OctalLiteralToken, CommaToken, WhiteSpace, BackslashToken, MarkupSection, NamespaceDeclaration, NamespaceEmptyBody, NamespaceBody};
 use function Facebook\HHAST\__Private\find_type_for_node_async;
 /**
  * Generated enum class, do not extend
@@ -33,9 +33,9 @@ final class HSLMigration extends BaseMigration
      */
     const PHP_HSL_REPLACEMENTS = ['ucwords' => ['ns' => HslNamespace::STR, 'name' => 'capitalize_words'], 'ucfirst' => ['ns' => HslNamespace::STR, 'name' => 'capitalize'], 'strtolower' => ['ns' => HslNamespace::STR, 'name' => 'lowercase'], 'strtoupper' => ['ns' => HslNamespace::STR, 'name' => 'uppercase'], 'str_replace' => ['ns' => HslNamespace::STR, 'name' => 'replace', 'argument_order' => [2, 0, 1]], 'str_ireplace' => ['ns' => HslNamespace::STR, 'name' => 'replace_ci', 'argument_order' => [2, 0, 1]], 'strpos' => ['ns' => HslNamespace::STR, 'name' => 'search', 'replace_false_with_null' => true], 'stripos' => ['ns' => HslNamespace::STR, 'name' => 'search_ci', 'replace_false_with_null' => true], 'strrpos' => ['ns' => HslNamespace::STR, 'name' => 'search_last', 'replace_false_with_null' => true], 'implode' => ['ns' => HslNamespace::STR, 'name' => 'join', 'argument_order' => [1, 0]], 'join' => ['ns' => HslNamespace::STR, 'name' => 'join', 'argument_order' => [1, 0]], 'substr_replace' => ['ns' => HslNamespace::STR, 'name' => 'splice', 'has_overrides' => true], 'substr' => ['ns' => HslNamespace::STR, 'name' => 'slice', 'has_overrides' => true], 'str_repeat' => ['ns' => HslNamespace::STR, 'name' => 'repeat'], 'trim' => ['ns' => HslNamespace::STR, 'name' => 'trim'], 'ltrim' => ['ns' => HslNamespace::STR, 'name' => 'trim_left'], 'rtrim' => ['ns' => HslNamespace::STR, 'name' => 'trim_right'], 'strlen' => ['ns' => HslNamespace::STR, 'name' => 'length'], 'sprintf' => ['ns' => HslNamespace::STR, 'name' => 'format'], 'str_split' => ['ns' => HslNamespace::STR, 'name' => 'chunk'], 'strcmp' => ['ns' => HslNamespace::STR, 'name' => 'compare'], 'strcasecmp' => ['ns' => HslNamespace::STR, 'name' => 'compare_ci'], 'number_format' => ['ns' => HslNamespace::STR, 'name' => 'format_number'], 'round' => ['ns' => HslNamespace::MATH, 'name' => 'round', 'has_overrides' => true], 'ceil' => ['ns' => HslNamespace::MATH, 'name' => 'ceil'], 'floor' => ['ns' => HslNamespace::MATH, 'name' => 'floor'], 'array_sum' => ['ns' => HslNamespace::MATH, 'name' => 'sum'], 'intdiv' => ['ns' => HslNamespace::MATH, 'name' => 'int_div'], 'exp' => ['ns' => HslNamespace::MATH, 'name' => 'exp'], 'abs' => ['ns' => HslNamespace::MATH, 'name' => 'abs'], 'base_convert' => ['ns' => HslNamespace::MATH, 'name' => 'base_convert'], 'cos' => ['ns' => HslNamespace::MATH, 'name' => 'cos'], 'sin' => ['ns' => HslNamespace::MATH, 'name' => 'sin'], 'tan' => ['ns' => HslNamespace::MATH, 'name' => 'tan'], 'sqrt' => ['ns' => HslNamespace::MATH, 'name' => 'sqrt'], 'log' => ['ns' => HslNamespace::MATH, 'name' => 'log'], 'min' => ['ns' => HslNamespace::MATH, 'name' => 'min', 'has_overrides' => true], 'max' => ['ns' => HslNamespace::MATH, 'name' => 'max', 'has_overrides' => true], 'count' => ['ns' => HslNamespace::C, 'name' => 'count', 'argument_order' => [0]]];
     /**
-     * @return EditableNode
+     * @return Node
      */
-    public function migrateFile(string $path, EditableNode $root)
+    public function migrateFile(string $path, Node $root)
     {
         // find all the function calls
         $nodes = $root->getDescendantsOfType(FunctionCallExpression::class);
@@ -120,7 +120,7 @@ final class HSLMigration extends BaseMigration
     /**
      * @return null|int
      */
-    protected function resolveIntegerArgument(EditableNode $node)
+    protected function resolveIntegerArgument(Node $node)
     {
         if ($node instanceof LiteralExpression) {
             $expr = $node->getExpression();
@@ -146,7 +146,7 @@ final class HSLMigration extends BaseMigration
      *
      * @return \Amp\Promise<array{0:null|FunctionCallExpression, 1:array<HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC, HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC>}>
      */
-    protected function maybeMutateArgumentsAsync(EditableNode $root, FunctionCallExpression $node, ?array $argument_order, string $path, array $found_namespaces)
+    protected function maybeMutateArgumentsAsync(Node $root, FunctionCallExpression $node, ?array $argument_order, string $path, array $found_namespaces)
     {
         return \Amp\call(
             /** @return \Generator<int, mixed, void, array{0:null|FunctionCallExpression, 1:array<HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC, HslNamespace::C|HslNamespace::DICT|HslNamespace::KEYSET|HslNamespace::MATH|HslNamespace::STR|HslNamespace::VEC>}> */
@@ -265,9 +265,9 @@ final class HSLMigration extends BaseMigration
     // many PHP functions can return false, and their HSL counterparts return null instead
     // this will replace false with null in binary expressions like === false and !=== false
     /**
-     * @return EditableNode
+     * @return Node
      */
-    protected function maybeChangeFalseToNull(EditableNode $root, FunctionCallExpression $node)
+    protected function maybeChangeFalseToNull(Node $root, FunctionCallExpression $node)
     {
         $parents = null;
         $found = false;
@@ -430,7 +430,7 @@ final class HSLMigration extends BaseMigration
         return $node->replace($receiver, $new_receiver);
     }
     /**
-     * @template T as EditableNode
+     * @template T as Node
      *
      * @param T::class $expected
      *

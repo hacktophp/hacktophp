@@ -13,7 +13,7 @@ use Facebook\HHAST\Node;
 use function Facebook\HHAST\find_position;
 use HH\Lib\Str;
 /**
- * @template Tnode as EditableNode
+ * @template Tnode as Node
  */
 class ASTLintError extends LintError
 {

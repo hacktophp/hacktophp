@@ -11,7 +11,7 @@ namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\{find_node_at_position, Missing};
 
-use Facebook\HHAST\{AmpersandToken, NodeList, EditableNode};
+use Facebook\HHAST\{AmpersandToken, NodeList, Node};
 use HH\Lib\{C, Vec};
 final class CallTimePassByReferenceMigration extends BaseMigration
 {
@@ -30,9 +30,9 @@ final class CallTimePassByReferenceMigration extends BaseMigration
         return C\firstx($error['message'])['code'] === self::ERROR_CODE;
     }
     /**
-     * @return EditableNode
+     * @return Node
      */
-    public function migrateFile(string $path, EditableNode $root)
+    public function migrateFile(string $path, Node $root)
     {
         $nodes = \array_map(function ($error) use($root) {
             return find_node_at_position($root, $error['line'], $error['start']);

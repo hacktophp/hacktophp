@@ -9,13 +9,13 @@
  */
 namespace Facebook\HHAST\__Private\Resolution;
 
-use Facebook\HHAST\{EditableNode, NamespaceDeclaration, NamespaceEmptyBody, Script};
+use Facebook\HHAST\{Node, NamespaceDeclaration, NamespaceEmptyBody, Script};
 use Facebook\TypeAssert;
 use HH\Lib\{C, Str, Vec};
 /**
- * @param array<int, EditableNode> $parents
+ * @param array<int, Node> $parents
  */
-function get_current_namespace(EditableNode $_node, array $parents) : ?string
+function get_current_namespace(Node $_node, array $parents) : ?string
 {
     $parents = (array) $parents;
     $namespaces = \array_filter($parents, function ($parent) {

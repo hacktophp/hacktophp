@@ -8,7 +8,7 @@ namespace Facebook\HHAST;
 
 use Facebook\TypeAssert;
 use HH\Lib\Dict;
-final class ArrayCreationExpression extends Node implements IPHPArray, IContainer, ILambdaBody, IExpression
+final class ArrayCreationExpression extends Node implements IPHPArray, ILambdaBody
 {
     /**
      * @var string

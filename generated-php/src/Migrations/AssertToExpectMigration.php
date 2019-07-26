@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\Missing;
-use Facebook\HHAST\{BackslashToken, CommaToken, DelimitedComment, NodeList, EditableNode, FunctionCallExpression, FunctionToken, LeftParenToken, ListItem, MemberSelectionExpression, MinusGreaterThanToken, NamespaceDeclaration, NamespaceEmptyBody, NamespaceUseDeclaration, NameToken, QualifiedName, RightParenToken, ScopeResolutionExpression, SemicolonToken, UseToken, VariableExpression, VariableToken, WhiteSpace};
+use Facebook\HHAST\{BackslashToken, CommaToken, DelimitedComment, NodeList, Node, FunctionCallExpression, FunctionToken, LeftParenToken, ListItem, MemberSelectionExpression, MinusGreaterThanToken, NamespaceDeclaration, NamespaceEmptyBody, NamespaceUseDeclaration, NameToken, QualifiedName, RightParenToken, ScopeResolutionExpression, SemicolonToken, UseToken, VariableExpression, VariableToken, WhiteSpace};
 use HH\Lib\{Str, Vec, C};
 final class AssertToExpectMigration extends StepBasedMigration
 {
@@ -90,7 +90,7 @@ final class AssertToExpectMigration extends StepBasedMigration
         return $node->insertAfter($body->getFirstTokenx(), $expectFunction->insertBefore($expectFunction->getFirstTokenx(), new WhiteSpace("\t")));
     }
     /**
-     * @return EditableNode
+     * @return Node
      */
     private function addExpectAfterComment(DelimitedComment $node)
     {
@@ -171,7 +171,7 @@ final class AssertToExpectMigration extends StepBasedMigration
             return new TypedMigrationStep($name, NamespaceDeclaration::class, NamespaceDeclaration::class, $impl);
         };
         $make_step_add_comment = function ($name, $impl) {
-            return new TypedMigrationStep($name, DelimitedComment::class, EditableNode::class, $impl);
+            return new TypedMigrationStep($name, DelimitedComment::class, Node::class, $impl);
         };
         $make_step_expect = function ($name, $impl) {
             return new TypedMigrationStep($name, FunctionCallExpression::class, FunctionCallExpression::class, $impl);
@@ -193,11 +193,11 @@ final class AssertToExpectMigration extends StepBasedMigration
         })];
     }
     /**
-     * @param NodeList<EditableNode> $args
+     * @param NodeList<Node> $args
      *
      * @return FunctionCallExpression
      */
-    private static function getNewNode(FunctionCallExpression $node, EditableNode $actual, NodeList $args, string $funcName)
+    private static function getNewNode(FunctionCallExpression $node, Node $actual, NodeList $args, string $funcName)
     {
         $rec = $node->getReceiver();
         $leading = Missing();

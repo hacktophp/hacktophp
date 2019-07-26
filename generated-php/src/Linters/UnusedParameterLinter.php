@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{CompoundStatement, EditableNode, FunctionDeclaration, IFunctionishDeclaration, MethodishDeclaration, ParameterDeclaration, SemicolonToken, VariableToken};
+use Facebook\HHAST\{CompoundStatement, Node, FunctionDeclaration, IFunctionishDeclaration, MethodishDeclaration, ParameterDeclaration, SemicolonToken, VariableToken};
 use HH\Lib\{C, Str};
 /**
  * @template-extends AutoFixingASTLinter<ParameterDeclaration>
@@ -24,7 +24,7 @@ final class UnusedParameterLinter extends AutoFixingASTLinter
         return ParameterDeclaration::class;
     }
     /**
-     * @param array<int, EditableNode> $parents
+     * @param array<int, Node> $parents
      *
      * @return ASTLintError<ParameterDeclaration>|null
      */

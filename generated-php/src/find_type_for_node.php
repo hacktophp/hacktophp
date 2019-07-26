@@ -16,7 +16,7 @@ use Facebook\HHAST\Node;
 /**
  * @return \Amp\Promise<null|string>
  */
-function find_type_for_node_async(EditableNode $root, EditableNode $node, string $path) : \Amp\Promise
+function find_type_for_node_async(Node $root, Node $node, string $path) : \Amp\Promise
 {
     return \Amp\call(
         /** @return \Generator<int, mixed, void, null|string> */

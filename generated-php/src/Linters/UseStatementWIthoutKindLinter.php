@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{EditableNode, INamespaceUseDeclaration, NamespaceToken, NameToken, TypeToken, QualifiedName};
+use Facebook\HHAST\{Node, INamespaceUseDeclaration, NamespaceToken, NameToken, TypeToken, QualifiedName};
 use Facebook\HHAST;
 use HH\Lib\{C, Keyset};
 /**
@@ -25,7 +25,7 @@ final class UseStatementWithoutKindLinter extends AutoFixingASTLinter
         return INamespaceUseDeclaration::class;
     }
     /**
-     * @param array<int, EditableNode> $_context
+     * @param array<int, Node> $_context
      *
      * @return ASTLintError<INamespaceUseDeclaration>|null
      */

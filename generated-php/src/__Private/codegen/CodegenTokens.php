@@ -19,7 +19,7 @@ final class CodegenTokens extends CodegenBase
     private function getTokenSpecs()
     {
         $tokens = $this->getSchemaTokens();
-        $leading_trailing = [['name' => 'leading', 'type' => 'EditableNode', 'override' => true], ['name' => 'trailing', 'type' => 'EditableNode', 'override' => true]];
+        $leading_trailing = [['name' => 'leading', 'type' => 'Node', 'override' => true], ['name' => 'trailing', 'type' => 'Node', 'override' => true]];
         $no_text = \array_map(function ($token) use($leading_trailing) {
             return ['kind' => $token['token_kind'], 'description' => $token['token_kind'], 'text' => '', 'fields' => $leading_trailing];
         }, $tokens['noText']);
@@ -130,7 +130,7 @@ final class CodegenTokens extends CodegenBase
     private function generateRewriteChildrenMethod($token)
     {
         $cg = $this->getCodegenFactory();
-        return $cg->codegenMethod('rewriteDescendants')->setIsOverride()->addParameter('self::TRewriter $rewriter')->addParameter('?vec<EditableNode> $parents = null')->setReturnType('this')->setBody($cg->codegenHackBuilder()->addLine('$parents = $parents === null ? vec[] : vec($parents);')->addLine('$parents[] = $this;')->addLines(\array_map(function ($field) {
+        return $cg->codegenMethod('rewriteDescendants')->setIsOverride()->addParameter('self::TRewriter $rewriter')->addParameter('?vec<Node> $parents = null')->setReturnType('this')->setBody($cg->codegenHackBuilder()->addLine('$parents = $parents === null ? vec[] : vec($parents);')->addLine('$parents[] = $this;')->addLines(\array_map(function ($field) {
             return $field['type'] === 'string' ? Str\format('$%s = $this->get%s();', $field['name'], StrP\upper_camel($field['name'])) : Str\format('$%s = $this->get%s()->rewrite($rewriter, $parents);', $field['name'], StrP\upper_camel($field['name']));
         }, $token['fields']))->addLine('if (')->indent()->addLines((function ($lines) use($idx) {
             $idx = C\last_keyx($lines);

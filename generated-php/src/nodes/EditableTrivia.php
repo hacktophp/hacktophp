@@ -10,7 +10,7 @@
 namespace Facebook\HHAST;
 
 use HH\Lib\Str;
-abstract class EditableTrivia extends EditableNode
+abstract class EditableTrivia extends Node
 {
     /**
      * @var string
@@ -50,7 +50,7 @@ abstract class EditableTrivia extends EditableNode
         return true;
     }
     /**
-     * @return array<string, EditableNode>
+     * @return array<string, Node>
      */
     public function getChildren()
     {
@@ -67,7 +67,7 @@ abstract class EditableTrivia extends EditableNode
     }
     /**
      * @param mixed $_rewriter
-     * @param array<int, EditableNode>|null $_parents
+     * @param array<int, Node>|null $_parents
      *
      * @return static
      */

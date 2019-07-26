@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{CompoundStatement, NodeList, EditableNode, Token, ElseClause, ElseifClause, EndOfLine, ForeachStatement, IfStatement, LeftBraceToken, IControlFlowStatement, RightBraceToken, WhileStatement, WhiteSpace};
+use Facebook\HHAST\{CompoundStatement, NodeList, Node, Token, ElseClause, ElseifClause, EndOfLine, ForeachStatement, IfStatement, LeftBraceToken, IControlFlowStatement, RightBraceToken, WhileStatement, WhiteSpace};
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec};
 /**
@@ -25,7 +25,7 @@ class MustUseBracesForControlFlowLinter extends AutoFixingASTLinter
         return IControlFlowStatement::class;
     }
     /**
-     * @param array<int, EditableNode> $_parents
+     * @param array<int, Node> $_parents
      *
      * @return ASTLintError<IControlFlowStatement>|null
      */
@@ -45,9 +45,9 @@ class MustUseBracesForControlFlowLinter extends AutoFixingASTLinter
         return new ASTLintError($this, Str\format('%s without braces', Str\replace($node->getSyntaxKind(), '_', ' ')), $node);
     }
     /**
-     * @return null|EditableNode
+     * @return null|Node
      */
-    private function getBody(EditableNode $node)
+    private function getBody(Node $node)
     {
         if ($node instanceof IfStatement) {
             return $node->getStatement();
@@ -69,7 +69,7 @@ class MustUseBracesForControlFlowLinter extends AutoFixingASTLinter
     /**
      * @return Token
      */
-    private function getLastHeadToken(EditableNode $node)
+    private function getLastHeadToken(Node $node)
     {
         if ($node instanceof IfStatement) {
             $paren = $node->getRightParen();

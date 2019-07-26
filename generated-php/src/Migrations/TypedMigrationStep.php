@@ -11,8 +11,8 @@ namespace Facebook\HHAST\Migrations;
 
 use Facebook\HHAST\Node;
 /**
- * @template Tin as EditableNode
- * @template Tout as EditableNode
+ * @template Tin as Node
+ * @template Tout as Node
  */
 final class TypedMigrationStep implements IMigrationStep
 {
@@ -47,9 +47,9 @@ final class TypedMigrationStep implements IMigrationStep
         return $this->name;
     }
     /**
-     * @return EditableNode
+     * @return Node
      */
-    public function rewrite(EditableNode $node)
+    public function rewrite(Node $node)
     {
         if (!$node instanceof $this->tin) {
             return $node;

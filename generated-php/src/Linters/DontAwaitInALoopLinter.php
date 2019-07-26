@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\Linters;
 
 use HH\Lib\{C, Vec, Str};
-use Facebook\HHAST\{AnonymousFunction, AwaitableCreationExpression, AwaitToken, EditableNode, ILoopStatement, LambdaExpression, PrefixUnaryExpression};
+use Facebook\HHAST\{AnonymousFunction, AwaitableCreationExpression, AwaitToken, Node, ILoopStatement, LambdaExpression, PrefixUnaryExpression};
 use function Facebook\HHAST\find_position;
 /**
  * @template-extends ASTLinter<PrefixUnaryExpression>
@@ -25,7 +25,7 @@ final class DontAwaitInALoopLinter extends ASTLinter
         return PrefixUnaryExpression::class;
     }
     /**
-     * @param array<int, EditableNode> $parents
+     * @param array<int, Node> $parents
      *
      * @return ASTLintError<PrefixUnaryExpression>|null
      */
@@ -52,7 +52,7 @@ final class DontAwaitInALoopLinter extends ASTLinter
     /**
      * @return bool
      */
-    private static function isAsyncBoundary(EditableNode $node)
+    private static function isAsyncBoundary(Node $node)
     {
         return $node instanceof AnonymousFunction || $node instanceof AwaitableCreationExpression || $node instanceof LambdaExpression;
     }

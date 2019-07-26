@@ -17,8 +17,8 @@ interface IMigrationStep
      */
     public function getName();
     /**
-     * @return EditableNode
+     * @return Node
      */
-    public function rewrite(EditableNode $in);
+    public function rewrite(Node $in);
 }
 

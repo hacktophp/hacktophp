@@ -11,7 +11,7 @@ namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\find_node_at_position;
 
-use Facebook\HHAST\{NodeList, EditableNode, FixMe, Missing, WhiteSpace};
+use Facebook\HHAST\{NodeList, Node, FixMe, Missing, WhiteSpace};
 use HH\Lib\{C, Dict, Keyset, Str, Vec};
 final class AddFixMesMigration extends BaseMigration
 {
@@ -26,9 +26,9 @@ final class AddFixMesMigration extends BaseMigration
         return true;
     }
     /**
-     * @return EditableNode
+     * @return Node
      */
-    public function migrateFile(string $path, EditableNode $root)
+    public function migrateFile(string $path, Node $root)
     {
         $errors_by_position = Dict\group_by(\array_map(function ($error) {
             return C\firstx($error['message']);

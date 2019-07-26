@@ -28,8 +28,8 @@ abstract class BaseMigration
         return $this->root;
     }
     /**
-     * @return EditableNode
+     * @return Node
      */
-    public abstract function migrateFile(string $path, EditableNode $ast);
+    public abstract function migrateFile(string $path, Node $ast);
 }
 

@@ -49,12 +49,12 @@ final class CodegenSyntax extends CodegenBase
         if ($is_abstract) {
             $class_name .= 'GeneratedBase';
         }
-        return $cg->codegenClass($class_name)->addEmptyUserAttribute('__ConsistentConstruct')->setIsFinal(!$is_abstract)->setIsAbstract($is_abstract)->setExtends('EditableNode')->setInterfaces(\array_map(function ($if) use($cg) {
+        return $cg->codegenClass($class_name)->addEmptyUserAttribute('__ConsistentConstruct')->setIsFinal(!$is_abstract)->setIsAbstract($is_abstract)->setExtends('Node')->setInterfaces(\array_map(function ($if) use($cg) {
             return $cg->codegenImplementsInterface($if);
         }, self::getMarkerInterfaces()[$syntax['kind_name']] ?? []))->setConstructor($this->generateConstructor($syntax))->addMethod($this->generateFromJSONMethod($syntax))->addMethod($this->generateChildrenMethod($syntax))->addMethod($this->generateRewriteChildrenMethod($syntax))->addMethods(Vec\flatten(\array_map(function ($field) use($syntax) {
             return $this->generateFieldMethods($syntax, $field['field_name']);
         }, $syntax['fields'])))->addProperties(\array_map(function ($field) use($cg) {
-            return $cg->codegenProperty('_' . $field['field_name'])->setType('EditableNode');
+            return $cg->codegenProperty('_' . $field['field_name'])->setType('Node');
         }, $syntax['fields']));
     }
     /**
@@ -66,7 +66,7 @@ final class CodegenSyntax extends CodegenBase
     {
         unset($types['']);
         if (C\is_empty($types)) {
-            return 'EditableNode';
+            return 'Node';
         }
         if (C\contains_key($types, 'missing')) {
             unset($types['missing']);
@@ -75,7 +75,7 @@ final class CodegenSyntax extends CodegenBase
         if (\count($types) === 1) {
             $type = C\onlyx($types);
             if ($type === 'list<>') {
-                return 'NodeList<EditableNode>';
+                return 'NodeList<Node>';
             }
             return $this->getSyntaxClass($type);
         }
@@ -90,7 +90,7 @@ final class CodegenSyntax extends CodegenBase
             $have_empty = C\contains_key($types, 'list<>');
             if ($have_empty) {
                 if (\count($types) === 1) {
-                    return 'NodeList<EditableNode>';
+                    return 'NodeList<Node>';
                 }
                 unset($types['list<>']);
             }
@@ -98,7 +98,7 @@ final class CodegenSyntax extends CodegenBase
                 return \explode('|', Str\strip_suffix(Str\strip_prefix($t, 'list<'), '>'));
             }, $types))) . '>';
         }
-        return 'EditableNode';
+        return 'Node';
     }
     /**
      * @param array{kind_name:string, type_name:string, description:string, prefix:string, fields:iterable<mixed, array{field_name:string}>} $syntax
@@ -111,8 +111,8 @@ final class CodegenSyntax extends CodegenBase
         $upper_camel = StrP\upper_camel($underscored);
         $types = $spec['possibleTypes'];
         $cg = $this->getCodegenFactory();
-        (yield $cg->codegenMethodf('get%sUNTYPED', $upper_camel)->setReturnType('EditableNode')->setBodyf('return $this->_%s;', $underscored));
-        (yield $cg->codegenMethodf('with%s', $upper_camel)->setReturnType('this')->addParameter('EditableNode $value')->setBody($cg->codegenHackBuilder()->startIfBlockf('$value === $this->_%s', $underscored)->addReturnf('$this')->endIfBlock()->add('return new ')->addMultilineCall('static', \array_map(function ($inner) use($underscored) {
+        (yield $cg->codegenMethodf('get%sUNTYPED', $upper_camel)->setReturnType('Node')->setBodyf('return $this->_%s;', $underscored));
+        (yield $cg->codegenMethodf('with%s', $upper_camel)->setReturnType('this')->addParameter('Node $value')->setBody($cg->codegenHackBuilder()->startIfBlockf('$value === $this->_%s', $underscored)->addReturnf('$this')->endIfBlock()->add('return new ')->addMultilineCall('static', \array_map(function ($inner) use($underscored) {
             return $inner['field_name'] === $underscored ? '$value' : '$this->_' . $inner['field_name'];
         }, $syntax['fields']))->getCode()));
         (yield $cg->codegenMethodf('has%s', $upper_camel)->setReturnType('bool')->setBodyf('return !$this->_%s->isMissing();', $underscored));
@@ -140,7 +140,7 @@ final class CodegenSyntax extends CodegenBase
     {
         $cg = $this->getCodegenFactory();
         return $cg->codegenConstructor()->addParameters(\array_map(function ($field) {
-            return 'EditableNode $' . $field['field_name'];
+            return 'Node $' . $field['field_name'];
         }, $syntax['fields']))->setBody($cg->codegenHackBuilder()->addLinef('parent::__construct(%s);', \var_export($syntax['type_name'], true))->addLines(\array_map(function ($field) {
             return Str\format('$this->_%s = $%s;', $field['field_name'], $field['field_name']);
         }, $syntax['fields']))->getCode());
@@ -155,7 +155,7 @@ final class CodegenSyntax extends CodegenBase
         $cg = $this->getCodegenFactory();
         $body = $cg->codegenHackBuilder();
         foreach ($syntax['fields'] as $field) {
-            $body->addf('$%s = ', $field['field_name'])->addMultilineCall('EditableNode::fromJSON', [Str\format('/* UNSAFE_EXPR */ $json[\'%s_%s\']', $syntax['prefix'], $field['field_name']), '$file', '$offset', '$source'])->addLinef('$offset += $%s->getWidth();', $field['field_name']);
+            $body->addf('$%s = ', $field['field_name'])->addMultilineCall('Node::fromJSON', [Str\format('/* UNSAFE_EXPR */ $json[\'%s_%s\']', $syntax['prefix'], $field['field_name']), '$file', '$offset', '$source'])->addLinef('$offset += $%s->getWidth();', $field['field_name']);
         }
         return $cg->codegenMethod('fromJSON')->setIsOverride()->setIsStatic()->addParameter('dict<string, mixed> $json')->addParameter('string $file')->addParameter('int $offset')->addParameter('string $source')->setReturnType('this')->setBody($body->addMultilineCall('return new static', \array_map(function ($field) {
             return '$' . $field['field_name'];
@@ -169,7 +169,7 @@ final class CodegenSyntax extends CodegenBase
     private function generateChildrenMethod(array $syntax)
     {
         $cg = $this->getCodegenFactory();
-        return $cg->codegenMethod('getChildren')->setIsOverride()->setReturnType('dict<string, EditableNode>')->setBody($cg->codegenHackBuilder()->add('return ')->addValue(Dict\pull(\array_map(function ($field) {
+        return $cg->codegenMethod('getChildren')->setIsOverride()->setReturnType('dict<string, Node>')->setBody($cg->codegenHackBuilder()->add('return ')->addValue(Dict\pull(\array_map(function ($field) {
             return $field['field_name'];
         }, $syntax['fields']), function ($field) {
             return '$this->_' . $field;
@@ -188,7 +188,7 @@ final class CodegenSyntax extends CodegenBase
         $fields = \array_map(function ($field) {
             return $field['field_name'];
         }, $syntax['fields']);
-        return $cg->codegenMethod('rewriteDescendants')->setIsOverride()->addParameter('self::TRewriter $rewriter')->addParameter('?vec<EditableNode> $parents = null')->setReturnType('this')->setBody($cg->codegenHackBuilder()->addLine('$parents = $parents === null ? vec[] : vec($parents);')->addLine('$parents[] = $this;')->addLines(\array_map(function ($field) {
+        return $cg->codegenMethod('rewriteDescendants')->setIsOverride()->addParameter('self::TRewriter $rewriter')->addParameter('?vec<Node> $parents = null')->setReturnType('this')->setBody($cg->codegenHackBuilder()->addLine('$parents = $parents === null ? vec[] : vec($parents);')->addLine('$parents[] = $this;')->addLines(\array_map(function ($field) {
             return Str\format('$%s = $this->_%s->rewrite($rewriter, $parents);', $field, $field);
         }, $fields))->addLine('if (')->indent()->addLines((function ($lines) use($idx) {
             $idx = C\last_keyx($lines);
@@ -210,7 +210,7 @@ final class CodegenSyntax extends CodegenBase
         $key = Str\format('%s.%s_%s', $syntax['description'], $syntax['prefix'], $field);
         $specs = $this->getRelationships();
         if (!C\contains_key($specs, $key)) {
-            return ['class' => 'EditableNode', 'nullable' => false, 'possibleTypes' => ['unknown' => 'unknown']];
+            return ['class' => 'Node', 'nullable' => false, 'possibleTypes' => ['unknown' => 'unknown']];
         }
         $children = Keyset\filter($specs[$key], function ($c) {
             return $c !== 'error';
@@ -235,7 +235,7 @@ final class CodegenSyntax extends CodegenBase
             return 'Token';
         }
         if ($child === 'list<>') {
-            return 'NodeList<EditableNode>';
+            return 'NodeList<Node>';
         }
         if (Str\starts_with_ci($child, 'list<')) {
             return 'NodeList<' . $this->getUnifiedSyntaxClass((array) \explode('|', Str\strip_suffix(Str\strip_prefix($child, 'list<'), '>'))) . '>';

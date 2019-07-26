@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ExpressionStatement, Token, EditableNode, NodeList};
+use Facebook\HHAST\{ExpressionStatement, Token, Node, NodeList};
 use Facebook\HHAST;
 /**
  * @template-extends AutoFixingASTLinter<ExpressionStatement>
@@ -31,7 +31,7 @@ final class NoEmptyStatementsLinter extends AutoFixingASTLinter
         return 'Remove statement';
     }
     /**
-     * @param array<int, EditableNode> $_parents
+     * @param array<int, Node> $_parents
      *
      * @return ASTLintError<ExpressionStatement>|null
      */
@@ -47,7 +47,7 @@ final class NoEmptyStatementsLinter extends AutoFixingASTLinter
         return null;
     }
     /**
-     * @return EditableNode
+     * @return Node
      */
     public function getFixedNode(ExpressionStatement $stmt)
     {
@@ -66,7 +66,7 @@ final class NoEmptyStatementsLinter extends AutoFixingASTLinter
     /**
      * @return bool
      */
-    private function isEmptyExpression(EditableNode $expr)
+    private function isEmptyExpression(Node $expr)
     {
         return $expr instanceof HHAST\ArrayCreationExpression || $expr instanceof HHAST\AnonymousFunction || $expr instanceof HHAST\BinaryExpression && $this->isOperatorWithoutSideEffects($expr->getOperator()) || $expr instanceof HHAST\CastExpression || $expr instanceof HHAST\CollectionLiteralExpression || $expr instanceof HHAST\DarrayIntrinsicExpression || $expr instanceof HHAST\DictionaryIntrinsicExpression || $expr instanceof HHAST\EmptyExpression || $expr instanceof HHAST\InstanceofExpression || $expr instanceof HHAST\IsExpression || $expr instanceof HHAST\IssetExpression || $expr instanceof HHAST\KeysetIntrinsicExpression || $expr instanceof HHAST\LambdaExpression || $expr instanceof HHAST\LiteralExpression && !$expr->getExpression() instanceof HHAST\ExecutionStringLiteralToken || $expr instanceof HHAST\Missing || $expr instanceof HHAST\ParenthesizedExpression && $this->isEmptyExpression($expr->getExpression()) || $expr instanceof HHAST\SubscriptExpression || $expr instanceof HHAST\VectorIntrinsicExpression || $expr instanceof HHAST\VariableExpression || $expr instanceof HHAST\VarrayIntrinsicExpression;
     }

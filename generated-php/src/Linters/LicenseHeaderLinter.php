@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{DelimitedComment, NodeList, EditableNode, EndOfFile, EndOfLine, Script};
+use Facebook\HHAST\{DelimitedComment, NodeList, Node, EndOfFile, EndOfLine, Script};
 use Facebook\TypeAssert;
 use HH\Lib\{C, Str, Vec};
 /**
@@ -25,7 +25,7 @@ final class LicenseHeaderLinter extends AutoFixingASTLinter
         return Script::class;
     }
     /**
-     * @param array<int, EditableNode> $_parents
+     * @param array<int, Node> $_parents
      *
      * @return ASTLintError<Script>|null
      */

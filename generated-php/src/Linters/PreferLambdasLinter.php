@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\Linters;
 
 use Facebook\HHAST\Linters\{ASTLintError, AutoFixingASTLinter};
-use Facebook\HHAST\{AmpersandToken, AnonymousFunction, EditableNode, EqualEqualGreaterThanToken, LambdaExpression, LambdaSignature, LeftParenToken, PrefixUnaryExpression, WhiteSpace};
+use Facebook\HHAST\{AmpersandToken, AnonymousFunction, Node, EqualEqualGreaterThanToken, LambdaExpression, LambdaSignature, LeftParenToken, PrefixUnaryExpression, WhiteSpace};
 use function Facebook\HHAST\Missing;
 use HH\Lib\C;
 /**
@@ -33,7 +33,7 @@ final class PreferLambdasLinter extends AutoFixingASTLinter
         return 'Convert to lambda';
     }
     /**
-     * @param array<int, EditableNode> $_parents
+     * @param array<int, Node> $_parents
      *
      * @return ASTLintError<AnonymousFunction>|null
      */
@@ -49,7 +49,7 @@ final class PreferLambdasLinter extends AutoFixingASTLinter
         return new ASTLintError($this, 'Use lambdas instead of PHP anonymous functions', $node);
     }
     /**
-     * @return null|EditableNode
+     * @return null|Node
      */
     public function getFixedNode(AnonymousFunction $node)
     {

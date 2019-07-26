@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ClassishDeclaration, EditableNode, FinalToken, AbstractToken, ClassToken};
+use Facebook\HHAST\{ClassishDeclaration, Node, FinalToken, AbstractToken, ClassToken};
 use Facebook\HHAST\Linters\{ASTLinter, ASTLintError};
 /*
  * This linter ensures we always qualify classes as final or abstract
@@ -27,7 +27,7 @@ final class FinalOrAbstractClassLinter extends ASTLinter
         return ClassishDeclaration::class;
     }
     /**
-     * @param array<int, EditableNode> $_parents
+     * @param array<int, Node> $_parents
      *
      * @return ASTLintError<ClassishDeclaration>|null
      */

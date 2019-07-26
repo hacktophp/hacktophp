@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{BackslashToken, EditableNode, INamespaceUseDeclaration, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, NamespaceUseClause};
+use Facebook\HHAST\{BackslashToken, Node, INamespaceUseDeclaration, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, NamespaceUseClause};
 /**
  * @template-extends AutoFixingASTLinter<INamespaceUseDeclaration>
  */
@@ -23,7 +23,7 @@ final class UseStatementWithLeadingBackslashLinter extends AutoFixingASTLinter
         return INamespaceUseDeclaration::class;
     }
     /**
-     * @param array<int, EditableNode> $_context
+     * @param array<int, Node> $_context
      *
      * @return ASTLintError<INamespaceUseDeclaration>|null
      */
