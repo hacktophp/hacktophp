@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{DelimitedComment, EditableList, EditableNode, EndOfFile, EndOfLine, Script};
+use Facebook\HHAST\{DelimitedComment, NodeList, EditableNode, EndOfFile, EndOfLine, Script};
 use Facebook\TypeAssert;
 use HH\Lib\{C, Str, Vec};
 /**
@@ -39,7 +39,7 @@ final class LicenseHeaderLinter extends AutoFixingASTLinter
             return null;
         }
         $leading = ($__tmp1__ = $first->getFirstToken()) !== null ? $__tmp1__->getLeading() : null;
-        if ($leading instanceof EditableList) {
+        if ($leading instanceof NodeList) {
             $leading = $leading->getItems()[0];
         }
         if ($leading instanceof DelimitedComment) {
@@ -54,7 +54,7 @@ final class LicenseHeaderLinter extends AutoFixingASTLinter
      */
     public function getPrettyTextForNode(Script $node)
     {
-        return EditableList::createNonEmptyListOrMissing(Vec\take($node->getDeclarations()->getItems(), 2))->getCode();
+        return NodeList::createNonEmptyListOrMissing(Vec\take($node->getDeclarations()->getItems(), 2))->getCode();
     }
     /**
      * @param ASTLintError<Script> $e
@@ -75,7 +75,7 @@ final class LicenseHeaderLinter extends AutoFixingASTLinter
     {
         $first = $node->getDeclarations()->getItems()[1]->getFirstTokenx();
         $leading = $first->getLeading();
-        if ($leading instanceof EditableList) {
+        if ($leading instanceof NodeList) {
             $leading = $leading->getItems();
         } else {
             if ($leading === null) {
@@ -95,10 +95,10 @@ final class LicenseHeaderLinter extends AutoFixingASTLinter
             if (!($next instanceof EndOfLine && $next_next instanceof EndOfLine)) {
                 $new[] = new EndOfLine("\n");
             }
-            return $node->replace($existing, EditableList::createNonEmptyListOrMissing($new));
+            return $node->replace($existing, NodeList::createNonEmptyListOrMissing($new));
         }
         $leading = \array_merge($leading, [new DelimitedComment(TypeAssert\not_null(self::getLicenseHeaderForPath(\dirname($this->getFile()->getPath())))), new EndOfLine("\n"), new EndOfLine("\n")]);
-        return $node->replace($first, $first->withLeading(EditableList::createNonEmptyListOrMissing($leading)));
+        return $node->replace($first, $first->withLeading(NodeList::createNonEmptyListOrMissing($leading)));
     }
     /**
      * @return bool

@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{EditableNode, EditableList, FunctionCallExpression, BinaryExpression, EqualToken, DelimitedComment, ListItem, CommaToken, WhiteSpace};
+use Facebook\HHAST\{EditableNode, NodeList, FunctionCallExpression, BinaryExpression, EqualToken, DelimitedComment, ListItem, CommaToken, WhiteSpace};
 use HH\Lib\C;
 /**
  * @template-extends AutoFixingASTLinter<FunctionCallExpression>
@@ -70,7 +70,7 @@ class NoBasicAssignmentFunctionParameterLinter extends AutoFixingASTLinter
                 }
             }
         }
-        return $node->replace($exps, new EditableList($fixed_exps));
+        return $node->replace($exps, new NodeList($fixed_exps));
     }
 }
 

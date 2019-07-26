@@ -25,7 +25,7 @@ class TryStatementTransformer
 		);
 	}
 
-	private static function transformCatches(HHAST\EditableList $node, Project $project, HackFile $file, Scope $scope) : array
+	private static function transformCatches(HHAST\NodeList $node, Project $project, HackFile $file, Scope $scope) : array
 	{
 		return array_map(
 			function(HHAST\CatchClause $node) use ($project, $file, $scope) {

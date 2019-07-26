@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{EditableList, EditableNode, EndOfLine, MarkupSuffix, SingleLineComment, WhiteSpace};
+use Facebook\HHAST\{NodeList, EditableNode, EndOfLine, MarkupSuffix, SingleLineComment, WhiteSpace};
 /**
  * @template-extends AutoFixingASTLinter<MarkupSuffix>
  */
@@ -56,7 +56,7 @@ class StrictModeOnlyLinter extends AutoFixingASTLinter
     {
         $name = $node->getName();
         invariant($name !== null, "Shouldn't be asked to fix a `<?hh`'");
-        return $node->withName($name->withTrailing(EditableList::createNonEmptyListOrMissing([new WhiteSpace(' '), new SingleLineComment('// strict'), new EndOfLine("\n")])));
+        return $node->withName($name->withTrailing(NodeList::createNonEmptyListOrMissing([new WhiteSpace(' '), new SingleLineComment('// strict'), new EndOfLine("\n")])));
     }
 }
 

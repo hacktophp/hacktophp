@@ -18,7 +18,7 @@ class SwitchStatementTransformer
 		);
 	}
 
-	private static function transformCases(HHAST\EditableList $node, Project $project, HackFile $file, Scope $scope) : array
+	private static function transformCases(HHAST\NodeList $node, Project $project, HackFile $file, Scope $scope) : array
 	{
 		$cases = [];
 

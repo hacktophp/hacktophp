@@ -75,7 +75,7 @@ final class CodegenSyntax extends CodegenBase
         if (\count($types) === 1) {
             $type = C\onlyx($types);
             if ($type === 'list<>') {
-                return 'EditableList<EditableNode>';
+                return 'NodeList<EditableNode>';
             }
             return $this->getSyntaxClass($type);
         }
@@ -90,11 +90,11 @@ final class CodegenSyntax extends CodegenBase
             $have_empty = C\contains_key($types, 'list<>');
             if ($have_empty) {
                 if (\count($types) === 1) {
-                    return 'EditableList<EditableNode>';
+                    return 'NodeList<EditableNode>';
                 }
                 unset($types['list<>']);
             }
-            return 'EditableList<' . $this->getUnifiedSyntaxClass(Keyset\flatten(\array_map(function ($t) {
+            return 'NodeList<' . $this->getUnifiedSyntaxClass(Keyset\flatten(\array_map(function ($t) {
                 return \explode('|', Str\strip_suffix(Str\strip_prefix($t, 'list<'), '>'));
             }, $types))) . '>';
         }
@@ -235,10 +235,10 @@ final class CodegenSyntax extends CodegenBase
             return 'Token';
         }
         if ($child === 'list<>') {
-            return 'EditableList<EditableNode>';
+            return 'NodeList<EditableNode>';
         }
         if (Str\starts_with_ci($child, 'list<')) {
-            return 'EditableList<' . $this->getUnifiedSyntaxClass((array) \explode('|', Str\strip_suffix(Str\strip_prefix($child, 'list<'), '>'))) . '>';
+            return 'NodeList<' . $this->getUnifiedSyntaxClass((array) \explode('|', Str\strip_suffix(Str\strip_prefix($child, 'list<'), '>'))) . '>';
         }
         if (Str\starts_with($child, 'token')) {
             return $this->getTokenClassForChild($child);

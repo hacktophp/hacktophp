@@ -11,7 +11,7 @@ namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\{find_node_at_position, Missing};
 
-use Facebook\HHAST\{BackslashToken, EditableList, EditableNode};
+use Facebook\HHAST\{BackslashToken, NodeList, EditableNode};
 use function Facebook\HHAST\__Private\execute_async;
 use Facebook\TypeAssert;
 use HH\Lib\{C, Str, Vec};
@@ -49,7 +49,7 @@ final class NamespaceFallbackMigration extends BaseMigration
             if (!(\function_exists($name) || \defined($name) || self::isTypecheckerAware($name, $path))) {
                 continue;
             }
-            $root = $root->replace($node, EditableList::createNonEmptyListOrMissing([new BackslashToken($node->getLeading(), Missing()), $node->withLeading(Missing())]));
+            $root = $root->replace($node, NodeList::createNonEmptyListOrMissing([new BackslashToken($node->getLeading(), Missing()), $node->withLeading(Missing())]));
         }
         return $root;
     }

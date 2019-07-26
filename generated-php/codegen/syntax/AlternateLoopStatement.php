@@ -145,20 +145,20 @@ abstract class AlternateLoopStatementGeneratedBase extends EditableNode implemen
         return !$this->_statements->isMissing();
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     public function getStatements()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_statements);
+        return TypeAssert\instance_of(NodeList::class, $this->_statements);
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     public function getStatementsx()
     {

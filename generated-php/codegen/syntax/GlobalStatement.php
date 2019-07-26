@@ -137,20 +137,20 @@ final class GlobalStatement extends EditableNode
         return !$this->_variables->isMissing();
     }
     /**
-     * @return EditableList<PrefixUnaryExpression> | EditableList<VariableToken>
+     * @return NodeList<PrefixUnaryExpression> | NodeList<VariableToken>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     public function getVariables()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_variables);
+        return TypeAssert\instance_of(NodeList::class, $this->_variables);
     }
     /**
-     * @return EditableList<PrefixUnaryExpression> | EditableList<VariableToken>
+     * @return NodeList<PrefixUnaryExpression> | NodeList<VariableToken>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     public function getVariablesx()
     {

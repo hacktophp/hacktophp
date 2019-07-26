@@ -11,7 +11,7 @@ namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\find_node_at_position;
 
-use Facebook\HHAST\{EditableList, EditableNode, FixMe, Missing, WhiteSpace};
+use Facebook\HHAST\{NodeList, EditableNode, FixMe, Missing, WhiteSpace};
 use HH\Lib\{C, Dict, Keyset, Str, Vec};
 final class AddFixMesMigration extends BaseMigration
 {
@@ -54,12 +54,12 @@ final class AddFixMesMigration extends BaseMigration
             $node = find_node_at_position($root, $line, $column)->getFirstTokenx();
             $leading = $node->getLeading();
             if ($leading instanceof Missing) {
-                $new_leading = EditableList::createNonEmptyListOrMissing($fixmes);
+                $new_leading = NodeList::createNonEmptyListOrMissing($fixmes);
             } else {
-                if ($leading instanceof EditableList) {
-                    $new_leading = EditableList::createNonEmptyListOrMissing(\array_merge($fixmes, $leading->getChildren()));
+                if ($leading instanceof NodeList) {
+                    $new_leading = NodeList::createNonEmptyListOrMissing(\array_merge($fixmes, $leading->getChildren()));
                 } else {
-                    $new_leading = EditableList::createNonEmptyListOrMissing(\array_merge($fixmes, [$leading]));
+                    $new_leading = NodeList::createNonEmptyListOrMissing(\array_merge($fixmes, [$leading]));
                 }
             }
             $column_offset += \strlen($new_leading->getCode()) - \strlen($leading->getCode());

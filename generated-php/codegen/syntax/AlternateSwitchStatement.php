@@ -353,20 +353,20 @@ final class AlternateSwitchStatement extends EditableNode implements IControlFlo
         return !$this->_sections->isMissing();
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     public function getSections()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_sections);
+        return TypeAssert\instance_of(NodeList::class, $this->_sections);
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     public function getSectionsx()
     {

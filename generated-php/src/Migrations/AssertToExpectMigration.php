@@ -10,7 +10,7 @@
 namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\Missing;
-use Facebook\HHAST\{BackslashToken, CommaToken, DelimitedComment, EditableList, EditableNode, FunctionCallExpression, FunctionToken, LeftParenToken, ListItem, MemberSelectionExpression, MinusGreaterThanToken, NamespaceDeclaration, NamespaceEmptyBody, NamespaceUseDeclaration, NameToken, QualifiedName, RightParenToken, ScopeResolutionExpression, SemicolonToken, UseToken, VariableExpression, VariableToken, WhiteSpace};
+use Facebook\HHAST\{BackslashToken, CommaToken, DelimitedComment, NodeList, EditableNode, FunctionCallExpression, FunctionToken, LeftParenToken, ListItem, MemberSelectionExpression, MinusGreaterThanToken, NamespaceDeclaration, NamespaceEmptyBody, NamespaceUseDeclaration, NameToken, QualifiedName, RightParenToken, ScopeResolutionExpression, SemicolonToken, UseToken, VariableExpression, VariableToken, WhiteSpace};
 use HH\Lib\{Str, Vec, C};
 final class AssertToExpectMigration extends StepBasedMigration
 {
@@ -31,7 +31,7 @@ final class AssertToExpectMigration extends StepBasedMigration
             return self::$expectFunction;
         }
         $sep = new BackslashToken(Missing(), Missing());
-        self::$expectFunction = new NamespaceUseDeclaration(new UseToken(Missing(), new WhiteSpace(' ')), new FunctionToken(Missing(), new WhiteSpace(' ')), new QualifiedName(new EditableList([new ListItem(new NameToken(Missing(), Missing(), 'Facebook'), $sep), new ListItem(new NameToken(Missing(), Missing(), 'FBExpect'), $sep), new ListItem(new NameToken(Missing(), Missing(), 'expect'), Missing())])), new SemicolonToken(Missing(), new WhiteSpace("\n")));
+        self::$expectFunction = new NamespaceUseDeclaration(new UseToken(Missing(), new WhiteSpace(' ')), new FunctionToken(Missing(), new WhiteSpace(' ')), new QualifiedName(new NodeList([new ListItem(new NameToken(Missing(), Missing(), 'Facebook'), $sep), new ListItem(new NameToken(Missing(), Missing(), 'FBExpect'), $sep), new ListItem(new NameToken(Missing(), Missing(), 'expect'), Missing())])), new SemicolonToken(Missing(), new WhiteSpace("\n")));
         return self::$expectFunction;
     }
     /**
@@ -100,7 +100,7 @@ final class AssertToExpectMigration extends StepBasedMigration
         $expectFunction = self::getExpectFunction();
         $this->useExpectFunctionNeeded = false;
         if (!Str\contains($node->getText(), "/**")) {
-            return EditableList::concat($node, $expectFunction->insertBefore($expectFunction->getFirstTokenx(), new WhiteSpace("\n\n"))->replace($expectFunction->getLastTokenx()->getTrailing(), new WhiteSpace('')));
+            return NodeList::concat($node, $expectFunction->insertBefore($expectFunction->getFirstTokenx(), new WhiteSpace("\n\n"))->replace($expectFunction->getLastTokenx()->getTrailing(), new WhiteSpace('')));
         }
         return $node;
     }
@@ -123,7 +123,7 @@ final class AssertToExpectMigration extends StepBasedMigration
             $actual = $actual->replace($actual->getLastTokenx(), Missing());
         }
         $func_name = $single_arg_names[$method];
-        return self::getNewNode($node, $actual, new EditableList([$msg]), $func_name);
+        return self::getNewNode($node, $actual, new NodeList([$msg]), $func_name);
     }
     /**
      * @return FunctionCallExpression
@@ -155,7 +155,7 @@ final class AssertToExpectMigration extends StepBasedMigration
                 $actual = $actual->replace($actual->getLastTokenx(), Missing());
             }
         }
-        $args = new EditableList(\array_merge($rest, [$expected]));
+        $args = new NodeList(\array_merge($rest, [$expected]));
         return self::getNewNode($node, $actual, $args, $func_name);
     }
     /**
@@ -193,11 +193,11 @@ final class AssertToExpectMigration extends StepBasedMigration
         })];
     }
     /**
-     * @param EditableList<EditableNode> $args
+     * @param NodeList<EditableNode> $args
      *
      * @return FunctionCallExpression
      */
-    private static function getNewNode(FunctionCallExpression $node, EditableNode $actual, EditableList $args, string $funcName)
+    private static function getNewNode(FunctionCallExpression $node, EditableNode $actual, NodeList $args, string $funcName)
     {
         $rec = $node->getReceiver();
         $leading = Missing();
@@ -214,7 +214,7 @@ final class AssertToExpectMigration extends StepBasedMigration
         } else {
             $leading = $rec->getObject()->getFirstTokenx()->getLeading();
         }
-        $new_node = $node->withReceiver($rec->withObject(new FunctionCallExpression(new NameToken($leading, Missing(), 'expect'), new LeftParenToken(Missing(), Missing()), new EditableList([$actual]), new RightParenToken(Missing(), Missing())))->withName(new NameToken(Missing(), Missing(), $funcName)))->withArgumentList($args);
+        $new_node = $node->withReceiver($rec->withObject(new FunctionCallExpression(new NameToken($leading, Missing(), 'expect'), new LeftParenToken(Missing(), Missing()), new NodeList([$actual]), new RightParenToken(Missing(), Missing())))->withName(new NameToken(Missing(), Missing(), $funcName)))->withArgumentList($args);
         return $new_node;
     }
     /**

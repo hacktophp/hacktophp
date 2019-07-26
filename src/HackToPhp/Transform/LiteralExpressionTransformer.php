@@ -78,7 +78,7 @@ class LiteralExpressionTransformer
 
 				return new PhpParser\Node\Scalar\DNumber((float) $value);
 
-			case HHAST\EditableList::class:
+			case HHAST\NodeList::class:
 				$children = $literal->getChildren();
 				$first_child = $children[0];
 

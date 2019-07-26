@@ -7,7 +7,7 @@ use PhpParser;
 
 class NodeTransformer
 {
-	public static function transformList(HHAST\EditableList $list, Project $project, HackFile $file, Scope $scope)
+	public static function transformList(HHAST\NodeList $list, Project $project, HackFile $file, Scope $scope)
 	{
 		return
 			array_filter(
@@ -23,7 +23,7 @@ class NodeTransformer
 
 	public static function transform(HHAST\Node $node, Project $project, HackFile $file, Scope $scope)
 	{
-		if ($node instanceof HHAST\EditableList) {
+		if ($node instanceof HHAST\NodeList) {
 			return self::transformList($node, $project, $file, $scope);
 		}
 		

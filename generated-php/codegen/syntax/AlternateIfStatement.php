@@ -369,20 +369,20 @@ final class AlternateIfStatement extends EditableNode
         return !$this->_statement->isMissing();
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     public function getStatement()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_statement);
+        return TypeAssert\instance_of(NodeList::class, $this->_statement);
     }
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     public function getStatementx()
     {

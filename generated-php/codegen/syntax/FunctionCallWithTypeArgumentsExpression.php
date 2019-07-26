@@ -241,29 +241,29 @@ final class FunctionCallWithTypeArgumentsExpression extends EditableNode
         return !$this->_argument_list->isMissing();
     }
     /**
-     * @return EditableList<EditableNode> | EditableList<LiteralExpression> |
-     * EditableList<VariableExpression> | null
+     * @return NodeList<EditableNode> | NodeList<LiteralExpression> |
+     * NodeList<VariableExpression> | null
      */
     /**
-     * @return EditableList<EditableNode>|null
+     * @return NodeList<EditableNode>|null
      */
     public function getArgumentList()
     {
         if ($this->_argument_list->isMissing()) {
             return null;
         }
-        return TypeAssert\instance_of(EditableList::class, $this->_argument_list);
+        return TypeAssert\instance_of(NodeList::class, $this->_argument_list);
     }
     /**
-     * @return EditableList<EditableNode> | EditableList<LiteralExpression> |
-     * EditableList<VariableExpression>
+     * @return NodeList<EditableNode> | NodeList<LiteralExpression> |
+     * NodeList<VariableExpression>
      */
     /**
-     * @return EditableList<EditableNode>
+     * @return NodeList<EditableNode>
      */
     public function getArgumentListx()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_argument_list);
+        return TypeAssert\instance_of(NodeList::class, $this->_argument_list);
     }
     /**
      * @return EditableNode

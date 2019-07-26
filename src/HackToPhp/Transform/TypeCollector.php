@@ -10,7 +10,7 @@ class TypeCollector
 {
 	public static function collect(HHAST\Node $node, Project $project, HackFile $file, Scope $scope)
 	{
-		if ($node instanceof HHAST\EditableList) {
+		if ($node instanceof HHAST\NodeList) {
 			foreach ($node->getChildren() as $child) {
 				if ($child instanceof HHAST\ListItem) {
 					$child = $child->getItem();

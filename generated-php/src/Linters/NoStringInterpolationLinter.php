@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{DollarToken, DotToken, DoubleQuotedStringLiteralToken, DoubleQuotedStringLiteralHeadToken, DoubleQuotedStringLiteralTailToken, EditableList, EditableNode, EmbeddedBracedExpression, HeredocStringLiteralHeadToken, LiteralExpression, NameToken, StringLiteralBodyToken, VariableToken};
+use Facebook\HHAST\{DollarToken, DotToken, DoubleQuotedStringLiteralToken, DoubleQuotedStringLiteralHeadToken, DoubleQuotedStringLiteralTailToken, NodeList, EditableNode, EmbeddedBracedExpression, HeredocStringLiteralHeadToken, LiteralExpression, NameToken, StringLiteralBodyToken, VariableToken};
 use function Facebook\HHAST\Missing;
 use HH\Lib\{C, Vec};
 /**
@@ -32,7 +32,7 @@ final class NoStringInterpolationLinter extends AutoFixingASTLinter
     public function getLintErrorForNode(LiteralExpression $root_expr, array $_parents)
     {
         $expr = $root_expr->getExpression();
-        if (!$expr instanceof EditableList) {
+        if (!$expr instanceof NodeList) {
             return null;
         }
         return new ASTLintError($this, 'Do not use string interpolation - consider concatenation or ' . 'Str\\format() instead ', $root_expr);
@@ -51,7 +51,7 @@ final class NoStringInterpolationLinter extends AutoFixingASTLinter
     public function getFixedNode(LiteralExpression $root_expr)
     {
         $expr = $root_expr->getExpression();
-        invariant($expr instanceof EditableList, "Expected list, got %s", \get_class($expr));
+        invariant($expr instanceof NodeList, "Expected list, got %s", \get_class($expr));
         $leading = null;
         $trailing = null;
         $children = (array) $expr->getChildren();
@@ -112,7 +112,7 @@ final class NoStringInterpolationLinter extends AutoFixingASTLinter
             $children = \array_merge([new DotToken(Missing(), Missing())], \array_slice(0, $children));
             ++$i;
         }
-        return EditableList::createNonEmptyListOrMissing($children);
+        return NodeList::createNonEmptyListOrMissing($children);
     }
 }
 

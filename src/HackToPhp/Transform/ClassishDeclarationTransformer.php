@@ -234,10 +234,6 @@ class ClassishDeclarationTransformer
 			}
 
 			if ($child instanceof HHAST\ConstDeclaration) {
-				if ($child->hasAbstract()) {
-					continue;
-				}
-				
 				$stmts[] = ConstDeclarationTransformer::transform($child, $project, $file, $scope, true);
 				continue;
 			}

@@ -188,7 +188,7 @@ class FunctionDeclarationTransformer
 		}
 
 		$subnodes = [
-			'byRef' => $header->hasAmpersand(),
+			'byRef' => false,
 			'returnType' => $php_return_type,
 			'params' => $params,
 			'stmts' => $stmts,

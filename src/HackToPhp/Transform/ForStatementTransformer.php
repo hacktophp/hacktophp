@@ -29,7 +29,7 @@ class ForStatementTransformer
 		);
 	}
 
-	private static function transformExpressions(?HHAST\EditableList $node, Project $project, HackFile $file, Scope $scope) : array
+	private static function transformExpressions(?HHAST\NodeList $node, Project $project, HackFile $file, Scope $scope) : array
 	{
 		if (!$node) {
 			return [];

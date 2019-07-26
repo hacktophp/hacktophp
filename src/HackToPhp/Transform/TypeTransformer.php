@@ -111,7 +111,7 @@ class TypeTransformer
 
 		$children = $node->getChildren();
 
-		if ($node instanceof HHAST\EditableList) {
+		if ($node instanceof HHAST\NodeList) {
 			$string_types = [];
 			foreach ($children as $child) {
 				$child = $child->getItem();

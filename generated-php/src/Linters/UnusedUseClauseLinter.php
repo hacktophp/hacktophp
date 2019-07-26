@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ConstToken, EditableList, EditableNode, Token, FunctionToken, INamespaceUseDeclaration, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, NamespaceUseClause, NamespaceToken, NameToken, TypeToken, QualifiedName};
+use Facebook\HHAST\{ConstToken, NodeList, EditableNode, Token, FunctionToken, INamespaceUseDeclaration, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, NamespaceUseClause, NamespaceToken, NameToken, TypeToken, QualifiedName};
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec};
 /**
@@ -132,13 +132,13 @@ final class UnusedUseClauseLinter extends AutoFixingASTLinter
             }));
             $name = $clause->getName();
             if ($name instanceof NameToken) {
-                $name = new QualifiedName(EditableList::createNonEmptyListOrMissing(\array_merge([$name], $node->getPrefix()->getParts()->getChildren())));
+                $name = new QualifiedName(NodeList::createNonEmptyListOrMissing(\array_merge([$name], $node->getPrefix()->getParts()->getChildren())));
             } else {
                 invariant($name instanceof QualifiedName, 'name is not a name or qualified name');
-                $name = new QualifiedName(EditableList::createNonEmptyListOrMissing(\array_merge($name->getParts()->getChildren(), $node->getPrefix()->getParts()->getChildren())));
+                $name = new QualifiedName(NodeList::createNonEmptyListOrMissing(\array_merge($name->getParts()->getChildren(), $node->getPrefix()->getParts()->getChildren())));
             }
             $clause = $clause->withName($name)->without($clause->getFirstTokenx()->getLeading());
-            $fixed = new NamespaceUseDeclaration($node->getKeyword(), $node->getKind() ?? HHAST\Missing(), EditableList::createNonEmptyListOrMissing([new HHAST\ListItem($clause, HHAST\Missing())]), $node->getSemicolon() ?? HHAST\Missing());
+            $fixed = new NamespaceUseDeclaration($node->getKeyword(), $node->getKind() ?? HHAST\Missing(), NodeList::createNonEmptyListOrMissing([new HHAST\ListItem($clause, HHAST\Missing())]), $node->getSemicolon() ?? HHAST\Missing());
         } else {
             $fixed = $node->rewriteDescendants(function ($c, $_1) use($unused) {
                 if ($c instanceof HHAST\ListItem && C\contains($unused, $c->getItem())) {

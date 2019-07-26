@@ -128,7 +128,7 @@ final class MustUseOverrideAttributeLinter extends AutoFixingASTLinter
         }
         $list = $attrs->getAttributes()->toVec();
         $list[] = new HHAST\NameToken(HHAST\Missing(), HHAST\Missing(), '__Override');
-        return $node->withAttribute($attrs->withAttributes(new HHAST\EditableList($list))->rewrite(function ($child, $parents) {
+        return $node->withAttribute($attrs->withAttributes(new HHAST\NodeList($list))->rewrite(function ($child, $parents) {
             if (!$child instanceof HHAST\ListItem) {
                 return $child;
             }

@@ -220,7 +220,7 @@ class FunctionCallExpressionTransformer
 		);
 	}
 
-	public static function transformArguments(?HHAST\EditableList $node, Project $project, HackFile $file, Scope $scope) : array
+	public static function transformArguments(?HHAST\NodeList $node, Project $project, HackFile $file, Scope $scope) : array
 	{
 		if (!$node) {
 			return [];

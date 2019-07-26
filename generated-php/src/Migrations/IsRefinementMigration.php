@@ -48,7 +48,7 @@ final class IsRefinementMigration extends BaseMigration
                 new HHAST\GreaterThanToken($m, $m)
             );
         }, 'is_dict' => function () use($m) {
-            return new HHAST\DictionaryTypeSpecifier(new HHAST\DictToken($m, $m), new HHAST\LessThanToken($m, $m), HHAST\EditableList::createMaybeEmptyList([new HHAST\ListItem(new HHAST\NameToken($m, $m, '_'), new HHAST\CommaToken($m, new HHAST\WhiteSpace(' '))), new HHAST\ListItem(new HHAST\NameToken($m, $m, '_'), $m)]), new HHAST\GreaterThanToken($m, $m));
+            return new HHAST\DictionaryTypeSpecifier(new HHAST\DictToken($m, $m), new HHAST\LessThanToken($m, $m), HHAST\NodeList::createMaybeEmptyList([new HHAST\ListItem(new HHAST\NameToken($m, $m, '_'), new HHAST\CommaToken($m, new HHAST\WhiteSpace(' '))), new HHAST\ListItem(new HHAST\NameToken($m, $m, '_'), $m)]), new HHAST\GreaterThanToken($m, $m));
         }];
         return $ast->rewrite(function ($node, $parents) use($name, $key, $make_replacement, $map, $replacement, $parent, $first, $last, $m) {
             if (!$node instanceof HHAST\FunctionCallExpression) {

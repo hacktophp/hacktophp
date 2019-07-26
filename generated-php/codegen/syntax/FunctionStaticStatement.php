@@ -137,20 +137,20 @@ final class FunctionStaticStatement extends EditableNode
         return !$this->_declarations->isMissing();
     }
     /**
-     * @return EditableList<StaticDeclarator>
+     * @return NodeList<StaticDeclarator>
      */
     /**
-     * @return EditableList<StaticDeclarator>
+     * @return NodeList<StaticDeclarator>
      */
     public function getDeclarations()
     {
-        return TypeAssert\instance_of(EditableList::class, $this->_declarations);
+        return TypeAssert\instance_of(NodeList::class, $this->_declarations);
     }
     /**
-     * @return EditableList<StaticDeclarator>
+     * @return NodeList<StaticDeclarator>
      */
     /**
-     * @return EditableList<StaticDeclarator>
+     * @return NodeList<StaticDeclarator>
      */
     public function getDeclarationsx()
     {

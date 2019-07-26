@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{CompoundStatement, EditableList, EditableNode, Token, ElseClause, ElseifClause, EndOfLine, ForeachStatement, IfStatement, LeftBraceToken, IControlFlowStatement, RightBraceToken, WhileStatement, WhiteSpace};
+use Facebook\HHAST\{CompoundStatement, NodeList, EditableNode, Token, ElseClause, ElseifClause, EndOfLine, ForeachStatement, IfStatement, LeftBraceToken, IControlFlowStatement, RightBraceToken, WhileStatement, WhiteSpace};
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec};
 /**
@@ -112,7 +112,7 @@ class MustUseBracesForControlFlowLinter extends AutoFixingASTLinter
                 }
                 $no_newlines[] = $whitespace;
             }
-            $right_brace_leading = EditableList::createNonEmptyListOrMissing(Vec\reverse($no_newlines));
+            $right_brace_leading = NodeList::createNonEmptyListOrMissing(Vec\reverse($no_newlines));
             $body_trailing = $body->getLastTokenx()->getTrailing();
         }
         return $node->replace($body, new CompoundStatement(new LeftBraceToken(new WhiteSpace(' '), $last_token->getTrailingWhitespace()), $body->replace($body->getLastTokenx(), $body->getLastTokenx()->withTrailing($body_trailing)), new RightBraceToken($right_brace_leading, $body->getLastTokenx()->getTrailingWhitespace())))->replace($last_token, $last_token->withTrailing(HHAST\Missing()));

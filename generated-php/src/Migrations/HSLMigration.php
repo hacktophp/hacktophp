@@ -11,7 +11,7 @@ namespace Facebook\HHAST\Migrations;
 
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec, Math, Keyset};
-use Facebook\HHAST\{EditableNode, FunctionCallExpression, NameToken, EditableList, BinaryExpression, LiteralExpression, BooleanLiteralToken, NullLiteralToken, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, QualifiedName, Script, INamespaceUseDeclaration, NamespaceUseClause, NamespaceToken, ListItem, PrefixUnaryExpression, MinusToken, DecimalLiteralToken, LiteralExpression, ExpressionStatement, OctalLiteralToken, CommaToken, WhiteSpace, BackslashToken, MarkupSection, NamespaceDeclaration, NamespaceEmptyBody, NamespaceBody};
+use Facebook\HHAST\{EditableNode, FunctionCallExpression, NameToken, NodeList, BinaryExpression, LiteralExpression, BooleanLiteralToken, NullLiteralToken, NamespaceGroupUseDeclaration, NamespaceUseDeclaration, QualifiedName, Script, INamespaceUseDeclaration, NamespaceUseClause, NamespaceToken, ListItem, PrefixUnaryExpression, MinusToken, DecimalLiteralToken, LiteralExpression, ExpressionStatement, OctalLiteralToken, CommaToken, WhiteSpace, BackslashToken, MarkupSection, NamespaceDeclaration, NamespaceEmptyBody, NamespaceBody};
 use function Facebook\HHAST\__Private\find_type_for_node_async;
 /**
  * Generated enum class, do not extend
@@ -194,7 +194,7 @@ final class HSLMigration extends BaseMigration
                             // replacement dictionary uses keys from first arg, values from second arg
                             $expr = 'Dict\\associate(' . $search_arg . ', ' . $replace_arg . ')';
                             $replacement_patterns = $this->nodeFromCode($expr, ExpressionStatement::class);
-                            $new_argument_list = EditableList::createNonEmptyListOrMissing([new ListItem($items[2], new CommaToken(HHAST\Missing(), EditableList::createNonEmptyListOrMissing([new WhiteSpace(' ')]))), new ListItem($replacement_patterns, HHAST\Missing())]);
+                            $new_argument_list = NodeList::createNonEmptyListOrMissing([new ListItem($items[2], new CommaToken(HHAST\Missing(), NodeList::createNonEmptyListOrMissing([new WhiteSpace(' ')]))), new ListItem($replacement_patterns, HHAST\Missing())]);
                             return [$node->replace($argument_list, $new_argument_list), $found_namespaces];
                         }
                     } else {
@@ -256,7 +256,7 @@ final class HSLMigration extends BaseMigration
                         invariant($argument instanceof ListItem, 'expected ListItem');
                         $new_argument_list[] = $argument->replace($argument->getItemx(), $new_items[(int) $i]);
                     }
-                    $new_argument_list = EditableList::createNonEmptyListOrMissing($new_argument_list);
+                    $new_argument_list = NodeList::createNonEmptyListOrMissing($new_argument_list);
                 }
                 return [$node->replace($argument_list, $new_argument_list), $found_namespaces];
             }

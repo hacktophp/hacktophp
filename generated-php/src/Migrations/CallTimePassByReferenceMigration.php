@@ -11,7 +11,7 @@ namespace Facebook\HHAST\Migrations;
 
 use function Facebook\HHAST\{find_node_at_position, Missing};
 
-use Facebook\HHAST\{AmpersandToken, EditableList, EditableNode};
+use Facebook\HHAST\{AmpersandToken, NodeList, EditableNode};
 use HH\Lib\{C, Vec};
 final class CallTimePassByReferenceMigration extends BaseMigration
 {
@@ -41,7 +41,7 @@ final class CallTimePassByReferenceMigration extends BaseMigration
         }, $this->getTypecheckerErrorsForFile($path)));
         foreach ($nodes as $node) {
             $node = $node->getFirstTokenx();
-            $root = $root->replace($node, EditableList::createNonEmptyListOrMissing([new AmpersandToken($node->getLeading(), Missing()), $node->withLeading(Missing())]));
+            $root = $root->replace($node, NodeList::createNonEmptyListOrMissing([new AmpersandToken($node->getLeading(), Missing()), $node->withLeading(Missing())]));
         }
         return $root;
     }

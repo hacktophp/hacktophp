@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ClassishDeclaration, ConstructToken, DestructToken, EditableList, EditableNode, Token, EndOfLine, FunctionDeclaration, IFunctionishDeclaration, MethodishDeclaration, StaticToken};
+use Facebook\HHAST\{ClassishDeclaration, ConstructToken, DestructToken, NodeList, EditableNode, Token, EndOfLine, FunctionDeclaration, IFunctionishDeclaration, MethodishDeclaration, StaticToken};
 use Facebook\HHAST;
 use HH\Lib\{C, Str, Vec};
 /**
@@ -123,7 +123,7 @@ abstract class FunctionNamingLinter extends ASTLinter
             }
         }
         $leading = $node->getFirstTokenx()->getLeading();
-        if ($leading instanceof EditableList) {
+        if ($leading instanceof NodeList) {
             $new = [];
             foreach (Vec\reverse($leading->toVec()) as $child) {
                 $new[] = $child;
@@ -131,7 +131,7 @@ abstract class FunctionNamingLinter extends ASTLinter
                     break;
                 }
             }
-            $leading = EditableList::createNonEmptyListOrMissing(Vec\reverse($new));
+            $leading = NodeList::createNonEmptyListOrMissing(Vec\reverse($new));
         }
         return $node->replace($node->getFirstTokenx(), $node->getFirstTokenx()->withLeading($leading))->getCode();
     }

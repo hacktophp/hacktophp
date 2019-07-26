@@ -6,7 +6,7 @@
         "php": "^7.1",
         "nikic/php-parser": "^4.0",
         "sabre/event": "^5.0",
-        "vimeo/psalm": "dev-master",
+        "vimeo/psalm": "3.0.13",
         "hacktophp/hsl-php": "dev-master",
         "amphp/amp": "^2.1"
     },
@@ -29,11 +29,14 @@
             "src/Facebook/TypeAssert/functions.php",
             "src/Facebook/HHAST/__Private/execute_async.php",
             "src/Facebook/HHAST/entrypoints.php",
-            "generated-php/codegen/editable_node_from_json.php",
-            "generated-php/codegen/editable_token_from_data.php",
-            "generated-php/codegen/editable_trivia_from_json.php",
+            "generated-php/codegen/node_from_json.php",
+            "generated-php/codegen/token_from_data.php",
+            "generated-php/codegen/trivia_from_json.php",
             "generated-php/src/nodes/Missing.php",
-            "generated-php/src/__Private/fold_map.php"
+            "generated-php/src/__Private/fold_map.php",
+            "generated-php/src/__Private/node_from_json.php",
+            "generated-php/src/__Private/Wrap/wrap_ITypeSpecifier.php",
+            "generated-php/src/__Private/Wrap/wrap_IExpression.php"
         ]
     },
     "autoload-dev": {

@@ -9,7 +9,7 @@
  */
 namespace Facebook\HHAST\Linters;
 
-use Facebook\HHAST\{ExpressionStatement, Token, EditableNode, EditableList};
+use Facebook\HHAST\{ExpressionStatement, Token, EditableNode, NodeList};
 use Facebook\HHAST;
 /**
  * @template-extends AutoFixingASTLinter<ExpressionStatement>
@@ -58,7 +58,7 @@ final class NoEmptyStatementsLinter extends AutoFixingASTLinter
         $semicolon = $stmt->getSemicolonx();
         $leading = $semicolon->getLeading();
         $trailing = $semicolon->getTrailing();
-        return EditableList::concat($semicolon->getLeading(), $semicolon->getTrailing());
+        return NodeList::concat($semicolon->getLeading(), $semicolon->getTrailing());
     }
     /**
      * Returns whether the given expression is empty.

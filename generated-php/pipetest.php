@@ -52,7 +52,7 @@ class C
     }
     /** @return Bar */
     /**
-     * @return EditableList<Foo>
+     * @return NodeList<Foo>
      */
     public function bart()
     {

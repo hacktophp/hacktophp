@@ -89,7 +89,7 @@ class IfStatementTransformer
 		);
 	}
 
-	private static function transformElseifs(HHAST\EditableList $node, Project $project, HackFile $file, Scope $scope) : array
+	private static function transformElseifs(HHAST\NodeList $node, Project $project, HackFile $file, Scope $scope) : array
 	{
 		return array_map(
 			function(HHAST\ElseifClause $node) use ($project, $file, $scope) {
