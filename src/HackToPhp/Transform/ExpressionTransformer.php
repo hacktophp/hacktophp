@@ -52,6 +52,8 @@ class ExpressionTransformer
 				);
 			}
 
+			var_dump($inner_expression);
+
 			throw new \UnexpectedValueException('Unrecognised expression statement token ' . $name_string);
 		}
 
