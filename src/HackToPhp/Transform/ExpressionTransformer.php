@@ -494,6 +494,10 @@ class ExpressionTransformer
 			);
 		}
 
+		if ($node instanceof HHAST\NameExpression) {
+			return self::transform($node->getWrappedNode(), $project, $file, $scope);
+		}
+
 		throw new \UnexpectedValueException('Unknown expression type ' . get_class($node));
 	}
 
