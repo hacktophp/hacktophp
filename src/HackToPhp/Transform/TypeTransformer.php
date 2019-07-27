@@ -313,6 +313,14 @@ class TypeTransformer
 				return 'Amp\\Promise';
 			}
 
+			if ($token_text === 'Vector') {
+				return 'HackToPhp\\Generic\\Vector';
+			}
+
+			if ($token_text === 'Map') {
+				return 'HackToPhp\\Generic\\Map';
+			}
+
 			if (isset($file->aliased_types[$token_text])) {
 				$token_text = $file->aliased_types[$token_text];
 			} elseif ($file->namespace) {

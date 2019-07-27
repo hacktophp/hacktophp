@@ -84,9 +84,15 @@ class FunctionCallExpressionTransformer
 					);
 
 				case '\HH\Lib\Vec\slice':
+					$new_args = [$args[0], $args[1]];
+
+					if (isset($args[2])) {
+						$new_args[] = $args[2];
+					}
+
 					return new PhpParser\Node\Expr\FuncCall(
 				    	new PhpParser\Node\Name\FullyQualified('array_slice'),
-				    	[$args[1], $args[0]]
+				    	$new_args
 					);
 
 				case '\HH\Lib\Vec\concat':
