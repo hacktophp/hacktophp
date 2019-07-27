@@ -139,6 +139,17 @@ foreach ($input_file_paths as $input_file_path => $_) {
 	);
 }
 
+// do it again, because some types might reference one another
+foreach ($input_file_paths as $input_file_path => $_) {
+	$ast = Facebook\HHAST\from_file($input_file_path);
+	HackToPhp\Transform\TypeCollector::collect(
+		$ast,
+		$project,
+		new HackToPhp\Transform\HackFile(),
+		new HackToPhp\Transform\Scope()
+	);
+}
+
 echo 'Converting files' . PHP_EOL;
 
 foreach ($input_file_paths as $input_file_path => $output_file_path) {
