@@ -69,6 +69,7 @@ class IsExpressionTransformer
 					)
 				);
 
+			case HHAST\ArraykeyToken::class:
 			case HHAST\ArrayToken::class:
 			case HHAST\DictToken::class:
 			case HHAST\VecToken::class:

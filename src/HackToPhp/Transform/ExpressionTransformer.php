@@ -498,6 +498,10 @@ class ExpressionTransformer
 			return self::transform($node->getWrappedNode(), $project, $file, $scope);
 		}
 
+		if ($node instanceof HHAST\EmbeddedBracedExpression) {
+			return self::transform($node->getExpression(), $project, $file, $scope);
+		}
+
 		throw new \UnexpectedValueException('Unknown expression type ' . get_class($node));
 	}
 
@@ -529,6 +533,10 @@ class ExpressionTransformer
 
 		if ($node instanceof HHAST\VariableExpression) {
 			return self::transform($node, $project, $file, $scope);
+		}
+
+		if ($node instanceof HHAST\NameExpression) {
+			return self::transformVariableName($node->getWrappedNode(), $project, $file, $scope);
 		}
 
 		throw new \UnexpectedValueException('Cannot transform variable name of type ' . get_class($node));
