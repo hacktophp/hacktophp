@@ -18,7 +18,7 @@ While a lot of code has easy-to-compute PHP equivalents, some builtin Hack const
 
 ### async/await
 
-All `async`/`await` calls have been made synchronous, converted to promises that use [`sabre/event`](https://github.com/sabre/event)
+All `async`/`await` calls have been made synchronous, converted to promises that use [`amphp`](https://github.com/amphp)
 
 ### keyset
 
