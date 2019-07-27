@@ -255,11 +255,14 @@ class NodeTransformer
 
 			$consts = [];
 
+			$enum_names = [];
+
 			foreach ($enumerators as $enumerator) {
 				$enum_name = $enumerator->getName()->getText();
 				$enum_value = $enumerator->getValue();
 
 				$enum_value = ExpressionTransformer::transform($enum_value, $project, $file, $scope);
+				$enum_names[] = $enum_name;
 
 				$consts[] = new PhpParser\Node\Stmt\ClassConst(
 					[
@@ -281,6 +284,34 @@ class NodeTransformer
 						''
 					)
 				)
+			);
+
+			$assert_comment = new PhpParser\Comment\Doc(
+				rtrim(
+					\Psalm\DocComment::render(
+						[
+							'description' => '',
+							'specials' => [
+								'psalm-assert' => ['self::' . implode('|self::', $enum_names) . ' $value']
+							],
+						],
+						''
+					)
+				)
+			);
+
+			$consts[] = new PhpParser\Node\Stmt\ClassMethod(
+				'assert',
+				[
+					'flags' => PhpParser\Node\Stmt\Class_::MODIFIER_STATIC,
+					'params' => [new PhpParser\Node\Param(
+						new PhpParser\Node\Expr\Variable('value')
+					)],
+					'stmts' => [],
+				],
+				[
+					'comments' => [$assert_comment]
+				],
 			);
 
 			return new PhpParser\Node\Stmt\Class_(
