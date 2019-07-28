@@ -99,11 +99,19 @@ class IsExpressionTransformer
 				);
 
 			case HHAST\NameToken::class:
-				if ($specifier->getText() === 'nonnull') {
-					return new PhpParser\Node\Expr\BinaryOp\NotIdentical(
-						$left,
-						new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
-					);
+				switch ($specifier->getText()) {
+					case 'nonnull':
+						return new PhpParser\Node\Expr\BinaryOp\NotIdentical(
+							$left,
+							new PhpParser\Node\Expr\ConstFetch(new PhpParser\Node\Name('null'))
+						);
+
+					case 'KeyedContainer':
+					case 'Container':
+						return new PhpParser\Node\Expr\FuncCall(
+							new PhpParser\Node\Name\FullyQualified('is_iterable'),
+							[$left]
+						);
 				}
 
 				return new PhpParser\Node\Expr\Instanceof_(

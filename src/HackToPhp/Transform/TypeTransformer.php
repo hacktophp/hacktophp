@@ -275,10 +275,7 @@ class TypeTransformer
 		return 'array{' . implode(',', $field_types) . '}';
 	}
 
-	public static function transformToken(HHAST\Token $node, Project $project, HackFile $file, Scope $scope, array $template_map = []) : string
-	{
-		$token_text = $node->getText();
-
+	public static function transformBaseName(string $token_text, bool $is_hack) : ?string {
 		switch ($token_text) {
 			case 'vec':
 			case 'dict':
@@ -301,24 +298,62 @@ class TypeTransformer
 
 			// means something different in Hack
 			case 'Traversable':
-				return $file->is_hack ? 'iterable' : 'Traversable';
+				return $is_hack ? 'iterable' : 'Traversable';
+
+			case 'Awaitable':
+				return 'Amp\\Promise';
+
+			case 'AsyncMysqlClient':
+			case 'AsyncMysqlClientStats':
+			case 'AsyncMysqlConnectResult':
+			case 'AsyncMysqlConnection':
+			case 'AsyncMysqlConnectionOptions':
+			case 'AsyncMysqlConnectionPool':
+			case 'AsyncMysqlErrorResult':
+			case 'AsyncMysqlQueryErrorResult':
+			case 'AsyncMysqlQueryResult':
+			case 'AsyncMysqlRow':
+			case 'AsyncMysqlRowBlock':
+			case 'AsyncMysqlRowBlockIterator':
+			case 'AsyncMysqlRowIterator':
+			case 'DOMNamedNodeMap':
+			case 'DOMNode':
+			case 'DOMNodeList':
+			case 'WrappedException':
+			case 'WrappedResult':
+			case 'AsyncGenerator':
+			case 'ImmMap':
+			case 'ImmSet':
+			case 'ImmVector':
+			case 'InvariantException':
+			case 'Map':
+			case 'Pair':
+			case 'Set':
+			case 'Shapes':
+			case 'Vector':
+			case 'MCRouter':
+			case 'ReflectionTypeAlias':
+			case 'WeakRef':
+			case 'HH\FormatString':
+				return 'HackToPhp\\' . $token_text;
+		}
+
+		return null;
+	}
+
+	public static function transformToken(HHAST\Token $node, Project $project, HackFile $file, Scope $scope, array $template_map = []) : string
+	{
+		$token_text = $node->getText();
+
+		$base_token_text = self::transformBaseName($token_text, $file->is_hack);
+
+		if ($base_token_text) {
+			return $base_token_text;
 		}
 
 		if ($node instanceof HHAST\NameToken) {
 			if (isset($template_map[$token_text])) {
 				return $token_text;
-			}
-
-			if ($token_text === 'Awaitable') {
-				return 'Amp\\Promise';
-			}
-
-			if ($token_text === 'Vector') {
-				return 'HackToPhp\\Vector';
-			}
-
-			if ($token_text === 'Map') {
-				return 'HackToPhp\\Map';
 			}
 
 			if (isset($file->aliased_types[$token_text])) {

@@ -120,6 +120,14 @@ class FunctionCallExpressionTransformer
 				    	$args
 					);
 
+				case '\inst_meth':
+					return new PhpParser\Node\Expr\Array_(
+						[
+							new PhpParser\Node\Expr\ArrayItem($args[0]->value),
+							new PhpParser\Node\Expr\ArrayItem($args[1]->value),
+						]
+					);
+
 				case '\json_decode':
 					if (isset($args[3])
 						&& $args[3]->value instanceof PhpParser\Node\Expr\ConstFetch

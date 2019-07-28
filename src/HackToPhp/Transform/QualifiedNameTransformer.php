@@ -12,9 +12,18 @@ class QualifiedNameTransformer
 	{
 		$name = self::getText($node);
 
-		return $name[0] === '\\'
-			? new PhpParser\Node\Name\FullyQualified(substr($name, 1))
-			: new PhpParser\Node\Name($name);
+		if ($name[0] === '\\') {
+			$token_text = substr($name, 1);
+			$base_token_text = TypeTransformer::transformBaseName($token_text, false);
+
+			if ($base_token_text) {
+				$token_text = $base_token_text;
+			}
+
+			return new PhpParser\Node\Name\FullyQualified($token_text);
+		}
+
+		return new PhpParser\Node\Name($name);
 	}
 
 	public static function getText(HHAST\QualifiedName $node, ?HackFile $file = null) : string
